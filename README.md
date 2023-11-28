@@ -1,1 +1,1 @@
-#ehdf
+Github Page for guides created by Actiari, also known as Grand or GrandDom
