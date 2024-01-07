@@ -13,8 +13,8 @@ body {
 	font-family: "Archivo Narrow", Helvetica, Arial, sans-serif;
 }
 
-.body {
-	background-image: url(./Miscellaneous/blackhole.png)
+body {
+    background-image: url(./Miscellaneous/blackhole.png);
 }
 
 .container {
