@@ -9,6 +9,7 @@
   
   #footer {
     position: absolute;
+    background-color: rgb(99, 97, 96);
     bottom: 0;
     width: 100%;
     height: 2.5rem;            /* Footer height */
