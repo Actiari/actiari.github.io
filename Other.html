@@ -1,133 +1,125 @@
 
-    <!doctype html>
-    <head>
-        <html>
-        <link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
-        <style>
-        #header h1{
-            margin:0px;
-        }
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-        }
-         
-        li {
-            float: left;
-        }
-         
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-         
-        a:hover:not(.active) {
-            background-color: #111;
-        }
-         
-        .active {
-        background-color:#4CAF50;
-        }
-         
-        body {
-            background-color: #E3E3E3;
-        }
-        body,td,th {
-            font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-            font-size: 18px;
-        }
-        </style>
-        <meta charset="utf-8">
-        <title>Home</title>
-        </head>
-        <body>
-        <style>
-        body{
-            margin:0;
-        }
-        </style>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="Documents.html">Documents</a></li>
-            <li><a href="Other.html">Tools 1</a></li>
-            <li><a href="Tools.html">Tools 2</a></li>
-        </ul>
-        <style>
-        img {
-            max-width: 100%;
-            height: auto;
-            width: 100%; /* ie8 */
-        }
-        </style> 
-  <head>
-    <title>Bookwork Storage</title>
+<!doctype html>
+<head>
+    <html>
     <link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
-  </head>
-  <body class=body onload='formInput("add"),formInput("get")'>
-    <div class=container>
-      <header class=header>
-        <h1>
-          </a> <p class=title> Bookwork Storage</p>
-        </h1>
-        <button class="button button-clear" id=exportLocalStorageBtn onclick='output(!1,"Storage Opened!")' style=padding-top:9px>Storage</button>
-      </header>
-      <main class=form-container>
-        <section class=form-box>
-          <div class=form-box-content>
-            <div class=output-container>
-              <div class=output onclick=clearOutput()>
-              </div>
-            </div>
-<br>
-            <div class=inner-form-container>
-              <div class=form-title>
-                <b>Add Bookwork code</b>
-              </div>
-              <form class=function-form id=add-form onsubmit='return addItem(),formInput("add"),!1'>
-                <div class=form-group>
-                  <label class=input-label for=add-id>Bookwork code:</label>
-                  <input class=input name=add-id id=add-id autocomplete=off autofocus oninput='formInput("add")'>
-                </div>
-                <div class=form-group>
-                  <label class=input-label for=add-answer>Answer:</label>
-                  <input class=input name=add-answer id=add-answer autocomplete=off autofocus oninput='formInput("add")'>
-                </div>
-                <div class="form-group form-buttons">
-                  <button class="button disabled counterButton" id=add-button onclick='window.incrementCounter("bookwork")' type=submit tabindex=0 disabled>
-                    Add
-                  </button>
-                  <script src=./count-hitter.js type=module></script>
-<br>
-<br>
-<br>
-                </div>
-              </form>
-            </div>
-            <div class=inner-form-container>
-              <div class=form-title>
-                <b>Get Bookwork code</b>
-              </div>
-              <form class=function-form id=get-form onsubmit='return getItem(),formInput("get"),!1'>
-                <div class=form-group>
-                  <label class=input-label for=get-id>Bookwork code:</label>
-                  <input class=input name=get-id id=get-id autocomplete=off autofocus oninput='formInput("get")'>
-                </div>
-                <input type=hidden value=test>
-                <div class="form-group form-buttons">
-                  <button class="button disabled" id=get-button type=submit tabindex=0 disabled>
-                  Get
-                  </button>
-                </div>
-              </form>
-            </div>
+    <style>
+    #header h1{
+        margin:0px;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+     
+    li {
+        float: left;
+    }
+     
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+     
+    body {
+        background-color: #E3E3E3;
+    }
+    body,td,th {
+        font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+        font-size: 18px;
+    }
+    </style>
+    <meta charset="utf-8">
+    <title>Home</title>
+    </head>
+    <body>
+    <style>
+    body{
+        margin:0;
+    }
+    </style>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Documents.html">Documents</a></li>
+        <li><a href="Other.html">Tools 1</a></li>
+        <li><a href="Tools.html">Tools 2</a></li>
+    </ul>
+    <style>
+    img {
+        max-width: 100%;
+        height: auto;
+        width: 100%; /* ie8 */
+    }
+    </style> 
+<head>
+<title>Bookwork Storage</title>
+<link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
+</head>
+<body class=body onload='formInput("add"),formInput("get")'>
+<div class=container>
+  <header class=header>
+    <h1>
+      </a> <p class=title> Bookwork Storage</p>
+    </h1>
+    <button class="button button-clear" id=exportLocalStorageBtn onclick='output(!1,"Storage Opened!")' style=padding-top:9px>Storage</button>
+  </header>
+  <main class=form-container>
+    <section class=form-box>
+      <div class=form-box-content>
+        <div class=output-container>
+          <div class=output onclick=clearOutput()>
           </div>
-        </section>
-      </main>
-    <script src=./app.js></script>
-        </html>
+        </div>
+<br>
+        <div class=inner-form-container>
+          <div class=form-title>
+            <b>Add Bookwork code</b>
+          </div>
+          <form class=function-form id=add-form onsubmit='return addItem(),formInput("add"),!1'>
+            <div class=form-group>
+              <label class=input-label for=add-id>Bookwork code:</label>
+              <input class=input name=add-id id=add-id autocomplete=off autofocus oninput='formInput("add")'>
+            </div>
+            <div class=form-group>
+              <label class=input-label for=add-answer>Answer:</label>
+              <input class=input name=add-answer id=add-answer autocomplete=off autofocus oninput='formInput("add")'>
+            </div>
+            <div class="form-group form-buttons">
+              <button class="button disabled counterButton" id=add-button onclick='window.incrementCounter("bookwork")' type=submit tabindex=0 disabled>
+                Add
+              </button>
+              <script src=./count-hitter.js type=module></script>
+<br>
+<br>
+<br>
+            </div>
+          </form>
+        </div>
+        <div class=inner-form-container>
+          <div class=form-title>
+            <b>Get Bookwork code</b>
+          </div>
+          <form class=function-form id=get-form onsubmit='return getItem(),formInput("get"),!1'>
+            <div class=form-group>
+              <label class=input-label for=get-id>Bookwork code:</label>
+              <input class=input name=get-id id=get-id autocomplete=off autofocus oninput='formInput("get")'>
+            </div>
+            <input type=hidden value=test>
+            <div class="form-group form-buttons">
+              <button class="button disabled" id=get-button type=submit tabindex=0 disabled>
+              Get
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+<script src=./app.js></script>
+    </html>
