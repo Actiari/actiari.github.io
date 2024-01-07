@@ -36,7 +36,7 @@
     }
     </style>
     <meta charset="utf-8">
-    <title>Home</title>
+    <title>Tools 1</title>
     </head>
     <body>
     <style>
@@ -57,69 +57,4 @@
         width: 100%; /* ie8 */
     }
     </style> 
-<head>
-<title>Bookwork Storage</title>
-<link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
-</head>
-<body class=body onload='formInput("add"),formInput("get")'>
-<div class=container>
-  <header class=header>
-    <h1>
-      </a> <p class=title> Bookwork Storage</p>
-    </h1>
-    <button class="button button-clear" id=exportLocalStorageBtn onclick='output(!1,"Storage Opened!")' style=padding-top:9px>Storage</button>
-  </header>
-  <main class=form-container>
-    <section class=form-box>
-      <div class=form-box-content>
-        <div class=output-container>
-          <div class=output onclick=clearOutput()>
-          </div>
-        </div>
-<br>
-        <div class=inner-form-container>
-          <div class=form-title>
-            <b>Add Bookwork code</b>
-          </div>
-          <form class=function-form id=add-form onsubmit='return addItem(),formInput("add"),!1'>
-            <div class=form-group>
-              <label class=input-label for=add-id>Bookwork code:</label>
-              <input class=input name=add-id id=add-id autocomplete=off autofocus oninput='formInput("add")'>
-            </div>
-            <div class=form-group>
-              <label class=input-label for=add-answer>Answer:</label>
-              <input class=input name=add-answer id=add-answer autocomplete=off autofocus oninput='formInput("add")'>
-            </div>
-            <div class="form-group form-buttons">
-              <button class="button disabled counterButton" id=add-button onclick='window.incrementCounter("bookwork")' type=submit tabindex=0 disabled>
-                Add
-              </button>
-              <script src=./count-hitter.js type=module></script>
-<br>
-<br>
-<br>
-            </div>
-          </form>
-        </div>
-        <div class=inner-form-container>
-          <div class=form-title>
-            <b>Get Bookwork code</b>
-          </div>
-          <form class=function-form id=get-form onsubmit='return getItem(),formInput("get"),!1'>
-            <div class=form-group>
-              <label class=input-label for=get-id>Bookwork code:</label>
-              <input class=input name=get-id id=get-id autocomplete=off autofocus oninput='formInput("get")'>
-            </div>
-            <input type=hidden value=test>
-            <div class="form-group form-buttons">
-              <button class="button disabled" id=get-button type=submit tabindex=0 disabled>
-              Get
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-<script src=./app.js></script>
     </html>
