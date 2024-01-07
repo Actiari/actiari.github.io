@@ -1,84 +1,93 @@
-<!doctype html>
-<html>
-<head>
-<link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
-<style>
-#header h1{
-    margin:0px;
-}
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
- 
-li {
-    float: left;
-}
- 
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
- 
-a:hover:not(.active) {
-    background-color: #111;
-}
- 
-.active {
-background-color:#4CAF50;
-}
- 
-body {
-	background-color: #E3E3E3;
-}
-body,td,th {
-	font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-	font-size: 18px;
-}
-</style>
-<meta charset="utf-8">
-<title>Home</title>
+    <!doctype html>
+<html lang=en>
+  <head>
+    <meta charset=UTF-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <title>Bookwork Storage</title>
+    <link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
 </head>
-<body>
-<style>
-body{
-    margin:0;
-}
-</style>
-<ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="Documents.html">Documents</a></li>
-    <li><a href="Test.html">Test</a></li>
-    <li><a href="Other.html">TBD</a></li>
-</ul>
-<style>
-img {
-    max-width: 100%;
-    height: auto;
-    width: 100%; /* ie8 */
-}
-</style> 
-<head>
-    <style>
-    footer {
-      text-align: center;
-      padding: 3px;
-      background-color: rgb(99, 97, 96);
-      color: white;
-    }
-    </style>
-    </head>
-    <body>
-    
-    <footer>
-      <p>Author: Actiari<br>
-      <a href="mailto:actiari@gmail.com">actiari@gmail.com</a></p>
-    </footer>
-    </body>
-    </html>
+  <body class=body onload='formInput("add"),formInput("get")'>
+    <div class=container>
+      <header class=header>
+        <h1>
+          <a href=https://www.sparxmaths.com target=_blank style="width:100px;height:auto;margin:5px 16px 0">
+          <img aria-hidden=true alt=Sparx src=https://static.sparxhomework.uk/readinessclient/09899141e3f7684cfcf2be9747587cbab1412056/static/media/sparx_logo.cd73a1f6.svg>
+          </a> <p class=title> Bookwork Storage</p>
+        </h1>
+        <button class="button button-clear" id=exportLocalStorageBtn onclick='output(!1,"Storage Opened!")' style=padding-top:9px>Storage</button>
+      </header>
+      <main class=form-container>
+        <section class=form-box>
+          <div class=form-box-content>
+            <div class=output-container>
+              <div class=output onclick=clearOutput()>
+              </div>
+            </div>
+            <noscript aria-hidden=true>
+              <div class=error>
+                SenAI needs JavaScript to run. Please enable scripting in your
+                browser.
+              </div>
+            </noscript>
+            <div class=inner-form-container>
+              <div class=form-title>
+                <b>Add Bookwork code</b>
+              </div>
+              <form class=function-form id=add-form onsubmit='return addItem(),formInput("add"),!1'>
+                <div class=form-group>
+                  <label class=input-label for=add-id>Bookwork code:</label>
+                  <input class=input name=add-id id=add-id autocomplete=off autofocus oninput='formInput("add")'>
+                </div>
+                <div class=form-group>
+                  <label class=input-label for=add-answer>Answer:</label>
+                  <input class=input name=add-answer id=add-answer autocomplete=off autofocus oninput='formInput("add")'>
+                </div>
+                <div class="form-group form-buttons">
+                  <button class="button disabled counterButton" id=add-button onclick='window.incrementCounter("bookwork")' type=submit tabindex=0 disabled>
+                    Add
+                  </button>
+                  <script src=./count-hitter.js type=module></script>
+
+                </div>
+              </form>
+            </div>
+            <div class=inner-form-container>
+              <div class=form-title>
+                <b>Get Bookwork code</b>
+              </div>
+              <form class=function-form id=get-form onsubmit='return getItem(),formInput("get"),!1'>
+                <div class=form-group>
+                  <label class=input-label for=get-id>Bookwork code:</label>
+                  <input class=input name=get-id id=get-id autocomplete=off autofocus oninput='formInput("get")'>
+                </div>
+                <input type=hidden value=test>
+                <div class="form-group form-buttons">
+                  <button class="button disabled" id=get-button type=submit tabindex=0 disabled>
+                  Get
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class=footer>
+        <div class=footer-container id=footer-text>
+          <div class=footer-contents>
+            <span class=copyright>
+            Sparx Learning™ logo and other artwork ©
+            <a href=https://find-and-update.company-information.service.gov.uk/company/07907042 target=_blank>Sparx
+            Limited</a>
+            2016-2023,</span>
+            <span class=copyright>
+            Website ©
+            <a href=https://discord.com/users/467759749069537300 target=_blank>Approxit</a>
+            2022</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src=./app.js></script>
+  
+
