@@ -14,9 +14,7 @@ body {
 }
 
 .body {
-	background-image: url(./Miscellaneous/blackhole.png) no-repeat -50px top / auto 100%,
-		linear-gradient(124.88deg, #0e619e 6.72%, #00b7e0 81.9%, #00b8e1 100%)
-			center center;
+	background-image: url(./Miscellaneous/blackhole.png)
 }
 
 .container {
