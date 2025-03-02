@@ -130,6 +130,22 @@
       margin-bottom: 4px; /* Add spacing between list items */
       display: list-item; /* Ensure list items are displayed correctly */
     }
+        /* Fix for list items inside the exam tips box */
+        #app-container ul {
+      background-color: transparent; /* Make nested lists transparent */
+      list-style-type: disc; /* Reset list style to disc for answer bullets */
+      overflow: visible; /* Ensure bullets are visible */
+      margin-left: 20px; /* Add margin for bullet points */
+      padding-left: 5px; /* Add some padding */
+    }
+    #app-container li {
+      float: none; /* Reset float property from global li style */
+      background-color: transparent; /* Ensure list items are transparent */
+      color: #1b5e20; /* Match text color with other content */
+      margin-bottom: 4px; /* Add spacing between list items */
+      display: list-item; /* Ensure list items are displayed correctly */
+      clear: both; /* Ensure list items do not overlap */
+    }
   </style>
   <title>Geography Flashcards</title>
   <!-- React and ReactDOM CDN -->
