@@ -111,7 +111,7 @@
     }
     /* Answer text background */
     .flashcard-container .answer {
-      background-color: #f0f8f0; /* Match the app background color */
+      background-color: transparent; /* Changed from #f0f8f0 to transparent */
       padding: 8px;
       border-radius: 4px;
     }
@@ -293,7 +293,7 @@
       const placeCaseStudyFacts = {
         "Ground Zero": `<ul>
   <li>Site of 9/11 attacks; major redevelopment</li>
-  <li>Significantly impacted New York’s economic and cultural identity</li>
+  <li>Significantly impacted New York's economic and cultural identity</li>
 </ul>`,
         "Plymouth": `<ul>
   <li>Underwent substantial economic changes and urban regeneration</li>
@@ -368,7 +368,7 @@
   <li>Remote sensing and statistical analysis provide real-time insights.</li>
 </ul>`,
             subtopic: subtopic
-          });
+        });
           cards.push({
             id: 0,
             question: `How do theoretical models guide responses to "${subtopic}"?`,
@@ -711,8 +711,8 @@
               <div><span class="box casestudy-inactive"></span> Case Study Subtopic (Inactive)</div>
             </div>
 
-            {/* Controls */}
-            <div style={{ backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", marginBottom: "24px", border: "2px solid #388e3c" }}>
+           {/* Controls */}
+           <div style={{ backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", marginBottom: "24px", border: "2px solid #388e3c" }}>
               <div style={{ marginBottom: "16px" }}>
                 <label style={{ display: "block", fontSize: "0.875rem", fontWeight: "500", marginBottom: "4px", color: "#1b5e20" }}>Search</label>
                 <input
@@ -723,7 +723,7 @@
                   style={{ width: "100%", padding: "8px", border: "1px solid #388e3c", borderRadius: "4px", backgroundColor: "#f1f8e9" }}
                 />
               </div>
-
+              
               {/* Topic selection */}
               <div style={{ marginBottom: "16px" }}>
                 <h4 style={{ color: "#1b5e20", marginBottom: "8px" }}>Select Topic:</h4>
@@ -744,9 +744,9 @@
                   All Topics
                 </button>
               </div>
-
+              
               {renderSubtopicButtons()}
-
+              
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div style={{ fontSize: "0.875rem", color: "#2e7d32" }}>
                   {filteredCards.length} cards {filteredCards.length > 0 ? `(Card ${currentCardIndex + 1} of ${filteredCards.length})` : ''}
@@ -756,9 +756,9 @@
                 </button>
               </div>
             </div>
-
+            
             {showStats && <Statistics />}
-
+            
             {/* Flashcards */}
             {filteredCards.length > 0 ? (
               <div style={{ width: "100%", maxWidth: "32rem", margin: "0 auto" }}>
@@ -780,7 +780,7 @@
                     ) : (
                       <div>
                         <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "8px", color: "#1b5e20" }}>Answer:</h3>
-                        <div className="answer" style={{ fontSize: "1.125rem", color: "#1b5e20", whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}></div>
+                        <p style={{ fontSize: "1.125rem", color: "#1b5e20", whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}></p>
                       </div>
                     )}
                   </div>
@@ -802,7 +802,7 @@
                 <p style={{ fontSize: "1.125rem", color: "#1b5e20" }}>No flashcards match your search. Try changing your search criteria.</p>
               </div>
             )}
-
+            
             {/* Exam Tips */}
             <div style={{ marginTop: "32px", backgroundColor: "#f0f8f0", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", border: "2px solid #388e3c" }}>
               <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#1b5e20", marginBottom: "8px" }}>AQA Geography Exam Tips</h3>
