@@ -109,6 +109,12 @@
       font-size: 0.9rem;
       color: #2e7d32;
     }
+    /* Answer text background */
+    .flashcard-container p {
+      background-color: #f0f8f0; /* Match the app background color */
+      padding: 8px;
+      border-radius: 4px;
+    }
   </style>
   <title>Geography Flashcards</title>
   <!-- React and ReactDOM CDN -->
@@ -142,12 +148,12 @@
       const [filteredCards, setFilteredCards] = React.useState([]);
       const [showStats, setShowStats] = React.useState(false);
       const [cardStats, setCardStats] = React.useState({});
-      
+
       // States for topic and subtopic selection
       const [selectedTopic, setSelectedTopic] = React.useState(null);
       // selectedSubtopic is an object: { category: "Conceptual" or "Case Study", name: string }
       const [selectedSubtopic, setSelectedSubtopic] = React.useState({ category: null, name: null });
-      
+
       // Define subtopics for each main topic – split into Conceptual and Case Studies.
       const hazardsConceptual = [
         "Concept of Hazard in Geography",
@@ -161,7 +167,7 @@
         "Fold Mountains Formation",
         "Rift Valleys & Ocean Ridges"
       ];
-      
+
       const hazardsCaseStudies = [
         "Mt Etna",
         "Mt Merapi",
@@ -177,7 +183,7 @@
         "Tohoku",
         "Typhoon Haiyan"
       ];
-      
+
       const placeConceptual = [
         "Concept of Place & Identity",
         "Insider vs Outsider Perspectives",
@@ -189,7 +195,7 @@
         "Spatial Patterns & Land Use",
         "Cultural & Social Change"
       ];
-      
+
       const placeCaseStudies = [
         "Ground Zero",
         "Plymouth",
@@ -201,23 +207,23 @@
         "Stonehenge",
         "Glastonbury"
       ];
-      
+
       // Main topic configuration (active colours: Hazards = green; Place = blue)
       const topicConfig = [
-        { 
-          topic: "Hazards", 
+        {
+          topic: "Hazards",
           activeColor: "#2e7d32",
-          conceptual: hazardsConceptual, 
-          caseStudies: hazardsCaseStudies 
+          conceptual: hazardsConceptual,
+          caseStudies: hazardsCaseStudies
         },
-        { 
-          topic: "Place", 
+        {
+          topic: "Place",
           activeColor: "#1565c0",
-          conceptual: placeConceptual, 
-          caseStudies: placeCaseStudies 
+          conceptual: placeConceptual,
+          caseStudies: placeCaseStudies
         }
       ];
-      
+
       // Detailed case study facts with bullet points and actual numbers
       const hazardsCaseStudyFacts = {
         "Mt Etna": `<ul>
@@ -283,7 +289,7 @@
   <li>Widespread destruction</li>
 </ul>`
       };
-      
+
       const placeCaseStudyFacts = {
         "Ground Zero": `<ul>
   <li>Site of 9/11 attacks; major redevelopment</li>
@@ -322,7 +328,7 @@
   <li>Exemplifies the blend of heritage and modern economic trends</li>
 </ul>`
       };
-      
+
       // Helper functions to generate flashcards
       const generateConceptualFlashcards = (subtopic, topicType) => {
         let cards = [];
@@ -440,7 +446,7 @@
         }
         return cards;
       };
-      
+
       const generateCaseStudyFlashcards = (caseStudyName, topicType) => {
         let cards = [];
         if(topicType === "Hazards") {
@@ -523,7 +529,7 @@
         }
         return cards;
       };
-      
+
       // Generate all flashcards dynamically for each topic, both conceptual and case study
       React.useEffect(() => {
         let generatedFlashcards = [];
@@ -573,7 +579,7 @@
         });
         setCardStats(initialStats);
       }, []);
-      
+
       // Filter flashcards based on search, topic, and subtopic selections
       React.useEffect(() => {
         let filtered = [...flashcards];
@@ -601,7 +607,7 @@
           setShowAnswer(false);
         }
       }, [flashcards, searchTerm, selectedTopic, selectedSubtopic]);
-      
+
       // Navigation functions
       const nextCard = () => {
         if (currentCardIndex < filteredCards.length - 1) {
@@ -612,14 +618,14 @@
           setShowAnswer(false);
         }
       };
-      
+
       const prevCard = () => {
         if (currentCardIndex > 0) {
           setCurrentCardIndex(currentCardIndex - 1);
           setShowAnswer(false);
         }
       };
-      
+
       const toggleAnswer = () => {
         setShowAnswer(!showAnswer);
         if (!showAnswer && filteredCards.length > 0) {
@@ -633,7 +639,7 @@
           setCardStats(updatedStats);
         }
       };
-      
+
       const Statistics = () => {
         const totalCards = flashcards.length;
         const reviewedCards = Object.values(cardStats).filter(stat => stat.timesReviewed > 0).length;
@@ -653,7 +659,7 @@
           </div>
         );
       };
-      
+
       // UI for subtopic selection
       const renderSubtopicButtons = () => {
         if (!selectedTopic) return null;
@@ -684,7 +690,7 @@
           </div>
         );
       };
-      
+
       return (
         <div style={{ minHeight: "100vh", backgroundColor: "#f0f8f0", padding: "16px" }}>
           <div style={{ maxWidth: "64rem", margin: "0 auto" }}>
@@ -693,7 +699,7 @@
                 AQA Geography AS Level Revision
               </h1>
             </header>
-            
+
             {/* Legend */}
             <div className="legend">
               <div><span class="box hazards-active"></span> Hazards Topic (Active)</div>
@@ -704,7 +710,7 @@
               <div><span class="box casestudy-active"></span> Case Study Subtopic (Active)</div>
               <div><span class="box casestudy-inactive"></span> Case Study Subtopic (Inactive)</div>
             </div>
-            
+
             {/* Controls */}
             <div style={{ backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", marginBottom: "24px", border: "2px solid #388e3c" }}>
               <div style={{ marginBottom: "16px" }}>
@@ -717,7 +723,7 @@
                   style={{ width: "100%", padding: "8px", border: "1px solid #388e3c", borderRadius: "4px", backgroundColor: "#f1f8e9" }}
                 />
               </div>
-              
+
               {/* Topic selection */}
               <div style={{ marginBottom: "16px" }}>
                 <h4 style={{ color: "#1b5e20", marginBottom: "8px" }}>Select Topic:</h4>
@@ -738,9 +744,9 @@
                   All Topics
                 </button>
               </div>
-              
+
               {renderSubtopicButtons()}
-              
+
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div style={{ fontSize: "0.875rem", color: "#2e7d32" }}>
                   {filteredCards.length} cards {filteredCards.length > 0 ? `(Card ${currentCardIndex + 1} of ${filteredCards.length})` : ''}
@@ -750,9 +756,9 @@
                 </button>
               </div>
             </div>
-            
+
             {showStats && <Statistics />}
-            
+
             {/* Flashcards */}
             {filteredCards.length > 0 ? (
               <div style={{ width: "100%", maxWidth: "32rem", margin: "0 auto" }}>
@@ -796,7 +802,7 @@
                 <p style={{ fontSize: "1.125rem", color: "#1b5e20" }}>No flashcards match your search. Try changing your search criteria.</p>
               </div>
             )}
-            
+
             {/* Exam Tips */}
             <div style={{ marginTop: "32px", backgroundColor: "#f0f8f0", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", border: "2px solid #388e3c" }}>
               <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#1b5e20", marginBottom: "8px" }}>AQA Geography Exam Tips</h3>
