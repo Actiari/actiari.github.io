@@ -91,7 +91,7 @@
     .topic-inactive { background-color: #757575; color: white; }
     /* Flashcard container */
     .flashcard-container {
-      background-color: #e8f5e9;
+      background-color: #f0f8f0;
       border-radius: 8px;
       box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
       padding: 24px;
@@ -202,7 +202,7 @@
         "Glastonbury"
       ];
       
-      // Main topic configuration – note the active colours: Hazards = green; Place = blue.
+      // Main topic configuration (active colours: Hazards = green; Place = blue)
       const topicConfig = [
         { 
           topic: "Hazards", 
@@ -218,129 +218,130 @@
         }
       ];
       
-      // Detailed case study facts (with actual numbers and bullet lists in the answer)
+      // Detailed case study facts with bullet points and actual numbers
       const hazardsCaseStudyFacts = {
         "Mt Etna": `<ul>
-  <li>Eruptions typically have a VEI of 2-3.</li>
-  <li>Recent eruption in 2021 produced ash plumes up to 3 km high.</li>
-  <li>Casualties are usually minimal due to effective monitoring.</li>
+  <li>VEI: 2-3</li>
+  <li>2021 eruption: ash plume up to 3 km high</li>
+  <li>Casualties: minimal due to monitoring</li>
 </ul>`,
         "Mt Merapi": `<ul>
-  <li>2010 eruption reached a VEI of 4.</li>
-  <li>Approximately 353 deaths and over 1,000 injuries reported.</li>
-  <li>Significant damage to local infrastructure.</li>
+  <li>2010 eruption: VEI 4</li>
+  <li>Deaths: ~353</li>
+  <li>Injuries: >1,000; significant infrastructure damage</li>
 </ul>`,
         "Eyjafjallajökull": `<ul>
-  <li>2010 eruption had a VEI of 4.</li>
-  <li>Ash cloud reached 9 km high, disrupting European air travel for 6 days.</li>
-  <li>Direct casualties were minimal.</li>
+  <li>2010 eruption: VEI 4</li>
+  <li>Ash cloud: reached 9 km high, disrupted European air travel for 6 days</li>
+  <li>Direct casualties: minimal</li>
 </ul>`,
         "Montserrat": `<ul>
-  <li>Soufrière Hills volcano has been active since 1995.</li>
-  <li>Forced evacuation of about two-thirds of the island’s population.</li>
-  <li>Long-term socio-economic disruption.</li>
+  <li>Active since 1995</li>
+  <li>Evacuation: ~2/3 of population</li>
+  <li>Long-term socio-economic impact</li>
 </ul>`,
         "Yellowstone": `<ul>
-  <li>Supervolcano; last major eruption over 600,000 years ago.</li>
-  <li>Potential eruption (VEI 8) would have catastrophic global impacts.</li>
+  <li>Supervolcano; last major eruption: >600,000 years ago</li>
+  <li>Potential eruption: VEI 8; catastrophic global impact</li>
 </ul>`,
         "Boxing Day Tsunami": `<ul>
-  <li>Triggered by a 9.1-9.3 magnitude earthquake in 2004.</li>
-  <li>Approximately 230,000 deaths and massive infrastructural damage.</li>
+  <li>Triggered by 9.1-9.3 magnitude earthquake in 2004</li>
+  <li>Deaths: ~230,000</li>
+  <li>Massive infrastructural damage</li>
 </ul>`,
         "Haiti": `<ul>
-  <li>2010 earthquake, magnitude 7.0.</li>
-  <li>Over 230,000 deaths and around 300,000 injuries.</li>
-  <li>Damages estimated between $8-14 billion.</li>
+  <li>2010 earthquake: magnitude 7.0</li>
+  <li>Deaths: >230,000; Injuries: ~300,000</li>
+  <li>Damage: $8-14 billion</li>
 </ul>`,
         "Cyclone Nargis": `<ul>
-  <li>2008 cyclone in Myanmar.</li>
-  <li>Approximately 138,000 deaths and millions displaced.</li>
-  <li>Severe infrastructure damage reported.</li>
+  <li>2008 event in Myanmar</li>
+  <li>Deaths: ~138,000; Millions displaced</li>
+  <li>Severe infrastructure damage</li>
 </ul>`,
         "Hurricane Katrina": `<ul>
-  <li>2005 hurricane with around 1,833 deaths.</li>
-  <li>Over 250,000 people displaced.</li>
-  <li>Damage exceeded $125 billion.</li>
+  <li>2005 event: ~1,833 deaths</li>
+  <li>Displacement: >250,000 people</li>
+  <li>Damage: >$125 billion</li>
 </ul>`,
         "LA Wildfire": `<ul>
-  <li>Recent events caused evacuations and extensive property damage.</li>
-  <li>Some events have incurred losses over $2 billion.</li>
+  <li>Recent events: evacuations and property losses >$2 billion</li>
+  <li>Widespread damage in urban areas</li>
 </ul>`,
         "Alberta Wildfire": `<ul>
-  <li>Wildfires have burned millions of acres.</li>
-  <li>2016 wildfire season caused significant regional damage.</li>
+  <li>2016 season: burned millions of acres</li>
+  <li>Significant regional damage</li>
 </ul>`,
         "Tohoku": `<ul>
-  <li>2011 earthquake and tsunami, magnitude 9.0.</li>
-  <li>Approximately 15,000 deaths.</li>
-  <li>Triggered a nuclear crisis and long-term environmental challenges.</li>
+  <li>2011 earthquake/tsunami: magnitude 9.0</li>
+  <li>Deaths: ~15,000; nuclear crisis triggered</li>
+  <li>Long-term environmental and infrastructural challenges</li>
 </ul>`,
         "Typhoon Haiyan": `<ul>
-  <li>2013 event in the Philippines.</li>
-  <li>Over 6,300 deaths and widespread destruction.</li>
-  <li>One of the strongest cyclones ever recorded.</li>
+  <li>2013 event in the Philippines</li>
+  <li>Deaths: >6,300; one of the strongest cyclones recorded</li>
+  <li>Widespread destruction</li>
 </ul>`
       };
       
       const placeCaseStudyFacts = {
         "Ground Zero": `<ul>
-  <li>Site of the 9/11 attacks; major redevelopment since.</li>
-  <li>Has significantly impacted New York’s economic and cultural identity.</li>
+  <li>Site of 9/11 attacks; major redevelopment</li>
+  <li>Significantly impacted New York’s economic and cultural identity</li>
 </ul>`,
         "Plymouth": `<ul>
-  <li>Underwent substantial economic changes and urban regeneration.</li>
-  <li>Population and employment trends have shifted notably over recent decades.</li>
+  <li>Underwent substantial economic changes and urban regeneration</li>
+  <li>Shift in population and employment trends</li>
 </ul>`,
         "Detroit": `<ul>
-  <li>Experienced industrial decline leading to significant population loss.</li>
-  <li>Extensive revitalisation efforts are underway.</li>
+  <li>Population decline of over 60% from peak</li>
+  <li>Significant economic loss due to industrial decline; revitalisation efforts ongoing</li>
 </ul>`,
         "London Olympics": `<ul>
-  <li>2012 Olympics spurred major urban regeneration.</li>
-  <li>Boosted local economy and altered demographic patterns.</li>
+  <li>2012 Olympics spurred major urban regeneration</li>
+  <li>Boosted local economy and altered demographic patterns</li>
 </ul>`,
         "Medellin": `<ul>
-  <li>Transformed from a city plagued by violence to one renowned for innovation.</li>
-  <li>Urban design and economic revival have reshaped the city.</li>
+  <li>Transformation from violence to innovation-driven urban revival</li>
+  <li>Enhanced urban design and economic growth</li>
 </ul>`,
         "Bourneville": `<ul>
-  <li>Linked to Cadburys, reflecting the influence of industrial heritage.</li>
-  <li>Economic changes have redefined local community identity.</li>
+  <li>Industrial heritage from Cadburys</li>
+  <li>Economic changes redefined community identity</li>
 </ul>`,
         "Devonport": `<ul>
-  <li>Shift in naval and industrial activity has impacted demographics.</li>
-  <li>Significant changes in regional economic development.</li>
+  <li>Shift in naval and industrial activity</li>
+  <li>Notable demographic and economic changes</li>
 </ul>`,
         "Stonehenge": `<ul>
-  <li>Iconic monument that drives tourism and local economic activity.</li>
-  <li>Key contributor to regional identity.</li>
+  <li>Iconic monument driving tourism</li>
+  <li>Major contributor to regional economic activity and identity</li>
 </ul>`,
         "Glastonbury": `<ul>
-  <li>Famous for cultural festivals and historical legacy.</li>
-  <li>Demonstrates the interplay between heritage and modern economic trends.</li>
+  <li>Famous for cultural festivals and historical legacy</li>
+  <li>Exemplifies the blend of heritage and modern economic trends</li>
 </ul>`
       };
       
-      // Helper function: generate conceptual flashcards with bullet point answers
+      // Helper functions to generate flashcards
       const generateConceptualFlashcards = (subtopic, topicType) => {
         let cards = [];
-        if (topicType === "Hazards") {
+        if(topicType === "Hazards") {
           cards.push({
             id: 0,
             question: `Define and explain the significance of "${subtopic}".`,
             answer: `<ul>
-  <li>Definition: ${subtopic} refers to the fundamental principles used to understand natural hazards.</li>
-  <li>Significance: It helps in assessing risks, predicting events, and planning mitigation.</li>
+  <li>Definition: ${subtopic} encompasses the key principles used to understand natural hazards.</li>
+  <li>Significance: It aids in risk assessment, prediction, and disaster management.</li>
 </ul>`,
             subtopic: subtopic
           });
           cards.push({
             id: 0,
-            question: `Discuss the processes underlying "${subtopic}".`,
+            question: `Discuss the underlying processes of "${subtopic}".`,
             answer: `<ul>
-  <li>Key processes include: tectonic convergence, volcanic activity, atmospheric changes.</li>
-  <li>These processes determine hazard intensity and frequency.</li>
+  <li>Processes include tectonic activity, atmospheric dynamics, and erosion mechanisms.</li>
+  <li>These processes determine the frequency and intensity of hazards.</li>
 </ul>`,
             subtopic: subtopic
           });
@@ -348,50 +349,46 @@
             id: 0,
             question: `Evaluate management strategies for "${subtopic}".`,
             answer: `<ul>
-  <li>Early warning systems and evacuation plans reduce casualties.</li>
-  <li>Infrastructure improvements and zoning laws mitigate damage.</li>
-  <li>Long-term planning is essential for sustainable risk management.</li>
+  <li>Immediate responses: emergency evacuations, rapid aid deployment.</li>
+  <li>Long-term strategies: infrastructure upgrades, policy reforms, hazard modeling.</li>
 </ul>`,
             subtopic: subtopic
           });
           cards.push({
             id: 0,
-            question: `Explain how advances in data analysis improve our understanding of "${subtopic}".`,
+            question: `Explain how data analysis improves our understanding of "${subtopic}".`,
             answer: `<ul>
-  <li>Use of GIS and big data allows for detailed hazard mapping.</li>
-  <li>Remote sensing provides real-time monitoring of hazard events.</li>
-  <li>Data analytics enable predictive modelling for better preparedness.</li>
+  <li>Use of GIS and big data enables detailed hazard mapping.</li>
+  <li>Remote sensing and statistical analysis provide real-time insights.</li>
 </ul>`,
             subtopic: subtopic
           });
           cards.push({
             id: 0,
-            question: `How do theoretical models inform responses to "${subtopic}"?`,
+            question: `How do theoretical models guide responses to "${subtopic}"?`,
             answer: `<ul>
-  <li>Models such as the Hazard Management Cycle outline stages of disaster response.</li>
-  <li>They inform government policies and emergency planning.</li>
-  <li>Practical examples from past events demonstrate their effectiveness.</li>
+  <li>Models (e.g., Hazard Management Cycle) outline disaster response stages.</li>
+  <li>They inform both policy and practical emergency planning.</li>
 </ul>`,
             subtopic: subtopic
           });
           cards.push({
             id: 0,
-            question: `Outline the formation processes of fold mountains related to "${subtopic}".`,
+            question: `Outline the formation processes of fold mountains in relation to "${subtopic}".`,
             answer: `<ul>
   <li>Converging tectonic plates compress and fold the crust.</li>
-  <li>Processes include uplift, crumpling, and differential erosion.</li>
-  <li>Examples include the Himalayas (Indian-Eurasian collision) and the Andes.</li>
+  <li>Uplift and differential erosion create characteristic mountain ranges.</li>
+  <li>Examples include the Himalayas and the Andes.</li>
 </ul>`,
             subtopic: subtopic
           });
-          // Additional flashcards can be added similarly...
-        } else if (topicType === "Place") {
+        } else if(topicType === "Place") {
           cards.push({
             id: 0,
             question: `Define "${subtopic}" in a geographical context.`,
             answer: `<ul>
-  <li>Definition: ${subtopic} examines the physical, cultural, and economic characteristics of a location.</li>
-  <li>It is key to understanding how places evolve over time.</li>
+  <li>Definition: ${subtopic} examines the physical, cultural, and economic attributes of a location.</li>
+  <li>It is fundamental to understanding place identity and evolution.</li>
 </ul>`,
             subtopic: subtopic
           });
@@ -399,8 +396,8 @@
             id: 0,
             question: `Discuss the main factors influencing "${subtopic}" in urban settings.`,
             answer: `<ul>
-  <li>Factors include economic trends, migration, infrastructure development, and policy.</li>
-  <li>Population density and employment shifts are critical indicators.</li>
+  <li>Key factors: economic trends, migration, infrastructure, and policy.</li>
+  <li>These shape demographic and spatial changes in cities.</li>
 </ul>`,
             subtopic: subtopic
           });
@@ -408,17 +405,17 @@
             id: 0,
             question: `Examine the role of technology and big data in understanding "${subtopic}".`,
             answer: `<ul>
-  <li>GIS and big data tools enable detailed mapping of demographic trends.</li>
-  <li>They support evidence-based planning and urban regeneration strategies.</li>
+  <li>GIS and big data tools enable precise mapping of urban trends.</li>
+  <li>They support data-driven urban planning and regeneration efforts.</li>
 </ul>`,
             subtopic: subtopic
           });
           cards.push({
             id: 0,
-            question: `Evaluate how oral narratives contribute to shaping "${subtopic}".`,
+            question: `Evaluate how oral narratives contribute to "${subtopic}".`,
             answer: `<ul>
-  <li>Local stories provide qualitative insights into community identity.</li>
-  <li>They complement quantitative data to offer a fuller picture of change.</li>
+  <li>Local narratives provide qualitative insights into community identity.</li>
+  <li>They complement quantitative data, enriching our overall understanding.</li>
 </ul>`,
             subtopic: subtopic
           });
@@ -426,8 +423,8 @@
             id: 0,
             question: `How do changes in economic indicators affect "${subtopic}"?`,
             answer: `<ul>
-  <li>Shifts in income, employment, and investment directly impact urban form.</li>
-  <li>These changes can lead to redevelopment and altered population patterns.</li>
+  <li>Indicators like income levels, employment rates, and investment directly influence urban form.</li>
+  <li>They drive redevelopment and alter population patterns.</li>
 </ul>`,
             subtopic: subtopic
           });
@@ -435,27 +432,25 @@
             id: 0,
             question: `Discuss the challenges and benefits of urban regeneration in the context of "${subtopic}".`,
             answer: `<ul>
-  <li>Urban regeneration can boost economic activity and improve living standards.</li>
-  <li>However, it may also lead to gentrification and displacement of local residents.</li>
+  <li>Benefits: boosted local economies, improved infrastructure.</li>
+  <li>Challenges: risk of gentrification, displacement of residents.</li>
 </ul>`,
             subtopic: subtopic
           });
-          // Additional flashcards can be added similarly...
         }
         return cards;
       };
       
-      // Generate case study flashcards with bullet point answers and actual numbers
       const generateCaseStudyFlashcards = (caseStudyName, topicType) => {
         let cards = [];
-        if (topicType === "Hazards") {
+        if(topicType === "Hazards") {
           const facts = hazardsCaseStudyFacts[caseStudyName] || "";
           cards.push({
             id: 0,
             question: `Describe the key details of the "${caseStudyName}" case study.`,
             answer: `<ul>
   <li>${facts}</li>
-  <li>Note: For instance, the Haiti earthquake had a magnitude of 7.0, over 230,000 deaths, and around 300,000 injuries.</li>
+  <li>Example: Haiti earthquake was magnitude 7.0, over 230,000 deaths, ~300,000 injuries.</li>
 </ul>`,
             subtopic: caseStudyName
           });
@@ -463,8 +458,8 @@
             id: 0,
             question: `Analyze the immediate and long-term responses for "${caseStudyName}".`,
             answer: `<ul>
-  <li>Immediate: Emergency evacuations, international aid, and rapid deployment of rescue teams.</li>
-  <li>Long-term: Rebuilding infrastructure, policy reforms, and improved hazard management systems.</li>
+  <li>Immediate: Emergency evacuations, international aid, rescue operations.</li>
+  <li>Long-term: Infrastructure rebuilding, policy reforms, improved risk management.</li>
 </ul>`,
             subtopic: caseStudyName
           });
@@ -473,8 +468,7 @@
             question: `Evaluate how "${caseStudyName}" influenced hazard management policies.`,
             answer: `<ul>
   <li>Prompted revisions in building codes and emergency planning.</li>
-  <li>Increased investment in early warning systems and disaster preparedness.</li>
-  <li>Served as a benchmark for future policy improvements.</li>
+  <li>Led to increased investment in early warning and disaster preparedness systems.</li>
 </ul>`,
             subtopic: caseStudyName
           });
@@ -482,21 +476,20 @@
             id: 0,
             question: `Discuss the overall significance of the "${caseStudyName}" case study in understanding natural hazards.`,
             answer: `<ul>
-  <li>Illustrates the scale and complexity of natural hazard events.</li>
-  <li>Highlights the need for integrated risk management and preparedness.</li>
-  <li>Provides statistical evidence to support policy changes.</li>
+  <li>Highlights the scale and complexity of hazard events.</li>
+  <li>Provides statistical evidence that supports policy changes.</li>
+  <li>Serves as a benchmark for future disaster management improvements.</li>
 </ul>`,
             subtopic: caseStudyName
           });
-          // More flashcards for hazards case studies can be added...
-        } else if (topicType === "Place") {
+        } else if(topicType === "Place") {
           const facts = placeCaseStudyFacts[caseStudyName] || "";
           cards.push({
             id: 0,
             question: `Outline the key economic and population statistics for "${caseStudyName}".`,
             answer: `<ul>
   <li>${facts}</li>
-  <li>For example, Detroit experienced a population decline of over 60% from its peak and significant economic loss due to industrial decline.</li>
+  <li>Example: Detroit experienced a population decline of over 60% and significant economic loss.</li>
 </ul>`,
             subtopic: caseStudyName
           });
@@ -504,9 +497,8 @@
             id: 0,
             question: `Discuss the impact of "${caseStudyName}" on local identity and regional development.`,
             answer: `<ul>
-  <li>Significant shifts in economic structure and population demographics.</li>
-  <li>Urban regeneration initiatives have transformed the local identity.</li>
-  <li>Examples include increased tourism and infrastructural investment.</li>
+  <li>Major shifts in economic structure and population demographics.</li>
+  <li>Urban regeneration initiatives transformed local identity and boosted tourism.</li>
 </ul>`,
             subtopic: caseStudyName
           });
@@ -514,8 +506,8 @@
             id: 0,
             question: `Analyze how historical events at "${caseStudyName}" have shaped its current profile.`,
             answer: `<ul>
-  <li>Historical events have led to major redevelopment and shifts in population.</li>
-  <li>Economic data, such as changes in employment and income levels, support these trends.</li>
+  <li>Historical events led to major redevelopment and demographic changes.</li>
+  <li>Economic data such as employment trends support these shifts.</li>
 </ul>`,
             subtopic: caseStudyName
           });
@@ -523,12 +515,11 @@
             id: 0,
             question: `Evaluate the role of policy and planning at "${caseStudyName}".`,
             answer: `<ul>
-  <li>Local and national policies have influenced redevelopment and economic recovery.</li>
-  <li>Planners use both quantitative and qualitative data to guide regeneration efforts.</li>
+  <li>Local and national policies have guided redevelopment and economic recovery.</li>
+  <li>Evidence-based planning using both quantitative and qualitative data has been crucial.</li>
 </ul>`,
             subtopic: caseStudyName
           });
-          // More flashcards for place case studies can be added...
         }
         return cards;
       };
@@ -663,6 +654,37 @@
         );
       };
       
+      // UI for subtopic selection
+      const renderSubtopicButtons = () => {
+        if (!selectedTopic) return null;
+        const config = topicConfig.find(item => item.topic === selectedTopic);
+        return (
+          <div>
+            <div className="subtopic-section">
+              <h5>Conceptual</h5>
+              {config.conceptual.map(sub => (
+                <button key={sub} className={`subtopic-button ${selectedSubtopic.category==="Conceptual" && selectedSubtopic.name===sub ? "conceptual-active" : "conceptual-inactive"}`}
+                  onClick={() => setSelectedSubtopic({ category: "Conceptual", name: sub })}>
+                  {sub.length > 20 ? sub.slice(0,20) + "…" : sub}
+                </button>
+              ))}
+            </div>
+            <div className="subtopic-section">
+              <h5>Case Studies</h5>
+              {config.caseStudies.map(sub => (
+                <button key={sub} className={`subtopic-button ${selectedSubtopic.category==="Case Study" && selectedSubtopic.name===sub ? "casestudy-active" : "casestudy-inactive"}`}
+                  onClick={() => setSelectedSubtopic({ category: "Case Study", name: sub })}>
+                  {sub}
+                </button>
+              ))}
+            </div>
+            <button className="subtopic-button topic-inactive" onClick={() => setSelectedSubtopic({ category: null, name: null })}>
+              All Subtopics
+            </button>
+          </div>
+        );
+      };
+      
       return (
         <div style={{ minHeight: "100vh", backgroundColor: "#f0f8f0", padding: "16px" }}>
           <div style={{ maxWidth: "64rem", margin: "0 auto" }}>
@@ -672,7 +694,7 @@
               </h1>
             </header>
             
-            {/* Legend for colours */}
+            {/* Legend */}
             <div className="legend">
               <div><span class="box hazards-active"></span> Hazards Topic (Active)</div>
               <div><span class="box place-active"></span> Place Topic (Active)</div>
@@ -683,7 +705,7 @@
               <div><span class="box casestudy-inactive"></span> Case Study Subtopic (Inactive)</div>
             </div>
             
-            {/* Controls and Filters */}
+            {/* Controls */}
             <div style={{ backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", marginBottom: "24px", border: "2px solid #388e3c" }}>
               <div style={{ marginBottom: "16px" }}>
                 <label style={{ display: "block", fontSize: "0.875rem", fontWeight: "500", marginBottom: "4px", color: "#1b5e20" }}>Search</label>
@@ -717,36 +739,7 @@
                 </button>
               </div>
               
-              {selectedTopic && (
-                <div style={{ marginBottom: "16px" }}>
-                  <h4 style={{ color: "#1b5e20", marginBottom: "8px" }}>Select Subtopic:</h4>
-                  <div className="subtopic-section">
-                    <h5>Conceptual</h5>
-                    {topicConfig.find(item => item.topic === selectedTopic).conceptual.map(sub => (
-                      <button key={sub}
-                        className={`subtopic-button ${selectedSubtopic.category === "Conceptual" && selectedSubtopic.name === sub ? "conceptual-active" : "conceptual-inactive"}`}
-                        onClick={() => setSelectedSubtopic({ category: "Conceptual", name: sub })}
-                      >
-                        {sub.length > 20 ? sub.slice(0,20) + "…" : sub}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="subtopic-section">
-                    <h5>Case Studies</h5>
-                    {topicConfig.find(item => item.topic === selectedTopic).caseStudies.map(sub => (
-                      <button key={sub}
-                        className={`subtopic-button ${selectedSubtopic.category === "Case Study" && selectedSubtopic.name === sub ? "casestudy-active" : "casestudy-inactive"}`}
-                        onClick={() => setSelectedSubtopic({ category: "Case Study", name: sub })}
-                      >
-                        {sub}
-                      </button>
-                    ))}
-                  </div>
-                  <button className="subtopic-button topic-inactive" onClick={() => setSelectedSubtopic({ category: null, name: null })}>
-                    All Subtopics
-                  </button>
-                </div>
-              )}
+              {renderSubtopicButtons()}
               
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div style={{ fontSize: "0.875rem", color: "#2e7d32" }}>
@@ -760,7 +753,7 @@
             
             {showStats && <Statistics />}
             
-            {/* Flashcard Display */}
+            {/* Flashcards */}
             {filteredCards.length > 0 ? (
               <div style={{ width: "100%", maxWidth: "32rem", margin: "0 auto" }}>
                 <div className="flashcard-container" onClick={toggleAnswer}>
