@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
+  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
   <style>
     /* Global styles */
     #header h1 {
-      margin: 0px;
+      margin: 0;
     }
     ul {
       list-style-type: none;
@@ -37,7 +37,7 @@
       margin: 20px;
     }
   </style>
-  <title>Geography Hazards Flashcards</title>
+  <title>Geography Flashcards</title>
   <!-- React and ReactDOM CDN -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -61,7 +61,7 @@
   <!-- React Component -->
   <script type="text/babel">
     const GeographyFlashcardApp = () => {
-      // States for flashcards, stats, and UI
+      // State declarations
       const [flashcards, setFlashcards] = React.useState([]);
       const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
       const [showAnswer, setShowAnswer] = React.useState(false);
@@ -70,43 +70,173 @@
       const [showStats, setShowStats] = React.useState(false);
       const [cardStats, setCardStats] = React.useState({});
       
-      // New states for topic and subtopic selection
+      // States for topic and subtopic selection
       const [selectedTopic, setSelectedTopic] = React.useState(null);
       const [selectedSubtopic, setSelectedSubtopic] = React.useState(null);
       
-      // Configuration for topics and their subtopics (easy to extend)
-      const topicConfig = [
-        { topic: "Tectonics", subtopics: ["tectonics"] },
-        { topic: "Earthquake", subtopics: ["earthquake", "case study - earthquake"] },
-        { topic: "Volcano", subtopics: ["volcano", "case study - volcano"] },
-        { topic: "Storm", subtopics: ["storms", "case study - storms"] },
-        { topic: "Management", subtopics: ["management"] },
-        { topic: "Fire", subtopics: ["case study - fire"] },
+      // Define subtopics based on the AQA spec and the attached case study list.
+      // For Hazards, we include both conceptual subtopics and specific case studies.
+      const hazardsSubtopics = [
+        "Concept of Hazard in Geography",
+        "Plate Tectonics and Hazards",
+        "Volcanic Hazards Overview",
+        "Volcanic Eruption Types",
+        "Case Study: Mt Etna",
+        "Case Study: Mt Merapi",
+        "Case Study: Eyjafjallajökull",
+        "Case Study: Monserrat",
+        "Case Study: Yellowstone",
+        "Tsunami Hazards Overview",
+        "Case Study: Boxing Day Tsunami",
+        "Seismic Hazards Overview",
+        "Case Study: Haiti Earthquake",
+        "Tropical Storm Hazards Overview",
+        "Case Study: Cyclone Nargis",
+        "Case Study: Hurricane Katrina",
+        "Wildfire Hazards Overview",
+        "Case Study: LA Wildfire",
+        "Case Study: Alberta Wildfire",
+        "Multi-Hazardous Environments Overview",
+        "Case Study: Tohoku, Japan",
+        "Case Study: Philippines"
       ];
       
-      // Load initial flashcards and stats
+      // For Changing Place (Place), we include conceptual topics and specific case studies.
+      const placeSubtopics = [
+        "Concept of Place and its Importance",
+        "Insider Perspectives on Place",
+        "Outsider Perspectives on Place",
+        "Local Place Study Overview",
+        "Contrasting Place Study Overview",
+        "Case Study: Ground Zero",
+        "Economic Change in Places Overview",
+        "Case Study: Plymouth (Economic Change)",
+        "Case Study: Detroit (Economic Change)",
+        "Rebranding of Places Overview",
+        "Case Study: City of Plymouth (Rebranding)",
+        "Case Study: Llandudno (Rebranding)",
+        "Regeneration in Urban Areas Overview",
+        "Case Study: London Olympics / Clays Lane",
+        "Forces of Change in Places Overview",
+        "Case Study: Medellin, Colombia",
+        "Case Study: Bourneville (Cadburys)",
+        "Case Study: Devonport, Plymouth",
+        "Spirit of Place Overview",
+        "Case Study: Stonehenge",
+        "Case Study: Glastonbury"
+      ];
+      
+      // Main topic configuration (only two topics now).
+      const topicConfig = [
+        { topic: "Hazards", subtopics: hazardsSubtopics },
+        { topic: "Place", subtopics: placeSubtopics }
+      ];
+      
+      // Function to generate flashcards for a given subtopic and topic type
+      const generateFlashcardsForSubtopic = (subtopic, topicType) => {
+        const cards = [];
+        if(topicType === "Hazards") {
+          cards.push({
+            id: 0, // temporary, will be replaced by idCounter
+            question: `Define ${subtopic}.`,
+            answer: `Definition: ${subtopic} explains key features of hazards, including their natural processes and inherent risks.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Explain the processes or causes associated with ${subtopic}.`,
+            answer: `Explanation: ${subtopic} involves complex interactions—ranging from tectonic forces to meteorological conditions—that contribute to natural hazards.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Discuss the impacts of ${subtopic} on communities and the environment.`,
+            answer: `Impacts: ${subtopic} can result in loss of life, property damage, and long-term socio-economic and environmental challenges.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Evaluate management or mitigation strategies for ${subtopic}.`,
+            answer: `Evaluation: Strategies for ${subtopic} include early warning systems, sustainable planning, and effective risk management to reduce adverse effects.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Analyze the case study aspect of ${subtopic}.`,
+            answer: `Analysis: The case study of ${subtopic} provides insights into how natural processes and human interventions interact in real-world hazard scenarios.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `How does ${subtopic} illustrate the link between physical processes and human impact?`,
+            answer: `Link: ${subtopic} exemplifies the relationship between natural phenomena and societal responses, highlighting both vulnerability and resilience.`,
+            subtopic: subtopic
+          });
+        } else if(topicType === "Place") {
+          cards.push({
+            id: 0,
+            question: `Define ${subtopic} in a geographical context.`,
+            answer: `Definition: ${subtopic} explores the concept of place, including its physical, cultural, and social dimensions that shape identity.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Explain how ${subtopic} influences the character of a location.`,
+            answer: `Explanation: ${subtopic} affects a place’s character by influencing spatial organization, cultural identity, and social dynamics.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Discuss the socio-economic implications of ${subtopic}.`,
+            answer: `Implications: ${subtopic} can drive economic change, impact urban development, and shape the lived experiences of local communities.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Evaluate strategies for managing changes related to ${subtopic}.`,
+            answer: `Evaluation: Approaches to managing ${subtopic} must balance heritage, development, and sustainability to preserve place identity.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `Analyze the case study of ${subtopic} and its impact on place identity.`,
+            answer: `Analysis: The case study of ${subtopic} reveals how shifts in economic, cultural, or spatial factors redefine a place’s character over time.`,
+            subtopic: subtopic
+          });
+          cards.push({
+            id: 0,
+            question: `How does ${subtopic} affect the daily lives of residents in a changing place?`,
+            answer: `Link: ${subtopic} directly influences urban form, community cohesion, and individual experiences, shaping the quality of life in a place.`,
+            subtopic: subtopic
+          });
+        }
+        return cards;
+      };
+
+      // Generate flashcards dynamically for both topics
       React.useEffect(() => {
-        const initialFlashcards = [
-          { id: 1, question: "What are the three types of plate boundaries?", answer: "Convergent, Divergent, and Transform boundaries", subtopic: "tectonics" },
-          { id: 2, question: "Explain the concept of a seismic gap", answer: "A seismic gap is a section of a fault that has not experienced recent seismic activity, but is between areas that have. These gaps often indicate accumulated stress and are potential sites for future earthquakes.", subtopic: "earthquake" },
-          { id: 3, question: "What factors affect the level of volcanic risk in a region?", answer: "Population density, level of development, prediction and monitoring capabilities, education, emergency planning, and volcano type (explosive vs. effusive).", subtopic: "volcano" },
-          { id: 4, question: "Describe the Park Model of disaster response", answer: "The Park Model divides disaster response into four phases: mitigation (preventative measures), preparedness (planning), response (emergency actions), and recovery (rebuilding).", subtopic: "management" },
-          { id: 5, question: "What causes tropical storms to form?", answer: "Tropical storms form over warm ocean waters (>26°C) when warm, moist air rises, creating an area of low pressure that draws in surrounding air. The Coriolis effect causes the storm to spin, and if conditions persist, it can intensify into a tropical storm or hurricane.", subtopic: "storms" },
-          { id: 6, question: "Describe the key impacts of the 2010 Haiti Earthquake", answer: "The Haiti Earthquake (magnitude 7.0) killed over 230,000 people, displaced 1.5 million, and caused $8-14 billion in damage (120% of Haiti's GDP). Poor building standards, shallow focus (13km), and proximity to the capital Port-au-Prince (25km) exacerbated impacts.", subtopic: "case study - earthquake" },
-          { id: 7, question: "Compare the responses to the 2011 Japan Earthquake and Tsunami", answer: "The Japan Earthquake (magnitude 9.0) and tsunami had immediate response from the Japanese government with well-practiced evacuation procedures. International aid was coordinated effectively. The long-term response included a $235 billion reconstruction fund, improved tsunami defenses, and stricter building codes. The nuclear disaster at Fukushima led to revised nuclear safety globally.", subtopic: "case study - earthquake" },
-          { id: 8, question: "Outline the impacts of the 2010 Eyjafjallajökull eruption in Iceland", answer: "This VEI-4 eruption produced an ash plume up to 9km high that disrupted European air travel for 6 days, affecting 10 million passengers and costing airlines $1.7 billion. Local impacts included flooding from glacial melt (jökulhlaups), evacuation of 800 residents, and damage to agriculture. However, Iceland's monitoring system provided early warnings, and there were no direct fatalities.", subtopic: "case study - volcano" },
-          { id: 9, question: "Explain why Mount Merapi (Indonesia) is considered one of the most dangerous volcanoes in the world", answer: "Mount Merapi is highly active with eruptions every 5-10 years. It's located in densely populated Java (population >130 million) with 3 million people living within 30km. Its explosive pyroclastic flows are deadly (2010 eruption killed 353 people). Cultural and economic factors complicate evacuations as many residents are reluctant to leave their livelihoods and believe in spiritual protection. Despite monitoring systems, the unpredictable nature of eruptions and rapid onset make management challenging.", subtopic: "case study - volcano" },
-          { id: 10, question: "Compare the impacts of Hurricane Katrina (2005) and Typhoon Haiyan (2013)", answer: "Hurricane Katrina (Category 5): 1,836 deaths, $125 billion damage, primarily affected New Orleans (USA). Key issues included levee failures, delayed evacuation, and poor emergency coordination.\n\nTyphoon Haiyan (Category 5): 6,300 deaths, $2 billion damage, devastated the Philippines, particularly Tacloban. Storm surge of 5-7m caused most fatalities. Impacts were worsened by poor infrastructure, inadequate warnings, and limited evacuation facilities.", subtopic: "case study - storms" },
-          { id: 11, question: "What is the Pressure and Release (PAR) Model?", answer: "The PAR Model explains disaster vulnerability as the intersection of physical hazards and socio-economic pressures. Root causes (poverty, limited access to resources), dynamic pressures (population growth, urbanization), and unsafe conditions (fragile physical environment, dangerous locations) create vulnerability that, when combined with hazard events, leads to disasters. The model emphasizes addressing underlying vulnerabilities rather than just hazard responses.", subtopic: "management" },
-          { id: 12, question: "Outline strategies for managing multi-hazard zones", answer: "Multi-hazard zones require integrated strategies: 1) Risk mapping and zoning to identify hazard-prone areas, 2) Building codes that address multiple hazards, 3) Early warning systems for different hazard types, 4) Education and community preparedness for various scenarios, 5) Infrastructure designed to withstand multiple hazards, 6) Insurance schemes that cover various disaster types, and 7) Integrated emergency management plans with clear communication protocols.", subtopic: "management" },
-          { id: 13, question: "Explain how the theory of plate tectonics developed over time", answer: "The theory evolved from Wegener's Continental Drift (1912) which lacked a mechanism but noted continental fit and fossil evidence. Sea floor spreading (Hess, 1960s) provided the missing mechanism with evidence from magnetic striping and mid-ocean ridges. Vine and Matthews (1963) showed alternating magnetic polarity in ocean floor rocks. Wilson (1965) proposed the Wilson Cycle of ocean basin opening and closing. Modern plate tectonics combines these ideas with advanced seismic monitoring and GPS measurements confirming plate movements of 2-15cm per year.", subtopic: "tectonics" },
-          { id: 14, question: "How might climate change affect tropical storm patterns?", answer: "Climate change is predicted to affect tropical storms in several ways: 1) Increased sea surface temperatures may lead to more intense storms, 2) Rising sea levels will amplify storm surge impacts, 3) Changes in atmospheric circulation may alter storm tracks and potentially expand storm-prone regions, 4) Warmer atmospheres hold more moisture, potentially increasing rainfall intensity, 5) Some research suggests fewer but more powerful storms. The IPCC states there is medium confidence that tropical cyclone intensity will increase, while frequency changes remain uncertain.", subtopic: "storms" },
-          { id: 15, question: "Describe the causes and impacts of the 2019-2020 Australian bushfires", answer: "Causes: Record-breaking temperatures (1.5°C above average), severe drought, strong winds, and human activities. Natural fire regimes were disrupted by climate change and land management practices.\n\nImpacts: Burned 18.6 million hectares, killed 34 people directly, destroyed 5,900 buildings, and killed or displaced nearly 3 billion animals. Air quality in Sydney reached 11 times the 'hazardous' level. Economic costs exceeded $4.4 billion. Long-term ecological consequences include potential extinction of vulnerable species and changes to forest composition.", subtopic: "case study - fire" }
-        ];
-        setFlashcards(initialFlashcards);
-        
+        let generatedFlashcards = [];
+        let idCounter = 1;
+        // Generate for Hazards
+        hazardsSubtopics.forEach(sub => {
+          const cards = generateFlashcardsForSubtopic(sub, "Hazards");
+          cards.forEach(card => {
+            card.id = idCounter++;
+            generatedFlashcards.push(card);
+          });
+        });
+        // Generate for Place
+        placeSubtopics.forEach(sub => {
+          const cards = generateFlashcardsForSubtopic(sub, "Place");
+          cards.forEach(card => {
+            card.id = idCounter++;
+            generatedFlashcards.push(card);
+          });
+        });
+        setFlashcards(generatedFlashcards);
+        // Initialize stats for each flashcard
         const initialStats = {};
-        initialFlashcards.forEach(card => {
+        generatedFlashcards.forEach(card => {
           initialStats[card.id] = {
             timesReviewed: 0,
             timesCorrect: 0,
@@ -116,11 +246,10 @@
         });
         setCardStats(initialStats);
       }, []);
-      
+
       // Filter flashcards based on search, topic, and subtopic selections
       React.useEffect(() => {
         let filtered = [...flashcards];
-        
         if (searchTerm) {
           const term = searchTerm.toLowerCase();
           filtered = filtered.filter(card =>
@@ -129,18 +258,15 @@
             (card.subtopic && card.subtopic.toLowerCase().includes(term))
           );
         }
-        
         if (selectedTopic) {
           const config = topicConfig.find(item => item.topic === selectedTopic);
           if (config) {
             filtered = filtered.filter(card => config.subtopics.includes(card.subtopic));
           }
         }
-        
         if (selectedSubtopic) {
           filtered = filtered.filter(card => card.subtopic === selectedSubtopic);
         }
-        
         setFilteredCards(filtered);
         if (filtered.length > 0) {
           setCurrentCardIndex(0);
@@ -166,10 +292,9 @@
         }
       };
       
-      // Toggle answer and update stats
       const toggleAnswer = () => {
         setShowAnswer(!showAnswer);
-        if (!showAnswer) {
+        if (!showAnswer && filteredCards.length > 0) {
           const currentCard = filteredCards[currentCardIndex];
           const updatedStats = { ...cardStats };
           updatedStats[currentCard.id] = {
@@ -181,93 +306,31 @@
         }
       };
       
-      // Statistics component
       const Statistics = () => {
         const totalCards = flashcards.length;
         const reviewedCards = Object.values(cardStats).filter(stat => stat.timesReviewed > 0).length;
-        const tectonicsCards = flashcards.filter(card => card.subtopic.includes('tectonics')).length;
-        const earthquakeCards = flashcards.filter(card => card.subtopic.includes('earthquake')).length;
-        const volcanoCards = flashcards.filter(card => card.subtopic.includes('volcano')).length;
-        const stormCards = flashcards.filter(card => card.subtopic.includes('storm')).length;
-        const managementCards = flashcards.filter(card => card.subtopic.includes('management')).length;
-        const caseStudyCards = flashcards.filter(card => card.subtopic.includes('case study')).length;
-        const fireCards = flashcards.filter(card => card.subtopic.includes('fire')).length;
-        
         return (
           <div style={{ backgroundColor: "#e6f5e6", border: "2px solid #388e3c", borderRadius: "8px", padding: "16px", maxWidth: "32rem", margin: "24px auto", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
             <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "16px", color: "#1b5e20" }}>Your Study Statistics</h3>
-            <div style={{ marginBottom: "16px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-                <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
-                  <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{totalCards}</div>
-                  <div style={{ fontSize: "0.875rem" }}>Total Cards</div>
-                </div>
-                <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
-                  <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{reviewedCards}</div>
-                  <div style={{ fontSize: "0.875rem" }}>Reviewed</div>
-                </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+              <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
+                <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{totalCards}</div>
+                <div style={{ fontSize: "0.875rem" }}>Total Cards</div>
               </div>
-              <h4 style={{ fontWeight: "bold", marginTop: "16px", color: "#1b5e20" }}>Subtopic Breakdown</h4>
-              <div style={{ display: "flex", marginBottom: "8px" }}>
-                <div style={{ width: "50%", color: "#1b5e20" }}>Tectonics</div>
-                <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
-                  <div style={{ backgroundColor: "#388e3c", height: "16px", borderRadius: "4px", width: `${(tectonicsCards/totalCards)*100}%` }}></div>
-                  <span style={{ marginLeft: "8px" }}>{tectonicsCards}</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", marginBottom: "8px" }}>
-                <div style={{ width: "50%", color: "#1b5e20" }}>Earthquakes</div>
-                <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
-                  <div style={{ backgroundColor: "#388e3c", height: "16px", borderRadius: "4px", width: `${(earthquakeCards/totalCards)*100}%` }}></div>
-                  <span style={{ marginLeft: "8px" }}>{earthquakeCards}</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", marginBottom: "8px" }}>
-                <div style={{ width: "50%", color: "#1b5e20" }}>Volcanoes</div>
-                <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
-                  <div style={{ backgroundColor: "#388e3c", height: "16px", borderRadius: "4px", width: `${(volcanoCards/totalCards)*100}%` }}></div>
-                  <span style={{ marginLeft: "8px" }}>{volcanoCards}</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", marginBottom: "8px" }}>
-                <div style={{ width: "50%", color: "#1b5e20" }}>Tropical Storms</div>
-                <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
-                  <div style={{ backgroundColor: "#388e3c", height: "16px", borderRadius: "4px", width: `${(stormCards/totalCards)*100}%` }}></div>
-                  <span style={{ marginLeft: "8px" }}>{stormCards}</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", marginBottom: "8px" }}>
-                <div style={{ width: "50%", color: "#1b5e20" }}>Management</div>
-                <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
-                  <div style={{ backgroundColor: "#388e3c", height: "16px", borderRadius: "4px", width: `${(managementCards/totalCards)*100}%` }}></div>
-                  <span style={{ marginLeft: "8px" }}>{managementCards}</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", marginBottom: "8px" }}>
-                <div style={{ width: "50%", color: "#1b5e20" }}>Case Studies</div>
-                <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
-                  <div style={{ backgroundColor: "#388e3c", height: "16px", borderRadius: "4px", width: `${(caseStudyCards/totalCards)*100}%` }}></div>
-                  <span style={{ marginLeft: "8px" }}>{caseStudyCards}</span>
-                </div>
-              </div>
-              <div style={{ display: "flex", marginBottom: "8px" }}>
-                <div style={{ width: "50%", color: "#1b5e20" }}>Fire Hazards</div>
-                <div style={{ width: "50%", display: "flex", alignItems: "center" }}>
-                  <div style={{ backgroundColor: "#388e3c", height: "16px", borderRadius: "4px", width: `${(fireCards/totalCards)*100}%` }}></div>
-                  <span style={{ marginLeft: "8px" }}>{fireCards}</span>
-                </div>
+              <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
+                <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{reviewedCards}</div>
+                <div style={{ fontSize: "0.875rem" }}>Reviewed</div>
               </div>
             </div>
           </div>
         );
       };
-
+      
       return (
         <div style={{ minHeight: "100vh", backgroundColor: "#f0f8f0", padding: "16px" }}>
           <div style={{ maxWidth: "64rem", margin: "0 auto" }}>
             <header style={{ textAlign: "center", marginBottom: "24px" }}>
               <h1 style={{ fontSize: "1.875rem", fontWeight: "bold", color: "#1b5e20" }}>AQA Geography AS Level Revision</h1>
-              <p style={{ color: "#5d4037" }}>Hazards Topic</p>
             </header>
             
             {/* Controls and Filters */}
@@ -283,7 +346,7 @@
                 />
               </div>
               
-              {/* Topic selection buttons */}
+              {/* Topic selection */}
               <div style={{ marginBottom: "16px" }}>
                 <h4 style={{ color: "#1b5e20", marginBottom: "8px" }}>Select Topic:</h4>
                 {topicConfig.map(item => (
@@ -296,7 +359,7 @@
                 </button>
               </div>
               
-              {/* Subtopic selection buttons (shown if a topic is selected) */}
+              {/* Subtopic selection (if a topic is selected) */}
               {selectedTopic && (
                 <div style={{ marginBottom: "16px" }}>
                   <h4 style={{ color: "#1b5e20", marginBottom: "8px" }}>Select Subtopic:</h4>
@@ -313,7 +376,7 @@
               
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div style={{ fontSize: "0.875rem", color: "#2e7d32" }}>
-                  {filteredCards.length} cards {currentCardIndex + 1 > 0 ? `(Card ${currentCardIndex + 1} of ${filteredCards.length})` : ''}
+                  {filteredCards.length} cards {filteredCards.length > 0 ? `(Card ${currentCardIndex + 1} of ${filteredCards.length})` : ''}
                 </div>
                 <button onClick={() => setShowStats(!showStats)} style={{ color: "#2e7d32", fontWeight: "500" }}>
                   {showStats ? 'Hide Statistics' : 'Show Statistics'}
@@ -349,7 +412,6 @@
                     {!showAnswer ? 'Click to reveal answer' : 'Click card again to hide answer'}
                   </div>
                 </div>
-                {/* Navigation buttons */}
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
                   <button onClick={prevCard} disabled={currentCardIndex === 0} style={{ padding: "8px 16px", borderRadius: "4px", backgroundColor: currentCardIndex === 0 ? "#d3d3d3" : "#2e7d32", color: currentCardIndex === 0 ? "#666" : "white", cursor: currentCardIndex === 0 ? "not-allowed" : "pointer" }}>
                     Previous Card
@@ -365,16 +427,16 @@
               </div>
             )}
             
-            {/* Exam Tips with same background as app */}
+            {/* Exam Tips (with same background as the app) */}
             <div style={{ marginTop: "32px", backgroundColor: "#f0f8f0", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", border: "2px solid #388e3c" }}>
-              <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#1b5e20", marginBottom: "8px" }}>AQA Hazards Exam Tips</h3>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#1b5e20", marginBottom: "8px" }}>AQA Geography Exam Tips</h3>
               <ul style={{ listStyleType: "disc", paddingLeft: "20px", marginTop: "8px", backgroundColor: "#f0f8f0" }}>
-                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Remember to use specific case studies with named locations, dates and figures.</li>
+                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Use specific case studies with named locations, dates and figures.</li>
                 <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Link physical processes to their impacts on people and the environment.</li>
-                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Compare contrasting examples (e.g., HICs vs LICs, effective vs poor management).</li>
-                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Ensure you can draw and annotate diagrams for key processes (plate boundaries, tropical storm formation).</li>
-                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Use appropriate terminology (convergent/destructive, lithosphere, pyroclastic flows, etc.).</li>
-                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Structure 9-mark and 20-mark questions with clear introductions, developed points, and evaluative conclusions.</li>
+                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Compare contrasting examples (e.g., high-income vs low-income settings, effective vs poor management).</li>
+                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Ensure you can draw and annotate diagrams for key processes.</li>
+                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Use appropriate terminology throughout your answers.</li>
+                <li style={{ marginBottom: "8px", color: "#1b5e20" }}>Structure essays with clear introductions, developed arguments, and evaluative conclusions.</li>
               </ul>
             </div>
           </div>
