@@ -110,7 +110,7 @@
       color: #2e7d32;
     }
     /* Answer text background */
-    .flashcard-container p {
+    .flashcard-container .answer {
       background-color: #f0f8f0; /* Match the app background color */
       padding: 8px;
       border-radius: 4px;
@@ -780,7 +780,7 @@
                     ) : (
                       <div>
                         <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "8px", color: "#1b5e20" }}>Answer:</h3>
-                        <p style={{ fontSize: "1.125rem", color: "#1b5e20", whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}></p>
+                        <div className="answer" style={{ fontSize: "1.125rem", color: "#1b5e20", whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}></div>
                       </div>
                     )}
                   </div>
