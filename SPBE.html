@@ -89,6 +89,7 @@
     .hazards-topic-active { background-color: #2e7d32; color: white; }
     .place-topic-active { background-color: #1565c0; color: white; }
     .topic-inactive { background-color: #757575; color: white; }
+   
     /* Flashcard container */
     .flashcard-container {
       background-color: #f0f8f0;
@@ -115,6 +116,25 @@
       padding: 8px;
       border-radius: 4px;
     }
+    
+    /* Add the new styles here */
+    /* Fix for list items inside flashcard answers */
+    .flashcard-container ul {
+      background-color: transparent; /* Make nested lists transparent */
+      list-style-type: disc; /* Reset list style to disc for answer bullets */
+      overflow: visible; /* Ensure bullets are visible */
+      margin-left: 20px; /* Add margin for bullet points */
+      padding-left: 5px; /* Add some padding */
+    }
+    
+    .flashcard-container li {
+      float: none; /* Reset float property from global li style */
+      background-color: transparent; /* Ensure list items are transparent */
+      color: #1b5e20; /* Match text color with other content */
+      margin-bottom: 4px; /* Add spacing between list items */
+    }
+    /* End of new styles */
+    
   </style>
   <title>Geography Flashcards</title>
   <!-- React and ReactDOM CDN -->
