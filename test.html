@@ -1,0 +1,601 @@
+<!doctype html>
+<html>
+<head>
+    <link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
+    <style>
+        :root {
+            /* Default colors - will be overridden by JS */
+            --primary-color: #1e7dba;
+            --secondary-color: #e9f2f9;
+            --dark-grey: #333333;
+            --light-grey: #f5f7fa;
+            --border-color: #d1d9e6;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-grey);
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: var(--dark-grey);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .navbar li {
+            float: left;
+        }
+        
+        .navbar li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 16px 18px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .navbar li a:hover {
+            background-color: #222;
+        }
+        
+        .navbar .logo {
+            float: left;
+            padding: 7px 15px;
+        }
+        
+        /* Selector Controls */
+        .selector-controls {
+            background-color: white;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 1000px;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .selector-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .selector-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--dark-grey);
+        }
+        
+        .custom-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        /* Page title */
+        .page-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 24px 0;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .page-header h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        
+        .page-header h2 {
+            margin: 5px 0 0 0;
+            padding: 0;
+            font-size: 1.4rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        /* Resources section */
+        .resources-section {
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .resources-header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .resources-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .resources-table td {
+            padding: 8px 10px;
+            text-align: left;
+            border: none;
+        }
+        
+        /* Level tabs */
+        .level-tabs {
+            max-width: 1000px;
+            margin: 0 auto 10px auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .level-tab {
+            padding: 10px 20px;
+            background-color: #ddd;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+        }
+        
+        .level-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Main table */
+        .papers-container {
+            max-width: 1000px;
+            margin: 0 auto 30px auto;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .papers-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        
+        .papers-table th, .papers-table td {
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        
+        .papers-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        
+        .papers-table tr:nth-child(even) {
+            background-color: var(--secondary-color);
+        }
+        
+        .series-column {
+            font-weight: 600;
+            background-color: #f0f6fc;
+        }
+        
+        .download-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+        
+        .download-link:hover {
+            background-color: rgba(var(--primary-rgb), 0.8);
+            filter: brightness(110%);
+        }
+        
+        /* For tabs that should be hidden initially */
+        .level-content {
+            display: none;
+        }
+        
+        .level-content.active {
+            display: block;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .selector-controls {
+                flex-direction: column;
+            }
+            
+            .papers-table th, .papers-table td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+            
+            .download-link {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+    <title>Past Papers | A Level & BTEC</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li class="logo">
+                <a href="index.html">
+                    <img src="Logo.png" style="width:42px;height:38px;">
+                </a>
+            </li>
+            <li><a href="PR.html">GCSE Past Papers & Boundaries</a></li>
+            <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
+            <li><a href="SPBE.html">Geography Flashcards</a></li>
+            <li><a href="BWT.html">Geography Case Studies</a></li>
+        </ul>
+    </nav>
+    
+    <header class="page-header">
+        <h1 id="main-title">A Level & BTEC Past Papers</h1>
+        <h2 id="sub-title">Select an exam board and subject below</h2>
+    </header>
+    
+    <div class="selector-controls">
+        <div class="selector-group">
+            <label class="selector-label" for="exam-board">Exam Board:</label>
+            <select id="exam-board" class="custom-select">
+                <option value="aqa">AQA</option>
+                <option value="edexcel">Edexcel</option>
+                <option value="ocr">OCR</option>
+            </select>
+        </div>
+        
+        <div class="selector-group">
+            <label class="selector-label" for="subject">Subject:</label>
+            <select id="subject" class="custom-select">
+                <option value="default">Select a subject...</option>
+                <!-- Options will be populated by JavaScript -->
+            </select>
+        </div>
+    </div>
+    
+    <div id="content-area">
+        <!-- Content will be loaded here by JavaScript -->
+        <div class="papers-container" style="text-align: center; padding: 40px 20px;">
+            <h2>Please select an exam board and subject</h2>
+            <p>Use the dropdown menus above to view past papers for your chosen subject.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Subject data with their respective colors and levels
+        const subjectData = {
+            aqa: {
+                "core-maths": {
+                    name: "Core Maths",
+                    primaryColor: "#1e7dba",
+                    secondaryColor: "#e9f2f9",
+                    levels: ["a-level"],
+                    resources: [{name: "Formula Sheet", link: "#"}]
+                },
+                "english-language": {
+                    name: "English Language",
+                    primaryColor: "#7030a0",
+                    secondaryColor: "#f0e6f5",
+                    levels: ["a-level", "as-level"],
+                    resources: [{name: "Language Framework", link: "#"}]
+                },
+                "geography": {
+                    name: "Geography",
+                    primaryColor: "#41723f",
+                    secondaryColor: "#eaf2e9",
+                    levels: ["a-level", "as-level"],
+                    resources: [{name: "Case Studies", link: "#"}, {name: "Key Definitions", link: "#"}]
+                },
+                "mathematics": {
+                    name: "Mathematics",
+                    primaryColor: "#1e7dba",
+                    secondaryColor: "#e9f2f9",
+                    levels: ["a-level", "as-level"],
+                    resources: [{name: "Formula Booklet", link: "#"}]
+                }
+            },
+            edexcel: {
+                "business-studies": {
+                    name: "Business Studies",
+                    primaryColor: "#b7312c",
+                    secondaryColor: "#f9e9e8",
+                    levels: ["a-level", "as-level"],
+                    resources: [{name: "Key Terms", link: "#"}]
+                },
+                "information-technology": {
+                    name: "Information Technology",
+                    primaryColor: "#f7941d",
+                    secondaryColor: "#fef4e9",
+                    levels: ["btec"],
+                    resources: [{name: "Assessment Guidance", link: "#"}]
+                },
+                "applied-science": {
+                    name: "Applied Science",
+                    primaryColor: "#00b050",
+                    secondaryColor: "#e6f7ee",
+                    levels: ["btec"],
+                    resources: [{name: "Lab Safety Guide", link: "#"}]
+                }
+            },
+            ocr: {
+                "physics-a": {
+                    name: "Physics A",
+                    primaryColor: "#4472c4",
+                    secondaryColor: "#ebeff9",
+                    levels: ["a-level", "as-level"],
+                    resources: [{name: "Data Sheet", link: "#"}, {name: "Practical Skills Handbook", link: "#"}]
+                }
+            }
+        };
+        
+        // Exam series data (same for all subjects for now)
+        const examSeries = [
+            "June 2023", "June 2022", "November 2021", "June 2019", 
+            "June 2018", "June 2017", "June 2016", "Sample Set"
+        ];
+        
+        // DOM elements
+        const examBoardSelect = document.getElementById('exam-board');
+        const subjectSelect = document.getElementById('subject');
+        const contentArea = document.getElementById('content-area');
+        const mainTitle = document.getElementById('main-title');
+        const subTitle = document.getElementById('sub-title');
+        
+        // Update subject options based on selected exam board
+        function updateSubjectOptions() {
+            const board = examBoardSelect.value;
+            
+            // Clear current options
+            subjectSelect.innerHTML = '<option value="default">Select a subject...</option>';
+            
+            // Add new options
+            for (const [key, subject] of Object.entries(subjectData[board])) {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = subject.name;
+                subjectSelect.appendChild(option);
+            }
+        }
+        
+        // Update page content based on selections
+        function updateContent() {
+            const board = examBoardSelect.value;
+            const subjectKey = subjectSelect.value;
+            
+            if (subjectKey === 'default') {
+                contentArea.innerHTML = `
+                    <div class="papers-container" style="text-align: center; padding: 40px 20px;">
+                        <h2>Please select a subject</h2>
+                        <p>Use the dropdown menu above to view past papers for your chosen subject.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const subject = subjectData[board][subjectKey];
+            
+            // Update colors
+            document.documentElement.style.setProperty('--primary-color', subject.primaryColor);
+            document.documentElement.style.setProperty('--secondary-color', subject.secondaryColor);
+            document.documentElement.style.setProperty('--primary-rgb', hexToRgb(subject.primaryColor));
+            
+            // Update page title
+            mainTitle.textContent = `${getBoardName(board)} | ${subject.name}`;
+            subTitle.textContent = 'Past Papers & Resources';
+            
+            // Build the content
+            let contentHTML = '';
+            
+            // Resources section
+            contentHTML += `
+                <section class="resources-section">
+                    <h2 class="resources-header">Resources</h2>
+                    <table class="resources-table">
+            `;
+            
+            subject.resources.forEach(resource => {
+                contentHTML += `
+                    <tr>
+                        <td width="30%"><strong>${resource.name}:</strong></td>
+                        <td><a href="${resource.link}" class="download-link">${resource.name}</a></td>
+                    </tr>
+                `;
+            });
+            
+            contentHTML += `
+                    </table>
+                </section>
+            `;
+            
+            // Level tabs if needed
+            if (subject.levels.length > 1) {
+                contentHTML += `<div class="level-tabs">`;
+                subject.levels.forEach((level, index) => {
+                    const isActive = index === 0 ? 'active' : '';
+                    contentHTML += `
+                        <div class="level-tab ${isActive}" data-level="${level}" onclick="activateTab('${level}')">
+                            ${formatLevelName(level)}
+                        </div>
+                    `;
+                });
+                contentHTML += `</div>`;
+            }
+            
+            // Create tables for each level
+            subject.levels.forEach((level, index) => {
+                const isActive = index === 0 ? 'active' : '';
+                
+                contentHTML += `
+                    <div id="${level}-content" class="level-content ${isActive}">
+                        <main class="papers-container">
+                            <table class="papers-table">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">Exam Series</th>
+                `;
+                
+                // Headers based on level
+                if (level === 'btec') {
+                    contentHTML += `
+                        <th width="40%">Assignment Brief</th>
+                        <th width="40%">Sample Assessment</th>
+                    `;
+                } else {
+                    contentHTML += `
+                        <th width="20%">Paper 1<br>Question Paper</th>
+                        <th width="20%">Paper 1<br>Mark Scheme</th>
+                        <th width="20%">Paper 2<br>Question Paper</th>
+                        <th width="20%">Paper 2<br>Mark Scheme</th>
+                    `;
+                }
+                
+                contentHTML += `
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+                
+                // Add rows for each exam series
+                examSeries.forEach(series => {
+                    contentHTML += `
+                        <tr>
+                            <td class="series-column">${series}</td>
+                    `;
+                    
+                    if (level === 'btec') {
+                        contentHTML += `
+                            <td><a href="#" class="download-link">Download</a></td>
+                            <td><a href="#" class="download-link">Download</a></td>
+                        `;
+                    } else {
+                        contentHTML += `
+                            <td><a href="#" class="download-link">Download</a></td>
+                            <td><a href="#" class="download-link">Download</a></td>
+                            <td><a href="#" class="download-link">Download</a></td>
+                            <td><a href="#" class="download-link">Download</a></td>
+                        `;
+                    }
+                    
+                    contentHTML += `</tr>`;
+                });
+                
+                contentHTML += `
+                                </tbody>
+                            </table>
+                        </main>
+                    </div>
+                `;
+            });
+            
+            contentArea.innerHTML = contentHTML;
+        }
+        
+        // Helper function to format level names
+        function formatLevelName(level) {
+            switch (level) {
+                case 'a-level': return 'A Level';
+                case 'as-level': return 'AS Level';
+                case 'btec': return 'BTEC';
+                default: return level;
+            }
+        }
+        
+        // Helper function to get the board's full name
+        function getBoardName(boardKey) {
+            switch (boardKey) {
+                case 'aqa': return 'AQA';
+                case 'edexcel': return 'Edexcel';
+                case 'ocr': return 'OCR';
+                default: return boardKey;
+            }
+        }
+        
+        // Helper function to convert hex to rgb
+        function hexToRgb(hex) {
+            // Remove # if present
+            hex = hex.replace('#', '');
+            
+            // Parse the hex values
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+            
+            return `${r}, ${g}, ${b}`;
+        }
+        
+        // Function to activate a tab
+        window.activateTab = function(level) {
+            // Update tab classes
+            document.querySelectorAll('.level-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-level') === level) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update content classes
+            document.querySelectorAll('.level-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${level}-content`).classList.add('active');
+        };
+        
+        // Event listeners
+        examBoardSelect.addEventListener('change', () => {
+            updateSubjectOptions();
+            // Reset subject selection
+            subjectSelect.value = 'default';
+            updateContent();
+        });
+        
+        subjectSelect.addEventListener('change', updateContent);
+        
+        // Initialize the page
+        updateSubjectOptions();
+    </script>
+</body>
+</html>
