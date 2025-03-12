@@ -875,29 +875,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide admin panel - we don't need file uploads
     document.getElementById('admin-panel').style.display = 'none';
     
-    // Auto-load CSV data when subject changes
-    subjectSelect.addEventListener('change', () => {
-        const board = examBoardSelect.value;
-        const subjectKey = subjectSelect.value;
-        
-        if (subjectKey !== 'default') {
-            const subject = subjectData[board][subjectKey];
-            // CSV filename is same as the subject key with .csv extension
-            const csvFileName = `${subjectKey}.csv`;
-            
-            // Try to load the CSV file
-            loadCSVFromFile(csvFileName, (data) => {
-                const subjectCSVKey = `${getBoardName(board)}_${subject.name.replace(/\s+/g, '_')}`;
-                paperData[subjectCSVKey] = data;
-                updateContent();
-            });
-        } else {
-            updateContent();
-        }
-    });
+    // Initial loading of data for default selection
+    updateSubjectOptions();
 });
 
-// Modify the parseCSV function to better handle various CSV formats
+// Function to check if a string is a URL or a valid link
+function isValidLink(str) {
+    if (!str || str === '#' || str.toLowerCase() === 'n/a') return false;
+    return true;
+}
+
+// Modified parseCSV function to better handle URLs in the CSV
 function parseCSV(csv) {
     const lines = csv.split('\n');
     const result = [];
@@ -905,8 +893,7 @@ function parseCSV(csv) {
     // Find the header row
     let headerRow = 0;
     for (let i = 0; i < Math.min(10, lines.length); i++) {
-        if (lines[i].includes('Paper') || lines[i].includes('Mark Scheme') || 
-            lines[i].includes('Question Paper') || lines[i].includes('Exam Series')) {
+        if (lines[i].includes('Paper') || lines[i].includes('Mark Scheme')) {
             headerRow = i;
             break;
         }
@@ -914,8 +901,11 @@ function parseCSV(csv) {
     
     // Parse headers
     const headers = lines[headerRow].split(',').map(h => h.trim());
-    const seriesIndex = headers.findIndex(h => 
-        h.includes('Series') || h.includes('Date') || h === 'Exam Series' || h === '');
+    let seriesIndex = headers.findIndex(h => 
+        h.includes('Series') || h.includes('Date') || h === 'Exam Series');
+    
+    // If series column not found, assume it's the first column
+    if (seriesIndex === -1) seriesIndex = 0;
     
     // Find all paper and mark scheme columns
     const columns = {};
@@ -933,7 +923,7 @@ function parseCSV(csv) {
         if (line.length <= 1) continue;
         
         const row = {
-            series: line[seriesIndex].trim(),
+            series: line[seriesIndex] ? line[seriesIndex].trim() : `Series ${i-headerRow}`,
             links: {}
         };
         
@@ -944,15 +934,13 @@ function parseCSV(csv) {
             }
         }
         
-        if (row.series) {
-            result.push(row);
-        }
+        result.push(row);
     }
     
     return result;
 }
 
-// Update the updateContent function to properly display table cells
+// Update the updateContent function to properly handle links
 function updateContent() {
     const board = examBoardSelect.value;
     const subjectKey = subjectSelect.value;
@@ -978,9 +966,43 @@ function updateContent() {
     mainTitle.textContent = `${getBoardName(board)} | ${subject.name}`;
     subTitle.textContent = 'Past Papers & Resources';
     
-    // Get CSV data for this subject
-    const subjectCSVKey = `${getBoardName(board)}_${subject.name.replace(/\s+/g, '_')}`;
-    const subjectCSVData = paperData[subjectCSVKey] || [];
+    // Create placeholder data if needed
+    const placeholderData = [
+        { 
+            series: "June 2023", 
+            links: { 
+                "Paper 1": "https://example.com/paper1-2023.pdf", 
+                "Paper 1 Mark Scheme": "https://example.com/paper1-ms-2023.pdf",
+                "Paper 2": "https://example.com/paper2-2023.pdf", 
+                "Paper 2 Mark Scheme": "https://example.com/paper2-ms-2023.pdf" 
+            } 
+        },
+        { 
+            series: "June 2022", 
+            links: { 
+                "Paper 1": "https://example.com/paper1-2022.pdf", 
+                "Paper 1 Mark Scheme": "https://example.com/paper1-ms-2022.pdf",
+                "Paper 2": "https://example.com/paper2-2022.pdf", 
+                "Paper 2 Mark Scheme": "https://example.com/paper2-ms-2022.pdf" 
+            } 
+        },
+        { 
+            series: "June 2021", 
+            links: { 
+                "Paper 1": "https://example.com/paper1-2021.pdf", 
+                "Paper 1 Mark Scheme": "https://example.com/paper1-ms-2021.pdf",
+                "Paper 2": "https://example.com/paper2-2021.pdf", 
+                "Paper 2 Mark Scheme": "https://example.com/paper2-ms-2021.pdf" 
+            } 
+        }
+    ];
+    
+    // Load CSV file automatically
+    const csvFileName = `${subjectKey}.csv`;
+    
+    // Create a dummy array for now - replace this with actual CSV data loading
+    // This is a temporary fix until we can load the CSV files properly
+    const subjectCSVData = subject.sampleData || placeholderData;
     
     // Build the content
     let contentHTML = '';
@@ -996,7 +1018,7 @@ function updateContent() {
         contentHTML += `
             <tr>
                 <td width="30%" style="text-align: left;"><strong>${resource.name}:</strong></td>
-                <td style="text-align: left;"><a href="${resource.link}" class="download-link" target="_blank">${resource.name}</a></td>
+                <td style="text-align: left;"><a href="${resource.link}" class="download-link" target="_blank">Download</a></td>
             </tr>
         `;
     });
@@ -1024,6 +1046,24 @@ function updateContent() {
     subject.levels.forEach((level, index) => {
         const isActive = index === 0 ? 'active' : '';
         
+        // Set default columns based on level
+        let defaultColumns;
+        if (level === 'btec') {
+            defaultColumns = ['Assignment Brief', 'Sample Assessment'];
+        } else {
+            defaultColumns = ['Paper 1', 'Paper 1 Mark Scheme', 'Paper 2', 'Paper 2 Mark Scheme'];
+        }
+        
+        // Get column headers from data if available, otherwise use defaults
+        let columnHeaders = defaultColumns;
+        if (subjectCSVData.length > 0 && subjectCSVData[0].links) {
+            // Use headers from the data
+            columnHeaders = Object.keys(subjectCSVData[0].links);
+            if (columnHeaders.length === 0) {
+                columnHeaders = defaultColumns;
+            }
+        }
+        
         contentHTML += `
             <div id="${level}-content" class="level-content ${isActive}">
                 <main class="papers-container">
@@ -1032,19 +1072,6 @@ function updateContent() {
                             <tr>
                                 <th width="20%" style="text-align: left;">Exam Series</th>
         `;
-        
-        // Get column headers from data if available, otherwise use defaults
-        const columnHeaders = [];
-        if (subjectCSVData.length > 0 && subjectCSVData[0].links) {
-            // Use headers from the CSV data
-            for (const header in subjectCSVData[0].links) {
-                columnHeaders.push(header);
-            }
-        } else if (level === 'btec') {
-            columnHeaders.push('Assignment Brief', 'Sample Assessment');
-        } else {
-            columnHeaders.push('Paper 1', 'Paper 1 Mark Scheme', 'Paper 2', 'Paper 2 Mark Scheme');
-        }
         
         // Add column headers
         columnHeaders.forEach(header => {
@@ -1058,16 +1085,7 @@ function updateContent() {
         `;
         
         // Add rows for each exam series
-        const examSeriesData = subjectCSVData.length > 0 ? 
-            subjectCSVData : 
-            [
-                { series: "June 2023", links: {} },
-                { series: "June 2022", links: {} },
-                { series: "November 2021", links: {} },
-                { series: "June 2019", links: {} }
-            ];
-        
-        examSeriesData.forEach(seriesData => {
+        subjectCSVData.forEach(seriesData => {
             contentHTML += `
                 <tr>
                     <td class="series-column" style="text-align: left;">${seriesData.series}</td>
@@ -1075,10 +1093,11 @@ function updateContent() {
             
             // Add cells for each column
             columnHeaders.forEach(header => {
-                const link = seriesData.links[header] || '#';
+                const link = seriesData.links[header] || '';
+                
                 contentHTML += `
                     <td style="text-align: center;">
-                        ${isURL(link) ? 
+                        ${isValidLink(link) ? 
                             `<a href="${link}" class="download-link" target="_blank">Download</a>` : 
                             `<span class="empty-cell">N/A</span>`}
                     </td>
@@ -1099,18 +1118,99 @@ function updateContent() {
     contentArea.innerHTML = contentHTML;
 }
 
-// Fix the papers-table styles to ensure left alignment where needed
-document.addEventListener('DOMContentLoaded', function() {
-    const style = document.createElement('style');
-    style.innerHTML = `
-        .papers-table th:first-child, .papers-table td:first-child {
-            text-align: left;
+// Add sample data to each subject for better visualization
+for (const board in subjectData) {
+    for (const subjectKey in subjectData[board]) {
+        // Add sample data for each subject
+        subjectData[board][subjectKey].sampleData = [
+            { 
+                series: "June 2023", 
+                links: { 
+                    "Paper 1": "https://example.com/paper1-2023.pdf", 
+                    "Paper 1 Mark Scheme": "https://example.com/paper1-ms-2023.pdf",
+                    "Paper 2": "https://example.com/paper2-2023.pdf", 
+                    "Paper 2 Mark Scheme": "https://example.com/paper2-ms-2023.pdf" 
+                } 
+            },
+            { 
+                series: "June 2022", 
+                links: { 
+                    "Paper 1": "https://example.com/paper1-2022.pdf", 
+                    "Paper 1 Mark Scheme": "https://example.com/paper1-ms-2022.pdf",
+                    "Paper 2": "https://example.com/paper2-2022.pdf", 
+                    "Paper 2 Mark Scheme": "https://example.com/paper2-ms-2022.pdf" 
+                } 
+            },
+            { 
+                series: "June 2021", 
+                links: { 
+                    "Paper 1": "https://example.com/paper1-2021.pdf", 
+                    "Paper 1 Mark Scheme": "https://example.com/paper1-ms-2021.pdf",
+                    "Paper 2": "https://example.com/paper2-2021.pdf", 
+                    "Paper 2 Mark Scheme": "https://example.com/paper2-ms-2021.pdf" 
+                } 
+            }
+        ];
+        
+        // Adjust for BTEC subjects
+        if (subjectData[board][subjectKey].levels.includes('btec')) {
+            subjectData[board][subjectKey].sampleData = [
+                { 
+                    series: "2023 Entry", 
+                    links: { 
+                        "Assignment Brief": "https://example.com/brief-2023.pdf", 
+                        "Sample Assessment": "https://example.com/assessment-2023.pdf"
+                    } 
+                },
+                { 
+                    series: "2022 Entry", 
+                    links: { 
+                        "Assignment Brief": "https://example.com/brief-2022.pdf", 
+                        "Sample Assessment": "https://example.com/assessment-2022.pdf"
+                    } 
+                }
+            ];
         }
-        .resources-table td {
-            text-align: left;
-        }
-    `;
-    document.head.appendChild(style);
+    }
+}
+
+// Load a CSV file from the server
+function loadCSVFile(subjectKey) {
+    const csvFileName = `${subjectKey}.csv`;
+    
+    // Use fetch API to load the CSV file
+    fetch(csvFileName)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('CSV file not found');
+            }
+            return response.text();
+        })
+        .then(csvData => {
+            // Parse CSV and update the subject data
+            const board = examBoardSelect.value;
+            const subject = subjectData[board][subjectKey];
+            const parsedData = parseCSV(csvData);
+            
+            subject.sampleData = parsedData;
+            updateContent();
+        })
+        .catch(error => {
+            console.log(`Error loading CSV file: ${error.message}. Using sample data instead.`);
+            updateContent();
+        });
+}
+
+// Update subject selection event listener
+subjectSelect.addEventListener('change', () => {
+    const subjectKey = subjectSelect.value;
+    
+    if (subjectKey !== 'default') {
+        // Try to load CSV file
+        loadCSVFile(subjectKey);
+    } else {
+        updateContent();
+    }
 });
 </script>
 </body>
