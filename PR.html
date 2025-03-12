@@ -3,9 +3,7 @@
     <html>
     <link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
     <style>
-    #header h1{
-        margin:0px;
-    }
+    /* Navigation styles taken directly from the test page */
     ul {
         list-style-type: none;
         margin: 0;
@@ -13,7 +11,6 @@
         overflow: hidden;
         background-color: #333;
     }
-     
     li {
         float: left;
     }
@@ -24,34 +21,35 @@
         padding: 14px 16px;
         text-decoration: none;
     }
-    body,form {
-        background-color: #E3E3E3;
-        text-indent: 25px;
+    
+    /* Keep the rest of your original styles */
+    #header h1{
+        margin:0px;
     }
-    body,td,th {
-        font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-        font-size: 18px;
+    body,form {
+        background-color: #000000;
+        /* Removed text-indent to match test page */
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    iframe {
+        background-color: #000000;
     }
     </style>
-</head>
-
+    <meta charset="utf-8">
     <title>GCSE Past Papers</title>
     </head>
     <body>
-    <style>
-    body{
-        margin:0;
-    }
-    </style>
-      <ul>
-          <img src="Logo.png" style="float:left;width:42px;height:38px;margin:7.5px">
+    <!-- Navigation code taken directly from the test page -->
+    <ul>
+        <a href="index.html">
+            <img src="Logo.png" style="float:left;width:42px;height:38px;margin:7.5px">
         </a>
         <li><a href="PR.html">GCSE Past Papers & Boundaries</a></li>
         <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
-        <li><a href="BWT.html">Geography Case Studies</a></li>
         <li><a href="SPBE.html">Geography Flashcards</a></li>
-      </ul>
-        </body>
+        <li><a href="BWT.html">Geography Case Studies</a></li>
+        <li><a href="test.html">Test Page</a></li>
     </ul>
     <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTRAuFu3c7FYEYhtBthP6wqUCDZu3kcPfOFDYQkz3TNE4iVDRuz3xmftH1lf_TY404r0pNXLeqphoA6/pubhtml"
     style="
