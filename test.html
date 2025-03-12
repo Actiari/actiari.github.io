@@ -20,23 +20,66 @@
             line-height: 1.6;
         }
         
-        /* Navigation - replaced with code from Geography Flashcards */
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
+        /* Navigation styles */
+        .nav-container {
             background-color: #333;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: relative;
         }
-        li {
-            float: left;
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
-        li a {
+        
+        .logo img {
+            width: 42px;
+            height: 38px;
+            vertical-align: middle;
+        }
+        
+        .nav-menu {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            margin-left: 0;
+            width: 100%;
+            justify-content: flex-start;
+        }
+        
+        .nav-menu li {
+            flex: 0 0 auto;
+        }
+        
+        .nav-menu li a {
             display: block;
             color: white;
             text-align: center;
-            padding: 14px 16px;
+            padding: 20px 16px;
             text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+        }
+        
+        .nav-menu li a:hover {
+            background-color: #444;
+        }
+        
+        .menu-toggle {
+            display: none;
+            color: white;
+            background: none;
+            border: none;
+            font-size: 24px;
+            padding: 12px 16px;
+            cursor: pointer;
+            margin-left: auto;
         }
         
         /* Selector Controls */
@@ -220,7 +263,36 @@
         }
         
         /* Responsive design */
-        @media (max-width: 768px) {
+        @media screen and (max-width: 1100px) {
+            .menu-toggle {
+                display: block !important;
+            }
+            
+            .nav-menu {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: #333;
+                z-index: 99;
+            }
+            
+            .nav-menu.active {
+                display: flex !important;
+            }
+            
+            .nav-menu li {
+                width: 100%;
+            }
+            
+            .nav-menu li a {
+                text-align: left;
+                padding: 16px 20px;
+                border-top: 1px solid #444;
+            }
+            
             .selector-controls {
                 flex-direction: column;
             }
@@ -239,17 +311,20 @@
     <title>Test Page</title>
 </head>
 <body>
-    <!-- Navigation replaced with code from Geography Flashcards -->
-    <ul>
-        <a href="index.html">
-            <img src="Logo.png" style="float:left;width:42px;height:38px;margin:7.5px">
+    <!-- Navigation from home page -->
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="Logo.png" alt="Logo">
         </a>
-        <li><a href="PR.html">GCSE Past Papers & Boundaries</a></li>
-        <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
-        <li><a href="SPBE.html">Geography Flashcards</a></li>
-        <li><a href="BWT.html">Geography Case Studies</a></li>
-        <li><a href="test.html">Test Page</a></li>
-    </ul>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+        <ul class="nav-menu">
+            <li><a href="PR.html">GCSE Past Papers</a></li>
+            <li><a href="APR.html">A Level Papers</a></li>
+            <li><a href="SPBE.html">Geography Flashcards</a></li>
+            <li><a href="BWT.html">Case Studies</a></li>
+            <li><a href="test.html">Test Page</a></li>
+        </ul>
+    </div>
     
     <header class="page-header">
         <h1 id="main-title">A Level & BTEC Past Papers</h1>
@@ -574,6 +649,34 @@
         
         // Initialize the page
         updateSubjectOptions();
+        
+        // Navigation menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            // Simply toggle the active class on click
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (navMenu.classList.contains('active') && 
+                    !navMenu.contains(event.target) && 
+                    !menuToggle.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 1100) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
