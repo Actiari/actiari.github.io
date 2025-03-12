@@ -1,51 +1,61 @@
 <!doctype html>
+<html>
 <head>
-    <html>
-    <link rel='icon' type='image/x-icon' href='./Miscellaneous/Main Favicon.ico'>
-    <style>
+  <meta charset="utf-8">
+  <title>Home</title>
+  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+  <style>
     /* Navigation styles taken directly from the test page */
     ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #333;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
     }
     li {
-        float: left;
+      float: left;
     }
     li a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
     }
-    
-    /* Keep the rest of your original styles */
-    #header h1{
-        margin:0px;
+    /* Additional styling matching the test page */
+    body, form {
+      background-color: #000000;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    body,form {
-        background-color: #000000;
-        /* Removed text-indent to match test page */
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Optional: style for the main content to add some padding and contrasting text color */
+    .content {
+      padding: 20px;
+      color: white;
     }
-    iframe {
-        background-color: #000000;
-    }
-    </style>
-    <meta charset="utf-8">
-    <title>GCSE Past Papers</title>
-    </head>
-<u><h1>Page Information</h1></u>
-<p style="margin-left: 25px;">
-Home Page | <a href="index.html"> Home </p></a>
-<p style="margin-left: 25px;">
-A Level & BTEC Past Papers | <a href="APR.html"> A Level & BTEC Past Papers </p></a>
-<p style="margin-left: 25px;">
-GCSE Past Papers | <a href="PR.html"> Past Papers & Boundaries </p></a>
-<p style="margin-left: 25px;">
-Geography Case Studies | <a href="BWT.html"> Case Studies </p></a>
+  </style>
+</head>
+<body>
+  <!-- Navigation code reused from the test page -->
+  <ul>
+    <a href="index.html">
+      <img src="Logo.png" style="float:left;width:42px;height:38px;margin:7.5px" alt="Logo">
+    </a>
+    <li><a href="PR.html">GCSE Past Papers &amp; Boundaries</a></li>
+    <li><a href="APR.html">A Level &amp; BTEC Past Papers</a></li>
+    <li><a href="SPBE.html">Geography Flashcards</a></li>
+    <li><a href="BWT.html">Geography Case Studies</a></li>
+    <li><a href="test.html">Test Page</a></li>
+  </ul>
+
+  <!-- Homepage content -->
+  <div class="content">
+    <h1>Page Information</h1>
+    <p>Home Page | <a href="index.html">Home</a></p>
+    <p>A Level &amp; BTEC Past Papers | <a href="APR.html">A Level &amp; BTEC Past Papers</a></p>
+    <p>GCSE Past Papers | <a href="PR.html">Past Papers &amp; Boundaries</a></p>
+    <p>Geography Case Studies | <a href="BWT.html">Case Studies</a></p>
+  </div>
+</body>
 </html>
