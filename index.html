@@ -43,13 +43,16 @@
       vertical-align: middle;
     }
     
-    .nav-menu {
-      list-style-type: none;
-      display: flex;
-      align-items: center;
-      transition: all 0.3s ease;
-      margin-left: auto;
-    }
+/* Replace the current .nav-menu CSS with this */
+.nav-menu {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  margin-left: 0; /* Changed from auto to 0 */
+  width: 100%; /* Added to make buttons stretch across */
+  justify-content: space-between; /* Added to distribute buttons evenly */
+}
     
     .nav-menu li a {
       display: block;
@@ -264,13 +267,6 @@
     </ul>
   </div>
   
-  <!-- Hero section -->
-  <div class="hero">
-    <h1>Your Educational Resources Hub</h1>
-    <p>Access past papers, case studies, and learning materials to boost your academic performance</p>
-    <a href="#resources" class="cta-button">Browse Resources</a>
-  </div>
-  
   <!-- Main content -->
   <div class="content">
     <h2 class="section-title" id="resources">Our Resources</h2>
@@ -285,7 +281,6 @@
         </div>
         <div class="card-content">
           <h3>GCSE Past Papers</h3>
-          <p>Access past papers and grade boundaries for all major GCSE subjects to help you prepare for exams.</p>
           <a href="PR.html" class="card-link">View Papers →</a>
         </div>
       </div>
@@ -299,7 +294,6 @@
         </div>
         <div class="card-content">
           <h3>A Level & BTEC Papers</h3>
-          <p>Find comprehensive collections of A Level and BTEC past papers to support your advanced studies.</p>
           <a href="APR.html" class="card-link">View Papers →</a>
         </div>
       </div>
@@ -313,7 +307,6 @@
         </div>
         <div class="card-content">
           <h3>Geography Flashcards</h3>
-          <p>Study key geography concepts with our comprehensive flashcards designed to boost your knowledge retention.</p>
           <a href="SPBE.html" class="card-link">View Flashcards →</a>
         </div>
       </div>
@@ -327,17 +320,10 @@
         </div>
         <div class="card-content">
           <h3>Geography Case Studies</h3>
-          <p>Explore detailed geography case studies covering natural disasters, urban development, and sustainability.</p>
           <a href="BWT.html" class="card-link">View Case Studies →</a>
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- Footer -->
-  <div class="footer">
-    <p>© 2025 Educational Resources Hub</p>
-    <p>All resources are provided for educational purposes only</p>
   </div>
 
   <!-- JavaScript for mobile menu toggle -->
