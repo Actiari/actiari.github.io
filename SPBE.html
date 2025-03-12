@@ -1,95 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
   <style>
     /* Global styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
     body {
       background-color: #f0f8f0;
       margin: 0;
       font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
     }
-    
     h1, p {
       text-indent: 25px;
     }
-    
-    /* Navigation styles */
-    .nav-container {
-      background-color: #333;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      position: relative;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-    
-    .logo img {
-      width: 42px;
-      height: 38px;
-      vertical-align: middle;
-    }
-    
-    .nav-menu {
+    ul {
       list-style-type: none;
-      display: flex;
-      align-items: center;
-      transition: all 0.3s ease;
-      margin-left: 0;
-      width: 100%;
-      justify-content: flex-start;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
     }
-    
-    .nav-menu li {
-      flex: 0 0 auto;
+    li {
+      float: left;
     }
-    
-    .nav-menu li a {
+    li a {
       display: block;
       color: white;
       text-align: center;
-      padding: 20px 16px;
+      padding: 14px 16px;
       text-decoration: none;
-      white-space: nowrap;
-      transition: background-color 0.2s;
     }
-    
-    .nav-menu li a:hover {
-      background-color: #444;
-    }
-    
-    .menu-toggle {
-      display: none;
-      color: white;
-      background: none;
-      border: none;
-      font-size: 24px;
-      padding: 12px 16px;
-      cursor: pointer;
-      margin-left: auto;
-    }
-    
     #app-container {
       margin: 20px;
     }
-    
     /* Legend for colours */
     .legend {
       margin: 10px 0;
@@ -100,7 +42,6 @@
       font-size: 0.9rem;
       color: #1b5e20;
     }
-    
     .legend span.box {
       display: inline-block;
       width: 16px;
@@ -109,21 +50,17 @@
       vertical-align: middle;
       border: 1px solid #000;
     }
-    
     .legend .hazards-active { background-color: #2e7d32; }
     .legend .place-active { background-color: #1565c0; }
     .legend .inactive { background-color: #757575; }
-    
     /* Subtopic buttons */
     .subtopic-section {
       margin-bottom: 16px;
     }
-    
     .subtopic-section h5 {
       margin: 8px 0 4px;
       color: #1b5e20;
     }
-    
     .subtopic-button {
       margin-right: 8px;
       margin-bottom: 8px;
@@ -133,13 +70,11 @@
       cursor: pointer;
       font-size: 0.9rem;
     }
-    
     /* For subtopics, use shades based on category */
     .conceptual-active { background-color: #2e7d32; color: white; }
     .conceptual-inactive { background-color: #a5d6a7; color: #1b5e20; }
     .casestudy-active { background-color: #1565c0; color: white; }
     .casestudy-inactive { background-color: #90caf9; color: #1b5e20; }
-    
     /* Topic buttons */
     .topic-button {
       margin-right: 8px;
@@ -150,11 +85,9 @@
       cursor: pointer;
       font-size: 1rem;
     }
-    
     .hazards-topic-active { background-color: #2e7d32; color: white; }
     .place-topic-active { background-color: #1565c0; color: white; }
     .topic-inactive { background-color: #a5d6a7; color: white; }
-    
     /* Flashcard container */
     .flashcard-container {
       background-color: #f0f8f0;
@@ -168,7 +101,6 @@
       border: 2px solid #388e3c;
       position: relative;
     }
-    
     .progress-indicator {
       position: absolute;
       top: 8px;
@@ -176,121 +108,42 @@
       font-size: 0.9rem;
       color: #2e7d32;
     }
-    
     /* Answer text background */
     .flashcard-container .answer {
-      background-color: transparent;
+      background-color: transparent; /* Changed from #f0f8f0 to transparent */
       padding: 8px;
       border-radius: 4px;
     }
-    
     /* Fix for list items inside flashcard answers */
     .flashcard-container ul {
-      background-color: transparent;
-      list-style-type: disc;
-      overflow: visible;
-      margin-left: 20px;
-      padding-left: 5px;
+      background-color: transparent; /* Make nested lists transparent */
+      list-style-type: disc; /* Reset list style to disc for answer bullets */
+      overflow: visible; /* Ensure bullets are visible */
+      margin-left: 20px; /* Add margin for bullet points */
+      padding-left: 5px; /* Add some padding */
     }
-    
     .flashcard-container li {
-      float: none;
-      background-color: transparent;
-      color: #1b5e20;
-      margin-bottom: 4px;
-      display: list-item;
+      float: none; /* Reset float property from global li style */
+      background-color: transparent; /* Ensure list items are transparent */
+      color: #1b5e20; /* Match text color with other content */
+      margin-bottom: 4px; /* Add spacing between list items */
+      display: list-item; /* Ensure list items are displayed correctly */
     }
-    
-    /* Fix for list items inside the exam tips box */
-    #app-container ul {
-      background-color: transparent;
-      list-style-type: disc;
-      overflow: visible;
-      margin-left: 20px;
-      padding-left: 5px;
+        /* Fix for list items inside the exam tips box */
+        #app-container ul {
+      background-color: transparent; /* Make nested lists transparent */
+      list-style-type: disc; /* Reset list style to disc for answer bullets */
+      overflow: visible; /* Ensure bullets are visible */
+      margin-left: 20px; /* Add margin for bullet points */
+      padding-left: 5px; /* Add some padding */
     }
-    
     #app-container li {
-      float: none;
-      background-color: transparent;
-      color: #1b5e20;
-      margin-bottom: 4px;
-      display: list-item;
-      clear: both;
-    }
-    
-    /* Media queries for responsive design */
-    @media screen and (max-width: 1100px) {
-      .menu-toggle {
-        display: block !important;
-      }
-      
-      .nav-menu {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: #333;
-        z-index: 99;
-      }
-      
-      .nav-menu.active {
-        display: flex !important;
-      }
-      
-      .nav-menu li {
-        width: 100%;
-      }
-      
-      .nav-menu li a {
-        text-align: left;
-        padding: 16px 20px;
-        border-top: 1px solid #444;
-      }
-      
-      .subtopic-section {
-        display: flex;
-        flex-wrap: wrap;
-      }
-      
-      .subtopic-section h5 {
-        width: 100%;
-      }
-      
-      .legend {
-        font-size: 0.8rem;
-      }
-      
-      .topic-button, .subtopic-button {
-        font-size: 0.85rem;
-        padding: 6px 8px;
-      }
-    }
-    
-    @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 1.5rem;
-        text-align: center;
-      }
-      
-      .flashcard-container {
-        padding: 16px;
-        min-height: 14rem;
-      }
-      
-      .progress-indicator {
-        position: static;
-        text-align: right;
-        margin-bottom: 8px;
-      }
-      
-      .legend {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4px;
-      }
+      float: none; /* Reset float property from global li style */
+      background-color: transparent; /* Ensure list items are transparent */
+      color: #1b5e20; /* Match text color with other content */
+      margin-bottom: 4px; /* Add spacing between list items */
+      display: list-item; /* Ensure list items are displayed correctly */
+      clear: both; /* Ensure list items do not overlap */
     }
   </style>
   <title>Geography Flashcards</title>
@@ -301,24 +154,50 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-  <!-- Navigation with hamburger menu -->
+  <!-- Navigation with hamburger menu for tablets and mobile -->
   <div class="nav-container">
     <a href="index.html" class="logo">
       <img src="Logo.png" alt="Logo">
     </a>
     <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
     <ul class="nav-menu">
-      <li><a href="PR.html">GCSE Past Papers & Boundaries</a></li>
-      <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
+      <li><a href="PR.html">GCSE Past Papers</a></li>
+      <li><a href="APR.html">A Level Papers</a></li>
       <li><a href="SPBE.html">Geography Flashcards</a></li>
-      <li><a href="BWT.html">Geography Case Studies</a></li>
+      <li><a href="BWT.html">Case Studies</a></li>
       <li><a href="test.html">Test Page</a></li>
     </ul>
   </div>
-  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      // Simply toggle the active class on click
+      menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (navMenu.classList.contains('active') &&
+            !navMenu.contains(event.target) &&
+            !menuToggle.contains(event.target)) {
+          navMenu.classList.remove('active');
+        }
+      });
+
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 1100) {
+          navMenu.classList.remove('active');
+        }
+      });
+    });
+  </script>
   <!-- React App Container -->
   <div id="app-container"></div>
-  
   <!-- React Component -->
   <script type="text/babel">
     const GeographyFlashcardApp = () => {
@@ -799,216 +678,183 @@
           updatedStats[currentCard.id] = {
             ...updatedStats[currentCard.id],
             timesReviewed: (updatedStats[currentCard.id].timesReviewed || 0) + 1,
-           // This continues from where the code was cut off
-           lastReviewed: new Date(),
-            nextReview: new Date(Date.now() + 24 * 60 * 60 * 1000) // Next review in 24 hours
+            lastReviewed: new Date()
           };
+          setCardStats(updatedStats);
         }
       };
-      
-      // Handle topic selection
-      const handleTopicSelect = (topic) => {
-        if (selectedTopic === topic) {
-          // If clicking the already selected topic, deselect it
-          setSelectedTopic(null);
-          setSelectedSubtopic({ category: null, name: null });
-        } else {
-          setSelectedTopic(topic);
-          setSelectedSubtopic({ category: null, name: null });
-        }
+      const Statistics = () => {
+        const totalCards = flashcards.length;
+        const reviewedCards = Object.values(cardStats).filter(stat => stat.timesReviewed > 0).length;
+        return (
+          <div style={{ backgroundColor: "#e6f5e6", border: "2px solid #388e3c", borderRadius: "8px", padding: "16px", maxWidth: "32rem", margin: "24px auto", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "16px", color: "#1b5e20" }}>Your Study Statistics</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+              <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
+                <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{totalCards}</div>
+                <div style={{ fontSize: "0.875rem" }}>Total Cards</div>
+              </div>
+              <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
+                <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{reviewedCards}</div>
+                <div style={{ fontSize: "0.875rem" }}>Reviewed</div>
+              </div>
+            </div>
+          </div>
+        );
       };
-      
-      // Handle subtopic selection
-      const handleSubtopicSelect = (subtopic, category) => {
-        if (selectedSubtopic.name === subtopic) {
-          // If clicking the already selected subtopic, deselect it
-          setSelectedSubtopic({ category: null, name: null });
-        } else {
-          setSelectedSubtopic({ category, name: subtopic });
-        }
+      // UI for subtopic selection
+      const renderSubtopicButtons = () => {
+        if (!selectedTopic) return null;
+        const config = topicConfig.find(item => item.topic === selectedTopic);
+        return (
+          <div>
+            <div className="subtopic-section">
+              <h5>Conceptual</h5>
+              {config.conceptual.map(sub => (
+                <button key={sub} className={`subtopic-button ${selectedSubtopic.category==="Conceptual" && selectedSubtopic.name===sub ? "conceptual-active" : "conceptual-inactive"}`}
+                  onClick={() => setSelectedSubtopic({ category: "Conceptual", name: sub })}>
+                  {sub.length > 20 ? sub.slice(0,20) + "…" : sub}
+                </button>
+              ))}
+            </div>
+            <div className="subtopic-section">
+              <h5>Case Studies</h5>
+              {config.caseStudies.map(sub => (
+                <button key={sub} className={`subtopic-button ${selectedSubtopic.category==="Case Study" && selectedSubtopic.name===sub ? "casestudy-active" : "casestudy-inactive"}`}
+                  onClick={() => setSelectedSubtopic({ category: "Case Study", name: sub })}>
+                  {sub}
+                </button>
+              ))}
+            </div>
+            <button className="subtopic-button topic-inactive" onClick={() => setSelectedSubtopic({ category: null, name: null })}>
+              All Subtopics
+            </button>
+          </div>
+        );
       };
-      
-      // Navigation functions
-      const nextCard = () => {
-        if (currentCardIndex < filteredCards.length - 1) {
-          setCurrentCardIndex(currentCardIndex + 1);
-          setShowAnswer(false);
-        } else {
-          setCurrentCardIndex(0);
-          setShowAnswer(false);
-        }
-      };
-      
-      const prevCard = () => {
-        if (currentCardIndex > 0) {
-          setCurrentCardIndex(currentCardIndex - 1);
-          setShowAnswer(false);
-        }
-      };
-      
-      // Get current card
-      const currentCard = filteredCards.length > 0 ? filteredCards[currentCardIndex] : null;
-      
       return (
-        <div>
-          <h1>Geography Flashcards</h1>
-          
-          {/* Topic buttons */}
-          <div style={{ margin: '20px 0' }}>
-            <h4 style={{ color: '#1b5e20', marginBottom: '8px' }}>Select Topic:</h4>
-            {topicConfig.map((config) => (
-              <button
-                key={config.topic}
-                className={`topic-button ${selectedTopic === config.topic ? 
-                  (config.topic === 'Hazards' ? 'hazards-topic-active' : 'place-topic-active') : 
-                  'topic-inactive'}`}
-                onClick={() => handleTopicSelect(config.topic)}
-              >
-                {config.topic}
-              </button>
-            ))}
-          </div>
-          
-          {/* Subtopic selection section - only show if a topic is selected */}
-          {selectedTopic && (
-            <div>
-              {/* Conceptual subtopics */}
-              <div className="subtopic-section">
-                <h5>Conceptual Topics:</h5>
-                {topicConfig.find(t => t.topic === selectedTopic).conceptual.map((sub) => (
-                  <button
-                    key={sub}
-                    className={`subtopic-button ${selectedSubtopic.name === sub ? 
-                      'conceptual-active' : 'conceptual-inactive'}`}
-                    onClick={() => handleSubtopicSelect(sub, 'Conceptual')}
-                  >
-                    {sub}
-                  </button>
-                ))}
-              </div>
-              
-              {/* Case studies subtopics */}
-              <div className="subtopic-section">
-                <h5>Case Studies:</h5>
-                {topicConfig.find(t => t.topic === selectedTopic).caseStudies.map((sub) => (
-                  <button
-                    key={sub}
-                    className={`subtopic-button ${selectedSubtopic.name === sub ? 
-                      'casestudy-active' : 'casestudy-inactive'}`}
-                    onClick={() => handleSubtopicSelect(sub, 'Case Study')}
-                  >
-                    {sub}
-                  </button>
-                ))}
-              </div>
+        <div style={{ minHeight: "100vh", backgroundColor: "#f0f8f0", padding: "16px" }}>
+          <div style={{ maxWidth: "64rem", margin: "0 auto" }}>
+            <header style={{ textAlign: "center", marginBottom: "24px" }}>
+              <h1 style={{ fontSize: "1.875rem", fontWeight: "bold", color: "#1b5e20" }}>
+                AQA Geography AS Level Revision
+              </h1>
+            </header>
+            {/* Legend */}
+            <div className="legend">
+              <div><span class="box hazards-active"></span> Hazards Topic (Active)</div>
+              <div><span class="box place-active"></span> Place Topic (Active)</div>
+              <div><span class="box topic-inactive"></span> Inactive Topic</div>
+              <div><span class="box conceptual-active"></span> Conceptual Subtopic (Active)</div>
+              <div><span class="box conceptual-inactive"></span> Conceptual Subtopic (Inactive)</div>
+              <div><span class="box casestudy-active"></span> Case Study Subtopic (Active)</div>
+              <div><span class="box casestudy-inactive"></span> Case Study Subtopic (Inactive)</div>
             </div>
-          )}
-          
-          {/* Color legend */}
-          <div className="legend">
-            <div><span className="box hazards-active"></span> Hazards (Active)</div>
-            <div><span className="box place-active"></span> Place (Active)</div>
-            <div><span className="box inactive"></span> Inactive</div>
-          </div>
-          
-          {/* Flashcard display */}
-          {currentCard ? (
-            <div 
-              className="flashcard-container"
-              onClick={toggleAnswer}
-            >
-              <div className="progress-indicator">
-                Card {currentCardIndex + 1} of {filteredCards.length}
-              </div>
-              
-              <div style={{ marginBottom: '16px', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                {currentCard.question}
-              </div>
-              
-              {showAnswer && (
-                <div 
-                  className="answer"
-                  dangerouslySetInnerHTML={{ __html: currentCard.answer }}
+            {/* Controls */}
+            <div style={{ backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", marginBottom: "24px", border: "2px solid #388e3c" }}>
+              <div style={{ marginBottom: "16px" }}>
+                <label style={{ display: "block", fontSize: "0.875rem", fontWeight: "500", marginBottom: "4px", color: "#1b5e20" }}>Search</label>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search questions, answers, or subtopics..."
+                  style={{ width: "100%", padding: "8px", border: "1px solid #388e3c", borderRadius: "4px", backgroundColor: "#f1f8e9" }}
                 />
-              )}
-              
-              {!showAnswer && (
-                <div style={{ 
-                  textAlign: 'center', 
-                  marginTop: '32px', 
-                  color: '#757575',
-                  fontStyle: 'italic'
-                }}>
-                  Click to reveal answer
+              </div>
+              {/* Topic selection */}
+              <div style={{ marginBottom: "16px" }}>
+                <h4 style={{ color: "#1b5e20", marginBottom: "8px" }}>Select Topic:</h4>
+                {topicConfig.map(item => (
+                  <button
+                    key={item.topic}
+                    onClick={() => { setSelectedTopic(item.topic); setSelectedSubtopic({ category: null, name: null }); }}
+                    className="topic-button"
+                    style={{ backgroundColor: selectedTopic === item.topic ? item.activeColor : "#757575" }}
+                  >
+                    {item.topic}
+                  </button>
+                ))}
+                <button
+                  onClick={() => { setSelectedTopic(null); setSelectedSubtopic({ category: null, name: null }); }}
+                  className="topic-button topic-inactive"
+                >
+                  All Topics
+                </button>
+              </div>
+              {renderSubtopicButtons()}
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ fontSize: "0.875rem", color: "#2e7d32" }}>
+                  {filteredCards.length} cards {filteredCards.length > 0 ? `(Card ${currentCardIndex + 1} of ${filteredCards.length})` : ''}
                 </div>
-              )}
+                <button onClick={() => setShowStats(!showStats)} style={{ color: "#2e7d32", fontWeight: "500" }}>
+                  {showStats ? 'Hide Statistics' : 'Show Statistics'}
+                </button>
+              </div>
             </div>
-          ) : (
-            <div className="flashcard-container" style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <p>No flashcards match your current selection. Try changing your filters.</p>
+            {showStats && <Statistics />}
+            {/* Flashcards */}
+            {filteredCards.length > 0 ? (
+              <div style={{ width: "100%", maxWidth: "32rem", margin: "0 auto" }}>
+                <div className="flashcard-container" onClick={toggleAnswer}>
+                  <div className="progress-indicator">
+                    Card {currentCardIndex + 1}/{filteredCards.length}
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", color: "#2e7d32", marginBottom: "8px" }}>
+                    <div>
+                      Subtopic: <span style={{ fontWeight: "500", textTransform: "capitalize" }}>{filteredCards[currentCardIndex].subtopic}</span>
+                    </div>
+                  </div>
+                  <div style={{ flexGrow: 1 }}>
+                    {!showAnswer ? (
+                      <div>
+                        <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "16px", color: "#1b5e20" }}>Question:</h3>
+                        <p style={{ fontSize: "1.125rem", color: "#1b5e20" }}>{filteredCards[currentCardIndex].question}</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "8px", color: "#1b5e20" }}>Answer:</h3>
+                        <p style={{ fontSize: "1.125rem", color: "#1b5e20", whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}></p>
+                      </div>
+                    )}
+                  </div>
+                  <div style={{ textAlign: "center", fontSize: "0.875rem", color: "#2e7d32", marginTop: "16px" }}>
+                    {!showAnswer ? 'Click to reveal answer' : 'Click card again to hide answer'}
+                  </div>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
+                  <button onClick={prevCard} disabled={currentCardIndex === 0} style={{ padding: "8px 16px", borderRadius: "4px", backgroundColor: currentCardIndex === 0 ? "#d3d3d3" : "#2e7d32", color: currentCardIndex === 0 ? "#666" : "white", cursor: currentCardIndex === 0 ? "not-allowed" : "pointer" }}>
+                    Previous Card
+                  </button>
+                  <button onClick={nextCard} style={{ backgroundColor: "#2e7d32", color: "white", padding: "8px 16px", borderRadius: "4px" }}>
+                    Next Card
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div style={{ textAlign: "center", padding: "24px", backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", border: "2px solid #388e3c" }}>
+                <p style={{ fontSize: "1.125rem", color: "#1b5e20" }}>No flashcards match your search. Try changing your search criteria.</p>
+              </div>
+            )}
+            {/* Exam Tips */}
+            <div style={{ marginTop: "32px", backgroundColor: "#f0f8f0", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", border: "2px solid #388e3c" }}>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#1b5e20", marginBottom: "8px" }}>AQA Geography Exam Tips</h3>
+              <ul style={{ listStyleType: "disc", paddingLeft: "20px", marginTop: "8px", backgroundColor: "#f0f8f0" }}>
+                <li>Use detailed case study data (e.g. magnitude, casualties, and damage figures).</li>
+                <li>Break down answers into clear bullet points for clarity.</li>
+                <li>Write in an exam style: concise, structured, and evidence-based.</li>
+                <li>Include both immediate responses and long-term implications.</li>
+                <li>For place studies, integrate economic and population statistics.</li>
+              </ul>
             </div>
-          )}
-          
-          {/* Navigation buttons */}
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            margin: '16px 0'
-          }}>
-            <button 
-              onClick={prevCard}
-              className="subtopic-button conceptual-active"
-              disabled={currentCardIndex === 0 || filteredCards.length === 0}
-              style={{ opacity: currentCardIndex === 0 || filteredCards.length === 0 ? 0.5 : 1 }}
-            >
-              Previous Card
-            </button>
-            
-            <button 
-              onClick={nextCard}
-              className="subtopic-button casestudy-active"
-              disabled={currentCardIndex === filteredCards.length - 1 || filteredCards.length === 0}
-              style={{ opacity: currentCardIndex === filteredCards.length - 1 || filteredCards.length === 0 ? 0.5 : 1 }}
-            >
-              Next Card
-            </button>
-          </div>
-          
-          {/* Exam tips section */}
-          <div style={{
-            margin: '32px 0',
-            padding: '16px',
-            backgroundColor: '#e8f5e9',
-            borderRadius: '8px',
-            border: '2px solid #388e3c'
-          }}>
-            <h3 style={{ color: '#1b5e20', marginBottom: '8px' }}>Exam Tips</h3>
-            <ul>
-              <li>For hazard questions, always include specific case study data like VEI, casualty numbers, and economic costs.</li>
-              <li>When discussing place, contrast insider/outsider perspectives and mention demographic statistics.</li>
-              <li>Include at least 3 specific case studies in your hazards essays.</li>
-              <li>Make sure to link theoretical concepts to real-world examples in place-based questions.</li>
-              <li>Use precise terminology appropriate to each topic (e.g., VEI for volcanoes, urban regeneration for place).</li>
-            </ul>
           </div>
         </div>
       );
     };
-    
-    // Render the app
-    const rootElement = document.getElementById('app-container');
-    const root = ReactDOM.createRoot(rootElement);
-    root.render(<GeographyFlashcardApp />);
-    
-    // Mobile navigation menu toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-      
-      menuToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
-      });
-    });
+    ReactDOM.render(
+      <GeographyFlashcardApp />,
+      document.getElementById('app-container')
+    );
   </script>
 </body>
 </html>
