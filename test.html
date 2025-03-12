@@ -872,9 +872,245 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Hide admin panel in production
-    // Uncomment the line below to hide the admin panel
-    // document.getElementById('admin-panel').style.display = 'none';
+    // Hide admin panel - we don't need file uploads
+    document.getElementById('admin-panel').style.display = 'none';
+    
+    // Auto-load CSV data when subject changes
+    subjectSelect.addEventListener('change', () => {
+        const board = examBoardSelect.value;
+        const subjectKey = subjectSelect.value;
+        
+        if (subjectKey !== 'default') {
+            const subject = subjectData[board][subjectKey];
+            // CSV filename is same as the subject key with .csv extension
+            const csvFileName = `${subjectKey}.csv`;
+            
+            // Try to load the CSV file
+            loadCSVFromFile(csvFileName, (data) => {
+                const subjectCSVKey = `${getBoardName(board)}_${subject.name.replace(/\s+/g, '_')}`;
+                paperData[subjectCSVKey] = data;
+                updateContent();
+            });
+        } else {
+            updateContent();
+        }
+    });
+});
+
+// Modify the parseCSV function to better handle various CSV formats
+function parseCSV(csv) {
+    const lines = csv.split('\n');
+    const result = [];
+    
+    // Find the header row
+    let headerRow = 0;
+    for (let i = 0; i < Math.min(10, lines.length); i++) {
+        if (lines[i].includes('Paper') || lines[i].includes('Mark Scheme') || 
+            lines[i].includes('Question Paper') || lines[i].includes('Exam Series')) {
+            headerRow = i;
+            break;
+        }
+    }
+    
+    // Parse headers
+    const headers = lines[headerRow].split(',').map(h => h.trim());
+    const seriesIndex = headers.findIndex(h => 
+        h.includes('Series') || h.includes('Date') || h === 'Exam Series' || h === '');
+    
+    // Find all paper and mark scheme columns
+    const columns = {};
+    headers.forEach((header, index) => {
+        if (index !== seriesIndex && header) {
+            columns[header] = index;
+        }
+    });
+    
+    // Parse data rows
+    for (let i = headerRow + 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        
+        const line = lines[i].split(',');
+        if (line.length <= 1) continue;
+        
+        const row = {
+            series: line[seriesIndex].trim(),
+            links: {}
+        };
+        
+        // Extract links for each column
+        for (const [header, index] of Object.entries(columns)) {
+            if (line[index] && line[index].trim()) {
+                row.links[header] = line[index].trim();
+            }
+        }
+        
+        if (row.series) {
+            result.push(row);
+        }
+    }
+    
+    return result;
+}
+
+// Update the updateContent function to properly display table cells
+function updateContent() {
+    const board = examBoardSelect.value;
+    const subjectKey = subjectSelect.value;
+    
+    if (subjectKey === 'default') {
+        contentArea.innerHTML = `
+            <div class="papers-container" style="text-align: center; padding: 40px 20px;">
+                <h2>Please select a subject</h2>
+                <p>Use the dropdown menu above to view past papers for your chosen subject.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const subject = subjectData[board][subjectKey];
+    
+    // Update colors
+    document.documentElement.style.setProperty('--primary-color', subject.primaryColor);
+    document.documentElement.style.setProperty('--secondary-color', subject.secondaryColor);
+    document.documentElement.style.setProperty('--primary-rgb', hexToRgb(subject.primaryColor));
+    
+    // Update page title
+    mainTitle.textContent = `${getBoardName(board)} | ${subject.name}`;
+    subTitle.textContent = 'Past Papers & Resources';
+    
+    // Get CSV data for this subject
+    const subjectCSVKey = `${getBoardName(board)}_${subject.name.replace(/\s+/g, '_')}`;
+    const subjectCSVData = paperData[subjectCSVKey] || [];
+    
+    // Build the content
+    let contentHTML = '';
+    
+    // Resources section
+    contentHTML += `
+        <section class="resources-section">
+            <h2 class="resources-header">Resources</h2>
+            <table class="resources-table">
+    `;
+    
+    subject.resources.forEach(resource => {
+        contentHTML += `
+            <tr>
+                <td width="30%" style="text-align: left;"><strong>${resource.name}:</strong></td>
+                <td style="text-align: left;"><a href="${resource.link}" class="download-link" target="_blank">${resource.name}</a></td>
+            </tr>
+        `;
+    });
+    
+    contentHTML += `
+            </table>
+        </section>
+    `;
+    
+    // Level tabs if needed
+    if (subject.levels.length > 1) {
+        contentHTML += `<div class="level-tabs">`;
+        subject.levels.forEach((level, index) => {
+            const isActive = index === 0 ? 'active' : '';
+            contentHTML += `
+                <div class="level-tab ${isActive}" data-level="${level}" onclick="activateTab('${level}')">
+                    ${formatLevelName(level)}
+                </div>
+            `;
+        });
+        contentHTML += `</div>`;
+    }
+    
+    // Create tables for each level
+    subject.levels.forEach((level, index) => {
+        const isActive = index === 0 ? 'active' : '';
+        
+        contentHTML += `
+            <div id="${level}-content" class="level-content ${isActive}">
+                <main class="papers-container">
+                    <table class="papers-table">
+                        <thead>
+                            <tr>
+                                <th width="20%" style="text-align: left;">Exam Series</th>
+        `;
+        
+        // Get column headers from data if available, otherwise use defaults
+        const columnHeaders = [];
+        if (subjectCSVData.length > 0 && subjectCSVData[0].links) {
+            // Use headers from the CSV data
+            for (const header in subjectCSVData[0].links) {
+                columnHeaders.push(header);
+            }
+        } else if (level === 'btec') {
+            columnHeaders.push('Assignment Brief', 'Sample Assessment');
+        } else {
+            columnHeaders.push('Paper 1', 'Paper 1 Mark Scheme', 'Paper 2', 'Paper 2 Mark Scheme');
+        }
+        
+        // Add column headers
+        columnHeaders.forEach(header => {
+            contentHTML += `<th style="text-align: center;">${header}</th>`;
+        });
+        
+        contentHTML += `
+                            </tr>
+                        </thead>
+                        <tbody>
+        `;
+        
+        // Add rows for each exam series
+        const examSeriesData = subjectCSVData.length > 0 ? 
+            subjectCSVData : 
+            [
+                { series: "June 2023", links: {} },
+                { series: "June 2022", links: {} },
+                { series: "November 2021", links: {} },
+                { series: "June 2019", links: {} }
+            ];
+        
+        examSeriesData.forEach(seriesData => {
+            contentHTML += `
+                <tr>
+                    <td class="series-column" style="text-align: left;">${seriesData.series}</td>
+            `;
+            
+            // Add cells for each column
+            columnHeaders.forEach(header => {
+                const link = seriesData.links[header] || '#';
+                contentHTML += `
+                    <td style="text-align: center;">
+                        ${isURL(link) ? 
+                            `<a href="${link}" class="download-link" target="_blank">Download</a>` : 
+                            `<span class="empty-cell">N/A</span>`}
+                    </td>
+                `;
+            });
+            
+            contentHTML += `</tr>`;
+        });
+        
+        contentHTML += `
+                        </tbody>
+                    </table>
+                </main>
+            </div>
+        `;
+    });
+    
+    contentArea.innerHTML = contentHTML;
+}
+
+// Fix the papers-table styles to ensure left alignment where needed
+document.addEventListener('DOMContentLoaded', function() {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .papers-table th:first-child, .papers-table td:first-child {
+            text-align: left;
+        }
+        .resources-table td {
+            text-align: left;
+        }
+    `;
+    document.head.appendChild(style);
 });
 </script>
 </body>
