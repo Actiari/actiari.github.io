@@ -1,102 +1,272 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AQA | A Level Geography Case Studies</title>
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
   <style>
-    /* Navigation styles from the test page */
-    ul {
-      list-style-type: none;
+    /* Base styles */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      overflow: hidden;
+    }
+    
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    /* Navigation styles */
+    .nav-container {
       background-color: #333;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      position: relative;
     }
-    li {
-      float: left;
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
     }
-    li a {
+    
+    .logo img {
+      width: 42px;
+      height: 38px;
+      vertical-align: middle;
+    }
+    
+    .nav-menu {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      margin-left: 0;
+      width: 100%;
+      justify-content: flex-start; /* Changed from space-between to flex-start */
+    }
+    
+    .nav-menu li {
+      flex: 0 0 auto; /* Don't grow or shrink, stay at natural width */
+    }
+    
+    .nav-menu li a {
       display: block;
       color: white;
       text-align: center;
-      padding: 14px 16px;
+      padding: 20px 16px;
       text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s;
     }
-    /* Global page styles updated for consistency */
-    body {
-      margin: 0;
-      background-color: #f0f8f0;
-      font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+    
+    .nav-menu li a:hover {
+      background-color: #444;
     }
-    table {
-      width: 90%;
-      margin: 20px auto;
-      border-collapse: collapse;
+    
+    .menu-toggle {
+      display: none;
+      color: white;
+      background: none;
+      border: none;
+      font-size: 24px;
+      padding: 12px 16px;
+      cursor: pointer;
+      margin-left: auto;
     }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
+    
+    /* Case study content styling */
+    .content {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    th {
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: #1b5e20;
+    }
+    
+    /* Case study card styles */
+    .topic-container {
+      margin-bottom: 40px;
+    }
+    
+    .topic-header {
       background-color: #66bb6a;
       color: white;
+      padding: 15px 20px;
+      border-radius: 8px 8px 0 0;
+      font-size: 1.5rem;
+      margin-bottom: 0;
     }
-    h1 {
-      text-align: center;
-      color: #1b5e20;
-      text-decoration: none;
+    
+    .case-studies-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 25px;
+      background-color: #ffffff;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
     }
-    .custom-bg {
-      background-color: #ccebd5;
+    
+    .case-study-card {
+      background-color: #f0f8f0;
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .case-study-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Media queries for responsive design */
+    @media screen and (max-width: 1100px) {
+      .nav-container {
+        flex-wrap: wrap;
+        padding: 0;
+      }
+      
+      .logo {
+        padding: 10px 20px;
+      }
+      
+      .menu-toggle {
+        display: block !important; /* Force display with !important */
+      }
+      
+      .nav-menu {
+        display: none; /* Hide by default on mobile */
+        width: 100%;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #333;
+        z-index: 99;
+      }
+      
+      .nav-menu.active {
+        display: flex !important; /* Show when active with !important */
+      }
+      
+      .nav-menu li {
+        width: 100%;
+      }
+      
+      .nav-menu li a {
+        text-align: left;
+        padding: 16px 20px;
+        border-top: 1px solid #444;
+      }
+      
+      .case-studies-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+    }
+    
+    @media screen and (max-width: 600px) {
+      .case-studies-container {
+        grid-template-columns: 1fr;
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation updated to match the test page -->
-  <ul>
-    <a href="index.html">
-      <img src="Logo.png" style="float:left;width:42px;height:38px;margin:7.5px" alt="Logo">
+  <!-- Navigation with hamburger menu for tablets and mobile -->
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="Logo.png" alt="Logo">
     </a>
-    <li><a href="PR.html">GCSE Past Papers &amp; Boundaries</a></li>
-    <li><a href="APR.html">A Level &amp; BTEC Past Papers</a></li>
-    <li><a href="SPBE.html">Geography Flashcards</a></li>
-    <li><a href="BWT.html">Geography Case Studies</a></li>
-  </ul>
+    <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    <ul class="nav-menu">
+      <li><a href="PR.html">GCSE Past Papers</a></li>
+      <li><a href="APR.html">A Level Papers</a></li>
+      <li><a href="SPBE.html">Geography Flashcards</a></li>
+      <li><a href="BWT.html">Case Studies</a></li>
+    </ul>
+  </div>
   
-  <!-- Main Content -->
-  <h1>Case Studies</h1>
-  <table>
-    <tr>
-      <th>Topic</th>
-      <th>Case Studies</th>
-    </tr>
-    <tr>
-      <td rowspan="11" class="custom-bg">Hazards</td>
-      <td>Mt Etna</td>
-    </tr>
-    <tr><td>Mt Merapi</td></tr>
-    <tr><td>Eyjafjallajokull</td></tr>
-    <tr><td>Monserrat</td></tr>
-    <tr><td>Indonesian Tsunami</td></tr>
-    <tr><td>Tohoko</td></tr>
-    <tr><td>Haiti Earthquake</td></tr>
-    <tr><td>Cyclone Nargis</td></tr>
-    <tr><td>Hurricane Katrina</td></tr>
-    <tr><td>Yellowstone</td></tr>
-    <tr><td>Alberta Bushfire, Black Saturday</td></tr>
-    <tr>
-      <td rowspan="8" class="custom-bg">Place</td>
-      <td>Ground Zero New York</td>
-    </tr>
-    <tr><td>New York Song</td></tr>
-    <tr><td>Plymouth</td></tr>
-    <tr><td>Devonport</td></tr>
-    <tr><td>Medellin Columbia</td></tr>
-    <tr><td>Llandudno</td></tr>
-    <tr><td>Bourneville</td></tr>
-    <tr><td>Detroit</td></tr>
-  </table>
+  <!-- Main content -->
+  <div class="content">
+    <h2 class="section-title">Geography Case Studies</h2>
+    
+    <!-- Hazards Topic -->
+    <div class="topic-container">
+      <h3 class="topic-header">Hazards</h3>
+      <div class="case-studies-container">
+        <div class="case-study-card">Mt Etna</div>
+        <div class="case-study-card">Mt Merapi</div>
+        <div class="case-study-card">Eyjafjallajokull</div>
+        <div class="case-study-card">Monserrat</div>
+        <div class="case-study-card">Indonesian Tsunami</div>
+        <div class="case-study-card">Tohoko</div>
+        <div class="case-study-card">Haiti Earthquake</div>
+        <div class="case-study-card">Cyclone Nargis</div>
+        <div class="case-study-card">Hurricane Katrina</div>
+        <div class="case-study-card">Yellowstone</div>
+        <div class="case-study-card">Alberta Bushfire, Black Saturday</div>
+      </div>
+    </div>
+    
+    <!-- Place Topic -->
+    <div class="topic-container">
+      <h3 class="topic-header">Place</h3>
+      <div class="case-studies-container">
+        <div class="case-study-card">Ground Zero New York</div>
+        <div class="case-study-card">New York Song</div>
+        <div class="case-study-card">Plymouth</div>
+        <div class="case-study-card">Devonport</div>
+        <div class="case-study-card">Medellin Columbia</div>
+        <div class="case-study-card">Llandudno</div>
+        <div class="case-study-card">Bourneville</div>
+        <div class="case-study-card">Detroit</div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+      
+      // Simply toggle the active class on click
+      menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (navMenu.classList.contains('active') && 
+            !navMenu.contains(event.target) && 
+            !menuToggle.contains(event.target)) {
+          navMenu.classList.remove('active');
+        }
+      });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 1100) {
+          navMenu.classList.remove('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
