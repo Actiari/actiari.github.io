@@ -332,76 +332,63 @@
     </div>
   </div>
 
-  <!-- JavaScript for mobile menu toggle -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-      
-      // Function to check if menu should be in mobile view
-      function checkMenuMode() {
-        const navContainer = document.querySelector('.nav-container');
-        const logo = document.querySelector('.logo');
-        const navItems = document.querySelectorAll('.nav-menu li');
-        
-        // Calculate the width to determine if items would wrap
-        let totalWidth = logo.offsetWidth;
-        navItems.forEach(item => {
-          totalWidth += item.offsetWidth;
-        });
-        
-        // Add some buffer for padding
-        totalWidth += 40;
-        
-        // If the total width exceeds the container width, switch to mobile mode
-        if (totalWidth > window.innerWidth) {
-          menuToggle.style.display = 'block';
-          navMenu.classList.remove('active');
-          navMenu.style.display = 'none';
-        } else {
-          menuToggle.style.display = 'none';
-          navMenu.style.display = 'flex';
-        }
-      }
-      
-      // Toggle menu when hamburger is clicked
-      menuToggle.addEventListener('click', function() {
-        if (navMenu.classList.contains('active')) {
-          navMenu.classList.remove('active');
-          navMenu.style.display = 'none';
-        } else {
-          navMenu.classList.add('active');
-          navMenu.
-          navMenu.style.display = 'flex';
-        }
-      }
-      
-      // Toggle menu when hamburger is clicked
-      menuToggle.addEventListener('click', function() {
-        if (navMenu.classList.contains('active')) {
-          navMenu.classList.remove('active');
-          navMenu.style.display = 'none';
-        } else {
-          navMenu.classList.add('active');
-          navMenu.style.display = 'flex';
-        }
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(event) {
-        const isClickInsideMenu = navMenu.contains(event.target);
-        const isClickOnToggle = menuToggle.contains(event.target);
-        
-        if (!isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('active')) {
-          navMenu.classList.remove('active');
-          navMenu.style.display = 'none';
-        }
-      });
-      
-      // Check menu mode on page load and window resize
-      window.addEventListener('resize', checkMenuMode);
-      checkMenuMode(); // Initial check
+  // JavaScript for mobile menu toggle
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  // Function to check if menu should be in mobile view
+  function checkMenuMode() {
+    const navContainer = document.querySelector('.nav-container');
+    const logo = document.querySelector('.logo');
+    const navItems = document.querySelectorAll('.nav-menu li');
+    
+    // Calculate the width to determine if items would wrap
+    let totalWidth = logo.offsetWidth;
+    navItems.forEach(item => {
+      totalWidth += item.offsetWidth;
     });
+    
+    // Add some buffer for padding
+    totalWidth += 40;
+    
+    // If the total width exceeds the container width, switch to mobile mode
+    if (totalWidth > window.innerWidth) {
+      menuToggle.style.display = 'block';
+      navMenu.classList.remove('active');
+      navMenu.style.display = 'none';
+    } else {
+      menuToggle.style.display = 'none';
+      navMenu.style.display = 'flex';
+    }
+  }
+  
+  // Toggle menu when hamburger is clicked
+  menuToggle.addEventListener('click', function() {
+    if (navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      navMenu.style.display = 'none';
+    } else {
+      navMenu.classList.add('active');
+      navMenu.style.display = 'flex';
+    }
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const isClickInsideMenu = navMenu.contains(event.target);
+    const isClickOnToggle = menuToggle.contains(event.target);
+    
+    if (!isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      navMenu.style.display = 'none';
+    }
+  });
+  
+  // Check menu mode on page load and window resize
+  window.addEventListener('resize', checkMenuMode);
+  checkMenuMode(); // Initial check
+});
   </script>
 </body>
 </html>
