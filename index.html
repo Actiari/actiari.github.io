@@ -44,14 +44,20 @@
     }
     
 /* Replace the current .nav-menu CSS with this */
+/* Replace the current .nav-menu CSS with this */
 .nav-menu {
   list-style-type: none;
   display: flex;
   align-items: center;
   transition: all 0.3s ease;
-  margin-left: 0; /* Changed from auto to 0 */
-  width: 100%; /* Added to make buttons stretch across */
-  justify-content: space-between; /* Added to distribute buttons evenly */
+  margin-left: 0;
+  width: 100%;
+  justify-content: flex-start; /* Changed from space-between to flex-start */
+}
+
+/* Add this to adjust the width of each nav item */
+.nav-menu li {
+  flex: 0 0 auto; /* Don't grow or shrink, stay at natural width */
 }
     
     .nav-menu li a {
