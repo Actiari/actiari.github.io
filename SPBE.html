@@ -799,23 +799,10 @@
           updatedStats[currentCard.id] = {
             ...updatedStats[currentCard.id],
             timesReviewed: (updatedStats[currentCard.id].timesReviewed || 0) + 1,
-            // This continues from where the code was cut off
-            lastReviewed: new Date(),
+           // This continues from where the code was cut off
+           lastReviewed: new Date(),
             nextReview: new Date(Date.now() + 24 * 60 * 60 * 1000) // Next review in 24 hours
           };
-        }
-      };
-      
-      // Mark card as correct or incorrect
-      const markCard = (correct) => {
-        if (filteredCards.length > 0) {
-          const currentCard = filteredCards[currentCardIndex];
-          const updatedStats = { ...cardStats };
-          if (correct) {
-            updatedStats[currentCard.id].timesCorrect = (updatedStats[currentCard.id].timesCorrect || 0) + 1;
-          }
-          setCardStats(updatedStats);
-          nextCard();
         }
       };
       
@@ -841,29 +828,30 @@
         }
       };
       
+      // Navigation functions
+      const nextCard = () => {
+        if (currentCardIndex < filteredCards.length - 1) {
+          setCurrentCardIndex(currentCardIndex + 1);
+          setShowAnswer(false);
+        } else {
+          setCurrentCardIndex(0);
+          setShowAnswer(false);
+        }
+      };
+      
+      const prevCard = () => {
+        if (currentCardIndex > 0) {
+          setCurrentCardIndex(currentCardIndex - 1);
+          setShowAnswer(false);
+        }
+      };
+      
       // Get current card
       const currentCard = filteredCards.length > 0 ? filteredCards[currentCardIndex] : null;
       
       return (
         <div>
           <h1>Geography Flashcards</h1>
-          
-          {/* Search bar */}
-          <div style={{ margin: '20px 0' }}>
-            <input
-              type="text"
-              placeholder="Search flashcards..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ 
-                padding: '8px', 
-                width: '100%', 
-                maxWidth: '300px', 
-                border: '2px solid #388e3c',
-                borderRadius: '4px'
-              }}
-            />
-          </div>
           
           {/* Topic buttons */}
           <div style={{ margin: '20px 0' }}>
@@ -965,9 +953,7 @@
           <div style={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
-            margin: '16px 0',
-            flexWrap: 'wrap',
-            gap: '8px'
+            margin: '16px 0'
           }}>
             <button 
               onClick={prevCard}
@@ -977,38 +963,6 @@
             >
               Previous Card
             </button>
-            
-            {showAnswer && (
-              <div>
-                <button 
-                  onClick={() => markCard(false)}
-                  style={{ 
-                    backgroundColor: '#e57373', 
-                    color: 'white',
-                    padding: '6px 12px',
-                    border: 'none',
-                    borderRadius: '4px',
-                    marginRight: '8px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Need to Review
-                </button>
-                <button 
-                  onClick={() => markCard(true)}
-                  style={{ 
-                    backgroundColor: '#81c784', 
-                    color: 'white',
-                    padding: '6px 12px',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Got It!
-                </button>
-              </div>
-            )}
             
             <button 
               onClick={nextCard}
@@ -1037,41 +991,6 @@
               <li>Use precise terminology appropriate to each topic (e.g., VEI for volcanoes, urban regeneration for place).</li>
             </ul>
           </div>
-          
-          {/* Statistics button */}
-          <div style={{ textAlign: 'center', margin: '16px 0' }}>
-            <button 
-              onClick={() => setShowStats(!showStats)}
-              style={{
-                backgroundColor: '#4caf50',
-                color: 'white',
-                padding: '8px 16px',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              {showStats ? 'Hide Stats' : 'Show Review Statistics'}
-            </button>
-          </div>
-          
-          {/* Statistics display */}
-          {showStats && (
-            <div style={{
-              margin: '16px 0',
-              padding: '16px',
-              backgroundColor: '#f1f8e9',
-              borderRadius: '8px',
-              border: '2px solid #388e3c'
-            }}>
-              <h3 style={{ color: '#1b5e20', marginBottom: '8px' }}>Your Review Statistics</h3>
-              <p>Total cards: {flashcards.length}</p>
-              <p>Cards reviewed: {Object.values(cardStats).filter(stat => stat.timesReviewed > 0).length}</p>
-              <p>Mastered cards (correct ≥ 3 times): {
-                Object.values(cardStats).filter(stat => stat.timesCorrect >= 3).length
-              }</p>
-            </div>
-          )}
         </div>
       );
     };
