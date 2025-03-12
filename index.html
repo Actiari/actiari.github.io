@@ -1,54 +1,139 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
   <style>
-    /* Navigation styles taken directly from the test page */
-    ul {
-      list-style-type: none;
+    /* Base styles */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      overflow: hidden;
+    }
+    
+    body {
+      background-color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+    
+    /* Navigation styles */
+    .nav-container {
       background-color: #333;
+      width: 100%;
     }
-    li {
-      float: left;
+    
+    .logo {
+      display: inline-block;
+      padding: 8px;
     }
-    li a {
+    
+    .logo img {
+      width: 42px;
+      height: 38px;
+      vertical-align: middle;
+    }
+    
+    .nav-menu {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-menu li a {
       display: block;
       color: white;
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
     }
-    /* Homepage-specific styling: background set to white */
-    body, form {
-      background-color: #ffffff;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    .nav-menu li a:hover {
+      background-color: #444;
     }
-    /* Main content styling for readability */
+    
+    .menu-toggle {
+      display: none;
+      color: white;
+      background: none;
+      border: none;
+      font-size: 24px;
+      padding: 12px 16px;
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 8px;
+    }
+    
+    /* Main content styling */
     .content {
       padding: 20px;
       color: black;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .content h1 {
+      margin-bottom: 20px;
+    }
+    
+    .content p {
+      margin-bottom: 12px;
+    }
+    
+    /* Media queries for responsive design */
+    @media screen and (max-width: 768px) {
+      .nav-container {
+        position: relative;
+        padding: 8px 0;
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        padding-top: 60px;
+      }
+      
+      .nav-menu.active {
+        display: flex;
+      }
+      
+      .nav-menu li {
+        width: 100%;
+      }
+      
+      .nav-menu li a {
+        text-align: left;
+        padding: 16px;
+        border-top: 1px solid #444;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation reused from the test page -->
-  <ul>
-    <a href="index.html">
-      <img src="Logo.png" style="float:left;width:42px;height:38px;margin:7.5px" alt="Logo">
+  <!-- Navigation with hamburger menu for mobile -->
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="Logo.png" alt="Logo">
     </a>
-    <li><a href="PR.html">GCSE Past Papers &amp; Boundaries</a></li>
-    <li><a href="APR.html">A Level &amp; BTEC Past Papers</a></li>
-    <li><a href="SPBE.html">Geography Flashcards</a></li>
-    <li><a href="BWT.html">Geography Case Studies</a></li>
-    <li><a href="test.html">Test Page</a></li>
-  </ul>
-
+    <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    <ul class="nav-menu">
+      <li><a href="PR.html">GCSE Past Papers &amp; Boundaries</a></li>
+      <li><a href="APR.html">A Level &amp; BTEC Past Papers</a></li>
+      <li><a href="SPBE.html">Geography Flashcards</a></li>
+      <li><a href="BWT.html">Geography Case Studies</a></li>
+      <li><a href="test.html">Test Page</a></li>
+    </ul>
+  </div>
+  
   <!-- Homepage content -->
   <div class="content">
     <h1>Page Information</h1>
@@ -58,5 +143,34 @@
     <p>Geography Case Studies | <a href="BWT.html">Case Studies</a></p>
     <p>Test Page | <a href="test.html">Test Page</a></p>
   </div>
+
+  <!-- JavaScript for mobile menu toggle -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+      
+      menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideMenu = navMenu.contains(event.target);
+        const isClickOnToggle = menuToggle.contains(event.target);
+        
+        if (!isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+        }
+      });
+      
+      // Close menu when window is resized to desktop view
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
