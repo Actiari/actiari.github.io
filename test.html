@@ -27,14 +27,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
+            padding: 0;
             position: relative;
+            height: 60px; /* Fixed height to match other pages */
         }
         
         .logo {
             display: flex;
             align-items: center;
             text-decoration: none;
+            padding: 0 20px;
+            height: 100%;
         }
         
         .logo img {
@@ -48,20 +51,24 @@
             display: flex;
             align-items: center;
             transition: all 0.3s ease;
-            margin-left: 0;
-            width: 100%;
-            justify-content: flex-start;
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
         
         .nav-menu li {
-            flex: 0 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
         
         .nav-menu li a {
-            display: block;
+            display: flex;
+            align-items: center;
+            height: 100%;
             color: white;
             text-align: center;
-            padding: 20px 16px;
+            padding: 0 16px;
             text-decoration: none;
             white-space: nowrap;
             transition: background-color 0.2s;
@@ -262,6 +269,37 @@
             display: block;
         }
         
+        /* Empty cell styling */
+        .empty-cell {
+            background-color: #f5f5f5 !important;
+            color: #999;
+            font-style: italic;
+        }
+        
+        /* File upload area */
+        .file-upload {
+            margin: 30px auto;
+            max-width: 1000px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .file-upload-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px;
+        }
+        
         /* Responsive design */
         @media screen and (max-width: 1100px) {
             .menu-toggle {
@@ -273,10 +311,11 @@
                 width: 100%;
                 flex-direction: column;
                 position: absolute;
-                top: 100%;
+                top: 60px;
                 left: 0;
                 background-color: #333;
                 z-index: 99;
+                height: auto;
             }
             
             .nav-menu.active {
@@ -285,12 +324,14 @@
             
             .nav-menu li {
                 width: 100%;
+                height: auto;
             }
             
             .nav-menu li a {
                 text-align: left;
                 padding: 16px 20px;
                 border-top: 1px solid #444;
+                height: auto;
             }
             
             .selector-controls {
@@ -308,7 +349,7 @@
             }
         }
     </style>
-    <title>Test Page</title>
+    <title>A Level & BTEC Past Papers</title>
 </head>
 <body>
     <!-- Navigation from home page -->
@@ -358,6 +399,14 @@
         </div>
     </div>
     
+    <!-- Admin file upload area (can be hidden in production) -->
+    <div class="file-upload" id="admin-panel">
+        <h2>Admin Panel: Upload CSV Data</h2>
+        <p>Upload CSV files containing past paper links for each subject</p>
+        <input type="file" id="csv-upload" accept=".csv" multiple>
+        <button class="file-upload-btn" id="process-csv">Process CSV Files</button>
+    </div>
+    
     <script>
         // Subject data with their respective colors and levels
         const subjectData = {
@@ -367,28 +416,32 @@
                     primaryColor: "#1e7dba",
                     secondaryColor: "#e9f2f9",
                     levels: ["a-level"],
-                    resources: [{name: "Formula Sheet", link: "#"}]
+                    resources: [{name: "Formula Sheet", link: "https://filestore.aqa.org.uk/sample-papers-and-mark-schemes/2022/june/AQA-13502-DB-JUN22.PDF"}],
+                    dataFile: "AQA_Core_Maths.csv"
                 },
                 "english-language": {
                     name: "English Language",
                     primaryColor: "#7030a0",
                     secondaryColor: "#f0e6f5",
                     levels: ["a-level", "as-level"],
-                    resources: [{name: "Language Framework", link: "#"}]
+                    resources: [{name: "Language Framework", link: "#"}],
+                    dataFile: "AQA_English_Language.csv"
                 },
                 "geography": {
                     name: "Geography",
                     primaryColor: "#41723f",
                     secondaryColor: "#eaf2e9",
                     levels: ["a-level", "as-level"],
-                    resources: [{name: "Case Studies", link: "#"}, {name: "Key Definitions", link: "#"}]
+                    resources: [{name: "Case Studies", link: "#"}, {name: "Key Definitions", link: "#"}],
+                    dataFile: "AQA_Geography.csv"
                 },
                 "mathematics": {
                     name: "Mathematics",
                     primaryColor: "#1e7dba",
                     secondaryColor: "#e9f2f9",
                     levels: ["a-level", "as-level"],
-                    resources: [{name: "Formula Booklet", link: "#"}]
+                    resources: [{name: "Formula Booklet", link: "#"}],
+                    dataFile: "AQA_Mathematics.csv"
                 }
             },
             edexcel: {
@@ -397,21 +450,24 @@
                     primaryColor: "#b7312c",
                     secondaryColor: "#f9e9e8",
                     levels: ["a-level", "as-level"],
-                    resources: [{name: "Key Terms", link: "#"}]
+                    resources: [{name: "Key Terms", link: "#"}],
+                    dataFile: "Edexcel_Business_Studies.csv"
                 },
                 "information-technology": {
                     name: "Information Technology",
                     primaryColor: "#f7941d",
                     secondaryColor: "#fef4e9",
                     levels: ["btec"],
-                    resources: [{name: "Assessment Guidance", link: "#"}]
+                    resources: [{name: "Assessment Guidance", link: "#"}],
+                    dataFile: "Edexcel_IT.csv"
                 },
                 "applied-science": {
                     name: "Applied Science",
                     primaryColor: "#00b050",
                     secondaryColor: "#e6f7ee",
                     levels: ["btec"],
-                    resources: [{name: "Lab Safety Guide", link: "#"}]
+                    resources: [{name: "Lab Safety Guide", link: "#"}],
+                    dataFile: "Edexcel_Applied_Science.csv"
                 }
             },
             ocr: {
@@ -420,16 +476,14 @@
                     primaryColor: "#4472c4",
                     secondaryColor: "#ebeff9",
                     levels: ["a-level", "as-level"],
-                    resources: [{name: "Data Sheet", link: "#"}, {name: "Practical Skills Handbook", link: "#"}]
+                    resources: [{name: "Data Sheet", link: "#"}, {name: "Practical Skills Handbook", link: "#"}],
+                    dataFile: "OCR_Physics_A.csv"
                 }
             }
         };
         
-        // Exam series data (same for all subjects for now)
-        const examSeries = [
-            "June 2023", "June 2022", "November 2021", "June 2019", 
-            "June 2018", "June 2017", "June 2016", "Sample Set"
-        ];
+        // Store parsed CSV data
+        const paperData = {};
         
         // DOM elements
         const examBoardSelect = document.getElementById('exam-board');
@@ -437,6 +491,91 @@
         const contentArea = document.getElementById('content-area');
         const mainTitle = document.getElementById('main-title');
         const subTitle = document.getElementById('sub-title');
+        const csvUpload = document.getElementById('csv-upload');
+        const processCSVBtn = document.getElementById('process-csv');
+        
+        // Parse CSV function
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const result = [];
+            
+            // Find the header row (typically contains column names)
+            let headerRow = 0;
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].includes('Paper') && lines[i].includes('Mark Scheme')) {
+                    headerRow = i;
+                    break;
+                }
+            }
+            
+            // Find paper and mark scheme columns
+            const headers = lines[headerRow].split(',');
+            const columns = {};
+            headers.forEach((header, index) => {
+                if (header.includes('Paper') || header.includes('Mark Scheme')) {
+                    columns[header.trim()] = index;
+                }
+            });
+            
+            // Find the data rows
+            for (let i = headerRow + 2; i < lines.length; i++) {
+                const line = lines[i].split(',');
+                if (line.length <= 1 || !line[0].trim()) continue;
+                
+                const row = {
+                    series: line[0],
+                    links: {}
+                };
+                
+                // Extract links for each column
+                for (const [header, index] of Object.entries(columns)) {
+                    if (line[index] && line[index].trim()) {
+                        row.links[header.trim()] = line[index].trim();
+                    }
+                }
+                
+                result.push(row);
+            }
+            
+            return result;
+        }
+        
+        // Function to check if a string is a URL
+        function isURL(str) {
+            return str.startsWith('http://') || str.startsWith('https://');
+        }
+        
+        // Process CSV file
+        processCSVBtn.addEventListener('click', function() {
+            const files = csvUpload.files;
+            if (files.length === 0) {
+                alert('Please select at least one CSV file to upload');
+                return;
+            }
+            
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const fileName = file.name;
+                    const content = e.target.result;
+                    
+                    // Extract subject info from filename
+                    const subjectInfo = fileName.replace('.csv', '');
+                    
+                    // Parse CSV data
+                    const data = parseCSV(content);
+                    
+                    // Store parsed data
+                    paperData[subjectInfo] = data;
+                    
+                    console.log(`Processed: ${fileName}`);
+                    console.log('Data:', data);
+                };
+                reader.readAsText(file);
+            });
+            
+            alert(`Processed ${files.length} CSV files successfully.`);
+        });
         
         // Update subject options based on selected exam board
         function updateSubjectOptions() {
@@ -480,6 +619,10 @@
             mainTitle.textContent = `${getBoardName(board)} | ${subject.name}`;
             subTitle.textContent = 'Past Papers & Resources';
             
+            // Get CSV data for this subject, if available
+            const subjectCSVKey = `${getBoardName(board)}_${subject.name.replace(/\s+/g, '_')}`;
+            const subjectCSVData = paperData[subjectCSVKey] || [];
+            
             // Build the content
             let contentHTML = '';
             
@@ -494,7 +637,7 @@
                 contentHTML += `
                     <tr>
                         <td width="30%"><strong>${resource.name}:</strong></td>
-                        <td><a href="${resource.link}" class="download-link">${resource.name}</a></td>
+                        <td><a href="${resource.link}" class="download-link" target="_blank">${resource.name}</a></td>
                     </tr>
                 `;
             });
@@ -552,24 +695,46 @@
                                 <tbody>
                 `;
                 
+                // Use exam series from CSV if available, otherwise use default
+                const examSeriesData = subjectCSVData.length > 0 ? 
+                    subjectCSVData : 
+                    [
+                        { series: "June 2023", links: {} },
+                        { series: "June 2022", links: {} },
+                        { series: "November 2021", links: {} },
+                        { series: "June 2019", links: {} },
+                        { series: "June 2018", links: {} },
+                        { series: "June 2017", links: {} },
+                        { series: "June 2016", links: {} },
+                        { series: "Sample Set", links: {} }
+                    ];
+                
                 // Add rows for each exam series
-                examSeries.forEach(series => {
+                examSeriesData.forEach(seriesData => {
                     contentHTML += `
                         <tr>
-                            <td class="series-column">${series}</td>
+                            <td class="series-column">${seriesData.series}</td>
                     `;
                     
                     if (level === 'btec') {
+                        const brief = seriesData.links['Assignment Brief'] || '#';
+                        const assessment = seriesData.links['Sample Assessment'] || '#';
+                        
                         contentHTML += `
-                            <td><a href="#" class="download-link">Download</a></td>
-                            <td><a href="#" class="download-link">Download</a></td>
+                            <td>${isURL(brief) ? `<a href="${brief}" class="download-link" target="_blank">Download</a>` : `<span class="empty-cell">N/A</span>`}</td>
+                            <td>${isURL(assessment) ? `<a href="${assessment}" class="download-link" target="_blank">Download</a>` : `<span class="empty-cell">N/A</span>`}</td>
                         `;
                     } else {
+                        const paper1 = seriesData.links['Paper 1'] || seriesData.links['Paper'] || '#';
+                        const paper1MS = seriesData.links['Paper 1 Mark Scheme'] || seriesData.links['Mark Scheme'] || '#';
+                        const paper2 = seriesData.links['Paper 2'] || seriesData.links['Paper 2A - Statistical Techniques'] || '#';
+                        const paper2MS = seriesData.links['Paper 2 Mark Scheme'] || seriesData.links['Mark Scheme.1'] || '#';
+                        
                         contentHTML += `
-                            <td><a href="#" class="download-link">Download</a></td>
-                            <td><a href="#" class="download-link">Download</a></td>
-                            <td><a href="#" class="download-link">Download</a></td>
-                            <td><a href="#" class="download-link">Download</a></td>
+                            <td>${isURL(paper1) ? `<a href="${paper1}" class="download-link" target="_blank">Download</a>` : `<span class="empty-cell">N/A</span>`}</td>
+                            <td>${isURL(paper1MS) ? `<a href="${paper1MS}" class="download-link" target="_blank">Download</a>` : `<span class="empty-cell">N/A</span>`}</td>
+                            <td>${isURL(paper2) ? `<a href="${paper2}" class="download-link" target="_blank">Download</a>` : `<span class="empty-cell">N/A</span>`}</td>
+                            <td>${isURL(paper2MS) ? `<a href="${paper2MS}" class="download-link" target="_blank">Download</a>` : `<span class="empty-cell">N/A</span>`}</td>
                         `;
                     }
                     
@@ -637,6 +802,20 @@
             document.getElementById(`${level}-content`).classList.add('active');
         };
         
+        // Function to load CSV data from a file path
+        function loadCSVFromFile(filePath, callback) {
+            fetch(filePath)
+                .then(response => response.text())
+                .then(data => {
+                    const parsedData = parseCSV(data);
+                    callback(parsedData);
+                })
+                .catch(error => {
+                    console.error('Error loading CSV file:', error);
+                    callback([]);
+                });
+        }
+        
         // Event listeners
         examBoardSelect.addEventListener('change', () => {
             updateSubjectOptions();
@@ -645,38 +824,58 @@
             updateContent();
         });
         
-        subjectSelect.addEventListener('change', updateContent);
+        subjectSelect.addEventListener('change', () => {
+            const board = examBoardSelect.value;
+            const subjectKey = subjectSelect.value;
+            
+            if (subjectKey !== 'default') {
+                const subject = subjectData[board][subjectKey];
+                const csvFileName = subject.dataFile;
+                
+                if (csvFileName) {
+                    // Try to load the CSV file if it exists
+                    const subjectCSVKey = `${getBoardName(board)}_${subject.name.replace(/\s+/g, '_')}`;
+                    
+                    // Only load if we haven't already loaded it
+                    if (!paperData[subjectCSVKey]) {
+                        loadCSVFromFile(csvFileName, (data) => {
+                            paperData[subjectCSVKey] = data;
+                            updateContent();
+                        });
+                    } else {
+                        updateContent();
+                    }
+                } else {
+                    updateContent();
+                }
+            } else {
+                updateContent();
+            }
+        });
         
         // Initialize the page
         updateSubjectOptions();
         
-        // Navigation menu toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            
-            // Simply toggle the active class on click
-            menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                navMenu.classList.toggle('active');
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                if (navMenu.classList.contains('active') && 
-                    !navMenu.contains(event.target) && 
-                    !menuToggle.contains(event.target)) {
-                    navMenu.classList.remove('active');
-                }
-            });
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 1100) {
-                    navMenu.classList.remove('active');
-                }
-            });
-        });
-    </script>
+// Navigation menu toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    menuToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+    });
+    
+    // Close the menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            navMenu.classList.remove('active');
+        }
+    });
+    
+    // Hide admin panel in production
+    // Uncomment the line below to hide the admin panel
+    // document.getElementById('admin-panel').style.display = 'none';
+});
+</script>
 </body>
 </html>
