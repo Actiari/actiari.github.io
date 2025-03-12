@@ -50,11 +50,11 @@
       transition: all 0.3s ease;
       margin-left: 0;
       width: 100%;
-      justify-content: flex-start; /* Changed from space-between to flex-start */
+      justify-content: flex-start;
     }
     
     .nav-menu li {
-      flex: 0 0 auto; /* Don't grow or shrink, stay at natural width */
+      flex: 0 0 auto;
     }
     
     .nav-menu li a {
@@ -96,13 +96,13 @@
       color: #1b5e20;
     }
     
-    /* Case study card styles */
+    /* Topic styling */
     .topic-container {
       margin-bottom: 40px;
     }
     
     .topic-header {
-      background-color: #66bb6a;
+      background-color: #3a5e7c;
       color: white;
       padding: 15px 20px;
       border-radius: 8px 8px 0 0;
@@ -110,28 +110,64 @@
       margin-bottom: 0;
     }
     
+    /* Subtopic styling */
+    .subtopic-section {
+      padding-top: 20px;
+      padding-bottom: 5px;
+    }
+    
+    .subtopic-section:not(:first-child) {
+      border-top: 2px dotted #ccc;
+      margin-top: 15px;
+    }
+    
+    .subtopic-title {
+      font-size: 1.2rem;
+      color: #3a5e7c;
+      margin-bottom: 15px;
+      padding-left: 20px;
+      font-weight: 600;
+    }
+    
     .case-studies-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 25px;
       background-color: #ffffff;
       border-radius: 0 0 8px 8px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
+      padding: 20px;
+    }
+    
+    .case-studies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px 20px 20px;
     }
     
     .case-study-card {
-      background-color: #f0f8f0;
+      background-color: #f0f4f8;
       border-radius: 6px;
       padding: 15px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     
     .case-study-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .case-study-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    
+    .case-study-subtopic {
+      font-size: 0.85rem;
+      color: #555;
+      font-style: italic;
     }
 
     /* Media queries for responsive design */
@@ -146,11 +182,11 @@
       }
       
       .menu-toggle {
-        display: block !important; /* Force display with !important */
+        display: block !important;
       }
       
       .nav-menu {
-        display: none; /* Hide by default on mobile */
+        display: none;
         width: 100%;
         flex-direction: column;
         position: absolute;
@@ -161,7 +197,7 @@
       }
       
       .nav-menu.active {
-        display: flex !important; /* Show when active with !important */
+        display: flex !important;
       }
       
       .nav-menu li {
@@ -174,13 +210,13 @@
         border-top: 1px solid #444;
       }
       
-      .case-studies-container {
+      .case-studies-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       }
     }
     
     @media screen and (max-width: 600px) {
-      .case-studies-container {
+      .case-studies-grid {
         grid-template-columns: 1fr;
         padding: 15px;
       }
@@ -210,17 +246,76 @@
     <div class="topic-container">
       <h3 class="topic-header">Hazards</h3>
       <div class="case-studies-container">
-        <div class="case-study-card">Mt Etna</div>
-        <div class="case-study-card">Mt Merapi</div>
-        <div class="case-study-card">Eyjafjallajokull</div>
-        <div class="case-study-card">Monserrat</div>
-        <div class="case-study-card">Indonesian Tsunami</div>
-        <div class="case-study-card">Tohoko</div>
-        <div class="case-study-card">Haiti Earthquake</div>
-        <div class="case-study-card">Cyclone Nargis</div>
-        <div class="case-study-card">Hurricane Katrina</div>
-        <div class="case-study-card">Yellowstone</div>
-        <div class="case-study-card">Alberta Bushfire, Black Saturday</div>
+        <!-- Volcanoes subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Volcanoes</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Mt Etna</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Mt Merapi</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Eyjafjallajokull</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Monserrat</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Yellowstone</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tsunamis subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Tsunamis</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Indonesian Tsunami</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Tohoko</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Earthquakes subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Earthquakes</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Haiti Earthquake</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tropical Storms subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Tropical Storms</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Cyclone Nargis</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Hurricane Katrina</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Wildfires subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Wildfires</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Alberta Bushfire</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Black Saturday</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -228,14 +323,67 @@
     <div class="topic-container">
       <h3 class="topic-header">Place</h3>
       <div class="case-studies-container">
-        <div class="case-study-card">Ground Zero New York</div>
-        <div class="case-study-card">New York Song</div>
-        <div class="case-study-card">Plymouth</div>
-        <div class="case-study-card">Devonport</div>
-        <div class="case-study-card">Medellin Columbia</div>
-        <div class="case-study-card">Llandudno</div>
-        <div class="case-study-card">Bourneville</div>
-        <div class="case-study-card">Detroit</div>
+        <!-- Place Meaning subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Place Meaning</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Ground Zero New York</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Artistic Representation subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Artistic Representation</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">New York Song</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Changing Places subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Changing Places</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Plymouth</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Detroit</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Poundbury</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Forces of Change subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Forces of Change</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Medellin Columbia</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Bourneville</div>
+            </div>
+            <div class="case-study-card">
+              <div class="case-study-name">Devonport</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Rebranding subtopic section -->
+        <div class="subtopic-section">
+          <h4 class="subtopic-title">Rebranding</h4>
+          <div class="case-studies-grid">
+            <div class="case-study-card">
+              <div class="case-study-name">Llandudno</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
