@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Educational Resources Hub</title>
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
   <style>
     /* Base styles */
@@ -14,20 +14,27 @@
     }
     
     body {
-      background-color: #ffffff;
+      background-color: #f5f5f5;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
+      color: #333;
     }
     
     /* Navigation styles */
     .nav-container {
       background-color: #333;
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      position: relative;
     }
     
     .logo {
-      display: inline-block;
-      padding: 8px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
     }
     
     .logo img {
@@ -39,16 +46,19 @@
     .nav-menu {
       list-style-type: none;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       transition: all 0.3s ease;
+      margin-left: auto;
     }
     
     .nav-menu li a {
       display: block;
       color: white;
       text-align: center;
-      padding: 14px 16px;
+      padding: 20px 16px;
       text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s;
     }
     
     .nav-menu li a:hover {
@@ -63,43 +73,141 @@
       font-size: 24px;
       padding: 12px 16px;
       cursor: pointer;
-      position: absolute;
-      right: 10px;
-      top: 8px;
+      margin-left: auto;
     }
     
     /* Main content styling */
+    .hero {
+      background-color: #2c3e50;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: #3498db;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    
+    .cta-button:hover {
+      background-color: #2980b9;
+    }
+    
     .content {
-      padding: 20px;
-      color: black;
+      padding: 40px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
     
-    .content h1 {
-      margin-bottom: 20px;
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: #2c3e50;
     }
     
-    .content p {
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .card-icon {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8f9fa;
+    }
+    
+    .card-content {
+      padding: 24px;
+    }
+    
+    .card h3 {
       margin-bottom: 12px;
+      color: #2c3e50;
+    }
+    
+    .card p {
+      margin-bottom: 16px;
+      color: #666;
+    }
+    
+    .card-link {
+      display: inline-block;
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .card-link:hover {
+      text-decoration: underline;
+    }
+    
+    .footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    
+    .footer p {
+      margin-bottom: 10px;
     }
     
     /* Media queries for responsive design */
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1100px) {
       .nav-container {
-        position: relative;
-        padding: 8px 0;
+        flex-wrap: wrap;
+        padding: 0;
+      }
+      
+      .logo {
+        padding: 10px 20px;
       }
       
       .menu-toggle {
         display: block;
+        padding: 20px;
       }
       
       .nav-menu {
         display: none;
         width: 100%;
         flex-direction: column;
-        padding-top: 60px;
+        align-items: stretch;
       }
       
       .nav-menu.active {
@@ -112,36 +220,124 @@
       
       .nav-menu li a {
         text-align: left;
-        padding: 16px;
+        padding: 16px 20px;
         border-top: 1px solid #444;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+    
+    @media screen and (max-width: 600px) {
+      .cards-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero {
+        padding: 40px 20px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation with hamburger menu for mobile -->
+  <!-- Navigation with hamburger menu for tablets and mobile -->
   <div class="nav-container">
     <a href="index.html" class="logo">
       <img src="Logo.png" alt="Logo">
     </a>
     <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
     <ul class="nav-menu">
-      <li><a href="PR.html">GCSE Past Papers &amp; Boundaries</a></li>
-      <li><a href="APR.html">A Level &amp; BTEC Past Papers</a></li>
+      <li><a href="PR.html">GCSE Past Papers</a></li>
+      <li><a href="APR.html">A Level Papers</a></li>
       <li><a href="SPBE.html">Geography Flashcards</a></li>
-      <li><a href="BWT.html">Geography Case Studies</a></li>
+      <li><a href="BWT.html">Case Studies</a></li>
       <li><a href="test.html">Test Page</a></li>
     </ul>
   </div>
   
-  <!-- Homepage content -->
+  <!-- Hero section -->
+  <div class="hero">
+    <h1>Your Educational Resources Hub</h1>
+    <p>Access past papers, case studies, and learning materials to boost your academic performance</p>
+    <a href="#resources" class="cta-button">Browse Resources</a>
+  </div>
+  
+  <!-- Main content -->
   <div class="content">
-    <h1>Page Information</h1>
-    <p>Home Page | <a href="index.html">Home</a></p>
-    <p>A Level &amp; BTEC Past Papers | <a href="APR.html">A Level &amp; BTEC Past Papers</a></p>
-    <p>GCSE Past Papers | <a href="PR.html">Past Papers &amp; Boundaries</a></p>
-    <p>Geography Case Studies | <a href="BWT.html">Case Studies</a></p>
-    <p>Test Page | <a href="test.html">Test Page</a></p>
+    <h2 class="section-title" id="resources">Our Resources</h2>
+    
+    <div class="cards-container">
+      <!-- GCSE Papers Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 5V19H5V5H19ZM21 3H3V21H21V3ZM17 17H7V16H17V17ZM17 15H7V14H17V15ZM17 12H7V7H17V12Z" fill="#3498db"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>GCSE Past Papers</h3>
+          <p>Access past papers and grade boundaries for all major GCSE subjects to help you prepare for exams.</p>
+          <a href="PR.html" class="card-link">View Papers →</a>
+        </div>
+      </div>
+      
+      <!-- A Level Papers Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z" fill="#3498db"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>A Level & BTEC Papers</h3>
+          <p>Find comprehensive collections of A Level and BTEC past papers to support your advanced studies.</p>
+          <a href="APR.html" class="card-link">View Papers →</a>
+        </div>
+      </div>
+      
+      <!-- Geography Flashcards Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.58 11.4L17.3 4.01L16.35 3.41C15.91 3.15 15.36 3.01 14.78 3H9.22C8.64 3.01 8.09 3.15 7.65 3.41L6.7 4.01L2.42 11.4C2.14 11.89 2 12.46 2 13.04V17C2 18.1 2.9 19 4 19H20C21.1 19 22 18.1 22 17V13.04C22 12.46 21.86 11.89 21.58 11.4ZM12 16C10.34 16 9 14.66 9 13C9 11.34 10.34 10 12 10C13.66 10 15 11.34 15 13C15 14.66 13.66 16 12 16ZM7.5 6C8.33 6 9 6.67 9 7.5C9 8.33 8.33 9 7.5 9C6.67 9 6 8.33 6 7.5C6 6.67 6.67 6 7.5 6Z" fill="#3498db"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Geography Flashcards</h3>
+          <p>Study key geography concepts with our comprehensive flashcards designed to boost your knowledge retention.</p>
+          <a href="SPBE.html" class="card-link">View Flashcards →</a>
+        </div>
+      </div>
+      
+      <!-- Geography Case Studies Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM6.5 17.5L14.01 14.01L17.5 6.5L9.99 9.99L6.5 17.5ZM12 10.9C12.61 10.9 13.1 11.39 13.1 12C13.1 12.61 12.61 13.1 12 13.1C11.39 13.1 10.9 12.61 10.9 12C10.9 11.39 11.39 10.9 12 10.9Z" fill="#3498db"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Geography Case Studies</h3>
+          <p>Explore detailed geography case studies covering natural disasters, urban development, and sustainability.</p>
+          <a href="BWT.html" class="card-link">View Case Studies →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2025 Educational Resources Hub</p>
+    <p>All resources are provided for educational purposes only</p>
   </div>
 
   <!-- JavaScript for mobile menu toggle -->
@@ -150,8 +346,53 @@
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('.nav-menu');
       
+      // Function to check if menu should be in mobile view
+      function checkMenuMode() {
+        const navContainer = document.querySelector('.nav-container');
+        const logo = document.querySelector('.logo');
+        const navItems = document.querySelectorAll('.nav-menu li');
+        
+        // Calculate the width to determine if items would wrap
+        let totalWidth = logo.offsetWidth;
+        navItems.forEach(item => {
+          totalWidth += item.offsetWidth;
+        });
+        
+        // Add some buffer for padding
+        totalWidth += 40;
+        
+        // If the total width exceeds the container width, switch to mobile mode
+        if (totalWidth > window.innerWidth) {
+          menuToggle.style.display = 'block';
+          navMenu.classList.remove('active');
+          navMenu.style.display = 'none';
+        } else {
+          menuToggle.style.display = 'none';
+          navMenu.style.display = 'flex';
+        }
+      }
+      
+      // Toggle menu when hamburger is clicked
       menuToggle.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
+        if (navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+          navMenu.style.display = 'none';
+        } else {
+          navMenu.classList.add('active');
+          navMenu.
+          navMenu.style.display = 'flex';
+        }
+      }
+      
+      // Toggle menu when hamburger is clicked
+      menuToggle.addEventListener('click', function() {
+        if (navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+          navMenu.style.display = 'none';
+        } else {
+          navMenu.classList.add('active');
+          navMenu.style.display = 'flex';
+        }
       });
       
       // Close menu when clicking outside
@@ -161,15 +402,13 @@
         
         if (!isClickInsideMenu && !isClickOnToggle && navMenu.classList.contains('active')) {
           navMenu.classList.remove('active');
+          navMenu.style.display = 'none';
         }
       });
       
-      // Close menu when window is resized to desktop view
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-          navMenu.classList.remove('active');
-        }
-      });
+      // Check menu mode on page load and window resize
+      window.addEventListener('resize', checkMenuMode);
+      checkMenuMode(); // Initial check
     });
   </script>
 </body>
