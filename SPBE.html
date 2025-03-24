@@ -1627,53 +1627,57 @@
                     </>
                   )}
                   
-                  {view === 'subtopics' && selectedTopic && (
+                  {(view === 'subtopics' || view === 'flashcards') && selectedTopic && (
                     <div className="subtopic-container">
                       <button 
                         className="back-btn" 
-                        onClick={goBackToTopics}
-                        aria-label="Go back to topics"
+                        onClick={view === 'subtopics' ? goBackToTopics : goBackToSubtopics}
+                        aria-label={`Go back to ${view === 'subtopics' ? 'topics' : 'subtopics'}`}
                       >
                         <i className="fas fa-arrow-left"></i>
-                        Back to Topics
+                        {view === 'subtopics' ? 'Back to Topics' : 'Back to Subtopics'}
                       </button>
                       
-                      <div className="sidebar-title">
-                        <i className={`fas ${topicConfig.find(t => t.name === selectedTopic)?.icon || 'fa-folder'}`}></i>
-                        {selectedTopic} Subtopics
-                      </div>
-                      
-                      <div className="subtopic-list">
-                        {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopic => (
-                          <div
-                            key={subtopic}
-                            className="subtopic-card"
-                            onClick={() => selectSubtopic(subtopic)}
-                            aria-label={`Select ${subtopic} subtopic`}
-                            role="button"
-                            tabIndex="0"
-                            onKeyDown={(e) => e.key === 'Enter' && selectSubtopic(subtopic)}
-                          >
-                            <div className="subtopic-name">
-                              <i className={`fas ${getSubtopicIcon(subtopic)} subtopic-icon`}></i>
-                              {subtopic}
-                            </div>
-                            <div className="subtopic-count">
-                              {getSubtopicCardCount(subtopic)} cards
-                            </div>
-                            <button
-                              className={`bookmark-btn ${isSubtopicBookmarked(subtopic) ? 'active' : ''}`}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                toggleSubtopicBookmark(subtopic);
-                              }}
-                              aria-label={`${isSubtopicBookmarked(subtopic) ? 'Remove' : 'Add'} bookmark for ${subtopic}`}
-                            >
-                              <i className="fas fa-bookmark"></i>
-                            </button>
+                      {view === 'subtopics' && (
+                        <>
+                          <div className="sidebar-title">
+                            <i className={`fas ${topicConfig.find(t => t.name === selectedTopic)?.icon || 'fa-folder'}`}></i>
+                            {selectedTopic} Subtopics
                           </div>
-                        ))}
-                      </div>
+                          
+                          <div className="subtopic-list">
+                            {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopic => (
+                              <div
+                                key={subtopic}
+                                className="subtopic-card"
+                                onClick={() => selectSubtopic(subtopic)}
+                                aria-label={`Select ${subtopic} subtopic`}
+                                role="button"
+                                tabIndex="0"
+                                onKeyDown={(e) => e.key === 'Enter' && selectSubtopic(subtopic)}
+                              >
+                                <div className="subtopic-name">
+                                  <i className={`fas ${getSubtopicIcon(subtopic)} subtopic-icon`}></i>
+                                  {subtopic}
+                                </div>
+                                <div className="subtopic-count">
+                                  {getSubtopicCardCount(subtopic)} cards
+                                </div>
+                                <button
+                                  className={`bookmark-btn ${isSubtopicBookmarked(subtopic) ? 'active' : ''}`}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleSubtopicBookmark(subtopic);
+                                  }}
+                                  aria-label={`${isSubtopicBookmarked(subtopic) ? 'Remove' : 'Add'} bookmark for ${subtopic}`}
+                                >
+                                  <i className="fas fa-bookmark"></i>
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
                   
