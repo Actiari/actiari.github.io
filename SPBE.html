@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main_Favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -36,9 +38,10 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
+      color: var(--dark);
     }
     
-    /* Navigation styles (unchanged) */
+    /* Navigation styles */
     .nav-container {
       background-color: var(--primary-dark);
       width: 100%;
@@ -85,8 +88,10 @@
       transition: background-color 0.2s;
     }
     
-    .nav-menu li a:hover {
+    .nav-menu li a:hover,
+    .nav-menu li a:focus {
       background-color: var(--primary);
+      outline: none;
     }
     
     .menu-toggle {
@@ -209,10 +214,12 @@
       align-items: center;
     }
     
-    .topic-card:hover {
+    .topic-card:hover,
+    .topic-card:focus {
       transform: translateY(-3px);
       box-shadow: var(--box-shadow);
       border-color: var(--primary-light);
+      outline: none;
     }
     
     .topic-card.active {
@@ -251,6 +258,13 @@
       color: var(--primary);
       cursor: pointer;
       font-weight: 500;
+      padding: 8px;
+    }
+    
+    .back-btn:hover,
+    .back-btn:focus {
+      text-decoration: underline;
+      outline: none;
     }
     
     .back-btn i {
@@ -273,10 +287,12 @@
       position: relative;
     }
     
-    .subtopic-card:hover {
+    .subtopic-card:hover,
+    .subtopic-card:focus {
       transform: translateY(-3px);
       box-shadow: var(--box-shadow);
       border-color: var(--primary-light);
+      outline: none;
     }
     
     .subtopic-card.active {
@@ -301,10 +317,16 @@
       color: var(--gray);
       cursor: pointer;
       transition: var(--transition);
+      background: none;
+      border: none;
+      font-size: 1rem;
     }
     
-    .bookmark-btn.active, .bookmark-btn:hover {
+    .bookmark-btn.active, 
+    .bookmark-btn:hover,
+    .bookmark-btn:focus {
       color: var(--warning);
+      outline: none;
     }
     
     /* Bookmark section */
@@ -359,9 +381,11 @@
       border: none;
     }
     
-    .action-btn:hover {
+    .action-btn:hover,
+    .action-btn:focus {
       background-color: var(--primary-light);
       color: white;
+      outline: none;
     }
     
     .action-btn.bookmarked {
@@ -411,14 +435,16 @@
       margin-right: 8px;
     }
     
-    .flashcard-question, .flashcard-answer {
+    .flashcard-question, 
+    .flashcard-answer {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
     
-    .flashcard-question h3 {
+    .flashcard-question h3,
+    .flashcard-answer h3 {
       font-size: 1.3rem;
       color: var(--primary-dark);
       margin-bottom: 20px;
@@ -435,14 +461,6 @@
       font-size: 1.1rem;
       color: var(--dark);
       line-height: 1.7;
-    }
-    
-    .flashcard-answer h3 {
-      font-size: 1.3rem;
-      color: var(--primary-dark);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
     }
     
     .flashcard-answer h3 i {
@@ -501,7 +519,8 @@
       color: var(--gray);
     }
     
-    .nav-btn.prev:hover:not(:disabled) {
+    .nav-btn.prev:hover:not(:disabled),
+    .nav-btn.prev:focus:not(:disabled) {
       background-color: #e0e0e0;
     }
     
@@ -510,7 +529,8 @@
       color: white;
     }
     
-    .nav-btn.next:hover:not(:disabled) {
+    .nav-btn.next:hover:not(:disabled),
+    .nav-btn.next:focus:not(:disabled) {
       background-color: var(--primary-dark);
     }
     
@@ -540,6 +560,15 @@
     .empty-state p {
       color: var(--gray);
       margin-bottom: 20px;
+    }
+    
+    /* Error boundary */
+    .error-boundary {
+      padding: 20px;
+      background-color: #ffebee;
+      border-radius: var(--border-radius);
+      color: var(--danger);
+      margin: 20px 0;
     }
     
     /* Animations */
@@ -616,6 +645,30 @@
       .topic-grid {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: var(--primary-dark);
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      
+      .nav-menu.active {
+        max-height: 500px;
+      }
+      
+      .nav-menu li {
+        width: 100%;
+      }
     }
     
     @media screen and (max-width: 768px) {
@@ -661,6 +714,11 @@
         width: 100%;
         justify-content: center;
       }
+      
+      .flashcard {
+        padding: 20px;
+        min-height: 250px;
+      }
     }
   </style>
   <title>Geography Flashcards</title>
@@ -672,12 +730,14 @@
 </head>
 <body>
   <!-- Navigation with hamburger menu for tablets and mobile -->
-  <div class="nav-container">
-    <a href="index.html" class="logo">
-      <img src="Logo.png" alt="Logo">
+  <div className="nav-container">
+    <a href="index.html" className="logo">
+      <img src="Logo.png" alt="Geography Flashcards Logo" />
     </a>
-    <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
-    <ul class="nav-menu">
+    <button className="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <i className="fas fa-bars"></i>
+    </button>
+    <ul className="nav-menu">
       <li><a href="PR.html">GCSE Past Papers</a></li>
       <li><a href="APR.html">A Level Papers</a></li>
       <li><a href="SPBE.html">Geography Flashcards</a></li>
@@ -690,25 +750,25 @@
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('.nav-menu');
 
-      // Simply toggle the active class on click
       menuToggle.addEventListener('click', function(e) {
         e.stopPropagation();
-        navMenu.classList.toggle('active');
+        const isExpanded = navMenu.classList.toggle('active');
+        menuToggle.setAttribute('aria-expanded', isExpanded);
       });
 
-      // Close menu when clicking outside
       document.addEventListener('click', function(event) {
         if (navMenu.classList.contains('active') &&
             !navMenu.contains(event.target) &&
             !menuToggle.contains(event.target)) {
           navMenu.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
         }
       });
 
-      // Handle window resize
       window.addEventListener('resize', function() {
-        if (window.innerWidth > 1100) {
+        if (window.innerWidth > 992) {
           navMenu.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
         }
       });
     });
@@ -719,6 +779,41 @@
   
   <!-- React Component -->
   <script type="text/babel">
+    class ErrorBoundary extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+      }
+    
+      static getDerivedStateFromError(error) {
+        return { hasError: true };
+      }
+    
+      componentDidCatch(error, errorInfo) {
+        console.error('Error caught by ErrorBoundary:', error, errorInfo);
+      }
+    
+      render() {
+        if (this.state.hasError) {
+          return (
+            <div className="error-boundary">
+              <h3>Something went wrong</h3>
+              <p>Please refresh the page to continue</p>
+              <button 
+                className="nav-btn next"
+                onClick={() => window.location.reload()}
+              >
+                <i className="fas fa-sync-alt"></i>
+                Refresh Page
+              </button>
+            </div>
+          );
+        }
+    
+        return this.props.children;
+      }
+    }
+
     const GeographyFlashcardApp = () => {
       // State declarations
       const [flashcards, setFlashcards] = React.useState([]);
@@ -736,22 +831,30 @@
       
       // Load saved data from localStorage
       React.useEffect(() => {
-        const savedBookmarkedCards = localStorage.getItem('bookmarkedCards');
-        const savedBookmarkedTopics = localStorage.getItem('bookmarkedTopics');
-        
-        if (savedBookmarkedCards) {
-          setBookmarkedCards(JSON.parse(savedBookmarkedCards));
-        }
-        
-        if (savedBookmarkedTopics) {
-          setBookmarkedTopics(JSON.parse(savedBookmarkedTopics));
+        try {
+          const savedBookmarkedCards = localStorage.getItem('bookmarkedCards');
+          const savedBookmarkedTopics = localStorage.getItem('bookmarkedTopics');
+          
+          if (savedBookmarkedCards) {
+            setBookmarkedCards(JSON.parse(savedBookmarkedCards));
+          }
+          
+          if (savedBookmarkedTopics) {
+            setBookmarkedTopics(JSON.parse(savedBookmarkedTopics));
+          }
+        } catch (error) {
+          console.error('Error loading bookmarks:', error);
         }
       }, []);
       
       // Save bookmarks to localStorage when they change
       React.useEffect(() => {
-        localStorage.setItem('bookmarkedCards', JSON.stringify(bookmarkedCards));
-        localStorage.setItem('bookmarkedTopics', JSON.stringify(bookmarkedTopics));
+        try {
+          localStorage.setItem('bookmarkedCards', JSON.stringify(bookmarkedCards));
+          localStorage.setItem('bookmarkedTopics', JSON.stringify(bookmarkedTopics));
+        } catch (error) {
+          console.error('Error saving bookmarks:', error);
+        }
       }, [bookmarkedCards, bookmarkedTopics]);
       
       // Topic configuration
@@ -854,7 +957,7 @@
         "Mt Merapi": `<ul>
           <li>2010 eruption: VEI 4</li>
           <li>Deaths: ~353</li>
-          <li>Injuries: >1,000; significant infrastructure damage</li>
+          <li>Injuries: &gt;1,000; significant infrastructure damage</li>
         </ul>`,
         "Eyjafjallajökull": `<ul>
           <li>2010 eruption: VEI 4</li>
@@ -867,7 +970,7 @@
           <li>Long-term socio-economic impact</li>
         </ul>`,
         "Yellowstone": `<ul>
-          <li>Supervolcano; last major eruption: >600,000 years ago</li>
+          <li>Supervolcano; last major eruption: &gt;600,000 years ago</li>
           <li>Potential eruption: VEI 8; catastrophic global impact</li>
         </ul>`,
         "Boxing Day Tsunami": `<ul>
@@ -877,7 +980,7 @@
         </ul>`,
         "Haiti": `<ul>
           <li>2010 earthquake: magnitude 7.0</li>
-          <li>Deaths: >230,000; Injuries: ~300,000</li>
+          <li>Deaths: &gt;230,000; Injuries: ~300,000</li>
           <li>Damage: $8-14 billion</li>
         </ul>`,
         "Cyclone Nargis": `<ul>
@@ -887,11 +990,11 @@
         </ul>`,
         "Hurricane Katrina": `<ul>
           <li>2005 event: ~1,833 deaths</li>
-          <li>Displacement: >250,000 people</li>
-          <li>Damage: >$125 billion</li>
+          <li>Displacement: &gt;250,000 people</li>
+          <li>Damage: &gt;$125 billion</li>
         </ul>`,
         "LA Wildfire": `<ul>
-          <li>Recent events: evacuations and property losses >$2 billion</li>
+          <li>Recent events: evacuations and property losses &gt;$2 billion</li>
           <li>Widespread damage in urban areas</li>
         </ul>`,
         "Alberta Wildfire": `<ul>
@@ -905,7 +1008,7 @@
         </ul>`,
         "Typhoon Haiyan": `<ul>
           <li>2013 event in the Philippines</li>
-          <li>Deaths: >6,300; one of the strongest cyclones recorded</li>
+          <li>Deaths: &gt;6,300; one of the strongest cyclones recorded</li>
           <li>Widespread destruction</li>
         </ul>`,
         "Ground Zero": `<ul>
@@ -947,7 +1050,7 @@
       };
       
       // Generate flashcards
-      const generateFlashcards = () => {
+      const generateFlashcards = React.useCallback(() => {
         let generatedFlashcards = [];
         let idCounter = 1;
         
@@ -985,8 +1088,6 @@
             subtopic: "Volcanoes",
             type: "conceptual"
           },
-          // Add more Hazards flashcards...
-          
           // Tsunamis
           {
             id: idCounter++,
@@ -1009,8 +1110,6 @@
             subtopic: "Tsunamis",
             type: "conceptual"
           },
-          // Add more Tsunamis flashcards...
-          
           // Earthquakes
           {
             id: idCounter++,
@@ -1034,8 +1133,6 @@
             subtopic: "Earthquakes",
             type: "conceptual"
           },
-          // Add more Earthquakes flashcards...
-          
           // Tropical Storms
           {
             id: idCounter++,
@@ -1058,8 +1155,6 @@
             subtopic: "Tropical Storms",
             type: "conceptual"
           },
-          // Add more Tropical Storms flashcards...
-          
           // Wildfires
           {
             id: idCounter++,
@@ -1083,7 +1178,6 @@
             subtopic: "Wildfires",
             type: "conceptual"
           }
-          // Add more Wildfires flashcards...
         ];
         
         // Changing Places flashcards
@@ -1111,8 +1205,6 @@
             subtopic: "Place Meaning",
             type: "conceptual"
           },
-          // Add more Place Meaning flashcards...
-          
           // Artistic Representation
           {
             id: idCounter++,
@@ -1128,8 +1220,6 @@
             subtopic: "Artistic Representation",
             type: "conceptual"
           },
-          // Add more Artistic Representation flashcards...
-          
           // Changing Places
           {
             id: idCounter++,
@@ -1153,8 +1243,6 @@
             subtopic: "Changing Places",
             type: "conceptual"
           },
-          // Add more Changing Places flashcards...
-          
           // Forces of Change
           {
             id: idCounter++,
@@ -1178,8 +1266,6 @@
             subtopic: "Forces of Change",
             type: "conceptual"
           },
-          // Add more Forces of Change flashcards...
-          
           // Rebranding
           {
             id: idCounter++,
@@ -1203,7 +1289,6 @@
             subtopic: "Rebranding",
             type: "conceptual"
           }
-          // Add more Rebranding flashcards...
         ];
         
         // Combine all flashcards
@@ -1215,12 +1300,12 @@
         
         setFlashcards(generatedFlashcards);
         setFilteredCards(generatedFlashcards);
-      };
+      }, []);
       
       // Initialize flashcards
       React.useEffect(() => {
         generateFlashcards();
-      }, []);
+      }, [generateFlashcards]);
       
       // Filter flashcards based on selections
       React.useEffect(() => {
@@ -1255,6 +1340,20 @@
         setCurrentCardIndex(0);
         setShowAnswer(false);
       }, [flashcards, searchTerm, selectedTopic, selectedSubtopic, view, bookmarkedCards]);
+      
+      // Check if a card is bookmarked
+      const isCardBookmarked = React.useCallback((cardId) => {
+        return bookmarkedCards.includes(cardId);
+      }, [bookmarkedCards]);
+      
+      // Check if a subtopic is bookmarked
+      const isSubtopicBookmarked = React.useCallback((subtopic) => {
+        const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
+        if (!topic) return false;
+        
+        const bookmarkId = `${topic.id}-${subtopic.toLowerCase().replace(' ', '-')}`;
+        return bookmarkedTopics.includes(bookmarkId);
+      }, [bookmarkedTopics]);
       
       // Select a topic with animation
       const selectTopic = (topic) => {
@@ -1321,6 +1420,8 @@
       // Toggle bookmark for a subtopic
       const toggleSubtopicBookmark = (subtopic) => {
         const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
+        if (!topic) return;
+        
         const bookmarkId = `${topic.id}-${subtopic.toLowerCase().replace(' ', '-')}`;
         
         if (bookmarkedTopics.includes(bookmarkId)) {
@@ -1328,15 +1429,6 @@
         } else {
           setBookmarkedTopics([...bookmarkedTopics, bookmarkId]);
         }
-      };
-      
-      // Check if a subtopic is bookmarked
-      const isSubtopicBookmarked = (subtopic) => {
-        const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
-        if (!topic) return false;
-        
-        const bookmarkId = `${topic.id}-${subtopic.toLowerCase().replace(' ', '-')}`;
-        return bookmarkedTopics.includes(bookmarkId);
       };
       
       // Navigate to next card
@@ -1384,219 +1476,277 @@
         ).length;
       };
       
-      return (
-        <div id="app-container">
-          <div class="app-header">
-            <h1 class="app-title">Geography Flashcards</h1>
-          </div>
+      // Keyboard navigation
+      React.useEffect(() => {
+        const handleKeyDown = (e) => {
+          if (view !== 'flashcards') return;
           
-          <div class="app-layout">
-            <div class="sidebar">
-              <div class="sidebar-section">
-                <div class="search-container">
-                  <i class="fas fa-search search-icon"></i>
-                  <input
-                    type="text"
-                    class="search-input"
-                    placeholder="Search flashcards..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
-              </div>
-              
-              <div class={`sidebar-section ${animationClass}`}>
-                {view === 'topics' && (
-                  <>
-                    <div class="sidebar-title">
-                      <i class="fas fa-layer-group"></i>
-                      Topics
-                    </div>
-                    
-                    <div class="topic-grid">
-                      {topicConfig.map(topic => (
-                        <div
-                          key={topic.id}
-                          class="topic-card"
-                          onClick={() => selectTopic(topic.name)}
-                        >
-                          <i class={`fas ${topic.icon} topic-icon`}></i>
-                          <div class="topic-name">{topic.name}</div>
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <div class="bookmarks-section">
-                      <button
-                        class="topic-card"
-                        onClick={showBookmarks}
-                        style={{ marginTop: '12px' }}
-                      >
-                        <i class="fas fa-bookmark topic-icon"></i>
-                        <div class="topic-name">Bookmarks</div>
-                      </button>
-                    </div>
-                  </>
-                )}
-                
-                {view === 'subtopics' && (
-                  <div class="subtopic-container">
-                    <button class="back-btn" onClick={goBackToTopics}>
-                      <i class="fas fa-arrow-left"></i>
-                      Back to Topics
-                    </button>
-                    
-                    <div class="sidebar-title">
-                      <i class={`fas ${topicConfig.find(t => t.name === selectedTopic)?.icon || 'fa-folder'}`}></i>
-                      {selectedTopic} Subtopics
-                    </div>
-                    
-                    <div class="subtopic-list">
-                      {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopic => (
-                        <div
-                          key={subtopic}
-                          class="subtopic-card"
-                          onClick={() => selectSubtopic(subtopic)}
-                        >
-                          <div class="subtopic-name">{subtopic}</div>
-                          <div class="subtopic-count">
-                            {getSubtopicCardCount(subtopic)} cards
-                          </div>
-                          <i
-                            class={`fas fa-bookmark bookmark-btn ${isSubtopicBookmarked(subtopic) ? 'active' : ''}`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleSubtopicBookmark(subtopic);
-                            }}
-                          ></i>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {view === 'bookmarks' && (
-                  <div class="subtopic-container">
-                    <button class="back-btn" onClick={goBackToTopics}>
-                      <i class="fas fa-arrow-left"></i>
-                      Back to Topics
-                    </button>
-                    
-                    <div class="sidebar-title">
-                      <i class="fas fa-bookmark"></i>
-                      Bookmarked Cards
-                    </div>
-                    
-                    {bookmarkedCards.length > 0 ? (
-                      <p style={{ color: var(--gray), marginBottom: '16px' }}>
-                        Showing {bookmarkedCards.length} bookmarked cards
-                      </p>
-                    ) : (
-                      <div class="empty-state">
-                        <i class="fas fa-bookmark"></i>
-                        <h3>No bookmarks yet</h3>
-                        <p>Bookmark cards to see them here</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
+          switch(e.key) {
+            case 'ArrowRight':
+              nextCard();
+              break;
+            case 'ArrowLeft':
+              prevCard();
+              break;
+            case ' ':
+            case 'Enter':
+              e.preventDefault();
+              toggleAnswer();
+              break;
+            default:
+              break;
+          }
+        };
+        
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, [view, filteredCards, currentCardIndex, showAnswer]);
+      
+      return (
+        <ErrorBoundary>
+          <div id="app-container">
+            <div className="app-header">
+              <h1 className="app-title">Geography Flashcards</h1>
             </div>
             
-            <div class="flashcard-view">
-              {view === 'flashcards' && filteredCards.length > 0 ? (
-                <>
-                  <div class="flashcard-header">
-                    <div class="flashcard-progress">
-                      Card {currentCardIndex + 1} of {filteredCards.length}
-                      {selectedSubtopic && ` • ${selectedSubtopic}`}
-                    </div>
-                    <div class="flashcard-actions">
-                      <button
-                        class={`action-btn ${isCardBookmarked(filteredCards[currentCardIndex].id) ? 'bookmarked' : ''}`}
-                        onClick={() => toggleCardBookmark(filteredCards[currentCardIndex].id)}
-                        title="Bookmark this card"
-                      >
-                        <i class="fas fa-bookmark"></i>
-                      </button>
-                    </div>
+            <div className="app-layout">
+              <div className="sidebar">
+                <div className="sidebar-section">
+                  <div className="search-container">
+                    <i className="fas fa-search search-icon"></i>
+                    <input
+                      type="text"
+                      className="search-input"
+                      placeholder="Search flashcards..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      aria-label="Search flashcards"
+                    />
                   </div>
-                  
-                  <div class="flashcard-content" onClick={toggleAnswer}>
-                    <div class={`flashcard ${isFlipping ? 'flipping' : ''}`}>
-                      <div class="flashcard-subtopic">
-                        <i class={`fas ${filteredCards[currentCardIndex].type === 'caseStudy' ? 'fa-map-marked-alt' : 'fa-brain'}`}></i>
-                        {filteredCards[currentCardIndex].subtopic}
+                </div>
+                
+                <div className={`sidebar-section ${animationClass}`}>
+                  {view === 'topics' && (
+                    <>
+                      <div className="sidebar-title">
+                        <i className="fas fa-layer-group"></i>
+                        Topics
                       </div>
                       
-                      {!showAnswer ? (
-                        <div class="flashcard-question">
-                          <h3>
-                            <i class="fas fa-question-circle"></i>
-                            Question
-                          </h3>
-                          <p>{filteredCards[currentCardIndex].question}</p>
-                        </div>
+                      <div className="topic-grid">
+                        {topicConfig.map(topic => (
+                          <button
+                            key={topic.id}
+                            className="topic-card"
+                            onClick={() => selectTopic(topic.name)}
+                            aria-label={`Select ${topic.name} topic`}
+                          >
+                            <i className={`fas ${topic.icon} topic-icon`}></i>
+                            <div className="topic-name">{topic.name}</div>
+                          </button>
+                        ))}
+                      </div>
+                      
+                      <div className="bookmarks-section">
+                        <button
+                          className="topic-card"
+                          onClick={showBookmarks}
+                          style={{ marginTop: '12px' }}
+                          aria-label="View bookmarked cards"
+                        >
+                          <i className="fas fa-bookmark topic-icon"></i>
+                          <div className="topic-name">Bookmarks</div>
+                        </button>
+                      </div>
+                    </>
+                  )}
+                  
+                  {view === 'subtopics' && (
+                    <div className="subtopic-container">
+                      <button 
+                        className="back-btn" 
+                        onClick={goBackToTopics}
+                        aria-label="Go back to topics"
+                      >
+                        <i className="fas fa-arrow-left"></i>
+                        Back to Topics
+                      </button>
+                      
+                      <div className="sidebar-title">
+                        <i className={`fas ${topicConfig.find(t => t.name === selectedTopic)?.icon || 'fa-folder'}`}></i>
+                        {selectedTopic} Subtopics
+                      </div>
+                      
+                      <div className="subtopic-list">
+                        {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopic => (
+                          <button
+                            key={subtopic}
+                            className="subtopic-card"
+                            onClick={() => selectSubtopic(subtopic)}
+                            aria-label={`Select ${subtopic} subtopic`}
+                          >
+                            <div className="subtopic-name">{subtopic}</div>
+                            <div className="subtopic-count">
+                              {getSubtopicCardCount(subtopic)} cards
+                            </div>
+                            <button
+                              className={`bookmark-btn ${isSubtopicBookmarked(subtopic) ? 'active' : ''}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleSubtopicBookmark(subtopic);
+                              }}
+                              aria-label={`${isSubtopicBookmarked(subtopic) ? 'Remove' : 'Add'} bookmark for ${subtopic}`}
+                            >
+                              <i className="fas fa-bookmark"></i>
+                            </button>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {view === 'bookmarks' && (
+                    <div className="subtopic-container">
+                      <button 
+                        className="back-btn" 
+                        onClick={goBackToTopics}
+                        aria-label="Go back to topics"
+                      >
+                        <i className="fas fa-arrow-left"></i>
+                        Back to Topics
+                      </button>
+                      
+                      <div className="sidebar-title">
+                        <i className="fas fa-bookmark"></i>
+                        Bookmarked Cards
+                      </div>
+                      
+                      {bookmarkedCards.length > 0 ? (
+                        <p style={{ color: 'var(--gray)', marginBottom: '16px' }}>
+                          Showing {bookmarkedCards.length} bookmarked cards
+                        </p>
                       ) : (
-                        <div class="flashcard-answer">
-                          <h3>
-                            <i class="fas fa-lightbulb"></i>
-                            Answer
-                          </h3>
-                          <div 
-                            class="flashcard-answer-content"
-                            dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}
-                          ></div>
+                        <div className="empty-state">
+                          <i className="fas fa-bookmark"></i>
+                          <h3>No bookmarks yet</h3>
+                          <p>Bookmark cards to see them here</p>
                         </div>
                       )}
                     </div>
-                    
-                    <div class="flashcard-instruction">
-                      {!showAnswer ? 'Click to reveal answer' : 'Click to hide answer'}
+                  )}
+                </div>
+              </div>
+              
+              <div className="flashcard-view">
+                {view === 'flashcards' && filteredCards.length > 0 ? (
+                  <>
+                    <div className="flashcard-header">
+                      <div className="flashcard-progress">
+                        Card {currentCardIndex + 1} of {filteredCards.length}
+                        {selectedSubtopic && ` • ${selectedSubtopic}`}
+                      </div>
+                      <div className="flashcard-actions">
+                        <button
+                          className={`action-btn ${isCardBookmarked(filteredCards[currentCardIndex].id) ? 'bookmarked' : ''}`}
+                          onClick={() => toggleCardBookmark(filteredCards[currentCardIndex].id)}
+                          title="Bookmark this card"
+                          aria-label={`${isCardBookmarked(filteredCards[currentCardIndex].id) ? 'Remove' : 'Add'} bookmark`}
+                        >
+                          <i className="fas fa-bookmark"></i>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div class="flashcard-nav">
-                    <button 
-                      class="nav-btn prev"
-                      onClick={prevCard}
-                      disabled={currentCardIndex === 0}
+                    
+                    <div 
+                      className="flashcard-content" 
+                      onClick={toggleAnswer}
+                      role="button"
+                      tabIndex="0"
+                      aria-label={showAnswer ? 'Hide answer' : 'Show answer'}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          toggleAnswer();
+                        }
+                      }}
                     >
-                      <i class="fas fa-arrow-left"></i>
-                      Previous
-                    </button>
+                      <div className={`flashcard ${isFlipping ? 'flipping' : ''}`}>
+                        <div className="flashcard-subtopic">
+                          <i className={`fas ${filteredCards[currentCardIndex].type === 'caseStudy' ? 'fa-map-marked-alt' : 'fa-brain'}`}></i>
+                          {filteredCards[currentCardIndex].subtopic}
+                        </div>
+                        
+                        {!showAnswer ? (
+                          <div className="flashcard-question">
+                            <h3>
+                              <i className="fas fa-question-circle"></i>
+                              Question
+                            </h3>
+                            <p>{filteredCards[currentCardIndex].question}</p>
+                          </div>
+                        ) : (
+                          <div className="flashcard-answer">
+                            <h3>
+                              <i className="fas fa-lightbulb"></i>
+                              Answer
+                            </h3>
+                            <div 
+                              className="flashcard-answer-content"
+                              dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="flashcard-instruction">
+                        {!showAnswer ? 'Click to reveal answer' : 'Click to hide answer'}
+                      </div>
+                    </div>
+                    
+                    <div className="flashcard-nav">
+                      <button 
+                        className="nav-btn prev"
+                        onClick={prevCard}
+                        disabled={currentCardIndex === 0}
+                        aria-label="Previous card"
+                      >
+                        <i className="fas fa-arrow-left"></i>
+                        Previous
+                      </button>
+                      <button 
+                        className="nav-btn next"
+                        onClick={nextCard}
+                        aria-label="Next card"
+                      >
+                        Next
+                        <i className="fas fa-arrow-right"></i>
+                      </button>
+                    </div>
+                  </>
+                ) : view === 'flashcards' ? (
+                  <div className="empty-state">
+                    <i className="fas fa-map"></i>
+                    <h3>No flashcards found</h3>
+                    <p>Try changing your search or selection criteria</p>
                     <button 
-                      class="nav-btn next"
-                      onClick={nextCard}
+                      className="nav-btn next"
+                      onClick={goBackToSubtopics}
+                      aria-label="Back to subtopics"
                     >
-                      Next
-                      <i class="fas fa-arrow-right"></i>
+                      <i className="fas fa-arrow-left"></i>
+                      Back to Subtopics
                     </button>
                   </div>
-                </>
-              ) : view === 'flashcards' ? (
-                <div class="empty-state">
-                  <i class="fas fa-map"></i>
-                  <h3>No flashcards found</h3>
-                  <p>Try changing your search or selection criteria</p>
-                  <button 
-                    class="nav-btn next"
-                    onClick={goBackToSubtopics}
-                  >
-                    <i class="fas fa-arrow-left"></i>
-                    Back to Subtopics
-                  </button>
-                </div>
-              ) : (
-                <div class="empty-state">
-                  <i class="fas fa-globe"></i>
-                  <h3>Select a topic to begin</h3>
-                  <p>Choose from the topics on the left to view flashcards</p>
-                </div>
-              )}
+                ) : (
+                  <div className="empty-state">
+                    <i className="fas fa-globe"></i>
+                    <h3>Select a topic to begin</h3>
+                    <p>Choose from the topics on the left to view flashcards</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </ErrorBoundary>
       );
     };
     
