@@ -3,28 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeoMaster Pro | A Level Geography Case Studies</title>
+  <title>AQA | A Level Geography Case Studies</title>
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    :root {
-      --primary: #4361ee;
-      --primary-dark: #3a56d4;
-      --secondary: #3f37c9;
-      --accent: #4895ef;
-      --dark: #1a1a2e;
-      --light: #f8f9fa;
-      --success: #4cc9f0;
-      --warning: #f8961e;
-      --danger: #f72585;
-      --gray: #6c757d;
-      --gray-light: #e9ecef;
-      --border-radius: 8px;
-      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-    
     /* Base styles */
     * {
       box-sizing: border-box;
@@ -33,15 +14,13 @@
     }
     
     body {
-      background-color: #f8fafc;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
-      color: #2d3748;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      color: #333;
     }
     
-    /* Navigation styles (unchanged as requested) */
+    /* Navigation styles */
     .nav-container {
       background-color: #333;
       width: 100%;
@@ -103,292 +82,95 @@
       margin-left: auto;
     }
     
-    /* Premium header */
-    .premium-header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .premium-header h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    
-    .premium-header p {
-      font-size: 1rem;
-      opacity: 0.9;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    /* Main content */
+    /* Case study content styling */
     .content {
-      padding: 2rem 1.5rem;
-      max-width: 1400px;
+      padding: 40px 20px;
+      max-width: 1200px;
       margin: 0 auto;
     }
     
     .section-title {
       text-align: center;
-      margin-bottom: 2.5rem;
-      font-size: 1.8rem;
-      color: var(--dark);
-      position: relative;
-      padding-bottom: 1rem;
-    }
-    
-    .section-title:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      border-radius: 2px;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: #1b5e20;
     }
     
     /* Topic styling */
     .topic-container {
-      margin-bottom: 3rem;
-      background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      overflow: hidden;
-      transition: var(--transition);
-    }
-    
-    .topic-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
     }
     
     .topic-header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background-color: #3a5e7c;
       color: white;
-      padding: 1.25rem 1.5rem;
-      font-size: 1.4rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-    }
-    
-    .topic-header i {
-      margin-right: 0.75rem;
-      font-size: 1.2rem;
-    }
-    
-    .case-studies-container {
-      padding: 1.5rem;
+      padding: 15px 20px;
+      border-radius: 8px 8px 0 0;
+      font-size: 1.5rem;
+      margin-bottom: 0;
     }
     
     /* Subtopic styling */
     .subtopic-section {
-      padding: 1.5rem 0;
+      padding-top: 20px;
+      padding-bottom: 5px;
     }
     
     .subtopic-section:not(:first-child) {
-      border-top: 1px solid var(--gray-light);
+      border-top: 2px dotted #ccc;
+      margin-top: 15px;
     }
     
     .subtopic-title {
-      font-size: 1.25rem;
-      color: var(--dark);
-      margin-bottom: 1.25rem;
+      font-size: 1.2rem;
+      color: #3a5e7c;
+      margin-bottom: 15px;
+      padding-left: 20px;
       font-weight: 600;
-      display: flex;
-      align-items: center;
     }
     
-    .subtopic-title i {
-      color: var(--accent);
-      margin-right: 0.75rem;
-      font-size: 1rem;
+    .case-studies-container {
+      background-color: #ffffff;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 20px;
     }
     
     .case-studies-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px 20px 20px;
     }
     
-    /* Premium card styling */
     .case-study-card {
-      background: white;
-      border-radius: var(--border-radius);
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      transition: var(--transition);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .case-study-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--primary), var(--accent));
+      background-color: #f0f4f8;
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     
     .case-study-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
     .case-study-name {
-      font-weight: 600;
+      font-weight: bold;
       font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--dark);
+      margin-bottom: 8px;
     }
     
     .case-study-subtopic {
       font-size: 0.85rem;
-      color: var(--gray);
-      margin-bottom: 1rem;
+      color: #555;
+      font-style: italic;
     }
-    
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1rem;
-      padding-top: 0.75rem;
-      border-top: 1px dashed var(--gray-light);
-    }
-    
-    .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: var(--transition);
-      border: none;
-      display: inline-flex;
-      align-items: center;
-    }
-    
-    .btn-primary {
-      background-color: var(--primary);
-      color: white;
-    }
-    
-    .btn-primary:hover {
-      background-color: var(--primary-dark);
-    }
-    
-    .btn i {
-      margin-right: 0.4rem;
-    }
-    
-    .badge {
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      background-color: var(--gray-light);
-      color: var(--gray);
-    }
-    
-    /* Stats bar */
-    .stats-bar {
-      display: flex;
-      justify-content: space-between;
-      background: white;
-      padding: 1rem 1.5rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      margin-bottom: 2rem;
-    }
-    
-    .stat-item {
-      text-align: center;
-      padding: 0 1rem;
-    }
-    
-    .stat-number {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.25rem;
-    }
-    
-    .stat-label {
-      font-size: 0.85rem;
-      color: var(--gray);
-    }
-    
-    /* Footer */
-    .footer {
-      background-color: var(--dark);
-      color: white;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      margin-top: 3rem;
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-    
-    .footer-link {
-      color: white;
-      margin: 0 1rem;
-      text-decoration: none;
-      transition: opacity 0.3s;
-    }
-    
-    .footer-link:hover {
-      opacity: 0.8;
-    }
-    
-    .copyright {
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-    
-    /* Tooltip */
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 120px;
-      background-color: #555;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      font-size: 0.8rem;
-    }
-    
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
-    
-    /* Responsive adjustments */
+
+    /* Media queries for responsive design */
     @media screen and (max-width: 1100px) {
       .nav-container {
         flex-wrap: wrap;
@@ -427,67 +209,17 @@
         padding: 16px 20px;
         border-top: 1px solid #444;
       }
-    }
-    
-    @media screen and (max-width: 768px) {
-      .premium-header h1 {
-        font-size: 1.8rem;
-      }
-      
-      .stats-bar {
-        flex-direction: column;
-      }
-      
-      .stat-item {
-        margin-bottom: 1rem;
-      }
       
       .case-studies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+    }
+    
+    @media screen and (max-width: 600px) {
+      .case-studies-grid {
         grid-template-columns: 1fr;
+        padding: 15px;
       }
-      
-      .footer-links {
-        flex-direction: column;
-      }
-      
-      .footer-link {
-        margin: 0.5rem 0;
-      }
-    }
-    
-    /* Animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .topic-container {
-      animation: fadeIn 0.5s ease-out forwards;
-    }
-    
-    .topic-container:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-    
-    .topic-container:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-    
-    /* Loading spinner */
-    .spinner {
-      display: none;
-      width: 40px;
-      height: 40px;
-      margin: 2rem auto;
-      border: 4px solid rgba(0, 0, 0, 0.1);
-      border-radius: 50%;
-      border-top: 4px solid var(--primary);
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -506,166 +238,81 @@
     </ul>
   </div>
   
-  <!-- Premium header -->
-  <div class="premium-header">
-    <h1>GeoMaster Pro</h1>
-    <p>Your comprehensive A-Level Geography case study resource with interactive learning tools and expert-curated content</p>
-  </div>
-  
-  <!-- Stats bar -->
+  <!-- Main content -->
   <div class="content">
-    <div class="stats-bar">
-      <div class="stat-item">
-        <div class="stat-number">42</div>
-        <div class="stat-label">Case Studies</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">8</div>
-        <div class="stat-label">Topics</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">15+</div>
-        <div class="stat-label">Subtopic Areas</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number tooltip">100%<span class="tooltiptext">Exam success guarantee</span></div>
-        <div class="stat-label">Success Rate</div>
-      </div>
-    </div>
-    
     <h2 class="section-title">Geography Case Studies</h2>
     
     <!-- Hazards Topic -->
     <div class="topic-container">
-      <h3 class="topic-header"><i class="fas fa-fire"></i> Hazards</h3>
+      <h3 class="topic-header">Hazards</h3>
       <div class="case-studies-container">
         <!-- Volcanoes subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-mountain"></i> Volcanoes</h4>
+          <h4 class="subtopic-title">Volcanoes</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Mt Etna</div>
-              <div class="case-study-subtopic">Stratovolcano in Sicily, Italy</div>
-              <div class="card-footer">
-                <span class="badge">Active</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Mt Merapi</div>
-              <div class="case-study-subtopic">Active volcano in Indonesia</div>
-              <div class="card-footer">
-                <span class="badge">High Risk</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Eyjafjallajokull</div>
-              <div class="case-study-subtopic">Icelandic glacier volcano</div>
-              <div class="card-footer">
-                <span class="badge">2010 Eruption</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Monserrat</div>
-              <div class="case-study-subtopic">Caribbean volcanic island</div>
-              <div class="card-footer">
-                <span class="badge">1995 Eruption</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Yellowstone</div>
-              <div class="case-study-subtopic">Supervolcano in USA</div>
-              <div class="card-footer">
-                <span class="badge">Dormant</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Tsunamis subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-water"></i> Tsunamis</h4>
+          <h4 class="subtopic-title">Tsunamis</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Indonesian Tsunami</div>
-              <div class="case-study-subtopic">2004 Indian Ocean event</div>
-              <div class="card-footer">
-                <span class="badge">Magnitude 9.1</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Tohoko</div>
-              <div class="case-study-subtopic">2011 Japan earthquake & tsunami</div>
-              <div class="card-footer">
-                <span class="badge">Fukushima</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Earthquakes subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-layer-group"></i> Earthquakes</h4>
+          <h4 class="subtopic-title">Earthquakes</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Haiti Earthquake</div>
-              <div class="case-study-subtopic">2010 catastrophic event</div>
-              <div class="card-footer">
-                <span class="badge">Magnitude 7.0</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Tropical Storms subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-wind"></i> Tropical Storms</h4>
+          <h4 class="subtopic-title">Tropical Storms</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Cyclone Nargis</div>
-              <div class="case-study-subtopic">2008 Myanmar disaster</div>
-              <div class="card-footer">
-                <span class="badge">Category 4</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Hurricane Katrina</div>
-              <div class="case-study-subtopic">2005 US Gulf Coast</div>
-              <div class="card-footer">
-                <span class="badge">Category 5</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Wildfires subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-tree"></i> Wildfires</h4>
+          <h4 class="subtopic-title">Wildfires</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Alberta Bushfire</div>
-              <div class="case-study-subtopic">2016 Canadian wildfire</div>
-              <div class="card-footer">
-                <span class="badge">Fort McMurray</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Black Saturday</div>
-              <div class="case-study-subtopic">2009 Australian bushfires</div>
-              <div class="card-footer">
-                <span class="badge">Victoria</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
@@ -674,132 +321,70 @@
     
     <!-- Place Topic -->
     <div class="topic-container">
-      <h3 class="topic-header"><i class="fas fa-map-marked-alt"></i> Place</h3>
+      <h3 class="topic-header">Place</h3>
       <div class="case-studies-container">
         <!-- Place Meaning subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-landmark"></i> Place Meaning</h4>
+          <h4 class="subtopic-title">Place Meaning</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Ground Zero New York</div>
-              <div class="case-study-subtopic">9/11 Memorial Site</div>
-              <div class="card-footer">
-                <span class="badge">Symbolic</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Artistic Representation subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-paint-brush"></i> Artistic Representation</h4>
+          <h4 class="subtopic-title">Artistic Representation</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">New York Song</div>
-              <div class="case-study-subtopic">Cultural representation</div>
-              <div class="card-footer">
-                <span class="badge">Music</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Changing Places subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-city"></i> Changing Places</h4>
+          <h4 class="subtopic-title">Changing Places</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Plymouth</div>
-              <div class="case-study-subtopic">UK coastal city</div>
-              <div class="card-footer">
-                <span class="badge">Regeneration</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Detroit</div>
-              <div class="case-study-subtopic">US industrial decline</div>
-              <div class="card-footer">
-                <span class="badge">Urban decay</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Poundbury</div>
-              <div class="case-study-subtopic">UK planned community</div>
-              <div class="card-footer">
-                <span class="badge">Urban design</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Forces of Change subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-people-carry"></i> Forces of Change</h4>
+          <h4 class="subtopic-title">Forces of Change</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Medellin Columbia</div>
-              <div class="case-study-subtopic">Urban transformation</div>
-              <div class="card-footer">
-                <span class="badge">Social urbanism</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Bourneville</div>
-              <div class="case-study-subtopic">Model village</div>
-              <div class="card-footer">
-                <span class="badge">Cadbury</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
             <div class="case-study-card">
               <div class="case-study-name">Devonport</div>
-              <div class="case-study-subtopic">Naval base town</div>
-              <div class="card-footer">
-                <span class="badge">Military</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
         
         <!-- Rebranding subtopic section -->
         <div class="subtopic-section">
-          <h4 class="subtopic-title"><i class="fas fa-sync-alt"></i> Rebranding</h4>
+          <h4 class="subtopic-title">Rebranding</h4>
           <div class="case-studies-grid">
             <div class="case-study-card">
               <div class="case-study-name">Llandudno</div>
-              <div class="case-study-subtopic">Welsh seaside town</div>
-              <div class="card-footer">
-                <span class="badge">Tourism</span>
-                <button class="btn btn-primary"><i class="fas fa-book-open"></i> Study</button>
-              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Loading spinner (hidden by default) -->
-    <div class="spinner" id="loadingSpinner"></div>
-  </div>
-  
-  <!-- Footer -->
-  <div class="footer">
-    <div class="footer-links">
-      <a href="#" class="footer-link">About GeoMaster</a>
-      <a href="#" class="footer-link">Features</a>
-      <a href="#" class="footer-link">Pricing</a>
-      <a href="#" class="footer-link">Contact</a>
-      <a href="#" class="footer-link">Support</a>
-    </div>
-    <div class="copyright">
-      &copy; 2023 GeoMaster Pro. All rights reserved. | AQA Geography Case Studies
     </div>
   </div>
   
@@ -828,40 +413,6 @@
         if (window.innerWidth > 1100) {
           navMenu.classList.remove('active');
         }
-      });
-      
-      // Simulate loading for demo purposes
-      const studyButtons = document.querySelectorAll('.btn-primary');
-      const spinner = document.getElementById('loadingSpinner');
-      
-      studyButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          // Show loading spinner
-          spinner.style.display = 'block';
-          
-          // Scroll to spinner
-          spinner.scrollIntoView({ behavior: 'smooth' });
-          
-          // Simulate loading delay
-          setTimeout(() => {
-            spinner.style.display = 'none';
-            alert('Case study content would load here in the full application');
-          }, 1500);
-        });
-      });
-      
-      // Add animation to cards on hover
-      const cards = document.querySelectorAll('.case-study-card');
-      cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-5px)';
-          this.style.boxShadow = '0 15px 25px rgba(0, 0, 0, 0.1)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-          this.style.boxShadow = '';
-        });
       });
     });
   </script>

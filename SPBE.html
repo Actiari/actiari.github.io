@@ -2,16 +2,39 @@
 <html>
 <head>
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --secondary: #388e3c;
+      --accent: #66bb6a;
+      --dark: #1a2e1a;
+      --light: #f8f9fa;
+      --success: #4caf50;
+      --warning: #ffa000;
+      --danger: #d32f2f;
+      --gray: #616161;
+      --gray-light: #e8f5e9;
+      --border-radius: 8px;
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
     /* Global styles */
     body {
       background-color: #f0f8f0;
       margin: 0;
-      font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    
     h1, p {
       text-indent: 25px;
     }
+    
     ul {
       list-style-type: none;
       margin: 0;
@@ -19,9 +42,11 @@
       overflow: hidden;
       background-color: #333;
     }
+    
     li {
       float: left;
     }
+    
     li a {
       display: block;
       color: white;
@@ -29,139 +54,215 @@
       padding: 14px 16px;
       text-decoration: none;
     }
+    
     #app-container {
       margin: 20px;
     }
+    
     /* Legend for colours */
     .legend {
       margin: 10px 0;
-      padding: 10px;
-      background-color: #f1f1f1;
-      border: 2px solid #388e3c;
-      border-radius: 8px;
+      padding: 15px;
+      background-color: #e8f5e9;
+      border: 2px solid var(--primary);
+      border-radius: var(--border-radius);
       font-size: 0.9rem;
-      color: #1b5e20;
+      color: var(--dark);
+      box-shadow: var(--box-shadow);
+      animation: fadeIn 0.5s ease-out;
     }
+    
     .legend span.box {
       display: inline-block;
       width: 16px;
       height: 16px;
-      margin-right: 5px;
+      margin-right: 8px;
       vertical-align: middle;
       border: 1px solid #000;
+      border-radius: 3px;
     }
-    .legend .hazards-active { background-color: #2e7d32; }
+    
+    .legend .hazards-active { background-color: var(--primary); }
     .legend .place-active { background-color: #1565c0; }
     .legend .inactive { background-color: #757575; }
+    
     /* Subtopic buttons */
     .subtopic-section {
       margin-bottom: 16px;
+      animation: slideUp 0.4s ease-out;
     }
+    
     .subtopic-section h5 {
       margin: 8px 0 4px;
-      color: #1b5e20;
+      color: var(--primary-dark);
+      font-weight: 600;
     }
+    
     .subtopic-button {
-      margin-right: 8px;
-      margin-bottom: 8px;
-      padding: 6px 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    /* For subtopics, use shades based on category */
-    .conceptual-active { background-color: #2e7d32; color: white; }
-    .conceptual-inactive { background-color: #a5d6a7; color: #1b5e20; }
-    .casestudy-active { background-color: #1565c0; color: white; }
-    .casestudy-inactive { background-color: #90caf9; color: #1b5e20; }
-    /* Topic buttons */
-    .topic-button {
       margin-right: 8px;
       margin-bottom: 8px;
       padding: 8px 12px;
       border: none;
-      border-radius: 4px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    /* For subtopics, use shades based on category */
+    .conceptual-active { 
+      background-color: var(--primary); 
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    .conceptual-inactive { 
+      background-color: #a5d6a7; 
+      color: var(--primary-dark);
+    }
+    
+    .conceptual-inactive:hover {
+      background-color: #81c784;
+    }
+    
+    .casestudy-active { 
+      background-color: #1565c0; 
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    .casestudy-inactive { 
+      background-color: #90caf9; 
+      color: #0d47a1;
+    }
+    
+    .casestudy-inactive:hover {
+      background-color: #64b5f6;
+    }
+    
+    /* Topic buttons */
+    .topic-button {
+      margin-right: 8px;
+      margin-bottom: 12px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 20px;
       cursor: pointer;
       font-size: 1rem;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .hazards-topic-active { background-color: #2e7d32; color: white; }
-    .place-topic-active { background-color: #1565c0; color: white; }
-    .topic-inactive { background-color: #a5d6a7; color: white; }
+    
+    .hazards-topic-active { 
+      background-color: var(--primary); 
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    .place-topic-active { 
+      background-color: #1565c0; 
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    .topic-inactive { 
+      background-color: #a5d6a7; 
+      color: white;
+    }
+    
+    .topic-inactive:hover {
+      background-color: #81c784;
+    }
+    
     /* Flashcard container */
     .flashcard-container {
-      background-color: #f0f8f0;
-      border-radius: 8px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       padding: 24px;
-      min-height: 16rem;
+      min-height: 300px;
       display: flex;
       flex-direction: column;
       cursor: pointer;
-      border: 2px solid #388e3c;
+      border: 2px solid var(--primary);
       position: relative;
+      transition: var(--transition);
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
+    
+    .flashcard-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    
+    .flashcard-container.flip {
+      animation: flipCard 0.6s ease-out forwards;
+    }
+    
     .progress-indicator {
       position: absolute;
-      top: 8px;
-      right: 12px;
+      top: 12px;
+      right: 16px;
       font-size: 0.9rem;
-      color: #2e7d32;
+      color: var(--primary);
+      font-weight: 500;
     }
+    
     /* Answer text background */
     .flashcard-container .answer {
-      background-color: transparent; /* Changed from #f0f8f0 to transparent */
+      background-color: transparent;
       padding: 8px;
       border-radius: 4px;
     }
+    
     /* Fix for list items inside flashcard answers */
     .flashcard-container ul {
-      background-color: transparent; /* Make nested lists transparent */
-      list-style-type: disc; /* Reset list style to disc for answer bullets */
-      overflow: visible; /* Ensure bullets are visible */
-      margin-left: 20px; /* Add margin for bullet points */
-      padding-left: 5px; /* Add some padding */
+      background-color: transparent;
+      list-style-type: disc;
+      overflow: visible;
+      margin-left: 20px;
+      padding-left: 5px;
     }
+    
     .flashcard-container li {
-      float: none; /* Reset float property from global li style */
-      background-color: transparent; /* Ensure list items are transparent */
-      color: #1b5e20; /* Match text color with other content */
-      margin-bottom: 4px; /* Add spacing between list items */
-      display: list-item; /* Ensure list items are displayed correctly */
+      float: none;
+      background-color: transparent;
+      color: var(--dark);
+      margin-bottom: 6px;
+      display: list-item;
     }
-        /* Fix for list items inside the exam tips box */
-        #app-container ul {
-      background-color: transparent; /* Make nested lists transparent */
-      list-style-type: disc; /* Reset list style to disc for answer bullets */
-      overflow: visible; /* Ensure bullets are visible */
-      margin-left: 20px; /* Add margin for bullet points */
-      padding-left: 5px; /* Add some padding */
+    
+    /* Fix for list items inside the exam tips box */
+    #app-container ul {
+      background-color: transparent;
+      list-style-type: disc;
+      overflow: visible;
+      margin-left: 20px;
+      padding-left: 5px;
     }
+    
     #app-container li {
-      float: none; /* Reset float property from global li style */
-      background-color: transparent; /* Ensure list items are transparent */
-      color: #1b5e20; /* Match text color with other content */
-      margin-bottom: 4px; /* Add spacing between list items */
-      display: list-item; /* Ensure list items are displayed correctly */
-      clear: both; /* Ensure list items do not overlap */
+      float: none;
+      background-color: transparent;
+      color: var(--dark);
+      margin-bottom: 8px;
+      display: list-item;
+      clear: both;
     }
+    
     /* Base styles */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
-    body {
-      background-color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
-    }
-
+    
     /* Navigation styles */
     .nav-container {
-      background-color: #333;
+      background-color: var(--primary-dark);
       width: 100%;
       display: flex;
       align-items: center;
@@ -169,19 +270,19 @@
       padding: 0 20px;
       position: relative;
     }
-
+    
     .logo {
       display: flex;
       align-items: center;
       text-decoration: none;
     }
-
+    
     .logo img {
       width: 42px;
       height: 38px;
       vertical-align: middle;
     }
-
+    
     .nav-menu {
       list-style-type: none;
       display: flex;
@@ -189,13 +290,13 @@
       transition: all 0.3s ease;
       margin-left: 0;
       width: 100%;
-      justify-content: flex-start; /* Changed from space-between to flex-start */
+      justify-content: flex-start;
     }
-
+    
     .nav-menu li {
-      flex: 0 0 auto; /* Don't grow or shrink, stay at natural width */
+      flex: 0 0 auto;
     }
-
+    
     .nav-menu li a {
       display: block;
       color: white;
@@ -205,11 +306,11 @@
       white-space: nowrap;
       transition: background-color 0.2s;
     }
-
+    
     .nav-menu li a:hover {
-      background-color: #444;
+      background-color: var(--primary);
     }
-
+    
     .menu-toggle {
       display: none;
       color: white;
@@ -220,45 +321,131 @@
       cursor: pointer;
       margin-left: auto;
     }
-
+    
+    /* Button styles */
+    .btn {
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary:disabled {
+      background-color: #bdbdbd;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes flipCard {
+      0% { transform: rotateY(0); }
+      50% { transform: rotateY(90deg); }
+      100% { transform: rotateY(0); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+    
     /* Media queries for responsive design */
     @media screen and (max-width: 1100px) {
       .nav-container {
         flex-wrap: wrap;
         padding: 0;
       }
-
+      
       .logo {
         padding: 10px 20px;
       }
-
+      
       .menu-toggle {
-        display: block !important; /* Force display with !important */
+        display: block !important;
       }
-
+      
       .nav-menu {
-        display: none; /* Hide by default on mobile */
+        display: none;
         width: 100%;
         flex-direction: column;
         position: absolute;
         top: 100%;
         left: 0;
-        background-color: #333;
+        background-color: var(--primary-dark);
         z-index: 99;
       }
-
+      
       .nav-menu.active {
-        display: flex !important; /* Show when active with !important */
+        display: flex !important;
       }
-
+      
       .nav-menu li {
         width: 100%;
       }
-
+      
       .nav-menu li a {
         text-align: left;
         padding: 16px 20px;
-        border-top: 1px solid #444;
+        border-top: 1px solid var(--primary);
+      }
+      
+      .subtopic-button, .topic-button {
+        margin-right: 6px;
+        margin-bottom: 6px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .flashcard-container {
+        min-height: 250px;
+        padding: 16px;
+      }
+      
+      .legend {
+        font-size: 0.8rem;
+      }
+      
+      .legend span.box {
+        width: 12px;
+        height: 12px;
       }
     }
   </style>
@@ -283,6 +470,7 @@
       <li><a href="BWT.html">Case Studies</a></li>
     </ul>
   </div>
+  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
@@ -311,8 +499,10 @@
       });
     });
   </script>
+  
   <!-- React App Container -->
   <div id="app-container"></div>
+  
   <!-- React Component -->
   <script type="text/babel">
     const GeographyFlashcardApp = () => {
@@ -324,11 +514,12 @@
       const [filteredCards, setFilteredCards] = React.useState([]);
       const [showStats, setShowStats] = React.useState(false);
       const [cardStats, setCardStats] = React.useState({});
+      const [isFlipping, setIsFlipping] = React.useState(false);
       // States for topic and subtopic selection
       const [selectedTopic, setSelectedTopic] = React.useState(null);
-      // selectedSubtopic is an object: { category: "Conceptual" or "Case Study", name: string }
       const [selectedSubtopic, setSelectedSubtopic] = React.useState({ category: null, name: null });
-      // Define subtopics for each main topic – split into Conceptual and Case Studies.
+      
+      // Define subtopics for each main topic
       const hazardsConceptual = [
         "Concept of Hazard in Geography",
         "Plate Tectonics and Hazards",
@@ -341,6 +532,7 @@
         "Fold Mountains Formation",
         "Rift Valleys & Ocean Ridges"
       ];
+      
       const hazardsCaseStudies = [
         "Mt Etna",
         "Mt Merapi",
@@ -356,6 +548,7 @@
         "Tohoku",
         "Typhoon Haiyan"
       ];
+      
       const placeConceptual = [
         "Concept of Place & Identity",
         "Insider vs Outsider Perspectives",
@@ -367,6 +560,7 @@
         "Spatial Patterns & Land Use",
         "Cultural & Social Change"
       ];
+      
       const placeCaseStudies = [
         "Ground Zero",
         "Plymouth",
@@ -378,7 +572,8 @@
         "Stonehenge",
         "Glastonbury"
       ];
-      // Main topic configuration (active colours: Hazards = green; Place = blue)
+      
+      // Main topic configuration
       const topicConfig = [
         {
           topic: "Hazards",
@@ -393,7 +588,8 @@
           caseStudies: placeCaseStudies
         }
       ];
-      // Detailed case study facts with bullet points and actual numbers
+      
+      // Detailed case study facts
       const hazardsCaseStudyFacts = {
         "Mt Etna": `<ul>
   <li>VEI: 2-3</li>
@@ -458,6 +654,7 @@
   <li>Widespread destruction</li>
 </ul>`
       };
+      
       const placeCaseStudyFacts = {
         "Ground Zero": `<ul>
   <li>Site of 9/11 attacks; major redevelopment</li>
@@ -496,6 +693,7 @@
   <li>Exemplifies the blend of heritage and modern economic trends</li>
 </ul>`
       };
+      
       // Helper functions to generate flashcards
       const generateConceptualFlashcards = (subtopic, topicType) => {
         let cards = [];
@@ -613,6 +811,7 @@
         }
         return cards;
       };
+      
       const generateCaseStudyFlashcards = (caseStudyName, topicType) => {
         let cards = [];
         if(topicType === "Hazards") {
@@ -693,10 +892,12 @@
         }
         return cards;
       };
-      // Generate all flashcards dynamically for each topic, both conceptual and case study
+      
+      // Generate all flashcards dynamically
       React.useEffect(() => {
         let generatedFlashcards = [];
         let idCounter = 1;
+        
         // Hazards: conceptual flashcards
         topicConfig.find(t => t.topic === "Hazards").conceptual.forEach(sub => {
           const cards = generateConceptualFlashcards(sub, "Hazards");
@@ -705,6 +906,7 @@
             generatedFlashcards.push(card);
           });
         });
+        
         // Hazards: case study flashcards
         topicConfig.find(t => t.topic === "Hazards").caseStudies.forEach(sub => {
           const cards = generateCaseStudyFlashcards(sub, "Hazards");
@@ -713,6 +915,7 @@
             generatedFlashcards.push(card);
           });
         });
+        
         // Place: conceptual flashcards
         topicConfig.find(t => t.topic === "Place").conceptual.forEach(sub => {
           const cards = generateConceptualFlashcards(sub, "Place");
@@ -721,6 +924,7 @@
             generatedFlashcards.push(card);
           });
         });
+        
         // Place: case study flashcards
         topicConfig.find(t => t.topic === "Place").caseStudies.forEach(sub => {
           const cards = generateCaseStudyFlashcards(sub, "Place");
@@ -729,7 +933,9 @@
             generatedFlashcards.push(card);
           });
         });
+        
         setFlashcards(generatedFlashcards);
+        
         // Initialize stats for each flashcard
         const initialStats = {};
         generatedFlashcards.forEach(card => {
@@ -742,6 +948,7 @@
         });
         setCardStats(initialStats);
       }, []);
+      
       // Filter flashcards based on search, topic, and subtopic selections
       React.useEffect(() => {
         let filtered = [...flashcards];
@@ -769,203 +976,589 @@
           setShowAnswer(false);
         }
       }, [flashcards, searchTerm, selectedTopic, selectedSubtopic]);
-      // Navigation functions
+      
+      // Navigation functions with animations
       const nextCard = () => {
-        if (currentCardIndex < filteredCards.length - 1) {
-          setCurrentCardIndex(currentCardIndex + 1);
+        if (filteredCards.length === 0) return;
+        
+        setIsFlipping(true);
+        setTimeout(() => {
+          if (currentCardIndex < filteredCards.length - 1) {
+            setCurrentCardIndex(currentCardIndex + 1);
+          } else {
+            setCurrentCardIndex(0);
+          }
           setShowAnswer(false);
-        } else {
-          setCurrentCardIndex(0);
-          setShowAnswer(false);
-        }
+          setIsFlipping(false);
+        }, 300);
       };
+      
       const prevCard = () => {
-        if (currentCardIndex > 0) {
+        if (filteredCards.length === 0 || currentCardIndex === 0) return;
+        
+        setIsFlipping(true);
+        setTimeout(() => {
           setCurrentCardIndex(currentCardIndex - 1);
           setShowAnswer(false);
-        }
+          setIsFlipping(false);
+        }, 300);
       };
+      
       const toggleAnswer = () => {
-        setShowAnswer(!showAnswer);
-        if (!showAnswer && filteredCards.length > 0) {
-          const currentCard = filteredCards[currentCardIndex];
-          const updatedStats = { ...cardStats };
-          updatedStats[currentCard.id] = {
-            ...updatedStats[currentCard.id],
-            timesReviewed: (updatedStats[currentCard.id].timesReviewed || 0) + 1,
-            lastReviewed: new Date()
-          };
-          setCardStats(updatedStats);
-        }
+        if (isFlipping) return;
+        
+        setIsFlipping(true);
+        setTimeout(() => {
+          setShowAnswer(!showAnswer);
+          if (!showAnswer && filteredCards.length > 0) {
+            const currentCard = filteredCards[currentCardIndex];
+            const updatedStats = { ...cardStats };
+            updatedStats[currentCard.id] = {
+              ...updatedStats[currentCard.id],
+              timesReviewed: (updatedStats[currentCard.id].timesReviewed || 0) + 1,
+              lastReviewed: new Date()
+            };
+            setCardStats(updatedStats);
+          }
+          setIsFlipping(false);
+        }, 150);
       };
+      
+      // Statistics component
       const Statistics = () => {
         const totalCards = flashcards.length;
         const reviewedCards = Object.values(cardStats).filter(stat => stat.timesReviewed > 0).length;
+        const reviewPercentage = Math.round((reviewedCards / totalCards) * 100);
+        
         return (
-          <div style={{ backgroundColor: "#e6f5e6", border: "2px solid #388e3c", borderRadius: "8px", padding: "16px", maxWidth: "32rem", margin: "24px auto", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "16px", color: "#1b5e20" }}>Your Study Statistics</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-              <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
-                <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{totalCards}</div>
+          <div style={{ 
+            backgroundColor: "#e6f5e6", 
+            border: "2px solid var(--primary)", 
+            borderRadius: "var(--border-radius)", 
+            padding: "20px", 
+            maxWidth: "600px", 
+            margin: "24px auto", 
+            boxShadow: "var(--box-shadow)",
+            animation: "fadeIn 0.5s ease-out"
+          }}>
+            <h3 style={{ 
+              fontSize: "1.25rem", 
+              fontWeight: "bold", 
+              marginBottom: "16px", 
+              color: "var(--primary-dark)",
+              textAlign: "center"
+            }}>
+              <i className="fas fa-chart-line" style={{ marginRight: "8px" }}></i>
+              Your Study Statistics
+            </h3>
+            
+            <div style={{ 
+              display: "grid", 
+              gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", 
+              gap: "12px",
+              marginBottom: "16px"
+            }}>
+              <div style={{ 
+                backgroundColor: "#c8e6c9", 
+                padding: "16px", 
+                borderRadius: "var(--border-radius)", 
+                textAlign: "center", 
+                border: "1px solid var(--primary)",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+              }}>
+                <div style={{ 
+                  fontSize: "1.75rem", 
+                  fontWeight: "bold", 
+                  color: "var(--primary-dark)",
+                  marginBottom: "4px"
+                }}>{totalCards}</div>
                 <div style={{ fontSize: "0.875rem" }}>Total Cards</div>
               </div>
-              <div style={{ backgroundColor: "#c8e6c9", padding: "12px", borderRadius: "4px", textAlign: "center", border: "1px solid #388e3c" }}>
-                <div style={{ fontSize: "1.5rem", fontWeight: "bold", color: "#1b5e20" }}>{reviewedCards}</div>
+              
+              <div style={{ 
+                backgroundColor: "#c8e6c9", 
+                padding: "16px", 
+                borderRadius: "var(--border-radius)", 
+                textAlign: "center", 
+                border: "1px solid var(--primary)",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+              }}>
+                <div style={{ 
+                  fontSize: "1.75rem", 
+                  fontWeight: "bold", 
+                  color: "var(--primary-dark)",
+                  marginBottom: "4px"
+                }}>{reviewedCards}</div>
                 <div style={{ fontSize: "0.875rem" }}>Reviewed</div>
               </div>
+              
+              <div style={{ 
+                backgroundColor: "#c8e6c9", 
+                padding: "16px", 
+                borderRadius: "var(--border-radius)", 
+                textAlign: "center", 
+                border: "1px solid var(--primary)",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+              }}>
+                <div style={{ 
+                  fontSize: "1.75rem", 
+                  fontWeight: "bold", 
+                  color: "var(--primary-dark)",
+                  marginBottom: "4px"
+                }}>{reviewPercentage}%</div>
+                <div style={{ fontSize: "0.875rem" }}>Completion</div>
+              </div>
+            </div>
+            
+            <div style={{ 
+              marginTop: "16px",
+              textAlign: "center"
+            }}>
+              <button 
+                onClick={() => setShowStats(false)}
+                style={{
+                  backgroundColor: "var(--primary)",
+                  color: "white",
+                  padding: "8px 16px",
+                  borderRadius: "20px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontWeight: "500",
+                  transition: "var(--transition)"
+                }}
+              >
+                Close Statistics
+              </button>
             </div>
           </div>
         );
       };
+      
       // UI for subtopic selection
       const renderSubtopicButtons = () => {
         if (!selectedTopic) return null;
         const config = topicConfig.find(item => item.topic === selectedTopic);
+        
         return (
           <div>
             <div className="subtopic-section">
-              <h5>Conceptual</h5>
-              {config.conceptual.map(sub => (
-                <button key={sub} className={`subtopic-button ${selectedSubtopic.category==="Conceptual" && selectedSubtopic.name===sub ? "conceptual-active" : "conceptual-inactive"}`}
-                  onClick={() => setSelectedSubtopic({ category: "Conceptual", name: sub })}>
-                  {sub.length > 20 ? sub.slice(0,20) + "…" : sub}
-                </button>
-              ))}
+              <h5><i className="fas fa-brain" style={{ marginRight: "8px" }}></i>Conceptual</h5>
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {config.conceptual.map(sub => (
+                  <button 
+                    key={sub} 
+                    className={`subtopic-button ${selectedSubtopic.category==="Conceptual" && selectedSubtopic.name===sub ? "conceptual-active" : "conceptual-inactive"}`}
+                    onClick={() => setSelectedSubtopic({ category: "Conceptual", name: sub })}
+                  >
+                    {sub.length > 20 ? sub.slice(0,20) + "…" : sub}
+                  </button>
+                ))}
+              </div>
             </div>
+            
             <div className="subtopic-section">
-              <h5>Case Studies</h5>
-              {config.caseStudies.map(sub => (
-                <button key={sub} className={`subtopic-button ${selectedSubtopic.category==="Case Study" && selectedSubtopic.name===sub ? "casestudy-active" : "casestudy-inactive"}`}
-                  onClick={() => setSelectedSubtopic({ category: "Case Study", name: sub })}>
-                  {sub}
-                </button>
-              ))}
+              <h5><i className="fas fa-map-marked-alt" style={{ marginRight: "8px" }}></i>Case Studies</h5>
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
+                {config.caseStudies.map(sub => (
+                  <button 
+                    key={sub} 
+                    className={`subtopic-button ${selectedSubtopic.category==="Case Study" && selectedSubtopic.name===sub ? "casestudy-active" : "casestudy-inactive"}`}
+                    onClick={() => setSelectedSubtopic({ category: "Case Study", name: sub })}
+                  >
+                    {sub}
+                  </button>
+                ))}
+              </div>
             </div>
-            <button className="subtopic-button topic-inactive" onClick={() => setSelectedSubtopic({ category: null, name: null })}>
+            
+            <button 
+              className="subtopic-button topic-inactive" 
+              onClick={() => setSelectedSubtopic({ category: null, name: null })}
+              style={{ marginTop: "8px" }}
+            >
+              <i className="fas fa-undo" style={{ marginRight: "6px" }}></i>
               All Subtopics
             </button>
           </div>
         );
       };
+      
       return (
-        <div style={{ minHeight: "100vh", backgroundColor: "#f0f8f0", padding: "16px" }}>
-          <div style={{ maxWidth: "64rem", margin: "0 auto" }}>
-            <header style={{ textAlign: "center", marginBottom: "24px" }}>
-              <h1 style={{ fontSize: "1.875rem", fontWeight: "bold", color: "#1b5e20" }}>
+        <div style={{ 
+          minHeight: "100vh", 
+          backgroundColor: "#f0f8f0", 
+          padding: "20px",
+          animation: "fadeIn 0.5s ease-out"
+        }}>
+          <div style={{ 
+            maxWidth: "900px", 
+            margin: "0 auto",
+            animation: "slideUp 0.4s ease-out"
+          }}>
+            <header style={{ 
+              textAlign: "center", 
+              marginBottom: "24px",
+              padding: "16px",
+              backgroundColor: "#e8f5e9",
+              borderRadius: "var(--border-radius)",
+              boxShadow: "var(--box-shadow)",
+              border: "2px solid var(--primary)"
+            }}>
+              <h1 style={{ 
+                fontSize: "1.875rem", 
+                fontWeight: "bold", 
+                color: "var(--primary-dark)",
+                marginBottom: "8px"
+              }}>
+                <i className="fas fa-globe-europe" style={{ marginRight: "10px" }}></i>
                 AQA Geography AS Level Revision
               </h1>
+              <p style={{ 
+                fontSize: "1rem", 
+                color: "var(--dark)",
+                marginBottom: "0"
+              }}>
+                Interactive flashcards for comprehensive exam preparation
+              </p>
             </header>
+            
             {/* Legend */}
             <div className="legend">
-              <div><span class="box hazards-active"></span> Hazards Topic (Active)</div>
-              <div><span class="box place-active"></span> Place Topic (Active)</div>
-              <div><span class="box topic-inactive"></span> Inactive Topic</div>
-              <div><span class="box conceptual-active"></span> Conceptual Subtopic (Active)</div>
-              <div><span class="box conceptual-inactive"></span> Conceptual Subtopic (Inactive)</div>
-              <div><span class="box casestudy-active"></span> Case Study Subtopic (Active)</div>
-              <div><span class="box casestudy-inactive"></span> Case Study Subtopic (Inactive)</div>
+              <h4 style={{ 
+                marginTop: "0", 
+                marginBottom: "12px", 
+                color: "var(--primary-dark)",
+                fontWeight: "600"
+              }}>
+                <i className="fas fa-info-circle" style={{ marginRight: "8px" }}></i>
+                Color Legend
+              </h4>
+              <div><span className="box hazards-active"></span> Hazards Topic (Active)</div>
+              <div><span className="box place-active"></span> Place Topic (Active)</div>
+              <div><span className="box topic-inactive"></span> Inactive Topic</div>
+              <div><span className="box conceptual-active"></span> Conceptual Subtopic (Active)</div>
+              <div><span className="box conceptual-inactive"></span> Conceptual Subtopic (Inactive)</div>
+              <div><span className="box casestudy-active"></span> Case Study Subtopic (Active)</div>
+              <div><span className="box casestudy-inactive"></span> Case Study Subtopic (Inactive)</div>
             </div>
+            
             {/* Controls */}
-            <div style={{ backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", marginBottom: "24px", border: "2px solid #388e3c" }}>
-              <div style={{ marginBottom: "16px" }}>
-                <label style={{ display: "block", fontSize: "0.875rem", fontWeight: "500", marginBottom: "4px", color: "#1b5e20" }}>Search</label>
+            <div style={{ 
+              backgroundColor: "#e8f5e9", 
+              borderRadius: "var(--border-radius)", 
+              boxShadow: "var(--box-shadow)", 
+              padding: "20px", 
+              marginBottom: "24px", 
+              border: "2px solid var(--primary)"
+            }}>
+              <div style={{ marginBottom: "20px" }}>
+                <label style={{ 
+                  display: "block", 
+                  fontSize: "0.875rem", 
+                  fontWeight: "500", 
+                  marginBottom: "8px", 
+                  color: "var(--primary-dark)"
+                }}>
+                  <i className="fas fa-search" style={{ marginRight: "8px" }}></i>
+                  Search Flashcards
+                </label>
                 <input
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search questions, answers, or subtopics..."
-                  style={{ width: "100%", padding: "8px", border: "1px solid #388e3c", borderRadius: "4px", backgroundColor: "#f1f8e9" }}
+                  style={{ 
+                    width: "100%", 
+                    padding: "10px", 
+                    border: "1px solid var(--primary)", 
+                    borderRadius: "var(--border-radius)", 
+                    backgroundColor: "white",
+                    fontSize: "1rem",
+                    transition: "var(--transition)"
+                  }}
                 />
               </div>
+              
               {/* Topic selection */}
-              <div style={{ marginBottom: "16px" }}>
-                <h4 style={{ color: "#1b5e20", marginBottom: "8px" }}>Select Topic:</h4>
-                {topicConfig.map(item => (
+              <div style={{ marginBottom: "20px" }}>
+                <h4 style={{ 
+                  color: "var(--primary-dark)", 
+                  marginBottom: "12px",
+                  display: "flex",
+                  alignItems: "center"
+                }}>
+                  <i className="fas fa-layer-group" style={{ marginRight: "8px" }}></i>
+                  Select Topic:
+                </h4>
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                  {topicConfig.map(item => (
+                    <button
+                      key={item.topic}
+                      onClick={() => { 
+                        setSelectedTopic(item.topic); 
+                        setSelectedSubtopic({ category: null, name: null }); 
+                      }}
+                      className="topic-button"
+                      style={{ 
+                        backgroundColor: selectedTopic === item.topic ? item.activeColor : "#757575",
+                        marginRight: "10px",
+                        marginBottom: "10px"
+                      }}
+                    >
+                      {item.topic}
+                    </button>
+                  ))}
                   <button
-                    key={item.topic}
-                    onClick={() => { setSelectedTopic(item.topic); setSelectedSubtopic({ category: null, name: null }); }}
-                    className="topic-button"
-                    style={{ backgroundColor: selectedTopic === item.topic ? item.activeColor : "#757575" }}
+                    onClick={() => { 
+                      setSelectedTopic(null); 
+                      setSelectedSubtopic({ category: null, name: null }); 
+                    }}
+                    className="topic-button topic-inactive"
+                    style={{ marginBottom: "10px" }}
                   >
-                    {item.topic}
+                    All Topics
                   </button>
-                ))}
-                <button
-                  onClick={() => { setSelectedTopic(null); setSelectedSubtopic({ category: null, name: null }); }}
-                  className="topic-button topic-inactive"
-                >
-                  All Topics
-                </button>
+                </div>
               </div>
+              
               {renderSubtopicButtons()}
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div style={{ fontSize: "0.875rem", color: "#2e7d32" }}>
+              
+              <div style={{ 
+                display: "flex", 
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginTop: "16px"
+              }}>
+                <div style={{ 
+                  fontSize: "0.875rem", 
+                  color: "var(--primary)",
+                  fontWeight: "500"
+                }}>
                   {filteredCards.length} cards {filteredCards.length > 0 ? `(Card ${currentCardIndex + 1} of ${filteredCards.length})` : ''}
                 </div>
-                <button onClick={() => setShowStats(!showStats)} style={{ color: "#2e7d32", fontWeight: "500" }}>
+                <button 
+                  onClick={() => setShowStats(!showStats)} 
+                  style={{ 
+                    color: "var(--primary)", 
+                    fontWeight: "500",
+                    backgroundColor: "#e8f5e9",
+                    border: "1px solid var(--primary)",
+                    borderRadius: "20px",
+                    padding: "6px 12px",
+                    cursor: "pointer",
+                    transition: "var(--transition)"
+                  }}
+                >
+                  <i className="fas fa-chart-pie" style={{ marginRight: "6px" }}></i>
                   {showStats ? 'Hide Statistics' : 'Show Statistics'}
                 </button>
               </div>
             </div>
+            
             {showStats && <Statistics />}
+            
             {/* Flashcards */}
             {filteredCards.length > 0 ? (
-              <div style={{ width: "100%", maxWidth: "32rem", margin: "0 auto" }}>
-                <div className="flashcard-container" onClick={toggleAnswer}>
+              <div style={{ 
+                width: "100%", 
+                maxWidth: "600px", 
+                margin: "0 auto",
+                perspective: "1000px"
+              }}>
+                <div 
+                  className={`flashcard-container ${isFlipping ? "flip" : ""}`}
+                  onClick={toggleAnswer}
+                >
                   <div className="progress-indicator">
+                    <i className="fas fa-clipboard-list" style={{ marginRight: "6px" }}></i>
                     Card {currentCardIndex + 1}/{filteredCards.length}
                   </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.875rem", color: "#2e7d32", marginBottom: "8px" }}>
+                  <div style={{ 
+                    display: "flex", 
+                    justifyContent: "space-between", 
+                    fontSize: "0.875rem", 
+                    color: "var(--primary)", 
+                    marginBottom: "12px",
+                    fontWeight: "500"
+                  }}>
                     <div>
-                      Subtopic: <span style={{ fontWeight: "500", textTransform: "capitalize" }}>{filteredCards[currentCardIndex].subtopic}</span>
+                      <i className="fas fa-tag" style={{ marginRight: "6px" }}></i>
+                      Subtopic: <span style={{ fontWeight: "600", textTransform: "capitalize" }}>
+                        {filteredCards[currentCardIndex].subtopic}
+                      </span>
                     </div>
                   </div>
                   <div style={{ flexGrow: 1 }}>
                     {!showAnswer ? (
                       <div>
-                        <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "16px", color: "#1b5e20" }}>Question:</h3>
-                        <p style={{ fontSize: "1.125rem", color: "#1b5e20" }}>{filteredCards[currentCardIndex].question}</p>
+                        <h3 style={{ 
+                          fontSize: "1.25rem", 
+                          fontWeight: "bold", 
+                          marginBottom: "16px", 
+                          color: "var(--primary-dark)",
+                          display: "flex",
+                          alignItems: "center"
+                        }}>
+                          <i className="fas fa-question-circle" style={{ marginRight: "10px" }}></i>
+                          Question:
+                        </h3>
+                        <p style={{ 
+                          fontSize: "1.125rem", 
+                          color: "var(--dark)",
+                          lineHeight: "1.6"
+                        }}>
+                          {filteredCards[currentCardIndex].question}
+                        </p>
                       </div>
                     ) : (
                       <div>
-                        <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "8px", color: "#1b5e20" }}>Answer:</h3>
-                        <p style={{ fontSize: "1.125rem", color: "#1b5e20", whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}></p>
+                        <h3 style={{ 
+                          fontSize: "1.25rem", 
+                          fontWeight: "bold", 
+                          marginBottom: "12px", 
+                          color: "var(--primary-dark)",
+                          display: "flex",
+                          alignItems: "center"
+                        }}>
+                          <i className="fas fa-lightbulb" style={{ marginRight: "10px" }}></i>
+                          Answer:
+                        </h3>
+                        <div style={{ 
+                          fontSize: "1.125rem", 
+                          color: "var(--dark)", 
+                          whiteSpace: "pre-line",
+                          lineHeight: "1.6"
+                        }} dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}></div>
                       </div>
                     )}
                   </div>
-                  <div style={{ textAlign: "center", fontSize: "0.875rem", color: "#2e7d32", marginTop: "16px" }}>
-                    {!showAnswer ? 'Click to reveal answer' : 'Click card again to hide answer'}
+                  <div style={{ 
+                    textAlign: "center", 
+                    fontSize: "0.875rem", 
+                    color: "var(--primary)", 
+                    marginTop: "16px",
+                    fontWeight: "500"
+                  }}>
+                    {!showAnswer ? (
+                      <>
+                        <i className="fas fa-hand-pointer" style={{ marginRight: "6px" }}></i>
+                        Click to reveal answer
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-eye-slash" style={{ marginRight: "6px" }}></i>
+                        Click card again to hide answer
+                      </>
+                    )}
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
-                  <button onClick={prevCard} disabled={currentCardIndex === 0} style={{ padding: "8px 16px", borderRadius: "4px", backgroundColor: currentCardIndex === 0 ? "#d3d3d3" : "#2e7d32", color: currentCardIndex === 0 ? "#666" : "white", cursor: currentCardIndex === 0 ? "not-allowed" : "pointer" }}>
-                    Previous Card
+                
+                <div style={{ 
+                  display: "flex", 
+                  justifyContent: "space-between", 
+                  marginTop: "20px"
+                }}>
+                  <button 
+                    onClick={prevCard} 
+                    disabled={currentCardIndex === 0} 
+                    className="btn btn-primary"
+                    style={{
+                      backgroundColor: currentCardIndex === 0 ? "#bdbdbd" : "var(--primary)",
+                      cursor: currentCardIndex === 0 ? "not-allowed" : "pointer"
+                    }}
+                  >
+                    <i className="fas fa-arrow-left" style={{ marginRight: "6px" }}></i>
+                    Previous
                   </button>
-                  <button onClick={nextCard} style={{ backgroundColor: "#2e7d32", color: "white", padding: "8px 16px", borderRadius: "4px" }}>
-                    Next Card
+                  <button 
+                    onClick={nextCard} 
+                    className="btn btn-primary"
+                  >
+                    Next
+                    <i className="fas fa-arrow-right" style={{ marginLeft: "6px" }}></i>
                   </button>
                 </div>
               </div>
             ) : (
-              <div style={{ textAlign: "center", padding: "24px", backgroundColor: "#e8f5e9", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", border: "2px solid #388e3c" }}>
-                <p style={{ fontSize: "1.125rem", color: "#1b5e20" }}>No flashcards match your search. Try changing your search criteria.</p>
+              <div style={{ 
+                textAlign: "center", 
+                padding: "24px", 
+                backgroundColor: "#e8f5e9", 
+                borderRadius: "var(--border-radius)", 
+                boxShadow: "var(--box-shadow)", 
+                border: "2px solid var(--primary)",
+                animation: "fadeIn 0.5s ease-out"
+              }}>
+                <p style={{ 
+                  fontSize: "1.125rem", 
+                  color: "var(--primary-dark)",
+                  marginBottom: "16px"
+                }}>
+                  <i className="fas fa-exclamation-circle" style={{ marginRight: "8px" }}></i>
+                  No flashcards match your search criteria.
+                </p>
+                <button 
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedTopic(null);
+                    setSelectedSubtopic({ category: null, name: null });
+                  }}
+                  className="btn btn-primary"
+                >
+                  <i className="fas fa-sync-alt" style={{ marginRight: "6px" }}></i>
+                  Reset Filters
+                </button>
               </div>
             )}
+            
             {/* Exam Tips */}
-            <div style={{ marginTop: "32px", backgroundColor: "#f0f8f0", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.12)", padding: "16px", border: "2px solid #388e3c" }}>
-              <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", color: "#1b5e20", marginBottom: "8px" }}>AQA Geography Exam Tips</h3>
-              <ul style={{ listStyleType: "disc", paddingLeft: "20px", marginTop: "8px", backgroundColor: "#f0f8f0" }}>
-                <li>Use detailed case study data (e.g. magnitude, casualties, and damage figures).</li>
-                <li>Break down answers into clear bullet points for clarity.</li>
-                <li>Write in an exam style: concise, structured, and evidence-based.</li>
-                <li>Include both immediate responses and long-term implications.</li>
-                <li>For place studies, integrate economic and population statistics.</li>
+            <div style={{ 
+              marginTop: "32px", 
+              backgroundColor: "#e8f5e9", 
+              borderRadius: "var(--border-radius)", 
+              boxShadow: "var(--box-shadow)", 
+              padding: "20px", 
+              border: "2px solid var(--primary)",
+              animation: "fadeIn 0.5s ease-out"
+            }}>
+              <h3 style={{ 
+                fontSize: "1.25rem", 
+                fontWeight: "bold", 
+                color: "var(--primary-dark)", 
+                marginBottom: "12px",
+                display: "flex",
+                alignItems: "center"
+              }}>
+                <i className="fas fa-lightbulb" style={{ marginRight: "10px" }}></i>
+                AQA Geography Exam Tips
+              </h3>
+              <ul style={{ 
+                listStyleType: "disc", 
+                paddingLeft: "24px", 
+                marginTop: "8px"
+              }}>
+                <li style={{ marginBottom: "8px" }}>
+                  <strong>Use detailed case study data</strong> (e.g. magnitude, casualties, and damage figures).
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <strong>Break down answers</strong> into clear bullet points for clarity.
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <strong>Write in an exam style</strong>: concise, structured, and evidence-based.
+                </li>
+                <li style={{ marginBottom: "8px" }}>
+                  <strong>Include both immediate responses</strong> and long-term implications.
+                </li>
+                <li>
+                  <strong>For place studies</strong>, integrate economic and population statistics.
+                </li>
               </ul>
             </div>
           </div>
         </div>
       );
     };
+    
     ReactDOM.render(
       <GeographyFlashcardApp />,
       document.getElementById('app-container')
