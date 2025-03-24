@@ -25,7 +25,6 @@
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     
-    /* Global styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -41,7 +40,6 @@
       color: var(--dark);
     }
     
-    /* Navigation styles */
     .nav-container {
       background-color: var(--primary-dark);
       width: 100%;
@@ -96,14 +94,12 @@
       padding: 8px;
     }
     
-    /* Main app container */
     #app-container {
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 20px;
     }
     
-    /* Header */
     .app-header {
       text-align: center;
       margin-bottom: 30px;
@@ -117,14 +113,12 @@
       margin-bottom: 8px;
     }
     
-    /* Main layout */
     .app-layout {
       display: grid;
       grid-template-columns: 300px 1fr;
       gap: 24px;
     }
     
-    /* Sidebar */
     .sidebar {
       background-color: white;
       border-radius: var(--border-radius);
@@ -154,38 +148,7 @@
       margin-right: 10px;
       color: var(--primary);
     }
-    
-    /* Search */
-    .search-container {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    
-    .search-input {
-      width: 100%;
-      padding: 12px 16px 12px 40px;
-      border: 1px solid var(--gray-light);
-      border-radius: var(--border-radius);
-      font-size: 0.95rem;
-      transition: var(--transition);
-      background-color: var(--light);
-    }
-    
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
-    }
-    
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gray);
-    }
-    
-    /* Topic selection */
+
     .topic-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -203,7 +166,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      border: none;
     }
     
     .topic-card:hover,
@@ -235,7 +197,6 @@
       font-size: 0.95rem;
     }
     
-    /* Subtopic selection */
     .subtopic-container {
       margin-top: 20px;
       animation: fadeIn 0.4s ease-out;
@@ -329,14 +290,12 @@
       outline: none;
     }
     
-    /* Bookmark section */
     .bookmarks-section {
       margin-top: 24px;
       padding-top: 24px;
       border-top: 1px solid var(--gray-light);
     }
     
-    /* Flashcard container */
     .flashcard-view {
       background-color: white;
       border-radius: var(--border-radius);
@@ -393,7 +352,6 @@
       color: white;
     }
     
-    /* Flashcard content */
     .flashcard-content {
       flex: 1;
       display: flex;
@@ -491,7 +449,6 @@
       font-weight: 500;
     }
     
-    /* Navigation buttons */
     .flashcard-nav {
       display: flex;
       justify-content: space-between;
@@ -538,7 +495,6 @@
       margin-right: 8px;
     }
     
-    /* Empty state */
     .empty-state {
       text-align: center;
       padding: 40px 20px;
@@ -562,7 +518,6 @@
       margin-bottom: 20px;
     }
     
-    /* Error boundary */
     .error-boundary {
       padding: 20px;
       background-color: #ffebee;
@@ -571,7 +526,6 @@
       margin: 20px 0;
     }
     
-    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -631,7 +585,6 @@
       animation: slideInRight 0.3s ease-out forwards;
     }
     
-    /* Responsive styles */
     @media screen and (max-width: 992px) {
       .app-layout {
         grid-template-columns: 1fr;
@@ -728,14 +681,11 @@
     }
   </style>
   <title>Geography Flashcards</title>
-  <!-- React and ReactDOM CDN -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <!-- Babel for JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-  <!-- Navigation -->
   <div class="nav-container">
     <a href="index.html" class="logo">
       <img src="Logo.png" alt="Geography Flashcards Logo" style="height: 38px;">
@@ -752,21 +702,17 @@
   </div>
 
   <script>
-    // Wait for DOM to be fully loaded
     document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('.nav-menu');
 
-      // Only proceed if elements exist
       if (menuToggle && navMenu) {
-        // Toggle menu on button click
         menuToggle.addEventListener('click', function(e) {
           e.stopPropagation();
           const isExpanded = navMenu.classList.toggle('active');
           this.setAttribute('aria-expanded', isExpanded);
         });
 
-        // Close menu when clicking outside
         document.addEventListener('click', function(event) {
           if (navMenu.classList.contains('active') &&
               !navMenu.contains(event.target) &&
@@ -776,23 +722,18 @@
           }
         });
 
-        // Reset menu on large screens
         window.addEventListener('resize', function() {
           if (window.innerWidth > 992) {
             navMenu.classList.remove('active');
             menuToggle.setAttribute('aria-expanded', 'false');
           }
         });
-      } else {
-        console.error('Navigation elements not found!');
       }
     });
   </script>
   
-  <!-- React App Container -->
   <div id="app-container"></div>
   
-  <!-- React Component -->
   <script type="text/babel">
     class ErrorBoundary extends React.Component {
       constructor(props) {
@@ -824,55 +765,124 @@
             </div>
           );
         }
-    
         return this.props.children;
       }
     }
 
     const GeographyFlashcardApp = () => {
-      // State declarations
       const [flashcards, setFlashcards] = React.useState([]);
       const [filteredCards, setFilteredCards] = React.useState([]);
       const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
       const [showAnswer, setShowAnswer] = React.useState(false);
       const [isFlipping, setIsFlipping] = React.useState(false);
-      const [searchTerm, setSearchTerm] = React.useState('');
       const [selectedTopic, setSelectedTopic] = React.useState(null);
       const [selectedSubtopic, setSelectedSubtopic] = React.useState(null);
       const [bookmarkedCards, setBookmarkedCards] = React.useState([]);
       const [bookmarkedTopics, setBookmarkedTopics] = React.useState([]);
-      const [view, setView] = React.useState('topics'); // 'topics', 'subtopics', or 'bookmarks'
+      const [view, setView] = React.useState('topics');
       const [animationClass, setAnimationClass] = React.useState('');
-      
-      // Load saved data from localStorage
-      React.useEffect(() => {
-        try {
-          const savedBookmarkedCards = localStorage.getItem('bookmarkedCards');
-          const savedBookmarkedTopics = localStorage.getItem('bookmarkedTopics');
-          
-          if (savedBookmarkedCards) {
-            setBookmarkedCards(JSON.parse(savedBookmarkedCards));
-          }
-          
-          if (savedBookmarkedTopics) {
-            setBookmarkedTopics(JSON.parse(savedBookmarkedTopics));
-          }
-        } catch (error) {
-          console.error('Error loading bookmarks:', error);
-        }
-      }, []);
-      
-      // Save bookmarks to localStorage when they change
-      React.useEffect(() => {
-        try {
-          localStorage.setItem('bookmarkedCards', JSON.stringify(bookmarkedCards));
-          localStorage.setItem('bookmarkedTopics', JSON.stringify(bookmarkedTopics));
-        } catch (error) {
-          console.error('Error saving bookmarks:', error);
-        }
-      }, [bookmarkedCards, bookmarkedTopics]);
-      
-      // Topic configuration with subtopic icons
+
+      const caseStudyFacts = {
+        "Mt Etna": `<ul>
+          <li>VEI: 2-3</li>
+          <li>2021 eruption: ash plume up to 3 km high</li>
+          <li>Casualties: minimal due to monitoring</li>
+        </ul>`,
+        "Mt Merapi": `<ul>
+          <li>2010 eruption: VEI 4</li>
+          <li>Deaths: ~353</li>
+          <li>Injuries: &gt;1,000; significant infrastructure damage</li>
+        </ul>`,
+        "Eyjafjallajökull": `<ul>
+          <li>2010 eruption: VEI 4</li>
+          <li>Ash cloud: reached 9 km high, disrupted European air travel for 6 days</li>
+          <li>Direct casualties: minimal</li>
+        </ul>`,
+        "Montserrat": `<ul>
+          <li>Active since 1995</li>
+          <li>Evacuation: ~2/3 of population</li>
+          <li>Long-term socio-economic impact</li>
+        </ul>`,
+        "Yellowstone": `<ul>
+          <li>Supervolcano; last major eruption: &gt;600,000 years ago</li>
+          <li>Potential eruption: VEI 8; catastrophic global impact</li>
+        </ul>`,
+        "Boxing Day Tsunami": `<ul>
+          <li>Triggered by 9.1-9.3 magnitude earthquake in 2004</li>
+          <li>Deaths: ~230,000</li>
+          <li>Massive infrastructural damage</li>
+        </ul>`,
+        "Haiti": `<ul>
+          <li>2010 earthquake: magnitude 7.0</li>
+          <li>Deaths: &gt;230,000; Injuries: ~300,000</li>
+          <li>Damage: $8-14 billion</li>
+        </ul>`,
+        "Cyclone Nargis": `<ul>
+          <li>2008 event in Myanmar</li>
+          <li>Deaths: ~138,000; Millions displaced</li>
+          <li>Severe infrastructure damage</li>
+        </ul>`,
+        "Hurricane Katrina": `<ul>
+          <li>2005 event: ~1,833 deaths</li>
+          <li>Displacement: &gt;250,000 people</li>
+          <li>Damage: &gt;$125 billion</li>
+        </ul>`,
+        "LA Wildfire": `<ul>
+          <li>Recent events: evacuations and property losses &gt;$2 billion</li>
+          <li>Widespread damage in urban areas</li>
+        </ul>`,
+        "Alberta Wildfire": `<ul>
+          <li>2016 season: burned millions of acres</li>
+          <li>Significant regional damage</li>
+        </ul>`,
+        "Tohoku": `<ul>
+          <li>2011 earthquake/tsunami: magnitude 9.0</li>
+          <li>Deaths: ~15,000; nuclear crisis triggered</li>
+          <li>Long-term environmental and infrastructural challenges</li>
+        </ul>`,
+        "Typhoon Haiyan": `<ul>
+          <li>2013 event in the Philippines</li>
+          <li>Deaths: &gt;6,300; one of the strongest cyclones recorded</li>
+          <li>Widespread destruction</li>
+        </ul>`,
+        "Ground Zero": `<ul>
+          <li>Site of 9/11 attacks; major redevelopment</li>
+          <li>Significantly impacted New York's economic and cultural identity</li>
+        </ul>`,
+        "Plymouth": `<ul>
+          <li>Underwent substantial economic changes and urban regeneration</li>
+          <li>Shift in population and employment trends</li>
+        </ul>`,
+        "Detroit": `<ul>
+          <li>Population decline of over 60% from peak</li>
+          <li>Significant economic loss due to industrial decline; revitalisation efforts ongoing</li>
+        </ul>`,
+        "London Olympics": `<ul>
+          <li>2012 Olympics spurred major urban regeneration</li>
+          <li>Boosted local economy and altered demographic patterns</li>
+        </ul>`,
+        "Medellin": `<ul>
+          <li>Transformation from violence to innovation-driven urban revival</li>
+          <li>Enhanced urban design and economic growth</li>
+        </ul>`,
+        "Bourneville": `<ul>
+          <li>Industrial heritage from Cadburys</li>
+          <li>Economic changes redefined community identity</li>
+        </ul>`,
+        "Devonport": `<ul>
+          <li>Shift in naval and industrial activity</li>
+          <li>Notable demographic and economic changes</li>
+        </ul>`,
+        "Stonehenge": `<ul>
+          <li>Iconic monument driving tourism</li>
+          <li>Major contributor to regional economic activity and identity</li>
+        </ul>`,
+        "Glastonbury": `<ul>
+          <li>Famous for cultural festivals and historical legacy</li>
+          <li>Exemplifies the blend of heritage and modern economic trends</li>
+        </ul>`
+      };
+
       const topicConfig = [
         {
           id: 'hazards',
@@ -1005,117 +1015,12 @@
           }
         }
       ];
-      
-      // Case study facts
-      const caseStudyFacts = {
-        "Mt Etna": `<ul>
-          <li>VEI: 2-3</li>
-          <li>2021 eruption: ash plume up to 3 km high</li>
-          <li>Casualties: minimal due to monitoring</li>
-        </ul>`,
-        "Mt Merapi": `<ul>
-          <li>2010 eruption: VEI 4</li>
-          <li>Deaths: ~353</li>
-          <li>Injuries: &gt;1,000; significant infrastructure damage</li>
-        </ul>`,
-        "Eyjafjallajökull": `<ul>
-          <li>2010 eruption: VEI 4</li>
-          <li>Ash cloud: reached 9 km high, disrupted European air travel for 6 days</li>
-          <li>Direct casualties: minimal</li>
-        </ul>`,
-        "Montserrat": `<ul>
-          <li>Active since 1995</li>
-          <li>Evacuation: ~2/3 of population</li>
-          <li>Long-term socio-economic impact</li>
-        </ul>`,
-        "Yellowstone": `<ul>
-          <li>Supervolcano; last major eruption: &gt;600,000 years ago</li>
-          <li>Potential eruption: VEI 8; catastrophic global impact</li>
-        </ul>`,
-        "Boxing Day Tsunami": `<ul>
-          <li>Triggered by 9.1-9.3 magnitude earthquake in 2004</li>
-          <li>Deaths: ~230,000</li>
-          <li>Massive infrastructural damage</li>
-        </ul>`,
-        "Haiti": `<ul>
-          <li>2010 earthquake: magnitude 7.0</li>
-          <li>Deaths: &gt;230,000; Injuries: ~300,000</li>
-          <li>Damage: $8-14 billion</li>
-        </ul>`,
-        "Cyclone Nargis": `<ul>
-          <li>2008 event in Myanmar</li>
-          <li>Deaths: ~138,000; Millions displaced</li>
-          <li>Severe infrastructure damage</li>
-        </ul>`,
-        "Hurricane Katrina": `<ul>
-          <li>2005 event: ~1,833 deaths</li>
-          <li>Displacement: &gt;250,000 people</li>
-          <li>Damage: &gt;$125 billion</li>
-        </ul>`,
-        "LA Wildfire": `<ul>
-          <li>Recent events: evacuations and property losses &gt;$2 billion</li>
-          <li>Widespread damage in urban areas</li>
-        </ul>`,
-        "Alberta Wildfire": `<ul>
-          <li>2016 season: burned millions of acres</li>
-          <li>Significant regional damage</li>
-        </ul>`,
-        "Tohoku": `<ul>
-          <li>2011 earthquake/tsunami: magnitude 9.0</li>
-          <li>Deaths: ~15,000; nuclear crisis triggered</li>
-          <li>Long-term environmental and infrastructural challenges</li>
-        </ul>`,
-        "Typhoon Haiyan": `<ul>
-          <li>2013 event in the Philippines</li>
-          <li>Deaths: &gt;6,300; one of the strongest cyclones recorded</li>
-          <li>Widespread destruction</li>
-        </ul>`,
-        "Ground Zero": `<ul>
-          <li>Site of 9/11 attacks; major redevelopment</li>
-          <li>Significantly impacted New York's economic and cultural identity</li>
-        </ul>`,
-        "Plymouth": `<ul>
-          <li>Underwent substantial economic changes and urban regeneration</li>
-          <li>Shift in population and employment trends</li>
-        </ul>`,
-        "Detroit": `<ul>
-          <li>Population decline of over 60% from peak</li>
-          <li>Significant economic loss due to industrial decline; revitalisation efforts ongoing</li>
-        </ul>`,
-        "London Olympics": `<ul>
-          <li>2012 Olympics spurred major urban regeneration</li>
-          <li>Boosted local economy and altered demographic patterns</li>
-        </ul>`,
-        "Medellin": `<ul>
-          <li>Transformation from violence to innovation-driven urban revival</li>
-          <li>Enhanced urban design and economic growth</li>
-        </ul>`,
-        "Bourneville": `<ul>
-          <li>Industrial heritage from Cadburys</li>
-          <li>Economic changes redefined community identity</li>
-        </ul>`,
-        "Devonport": `<ul>
-          <li>Shift in naval and industrial activity</li>
-          <li>Notable demographic and economic changes</li>
-        </ul>`,
-        "Stonehenge": `<ul>
-          <li>Iconic monument driving tourism</li>
-          <li>Major contributor to regional economic activity and identity</li>
-        </ul>`,
-        "Glastonbury": `<ul>
-          <li>Famous for cultural festivals and historical legacy</li>
-          <li>Exemplifies the blend of heritage and modern economic trends</li>
-        </ul>`
-      };
-      
-      // Generate flashcards
+
       const generateFlashcards = React.useCallback(() => {
         let generatedFlashcards = [];
         let idCounter = 1;
         
-        // Hazards flashcards
         const hazardsFlashcards = [
-          // Volcanoes
           {
             id: idCounter++,
             question: "Describe the key details of the Mt Etna case study.",
@@ -1147,7 +1052,6 @@
             subtopic: "Volcanoes",
             type: "conceptual"
           },
-          // Tsunamis
           {
             id: idCounter++,
             question: "Describe the key details of the Boxing Day Tsunami case study.",
@@ -1169,7 +1073,6 @@
             subtopic: "Tsunamis",
             type: "conceptual"
           },
-          // Earthquakes
           {
             id: idCounter++,
             question: "Describe the key details of the Haiti earthquake case study.",
@@ -1192,7 +1095,6 @@
             subtopic: "Earthquakes",
             type: "conceptual"
           },
-          // Tropical Storms
           {
             id: idCounter++,
             question: "Describe the key details of Hurricane Katrina.",
@@ -1214,7 +1116,6 @@
             subtopic: "Tropical Storms",
             type: "conceptual"
           },
-          // Wildfires
           {
             id: idCounter++,
             question: "Describe the key details of the Alberta wildfire case study.",
@@ -1239,9 +1140,7 @@
           }
         ];
         
-        // Changing Places flashcards
         const changingPlacesFlashcards = [
-          // Place Meaning
           {
             id: idCounter++,
             question: "Describe the key details of the Ground Zero case study.",
@@ -1264,7 +1163,6 @@
             subtopic: "Place Meaning",
             type: "conceptual"
           },
-          // Artistic Representation
           {
             id: idCounter++,
             question: "How can artistic representations influence our perception of place?",
@@ -1279,7 +1177,6 @@
             subtopic: "Artistic Representation",
             type: "conceptual"
           },
-          // Changing Places
           {
             id: idCounter++,
             question: "Describe the key details of the Detroit case study.",
@@ -1302,7 +1199,6 @@
             subtopic: "Changing Places",
             type: "conceptual"
           },
-          // Forces of Change
           {
             id: idCounter++,
             question: "Describe the key details of the Medellin case study.",
@@ -1325,7 +1221,6 @@
             subtopic: "Forces of Change",
             type: "conceptual"
           },
-          // Rebranding
           {
             id: idCounter++,
             question: "Describe the key details of the London Olympics rebranding case study.",
@@ -1350,47 +1245,30 @@
           }
         ];
         
-        // Combine all flashcards
         generatedFlashcards = [
           ...hazardsFlashcards,
-          ...changingPlacesFlashcards,
-          // Add flashcards for other topics...
+          ...changingPlacesFlashcards
         ];
         
         setFlashcards(generatedFlashcards);
         setFilteredCards(generatedFlashcards);
       }, []);
-      
-      // Initialize flashcards
+
       React.useEffect(() => {
         generateFlashcards();
       }, [generateFlashcards]);
-      
-      // Filter flashcards based on selections
+
       React.useEffect(() => {
         let filtered = [...flashcards];
         
-        // Filter by search term
-        if (searchTerm) {
-          const term = searchTerm.toLowerCase();
-          filtered = filtered.filter(card =>
-            card.question.toLowerCase().includes(term) ||
-            card.answer.toLowerCase().includes(term) ||
-            card.subtopic.toLowerCase().includes(term)
-          );
-        }
-        
-        // Filter by topic
         if (selectedTopic) {
           filtered = filtered.filter(card => card.topic === selectedTopic);
         }
         
-        // Filter by subtopic
         if (selectedSubtopic) {
           filtered = filtered.filter(card => card.subtopic === selectedSubtopic);
         }
         
-        // Filter by bookmarks if in bookmarks view
         if (view === 'bookmarks') {
           filtered = filtered.filter(card => bookmarkedCards.includes(card.id));
         }
@@ -1398,14 +1276,12 @@
         setFilteredCards(filtered);
         setCurrentCardIndex(0);
         setShowAnswer(false);
-      }, [flashcards, searchTerm, selectedTopic, selectedSubtopic, view, bookmarkedCards]);
-      
-      // Check if a card is bookmarked
+      }, [flashcards, selectedTopic, selectedSubtopic, view, bookmarkedCards]);
+
       const isCardBookmarked = React.useCallback((cardId) => {
         return bookmarkedCards.includes(cardId);
       }, [bookmarkedCards]);
       
-      // Check if a subtopic is bookmarked
       const isSubtopicBookmarked = React.useCallback((subtopic) => {
         const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
         if (!topic) return false;
@@ -1414,7 +1290,6 @@
         return bookmarkedTopics.includes(bookmarkId);
       }, [bookmarkedTopics]);
       
-      // Select a topic with animation
       const selectTopic = (topic) => {
         setAnimationClass('slide-out');
         setTimeout(() => {
@@ -1425,7 +1300,6 @@
         }, 300);
       };
       
-      // Select a subtopic with animation
       const selectSubtopic = (subtopic) => {
         setAnimationClass('slide-out');
         setTimeout(() => {
@@ -1435,7 +1309,6 @@
         }, 300);
       };
       
-      // Go back to topics view
       const goBackToTopics = () => {
         setAnimationClass('slide-out');
         setTimeout(() => {
@@ -1446,7 +1319,6 @@
         }, 300);
       };
       
-      // Go back to subtopics view
       const goBackToSubtopics = () => {
         setAnimationClass('slide-out');
         setTimeout(() => {
@@ -1456,7 +1328,6 @@
         }, 300);
       };
       
-      // Show bookmarked cards
       const showBookmarks = () => {
         setAnimationClass('slide-out');
         setTimeout(() => {
@@ -1467,7 +1338,6 @@
         }, 300);
       };
       
-      // Toggle bookmark for a card
       const toggleCardBookmark = (cardId) => {
         if (bookmarkedCards.includes(cardId)) {
           setBookmarkedCards(bookmarkedCards.filter(id => id !== cardId));
@@ -1476,7 +1346,6 @@
         }
       };
       
-      // Toggle bookmark for a subtopic
       const toggleSubtopicBookmark = (subtopic) => {
         const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
         if (!topic) return;
@@ -1490,7 +1359,6 @@
         }
       };
       
-      // Navigate to next card
       const nextCard = () => {
         if (filteredCards.length === 0) return;
         
@@ -1504,7 +1372,6 @@
         }, 300);
       };
       
-      // Navigate to previous card
       const prevCard = () => {
         if (filteredCards.length === 0 || currentCardIndex === 0) return;
         
@@ -1516,7 +1383,6 @@
         }, 300);
       };
       
-      // Toggle answer visibility
       const toggleAnswer = () => {
         if (isFlipping || filteredCards.length === 0) return;
         
@@ -1527,7 +1393,6 @@
         }, 150);
       };
       
-      // Get the number of cards for a subtopic
       const getSubtopicCardCount = (subtopic) => {
         return flashcards.filter(card => 
           card.subtopic === subtopic && 
@@ -1535,14 +1400,12 @@
         ).length;
       };
       
-      // Get subtopic icon
       const getSubtopicIcon = (subtopic) => {
         const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
         if (!topic || !topic.subtopicIcons) return 'fa-folder';
         return topic.subtopicIcons[subtopic] || 'fa-folder';
       };
       
-      // Keyboard navigation
       React.useEffect(() => {
         const handleKeyDown = (e) => {
           if (view !== 'flashcards') return;
@@ -1578,17 +1441,7 @@
             <div className="app-layout">
               <div className="sidebar">
                 <div className="sidebar-section">
-                  <div className="search-container">
-                    <i className="fas fa-search search-icon"></i>
-                    <input
-                      type="text"
-                      className="search-input"
-                      placeholder="Search flashcards..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      aria-label="Search flashcards"
-                    />
-                  </div>
+                  <div className="search-container"></div>
                 </div>
                 
                 <div className={`sidebar-section ${animationClass}`}>
