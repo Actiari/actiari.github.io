@@ -728,52 +728,59 @@
 </head>
 <body>
   <!-- Navigation with hamburger menu for tablets and mobile -->
-  <div className="nav-container">
-    <a href="index.html" className="logo">
-      <img src="Logo.png" alt="Geography Flashcards Logo" style="height: 38px;" />    </a>
-    <button 
-      className="menu-toggle" 
-      aria-label="Toggle navigation menu" 
-      aria-expanded="false"
-    >
-      <i className="fas fa-bars"></i>
-    </button>
-    <ul className="nav-menu">
-      <li><a href="PR.html">GCSE Past Papers</a></li>
-      <li><a href="APR.html">A Level Papers</a></li>
-      <li><a href="SPBE.html">Geography Flashcards</a></li>
-      <li><a href="BWT.html">Case Studies</a></li>
-    </ul>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('.nav-menu');
+<!-- Navigation -->
+<div class="nav-container">
+  <a href="index.html" class="logo">
+    <img src="Logo.png" alt="Geography Flashcards Logo" style="height: 38px;">
+  </a>
+  <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <i class="fas fa-bars"></i>
+  </button>
+  <ul class="nav-menu">
+    <li><a href="PR.html">GCSE Past Papers</a></li>
+    <li><a href="APR.html">A Level Papers</a></li>
+    <li><a href="SPBE.html">Geography Flashcards</a></li>
+    <li><a href="BWT.html">Case Studies</a></li>
+  </ul>
+</div>
 
-      menuToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const isExpanded = navMenu.classList.toggle('active');
-        this.setAttribute('aria-expanded', isExpanded);
-      });
+<script>
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
 
-      document.addEventListener('click', function(event) {
-        if (navMenu.classList.contains('active') &&
-            !navMenu.contains(event.target) &&
-            !menuToggle.contains(event.target)) {
-          navMenu.classList.remove('active');
-          menuToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 992) {
-          navMenu.classList.remove('active');
-          menuToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
+  // Only proceed if elements exist
+  if (menuToggle && navMenu) {
+    // Toggle menu on button click
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isExpanded = navMenu.classList.toggle('active');
+      this.setAttribute('aria-expanded', isExpanded);
     });
-  </script>
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      if (navMenu.classList.contains('active') &&
+          !navMenu.contains(event.target) &&
+          !menuToggle.contains(event.target)) {
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Reset menu on large screens
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 992) {
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  } else {
+    console.error('Navigation elements not found!');
+  }
+});
+</script>
   
   <!-- React App Container -->
   <div id="app-container"></div>
