@@ -894,14 +894,26 @@
             "Tsunamis",
             "Earthquakes",
             "Tropical Storms",
-            "Wildfires"
+            "Wildfires",
+            "General",
+            "Geophysical Hazards",
+            "Atmospheric Hazards",
+            "Hydrological Hazards",
+            "Perception of Hazards",
+            "Hazard Response"
           ],
           subtopicIcons: {
             "Volcanoes": "fa-volcano",
             "Tsunamis": "fa-water",
             "Earthquakes": "fa-layer-group",
             "Tropical Storms": "fa-wind",
-            "Wildfires": "fa-fire"
+            "Wildfires": "fa-fire",
+            "General": "fa-info-circle",
+            "Geophysical Hazards": "fa-globe",
+            "Atmospheric Hazards": "fa-cloud",
+            "Hydrological Hazards": "fa-water",
+            "Perception of Hazards": "fa-eye",
+            "Hazard Response": "fa-hands-helping"
           }
         },
         {
@@ -914,14 +926,24 @@
             "Artistic Representation",
             "Changing Places",
             "Forces of Change",
-            "Rebranding"
+            "Rebranding",
+            "General",
+            "Emotional Attachment",
+            "Perception of Place",
+            "Social Constructs",
+            "Identity and Belonging"
           ],
           subtopicIcons: {
             "Place Meaning": "fa-map-marker-alt",
             "Artistic Representation": "fa-paint-brush",
             "Changing Places": "fa-exchange-alt",
             "Forces of Change": "fa-bolt",
-            "Rebranding": "fa-tag"
+            "Rebranding": "fa-tag",
+            "General": "fa-info-circle",
+            "Emotional Attachment": "fa-heart",
+            "Perception of Place": "fa-eye",
+            "Social Constructs": "fa-users",
+            "Identity and Belonging": "fa-id-badge"
           }
         },
         {
@@ -1782,10 +1804,166 @@
           }
         ];
 
+        const placeFlashcards = [
+          {
+            id: idCounter++,
+            question: "Define the term place in geography.",
+            answer: "Place in geography is space plus meaning.",
+            topic: "Place",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is topophobia?",
+            answer: "Topophobia is a negative attachment to a place.",
+            topic: "Place",
+            subtopic: "Emotional Attachment",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define topophilia.",
+            answer: "Topophilia is a positive attachment to a place.",
+            topic: "Place",
+            subtopic: "Emotional Attachment",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? People can only form attachments to places they have visited.",
+            answer: "False. People can form attachments to places through perception gained from media or hearing the experiences of others.",
+            topic: "Place",
+            subtopic: "Emotional Attachment",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is place perspective?",
+            answer: "Place perspective is the combination of lived experience and perception of place.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define localism.",
+            answer: "Localism is a preference for the place closest to you.",
+            topic: "Place",
+            subtopic: "Identity and Belonging",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What does regionalism refer to in terms of place identity?",
+            answer: "Regionalism refers to identification with a distinct region, such as describing oneself as 'Cornish' rather than 'English'.",
+            topic: "Place",
+            subtopic: "Identity and Belonging",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define sense of place.",
+            answer: "Sense of place is the attachment between person and place due to lived experience, or the distinctive character of a place.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are the three ways to think about how to define place?",
+            answer: "<ul><li>Location.</li><li>Locale.</li><li>Sense of place.</li></ul>",
+            topic: "Place",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is placelessness?",
+            answer: "Placelessness is essentially no sense of place, involving no awareness of the deep and symbolic significance of places and no appreciation of their identities.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What does it mean for a place to be a social construct?",
+            answer: "For a place to be a social construct means that some people can feel 'in place' and some can feel 'out of place'.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define placemaking processes.",
+            answer: "Placemaking processes are actions used to create spatial inclusion or exclusion.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Dominant groups always create spatial inclusion.",
+            answer: "False. Dominant groups can create social norms that lead to spatial exclusion for those who deviate from the norm.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are insider perspectives?",
+            answer: "Insider perspectives come from being fluent in the local language, being born in the place, and knowing the customs and norms.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define outsider perspectives.",
+            answer: "Outsider perspectives are views held by people who are not from the area or do not fit the social norm.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? People with insider perspectives usually feel safe in a place.",
+            answer: "True. People with insider perspectives usually feel safe in a place.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What factors contribute to insider perspectives?",
+            answer: "<ul><li>Being fluent in the local language.</li><li>Being born in the place.</li><li>Knowing customs and norms.</li><li>Having friends/family connections.</li></ul>",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define spatial exclusion.",
+            answer: "Spatial exclusion is the process of physically preventing certain groups from accessing or using specific spaces.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What can cause people from the local area to have outsider perspectives?",
+            answer: "People from the local area can have outsider perspectives if they do not fit the social norm, such as those with different sexualities or genders.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          }
+        ];
+
         generatedFlashcards = [
           ...hazardsFlashcards,
           ...changingPlacesFlashcards,
-          ...additionalFlashcards
+          ...additionalFlashcards,
+          ...placeFlashcards
         ];
         
         setFlashcards(generatedFlashcards);
