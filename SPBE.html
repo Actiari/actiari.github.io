@@ -38,6 +38,9 @@
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
       color: var(--dark);
+      display: flex;
+      flex-direction: column; /* Ensure body stretches to fill the viewport */
+      min-height: 100vh;
     }
     
     .nav-container {
@@ -92,6 +95,7 @@
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 20px;
+      flex: 1; /* Allow the main content to grow and push the footer down */
     }
     
     .app-header {
@@ -202,7 +206,7 @@
       margin-bottom: 16px;
       background: none;
       border: none;
-      color: var(--primary);
+      color: var (--primary);
       cursor: pointer;
       font-weight: 500;
       padding: 8px;
@@ -256,7 +260,7 @@
     
     .subtopic-icon {
       margin-right: 8px;
-      color: var(--primary);
+      color: var(--primary); /* Ensure icon color is visible */
       font-size: 1rem;
     }
     
@@ -658,12 +662,12 @@
     }
     
     footer {
-      background-color: var(--primary-dark); /* Add solid background */
+      background-color: var(--primary-dark); /* Solid background */
       color: white; /* Ensure text is visible */
       text-align: center;
       padding: 20px 0; /* Add padding for vertical centering */
       font-size: 0.9rem;
-      margin-top: 20px;
+      margin-top: auto; /* Push footer to the bottom */
     }
   </style>
   <title>Geography Flashcards</title>
@@ -887,7 +891,7 @@
             "Hazard Response"
           ],
           subtopicIcons: {
-            "Volcanoes": "fa-volcano", // Ensure icon is defined
+            "Volcanoes": "fa-volcano", // Ensure icon is defined and visible
             "Tsunamis": "fa-water",
             "Earthquakes": "fa-layer-group",
             "Tropical Storms": "fa-wind",
