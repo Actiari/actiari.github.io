@@ -243,7 +243,7 @@
     .subtopic-card:hover,
     .subtopic-card:focus {
       transform: translateY(-3px);
-      box-shadow: var(--box-shadow);
+      box-shadow: var (--box-shadow);
       border-color: var(--primary-light);
       outline: none;
     }
@@ -268,7 +268,7 @@
     
     .subtopic-count {
       font-size: 0.8rem;
-      color: var(--gray);
+      color: var (--gray);
     }
     
     .bookmark-btn {
@@ -503,7 +503,7 @@
     
     .empty-state i {
       font-size: 3rem;
-      color: var(--gray-light);
+      color: var (--gray-light);
       margin-bottom: 20px;
     }
     
@@ -733,6 +733,11 @@
   </script>
   
   <div id="app-container"></div>
+  
+  <footer style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
+    <p>Content sourced from publicly available educational materials and case studies.</p>
+    <p>Icons provided by Font Awesome. Fonts by Google Fonts.</p>
+  </footer>
   
   <script type="text/babel">
     class ErrorBoundary extends React.Component {
@@ -984,7 +989,7 @@
         {
           id: 'carbon',
           name: 'Carbon & Water',
-          icon: 'fa-leaf',
+          icon: 'fa-tint', // Updated icon to better fit the topic
           color: '#2e7d32',
           subtopics: [
             "Carbon Cycle",
@@ -2041,7 +2046,9 @@
           setSelectedTopic(null);
           setSelectedSubtopic(null);
           setView('bookmarks');
-          setFilteredCards(flashcards.filter(card => bookmarkedCards.includes(card.id)));
+          const bookmarkedFlashcards = flashcards.filter(card => bookmarkedCards.includes(card.id));
+          setFilteredCards(bookmarkedFlashcards);
+          setCurrentCardIndex(0); // Reset to the first card in bookmarks
           setAnimationClass('slide-in');
         }, 300);
       };
