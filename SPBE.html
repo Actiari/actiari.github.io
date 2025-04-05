@@ -140,7 +140,7 @@
     
     .sidebar-title i {
       margin-right: 10px;
-      color: var (--primary);
+      color: var(--primary);
     }
 
     .topic-grid {
@@ -656,6 +656,15 @@
         min-height: 250px;
       }
     }
+    
+    footer {
+      background-color: var(--primary-dark); /* Add solid background */
+      color: white; /* Ensure text is visible */
+      text-align: center;
+      padding: 20px 0; /* Add padding for vertical centering */
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
   </style>
   <title>Geography Flashcards</title>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -705,7 +714,7 @@
   
   <div id="app-container"></div>
   
-  <footer style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
+  <footer>
     <p>Content sourced from publicly available educational materials and case studies.</p>
     <p>Icons provided by Font Awesome. Fonts by Google Fonts.</p>
   </footer>
@@ -878,7 +887,7 @@
             "Hazard Response"
           ],
           subtopicIcons: {
-            "Volcanoes": "fa-volcano",
+            "Volcanoes": "fa-volcano", // Ensure icon is defined
             "Tsunamis": "fa-water",
             "Earthquakes": "fa-layer-group",
             "Tropical Storms": "fa-wind",
