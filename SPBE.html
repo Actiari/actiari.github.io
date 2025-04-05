@@ -778,7 +778,6 @@
       const [selectedTopic, setSelectedTopic] = React.useState(null);
       const [selectedSubtopic, setSelectedSubtopic] = React.useState(null);
       const [bookmarkedCards, setBookmarkedCards] = React.useState([]);
-      const [bookmarkedTopics, setBookmarkedTopics] = React.useState([]);
       const [view, setView] = React.useState('topics');
       const [animationClass, setAnimationClass] = React.useState('');
 
@@ -1998,14 +1997,6 @@
         return bookmarkedCards.includes(cardId);
       }, [bookmarkedCards]);
       
-      const isSubtopicBookmarked = React.useCallback((subtopic) => {
-        const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
-        if (!topic) return false;
-        
-        const bookmarkId = `${topic.id}-${subtopic.toLowerCase().replace(' ', '-')}`;
-        return bookmarkedTopics.includes(bookmarkId);
-      }, [bookmarkedTopics]);
-      
       const selectTopic = (topic) => {
         setAnimationClass('slide-out');
         setTimeout(() => {
@@ -2050,6 +2041,7 @@
           setSelectedTopic(null);
           setSelectedSubtopic(null);
           setView('bookmarks');
+          setFilteredCards(flashcards.filter(card => bookmarkedCards.includes(card.id)));
           setAnimationClass('slide-in');
         }, 300);
       };
@@ -2060,21 +2052,6 @@
             return prevBookmarkedCards.filter((id) => id !== cardId);
           } else {
             return [...prevBookmarkedCards, cardId];
-          }
-        });
-      };
-      
-      const toggleSubtopicBookmark = (subtopic) => {
-        const topic = topicConfig.find((t) => t.subtopics.includes(subtopic));
-        if (!topic) return;
-      
-        const bookmarkId = `${topic.id}-${subtopic.toLowerCase().replace(/\s+/g, '-')}`;
-      
-        setBookmarkedTopics((prevBookmarkedTopics) => {
-          if (prevBookmarkedTopics.includes(bookmarkId)) {
-            return prevBookmarkedTopics.filter((id) => id !== bookmarkId);
-          } else {
-            return [...prevBookmarkedTopics, bookmarkId];
           }
         });
       };
@@ -2123,7 +2100,19 @@
       const getSubtopicIcon = (subtopic) => {
         const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
         if (!topic || !topic.subtopicIcons) return 'fa-folder';
-        return topic.subtopicIcons[subtopic] || 'fa-folder';
+        return topic.subtopicIcons[subtopic] || {
+          "Volcanoes": "fa-volcano",
+          "Tsunamis": "fa-water",
+          "Earthquakes": "fa-layer-group",
+          "Tropical Storms": "fa-wind",
+          "Wildfires": "fa-fire",
+          "General": "fa-info-circle",
+          "Geophysical Hazards": "fa-globe",
+          "Atmospheric Hazards": "fa-cloud",
+          "Hydrological Hazards": "fa-water",
+          "Perception of Hazards": "fa-eye",
+          "Hazard Response": "fa-hands-helping"
+        }[subtopic] || 'fa-folder';
       };
       
       React.useEffect(() => {
@@ -2236,16 +2225,6 @@
                                 <div className="subtopic-count">
                                   {getSubtopicCardCount(subtopic)} cards
                                 </div>
-                                <button
-                                  className={`bookmark-btn ${isSubtopicBookmarked(subtopic) ? 'active' : ''}`}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleSubtopicBookmark(subtopic);
-                                  }}
-                                  aria-label={`${isSubtopicBookmarked(subtopic) ? 'Remove' : 'Add'} bookmark for ${subtopic}`}
-                                >
-                                  <i className="fas fa-bookmark"></i>
-                                </button>
                               </div>
                             ))}
                           </div>
