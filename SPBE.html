@@ -45,15 +45,9 @@
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center; /* Center the navigation links */
       padding: 10px 20px;
       position: relative;
-    }
-    
-    .logo img {
-      height: 38px;
-      width: auto;
-      vertical-align: middle;
     }
     
     .nav-menu {
@@ -146,7 +140,7 @@
     
     .sidebar-title i {
       margin-right: 10px;
-      color: var(--primary);
+      color: var (--primary);
     }
 
     .topic-grid {
@@ -272,28 +266,11 @@
     }
     
     .bookmark-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      color: var(--gray);
-      cursor: pointer;
-      transition: var(--transition);
-      background: none;
-      border: none;
-      font-size: 1rem;
-    }
-    
-    .bookmark-btn.active, 
-    .bookmark-btn:hover,
-    .bookmark-btn:focus {
-      color: var(--warning);
-      outline: none;
+      display: none; /* Hide bookmark button */
     }
     
     .bookmarks-section {
-      margin-top: 24px;
-      padding-top: 24px;
-      border-top: 1px solid var(--gray-light);
+      display: none; /* Hide bookmarks section */
     }
     
     .flashcard-view {
@@ -687,12 +664,6 @@
 </head>
 <body>
   <div class="nav-container">
-    <a href="index.html" class="logo">
-      <img src="Logo.png" alt="Geography Flashcards Logo" style="height: 38px;">
-    </a>
-    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-      <i class="fas fa-bars"></i>
-    </button>
     <ul class="nav-menu">
       <li><a href="PR.html">GCSE Past Papers</a></li>
       <li><a href="APR.html">A Level Papers</a></li>
@@ -2040,28 +2011,9 @@
         }, 300);
       };
       
-      const showBookmarks = () => {
-        setAnimationClass('slide-out');
-        setTimeout(() => {
-          setSelectedTopic(null);
-          setSelectedSubtopic(null);
-          setView('bookmarks');
-          const bookmarkedFlashcards = flashcards.filter(card => bookmarkedCards.includes(card.id));
-          setFilteredCards(bookmarkedFlashcards);
-          setCurrentCardIndex(0); // Reset to the first card in bookmarks
-          setAnimationClass('slide-in');
-        }, 300);
-      };
+      const showBookmarks = () => {}; // Remove bookmarks functionality
       
-      const toggleCardBookmark = (cardId) => {
-        setBookmarkedCards((prevBookmarkedCards) => {
-          if (prevBookmarkedCards.includes(cardId)) {
-            return prevBookmarkedCards.filter((id) => id !== cardId);
-          } else {
-            return [...prevBookmarkedCards, cardId];
-          }
-        });
-      };
+      const toggleCardBookmark = () => {}; // Remove bookmark toggle functionality
       
       const nextCard = () => {
         if (filteredCards.length === 0) return;
@@ -2181,18 +2133,6 @@
                           </button>
                         ))}
                       </div>
-                      
-                      <div className="bookmarks-section">
-                        <button
-                          className="topic-card"
-                          onClick={showBookmarks}
-                          style={{ marginTop: '12px' }}
-                          aria-label="View bookmarked cards"
-                        >
-                          <i className="fas fa-bookmark topic-icon"></i>
-                          <div className="topic-name">Bookmarks</div>
-                        </button>
-                      </div>
                     </>
                   )}
                   
@@ -2239,36 +2179,6 @@
                       )}
                     </div>
                   )}
-                  
-                  {view === 'bookmarks' && (
-                    <div className="subtopic-container">
-                      <button 
-                        className="back-btn" 
-                        onClick={goBackToTopics}
-                        aria-label="Go back to topics"
-                      >
-                        <i className="fas fa-arrow-left"></i>
-                        Back to Topics
-                      </button>
-                      
-                      <div className="sidebar-title">
-                        <i className="fas fa-bookmark"></i>
-                        Bookmarked Cards
-                      </div>
-                      
-                      {bookmarkedCards.length > 0 ? (
-                        <p style={{ color: 'var(--gray)', marginBottom: '16px' }}>
-                          Showing {bookmarkedCards.length} bookmarked cards
-                        </p>
-                      ) : (
-                        <div className="empty-state">
-                          <i className="fas fa-bookmark"></i>
-                          <h3>No bookmarks yet</h3>
-                          <p>Bookmark cards to see them here</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
                 </div>
               </div>
               
@@ -2281,14 +2191,7 @@
                         {selectedSubtopic && ` • ${selectedSubtopic}`}
                       </div>
                       <div className="flashcard-actions">
-                        <button
-                          className={`action-btn ${isCardBookmarked(filteredCards[currentCardIndex].id) ? 'bookmarked' : ''}`}
-                          onClick={() => toggleCardBookmark(filteredCards[currentCardIndex].id)}
-                          title="Bookmark this card"
-                          aria-label={`${isCardBookmarked(filteredCards[currentCardIndex].id) ? 'Remove' : 'Add'} bookmark`}
-                        >
-                          <i className="fas fa-bookmark"></i>
-                        </button>
+                        {/* Bookmark button removed */}
                       </div>
                     </div>
                     
