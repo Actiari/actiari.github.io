@@ -350,7 +350,9 @@
       transition: var(--transition);
       border: 1px solid var(--gray-light);
       transform-style: preserve-3d;
-      min-height: 300px;
+      min-height: 400px; /* Fixed minimum height */
+      height: 400px; /* Force constant height */
+      overflow-y: auto; /* Enable scroll if content overflows */
       display: flex;
       flex-direction: column;
       cursor: pointer;
@@ -2080,7 +2082,7 @@
           "Wildfires": "fa-fire",
           "General": "fa-info-circle",
           "Geophysical Hazards": "fa-globe",
-          "Atmospheric Hazards": "fa-cloud",
+                   "Atmospheric Hazards": "fa-cloud",
           "Hydrological Hazards": "fa-water",
           "Perception of Hazards": "fa-eye",
           "Hazard Response": "fa-hands-helping"
