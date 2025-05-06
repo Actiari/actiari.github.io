@@ -1,215 +1,632 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GCSE Past Papers</title>
-  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
-  <style>
-    /* Base styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      background-color: #000000;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #fff;
-    }
-    
-    /* Navigation styles */
-    .nav-container {
-      background-color: #333;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      position: relative;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-    
-    .logo img {
-      width: 42px;
-      height: 38px;
-      vertical-align: middle;
-    }
-    
-    .nav-menu {
-      list-style-type: none;
-      display: flex;
-      align-items: center;
-      transition: all 0.3s ease;
-      margin-left: 0;
-      width: 100%;
-      justify-content: flex-start;
-    }
-    
-    .nav-menu li {
-      flex: 0 0 auto;
-    }
-    
-    .nav-menu li a {
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 20px 16px;
-      text-decoration: none;
-      white-space: nowrap;
-      transition: background-color 0.2s;
-    }
-    
-    .nav-menu li a:hover {
-      background-color: #444;
-    }
-    
-    .menu-toggle {
-      display: none;
-      color: white;
-      background: none;
-      border: none;
-      font-size: 24px;
-      padding: 12px 16px;
-      cursor: pointer;
-      margin-left: auto;
-    }
-    
-    /* Iframe container styling */
-    .iframe-container {
-      position: fixed;
-      top: 60px; /* Adjusted to match the nav height */
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-      height: calc(100% - 60px);
-    }
-    
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background-color: #000000;
-    }
-    
-    /* Media queries for responsive design */
-    @media screen and (max-width: 1100px) {
-      .nav-container {
-        flex-wrap: wrap;
-        padding: 0;
-      }
-      
-      .logo {
-        padding: 10px 20px;
-      }
-      
-      .menu-toggle {
-        display: block !important;
-      }
-      
-      .nav-menu {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: #333;
-        z-index: 100;
-      }
-      
-      .nav-menu.active {
-        display: flex !important;
-      }
-      
-      .nav-menu li {
-        width: 100%;
-      }
-      
-      .nav-menu li a {
-        text-align: left;
-        padding: 16px 20px;
-        border-top: 1px solid #444;
-      }
-      
-      /* Adjust iframe position for mobile when menu expands */
-      .iframe-container.menu-open {
-        height: calc(100% - 60px - 200px); /* Approximate height of expanded menu */
-        top: calc(60px + 200px);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Booster - Pomodoro Timer</title>
+    <!-- Using a generic favicon, replace if you have one -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏱️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for potential icons (e.g., dark/light mode toggle if added) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* CSS Variables - Adapted from the provided example for a consistent dark theme */
+        :root {
+            --color-background: #1a1d21;
+            --color-surface: #252930; /* For elements on top of the background */
+            --color-surface-variant: #31363f; /* Slightly different surface color */
+            --color-surface-hover: #3c424c;
+            --color-primary-accent: #00b8d4; /* Main accent color (e.g., for timer, active states) */
+            --color-secondary-accent: #fbbc05; /* A secondary accent if needed */
+            --color-text-primary: #e8eaed;
+            --color-text-secondary: #b0b3b8;
+            --color-border: #40454c;
+            --color-shadow: rgba(0,0,0,0.3);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 8px;
+
+            /* Button specific variables */
+            --button-bg: var(--color-surface-variant);
+            --button-text: var(--color-text-primary);
+            --button-hover-bg: var(--color-primary-accent);
+            --button-hover-text: var(--color-background);
+            --button-active-bg: var(--color-primary-accent);
+            --button-active-text: var(--color-background);
+        }
+
+        /* Basic Reset and Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            min-height: 100vh;
+            font-size: 16px;
+            padding: 20px; /* Add some padding around the page */
+        }
+
+        /* Page Container - To constrain width and center content */
+        .page-container {
+            width: 100%;
+            max-width: 700px; /* Max width for content */
+            margin: 20px auto;
+            padding: 0 15px; /* Padding inside the container */
+        }
+
+        /* Header Styling */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            color: var(--color-primary-accent);
+            font-size: 2.5em; /* Larger title */
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.1em;
+            color: var(--color-text-secondary);
+        }
+
+        /* Main Content Sections Styling */
+        .content-section {
+            background-color: var(--color-surface);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px var(--color-shadow);
+            text-align: center;
+        }
+
+        .content-section h2 {
+            font-size: 1.5em;
+            color: var(--color-text-primary);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 10px;
+        }
+
+        /* Timer Display Styling */
+        .timer-display {
+            font-size: 6em; /* Large timer text */
+            font-weight: 700;
+            color: var(--color-primary-accent);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        
+        #timer-mode-indicator {
+            font-size: 1.2em;
+            color: var(--color-text-secondary);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        /* Timer Controls (Buttons) Styling */
+        .timer-controls button {
+            padding: 12px 25px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s, transform 0.1s;
+            margin: 0 8px;
+            min-width: 100px;
+        }
+
+        .timer-controls button:hover {
+            background-color: var(--button-hover-bg);
+            color: var(--button-hover-text);
+            transform: translateY(-1px);
+        }
+        
+        .timer-controls button:disabled {
+            background-color: var(--color-surface-variant);
+            color: var(--color-text-secondary);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Ambient Sound Options Styling */
+        .sound-options {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: center;
+            gap: 15px; /* Space between options */
+            margin-bottom: 10px;
+        }
+
+        .sound-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 15px;
+            background-color: var(--color-surface-variant);
+            border-radius: var(--border-radius);
+            transition: background-color 0.2s;
+            border: 1px solid var(--color-border);
+        }
+
+        .sound-options label:hover {
+            background-color: var(--color-surface-hover);
+        }
+        
+        .sound-options input[type="checkbox"] {
+            margin-right: 8px;
+            accent-color: var(--color-primary-accent); /* Style checkbox color */
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Session Tracker Styling */
+        #session-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding: 0;
+            text-align: left; /* Align list items to the left */
+            max-height: 200px; /* Limit height and make scrollable */
+            overflow-y: auto;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: 10px;
+        }
+
+        #session-list li {
+            padding: 8px 12px;
+            color: var(--color-text-secondary);
+            border-bottom: 1px dashed var(--color-border);
+            font-size: 0.95em;
+        }
+
+        #session-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        /* Responsive Adjustments */
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+            .page-header h1 {
+                font-size: 2em;
+            }
+            .timer-display {
+                font-size: 4.5em;
+            }
+            .timer-controls button {
+                padding: 10px 20px;
+                font-size: 0.95em;
+                margin-bottom: 10px; /* Stack buttons on small screens if needed */
+            }
+            .content-section {
+                padding: 20px;
+            }
+            .sound-options {
+                flex-direction: column; /* Stack sound options vertically */
+                align-items: stretch;
+            }
+            .sound-options label {
+                justify-content: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8em;
+            }
+             .page-header p {
+                font-size: 1em;
+            }
+            .timer-display {
+                font-size: 3.5em;
+            }
+            .timer-controls {
+                display: flex;
+                flex-direction: column; /* Stack buttons vertically */
+                gap: 10px;
+            }
+             .timer-controls button {
+                width: 100%;
+                margin: 0 0 10px 0;
+            }
+        }
+
+    </style>
 </head>
 <body>
-  <!-- Navigation with hamburger menu for tablets and mobile -->
-  <div class="nav-container">
-    <a href="index.html" class="logo">
-      <img src="Logo.png" alt="Logo">
-    </a>
-    <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
-    <ul class="nav-menu">
-      <li><a href="PR.html">GCSE Past Papers</a></li>
-      <li><a href="APR.html">A Level Papers</a></li>
-      <li><a href="SPBE.html">Geography Flashcards</a></li>
-      <li><a href="BWT.html">Geography Case Studies</a></li>
-    </ul>
-  </div>
-  
-  <!-- Main content - Google Sheets iframe -->
-  <div class="iframe-container">
-    <iframe src="https://docs.google.com/spreadsheets/d/12btOMHEuLcvnEL2wvn48BAPieWendxVb3xwivgSqOPs/edit?gid=1609264538#gid=1609264538"></iframe>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-      const iframeContainer = document.querySelector('.iframe-container');
-      
-      // Toggle menu on click
-      menuToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        navMenu.classList.toggle('active');
+    <!-- Page Container for Centering and Max Width -->
+    <div class="page-container">
+
+        <!-- Header Section -->
+        <header class="page-header">
+            <h1>Focus Booster</h1>
+            <p>A minimalist timer for deep, distraction-free study.</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+            <!-- Timer Section -->
+            <section class="content-section timer-section">
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <p id="timer-mode-indicator">Work Time</p>
+                <div class="timer-controls" role="group" aria-label="Timer Controls">
+                    <button id="startBtn" aria-label="Start timer">Start</button>
+                    <button id="pauseBtn" aria-label="Pause timer" disabled>Pause</button>
+                    <button id="resetBtn" aria-label="Reset timer">Reset</button>
+                </div>
+            </section>
+
+            <!-- Ambient Sound Options Section -->
+            <section class="content-section ambient-sound-section">
+                <h2>Ambient Sounds</h2>
+                <div class="sound-options" role="group" aria-label="Ambient Sound Selection">
+                    <label>
+                        <input type="checkbox" class="ambient-sound-checkbox" data-sound="rain"> Rain
+                    </label>
+                    <label>
+                        <input type="checkbox" class="ambient-sound-checkbox" data-sound="cafe"> Café
+                    </label>
+                    <label>
+                        <input type="checkbox" class="ambient-sound-checkbox" data-sound="whitenoise"> White Noise
+                    </label>
+                </div>
+                <p style="font-size: 0.8em; color: var(--color-text-secondary);">
+                    <!-- IMPORTANT: Replace placeholder audio files -->
+                    (Ensure you have 'rain.mp3', 'cafe.mp3', 'whitenoise.mp3', and 'alarm.mp3' in the same directory, or update paths)
+                </p>
+            </section>
+
+            <!-- Session Tracker Section -->
+            <section class="content-section session-tracker-section">
+                <h2>Today's Sessions</h2>
+                <ul id="session-list" aria-live="polite">
+                    <!-- Session items will be added here by JavaScript -->
+                </ul>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Focus Booster | Minimalist Pomodoro Timer</p>
+            <p><small>Audio files are placeholders. Use royalty-free sounds.</small></p>
+        </footer>
+    </div>
+
+    <!-- Audio Elements (Hidden by default) -->
+    <!-- Replace 'rain.mp3', etc., with paths to your actual audio files -->
+    <audio id="rainAudio" src="rain.mp3" loop preload="auto"></audio>
+    <audio id="cafeAudio" src="cafe.mp3" loop preload="auto"></audio>
+    <audio id="whitenoiseAudio" src="whitenoise.mp3" loop preload="auto"></audio>
+    <audio id="alarmAudio" src="alarm.mp3" preload="auto"></audio> <!-- Alarm sound, does not loop -->
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- DOM Element References ---
+        const timerDisplay = document.getElementById('timerDisplay');
+        const timerModeIndicator = document.getElementById('timerModeIndicator');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const soundCheckboxes = document.querySelectorAll('.ambient-sound-checkbox');
+        const sessionListUL = document.getElementById('session-list');
+
+        // Audio elements
+        const audioElements = {
+            rain: document.getElementById('rainAudio'),
+            cafe: document.getElementById('cafeAudio'),
+            whitenoise: document.getElementById('whitenoiseAudio'),
+            alarm: document.getElementById('alarmAudio')
+        };
+        // --- Timer Variables ---
+        const WORK_DURATION = 25 * 60; // 25 minutes in seconds
+        const BREAK_DURATION = 5 * 60;  // 5 minutes in seconds
         
-        // Adjust iframe position when menu is open on mobile
-        if (window.innerWidth <= 1100) {
-          iframeContainer.classList.toggle('menu-open');
+        let timeLeft = WORK_DURATION;
+        let timerInterval = null;
+        let isPaused = true; // Timer starts in a paused (not started) state
+        let isWorkSession = true; // True for work, false for break
+        let currentAmbientSound = null; // To keep track of which sound is playing
+
+        // --- Helper Functions ---
+        /**
+         * Formats time in seconds to MM:SS string
+         * @param {number} totalSeconds - Time in seconds
+         * @returns {string} Formatted time string
+         */
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
-      });
-      
-      // Close menu when clicking outside
-      document.addEventListener('click', function(event) {
-        if (navMenu.classList.contains('active') && 
-            !navMenu.contains(event.target) && 
-            !menuToggle.contains(event.target)) {
-          navMenu.classList.remove('active');
-          
-          // Reset iframe position
-          if (window.innerWidth <= 1100) {
-            iframeContainer.classList.remove('menu-open');
-          }
+
+        /**
+         * Updates the timer display on the page and the document title.
+         */
+        function updateTimerDisplay() {
+            const formattedTime = formatTime(timeLeft);
+            timerDisplay.textContent = formattedTime;
+            document.title = `${formattedTime} - ${isWorkSession ? 'Work' : 'Break'} - Focus Booster`;
         }
-      });
-      
-      // Handle window resize
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 1100) {
-          navMenu.classList.remove('active');
-          iframeContainer.classList.remove('menu-open');
+
+        /**
+         * Updates the timer mode indicator text.
+         */
+        function updateModeIndicator() {
+            timerModeIndicator.textContent = isWorkSession ? "Work Time" : "Break Time";
         }
-      });
+        
+        /**
+         * Manages button states (enabled/disabled) based on timer state.
+         */
+        function updateButtonStates() {
+            if (isPaused) {
+                startBtn.disabled = false;
+                pauseBtn.disabled = true;
+            } else {
+                startBtn.disabled = true;
+                pauseBtn.disabled = false;
+            }
+            resetBtn.disabled = false; // Reset is always available
+        }
+
+        // --- Ambient Sound Functions ---
+        /**
+         * Stops all ambient sounds.
+         */
+        function stopAllAmbientSounds() {
+            Object.values(audioElements).forEach(audio => {
+                if (audio && audio !== audioElements.alarm) { // Don't stop alarm this way
+                    audio.pause();
+                    audio.currentTime = 0; // Reset audio to start
+                }
+            });
+            currentAmbientSound = null;
+        }
+
+        /**
+         * Plays the selected ambient sound if one is checked.
+         * Pauses if timer is paused.
+         */
+        function manageAmbientSoundPlayback() {
+            let selectedCheckbox = null;
+            soundCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) selectedCheckbox = checkbox;
+            });
+
+            if (selectedCheckbox) {
+                const soundKey = selectedCheckbox.dataset.sound;
+                if (audioElements[soundKey]) {
+                    if (!isPaused && timerInterval) { // Play only if timer is running
+                        if (currentAmbientSound !== audioElements[soundKey]) {
+                            stopAllAmbientSounds(); // Stop others before playing new one
+                            currentAmbientSound = audioElements[soundKey];
+                        }
+                        currentAmbientSound.play().catch(e => console.error("Error playing sound:", e));
+                    } else { // If paused or timer not running, pause the sound
+                        if (currentAmbientSound) {
+                            currentAmbientSound.pause();
+                        }
+                    }
+                }
+            } else { // No checkbox selected
+                if (currentAmbientSound) {
+                    currentAmbientSound.pause();
+                }
+            }
+        }
+
+        // Event listener for sound checkboxes
+        soundCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    // Uncheck other checkboxes
+                    soundCheckboxes.forEach(otherCheckbox => {
+                        if (otherCheckbox !== e.target) {
+                            otherCheckbox.checked = false;
+                        }
+                    });
+                    // If a sound was previously playing, stop it before starting new one
+                    if(currentAmbientSound && currentAmbientSound !== audioElements[e.target.dataset.sound]){
+                       currentAmbientSound.pause();
+                    }
+                    currentAmbientSound = audioElements[e.target.dataset.sound]; // Set the new sound
+                } else {
+                    // If the currently playing sound's checkbox is unchecked
+                    if (currentAmbientSound === audioElements[e.target.dataset.sound]) {
+                       currentAmbientSound.pause();
+                       currentAmbientSound = null;
+                    }
+                }
+                manageAmbientSoundPlayback(); // Update sound based on new selection and timer state
+            });
+        });
+
+        // --- Timer Logic Functions ---
+        /**
+         * Starts the timer countdown.
+         */
+        function startTimer() {
+            if (isPaused) { // Only start if it was paused or not yet started
+                isPaused = false;
+                updateButtonStates();
+                
+                // If timeLeft is 0 (e.g., after a reset then start), set to current session duration
+                if (timeLeft === 0) {
+                     timeLeft = isWorkSession ? WORK_DURATION : BREAK_DURATION;
+                }
+                updateTimerDisplay(); // Update display immediately
+
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null; // Clear interval ID
+
+                        // Pause ambient sound before alarm
+                        if (currentAmbientSound) currentAmbientSound.pause();
+                        audioElements.alarm.play().catch(e => console.error("Error playing alarm:", e));
+
+                        if (isWorkSession) {
+                            addSessionToList(); // Log completed work session
+                            isWorkSession = false;
+                            timeLeft = BREAK_DURATION;
+                            timerModeIndicator.style.color = 'var(--color-secondary-accent)'; // Visual cue for break
+                        } else {
+                            isWorkSession = true;
+                            timeLeft = WORK_DURATION;
+                            timerModeIndicator.style.color = 'var(--color-text-secondary)'; // Back to normal
+                        }
+                        updateModeIndicator();
+                        // Automatically start the next session
+                        isPaused = true; // Temporarily set to true so startTimer works correctly
+                        startTimer(); 
+                    }
+                }, 1000);
+            }
+            manageAmbientSoundPlayback(); // Ensure ambient sound plays if selected and timer running
+        }
+
+        /**
+         * Pauses the timer.
+         */
+        function pauseTimer() {
+            if (!isPaused) {
+                isPaused = true;
+                clearInterval(timerInterval);
+                timerInterval = null;
+                updateButtonStates();
+                manageAmbientSoundPlayback(); // This will pause the sound
+            }
+        }
+
+        /**
+         * Resets the timer to the initial work session state.
+         */
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            isPaused = true;
+            isWorkSession = true;
+            timeLeft = WORK_DURATION;
+            
+            updateTimerDisplay();
+            updateModeIndicator();
+            updateButtonStates();
+            timerModeIndicator.style.color = 'var(--color-text-secondary)';
+
+            // Stop ambient sounds and uncheck boxes
+            stopAllAmbientSounds();
+            soundCheckboxes.forEach(checkbox => checkbox.checked = false);
+            document.title = "Focus Booster"; // Reset document title
+        }
+
+        // --- Session Tracker Functions ---
+        /**
+         * Gets today's date as a string YYYY-MM-DD
+         */
+        function getTodayDateString() {
+            return new Date().toISOString().split('T')[0];
+        }
+        
+        /**
+         * Adds a completed work session to the list and saves to localStorage.
+         */
+        function addSessionToList() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const sessionText = `Focus session completed at ${timeString}`;
+            
+            const listItem = document.createElement('li');
+            listItem.textContent = sessionText;
+            sessionListUL.appendChild(listItem);
+            sessionListUL.scrollTop = sessionListUL.scrollHeight; // Auto-scroll to new item
+
+            // Save to localStorage
+            let sessions = JSON.parse(localStorage.getItem('focusSessions')) || [];
+            const today = getTodayDateString();
+            // Filter out sessions not from today before adding new one
+            sessions = sessions.filter(session => session.date === today);
+            sessions.push({ text: sessionText, date: today });
+            localStorage.setItem('focusSessions', JSON.stringify(sessions));
+        }
+
+        /**
+         * Loads today's sessions from localStorage on page load.
+         */
+        function loadSessionsFromStorage() {
+            const today = getTodayDateString();
+            let sessions = JSON.parse(localStorage.getItem('focusSessions')) || [];
+            
+            // Filter to keep only today's sessions
+            sessions = sessions.filter(session => session.date === today);
+            // Update localStorage with only today's sessions
+            localStorage.setItem('focusSessions', JSON.stringify(sessions));
+
+            sessions.forEach(session => {
+                const listItem = document.createElement('li');
+                listItem.textContent = session.text;
+                sessionListUL.appendChild(listItem);
+            });
+             if(sessionListUL.children.length > 0){
+                sessionListUL.scrollTop = sessionListUL.scrollHeight;
+            }
+        }
+
+        // --- Event Listeners for Timer Controls ---
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault(); // Prevent scrolling if space is pressed
+                if (isPaused) {
+                    if(!startBtn.disabled) startTimer();
+                } else {
+                    if(!pauseBtn.disabled) pauseTimer();
+                }
+            } else if (event.code === 'KeyR' && !event.metaKey && !event.ctrlKey) { // 'R' for Reset
+                 event.preventDefault();
+                if(!resetBtn.disabled) resetTimer();
+            }
+        });
+
+        // --- Initialization ---
+        updateTimerDisplay(); // Set initial display
+        updateModeIndicator();
+        updateButtonStates(); // Set initial button states
+        loadSessionsFromStorage(); // Load any sessions from today
+
+        // Initial check for ambient sound in case a checkbox is somehow pre-checked (e.g. browser restore)
+        manageAmbientSoundPlayback(); 
     });
-  </script>
+    </script>
 </body>
 </html>
