@@ -132,18 +132,53 @@
         }
         .subject-accordion[open] > summary { background-color: var(--current-subject-accent); color: #fff; }
         .subject-accordion[open] > summary .accordion-icon { transform: rotate(45deg); color: #fff; }
+        
         .subject-content {
             padding: 20px; background-color: var(--color-surface);
             border-top: 1px solid var(--color-border);
         }
-        .specifications-section, .useful-resources-section {
-            margin-bottom: 20px; padding-bottom: 15px;
+
+        /* Styling for new additional info section and other content sections */
+        .subject-additional-info-section,
+        .specifications-section,
+        .useful-resources-section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 1px dashed var(--color-border);
         }
-        .specifications-section:last-child, .useful-resources-section:last-child { border-bottom: none; margin-bottom: 10px;}
-        .specifications-section h3, .useful-resources-section h3 {
-            color: var(--current-subject-accent); font-size: 1.1em; margin-bottom: 12px;
+        .subject-additional-info-section h3,
+        .specifications-section h3,
+        .useful-resources-section h3,
+        .subject-content-subheading /* For "Past Papers & Mark Schemes" */ {
+            color: var(--current-subject-accent);
+            font-size: 1.1em;
+            margin-bottom: 12px;
         }
+
+        .subject-additional-info-section p {
+            margin-bottom: 6px;
+            color: var(--color-text-primary);
+            font-size: 0.95em;
+        }
+        .subject-additional-info-section p strong {
+            color: var(--color-text-primary); 
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .subject-additional-info-section .info-source {
+            font-size: 0.85em;
+            color: var(--color-text-secondary);
+            margin-top: 10px;
+            text-align: right;
+        }
+        
+        .subject-content > .subject-additional-info-section:last-child,
+        .subject-content > .specifications-section:last-child,
+        .subject-content > .useful-resources-section:last-child {
+            border-bottom: none;
+            margin-bottom: 10px; 
+        }
+        
         .spec-link {
             display: inline-block; background-color: var(--color-surface-variant);
             padding: 9px 16px; border-radius: var(--border-radius); text-decoration: none;
@@ -159,6 +194,11 @@
             transition: color 0.2s, border-bottom-color 0.2s; word-break: break-all;
         }
         .useful-resources-section li a:hover { color: var(--current-subject-accent); border-bottom-style: solid; }
+        
+        .past-papers-main-section { 
+             margin-top: 0; 
+        }
+        
         .exam-session-group { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--color-border); }
         .exam-session-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .exam-session-title { font-size: 1.15em; color: var(--color-text-primary); margin-bottom: 15px; font-weight: 600; }
@@ -227,7 +267,6 @@
     <div class="nav-container">
         <div class="nav-menu-wrapper">
             <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
                 <li><a href="APR.html">A Level Papers</a></li>
                 <li><a href="SPBE.html">Geography Flashcards</a></li>
                 <li><a href="BWT.html">Geography Case Studies</a></li>
@@ -324,6 +363,133 @@
         }
     });
 
+    // Additional Subject Information Data Store
+    const additionalSubjectInfo = {
+        "AQA_geography_ALevel": {
+            descriptionTitle: "AQA Geography (A-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "120 marks" },
+                { label: "Duration per paper", value: "2 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_geography_ASLevel": {
+            descriptionTitle: "AQA Geography (AS-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "80 marks" },
+                { label: "Duration per paper", value: "1 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_core-maths_ALevel": {
+            descriptionTitle: "AQA Core Maths (Level 3) Structure",
+            components: [
+                { name: "Paper 1", details: "60 marks, 1 h 30 mins" },
+                { name: "Paper 2 (option A, B or C)", details: "60 marks, 1 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_english-language_ALevel": {
+            descriptionTitle: "AQA English Language (A-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "100 marks" },
+                { label: "Duration per paper", value: "2 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_english-language_ASLevel": {
+            descriptionTitle: "AQA English Language (AS-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "70 marks" },
+                { label: "Duration per paper", value: "1 h 30 mins" }
+            ],
+            source: "BHASVIC"
+        },
+        "AQA_mathematics_ALevel": {
+            descriptionTitle: "AQA Mathematics (A-Level) Format",
+            details: [
+                { label: "Papers", value: "3 written exams" },
+                { label: "Marks per paper", value: "100 marks" },
+                { label: "Duration per paper", value: "2 h" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_mathematics_ASLevel": {
+            descriptionTitle: "AQA Mathematics (AS-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "80 marks" },
+                { label: "Duration per paper", value: "1 h 30 mins" }
+            ],
+            source: "Revisely"
+        },
+        "Edexcel_applied-science_BTEC": {
+            descriptionTitle: "Edexcel BTEC Applied Science (Unit 1: Principles & Applications of Science)",
+            details: [
+                { label: "Exam Type", value: "1 external exam" },
+                { label: "Total Marks", value: "90 marks" },
+                { label: "Duration", value: "1 h 30 mins" }
+            ],
+            source: "pearsonschoolsandfecolleges.co.uk"
+        },
+        "Edexcel_business-studies_BTEC": {
+            descriptionTitle: "Edexcel BTEC Business (Unit 3: Personal & Business Finance)",
+            details: [
+                { label: "Exam Type", value: "1 external exam" },
+                { label: "Total Marks", value: "100 marks" },
+                { label: "Duration", value: "2 h" }
+            ],
+            source: "pearsonschoolsandfecolleges.co.uk"
+        },
+        "Edexcel_information-technology_BTEC": {
+            descriptionTitle: "Edexcel BTEC IT (Unit 1: Information Technology Systems)",
+            details: [
+                { label: "Exam Type", value: "1 external exam" },
+                { label: "Total Marks", value: "90 marks" },
+                { label: "Duration", value: "2 h" }
+            ],
+            source: "Quizlet, Pearson Qualifications"
+        },
+        "OCRA_chemistry_ALevel": {
+            descriptionTitle: "OCR A Level Chemistry A (H432) Structure",
+            components: [
+                { name: "Component 01: Periodic table, elements and physical chemistry", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 02: Synthesis and analytical techniques", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 03: Unified chemistry", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        },
+        "OCRA_chemistry_ASLevel": {
+            descriptionTitle: "OCR AS Level Chemistry A (H032) Structure",
+            components: [
+                { name: "Component 01: Breadth in chemistry", details: "70 marks, 1 h 30 mins" },
+                { name: "Component 02: Depth in chemistry", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        },
+        "OCRA_physics_ALevel": {
+            descriptionTitle: "OCR A Level Physics A (H556) Structure",
+            components: [
+                { name: "Component 01: Modelling physics", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 02: Exploring physics", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 03: Unified physics", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        },
+        "OCRA_physics_ASLevel": {
+            descriptionTitle: "OCR AS Level Physics A (H156) Structure",
+            components: [
+                { name: "Component 01: Breadth in physics", details: "70 marks, 1 h 30 mins" },
+                { name: "Component 02: Depth in physics", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        }
+    };
+
     // CSV Data Loading and UI Logic
     document.addEventListener('DOMContentLoaded', async function () {
         const qualificationTabs = document.querySelectorAll('#qualification-selector .filter-tab');
@@ -393,300 +559,209 @@
         // --- PARSERS ---
         function parseAqaGeographyALevel(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            // Row 2, Col B for subject name (e.g., AQA | Geography - A Level)
             if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
-            
-            // Spec link is not directly in this CSV type, use placeholder from config
             subjectData.specLink = subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf";
-
-            // Paper headers are around row 8, data starts row 10
-            // Col A: Session Name, Col B: P1 Paper, Col C: P1 Insert, Col D: P1 MS
-            // Col F: P2 Paper, Col G: P2 Insert, Col H: P2 MS
-            // Resources: Col J (Name), Col L (Link) - Session Name for resource row in Col I
-            const p1PaperCol = 1, p1InsertCol = 3, p1MsCol = 2; // Adjusted for your ALevel Geo CSV (MS before Insert)
+            const p1PaperCol = 1, p1InsertCol = 3, p1MsCol = 2; 
             const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
             const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
-
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i];
                 const paperSessionName = getVal(row, 0);
                 const resourceSessionName = getVal(row, resourceSessionCol);
-
                 if (paperSessionName && isLink(getVal(row, p1PaperCol))) {
                     let session = subjectData.sessions.find(s => s.name === paperSessionName);
-                    if (!session) {
-                        session = { name: paperSessionName, papers: [] };
-                        subjectData.sessions.push(session);
-                    }
-                    session.papers.push({
-                        title: "Paper 1: Physical Geography",
-                        paperLink: getVal(row, p1PaperCol),
-                        insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null,
-                        msLink: getVal(row, p1MsCol)
-                    });
-                    if (isLink(getVal(row, p2PaperCol))) {
-                        session.papers.push({
-                            title: "Paper 2: Human Geography",
-                            paperLink: getVal(row, p2PaperCol),
-                            insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null,
-                            msLink: getVal(row, p2MsCol)
-                        });
-                    }
+                    if (!session) { session = { name: paperSessionName, papers: [] }; subjectData.sessions.push(session); }
+                    session.papers.push({ title: "Paper 1: Physical Geography", paperLink: getVal(row, p1PaperCol), insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) });
+                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2: Human Geography", paperLink: getVal(row, p2PaperCol), insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) }); }
                 } else if (resourceSessionName && getVal(row, resourceNameCol) && isLink(getVal(row, resourceLinkCol))) {
-                    // This is a resource row, associate with the correct session if names match or add globally
-                     if (getVal(row, resourceNameCol).toLowerCase() !== 'n/a') {
-                        subjectData.usefulResources.push({ name: getVal(row, resourceNameCol), link: getVal(row, resourceLinkCol) });
-                    }
+                     if (getVal(row, resourceNameCol).toLowerCase() !== 'n/a') { subjectData.usefulResources.push({ name: getVal(row, resourceNameCol), link: getVal(row, resourceLinkCol) }); }
                 }
-            }
-            return subjectData;
+            } return subjectData;
         }
-
         function parseAqaGeographyASLevel(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
             if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
-            subjectData.specLink = subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf"; // No spec link in this CSV
-
-            const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3;
-            const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
-            // Data rows start around index 10
+            subjectData.specLink = subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf";
+            const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
             for (let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i];
-                const sessionName = getVal(row, 0); // Session name is in column A for this CSV
+                const row = csvRows[i]; const sessionName = getVal(row, 0);
                 if (sessionName && isLink(getVal(row, p1PaperCol))) {
                     let session = subjectData.sessions.find(s => s.name === sessionName);
-                    if (!session) {
-                        session = { name: sessionName, papers: [] };
-                        subjectData.sessions.push(session);
-                    }
-                    session.papers.push({
-                        title: "Paper 1", // CSV Header: Paper 1 (80 Marks)
-                        paperLink: getVal(row, p1PaperCol),
-                        insertLink: (getVal(row, p1InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p1InsertCol))) ? getVal(row, p1InsertCol) : null,
-                        msLink: getVal(row, p1MsCol)
-                    });
-                     if (isLink(getVal(row, p2PaperCol))) {
-                        session.papers.push({
-                            title: "Paper 2", // CSV Header: Paper 2 (80 Marks)
-                            paperLink: getVal(row, p2PaperCol),
-                            insertLink: (getVal(row, p2InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p2InsertCol))) ? getVal(row, p2InsertCol) : null,
-                            msLink: getVal(row, p2MsCol)
-                        });
-                    }
+                    if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
+                    session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: (getVal(row, p1InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p1InsertCol))) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) });
+                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2", paperLink: getVal(row, p2PaperCol), insertLink: (getVal(row, p2InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p2InsertCol))) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) });}
                 }
-            }
-            return subjectData;
+            } return subjectData;
         }
-        
         function parseAqaCoreMaths(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
             if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[4], 1) || subjectConfig.specLinkPlaceholder;
-            
-            const formulaSheetResourceName = getVal(csvRows[9], 9);
-            const formulaSheetLink = getVal(csvRows[9], 10);
-            if (formulaSheetResourceName && formulaSheetResourceName.toLowerCase().includes("formula sheet") && isLink(formulaSheetLink)) {
-                subjectData.usefulResources.push({ name: formulaSheetResourceName, link: formulaSheetLink });
-            }
-
-            const p1PaperCol = 1, p1MsCol = 2;
-            const p2PaperCol = 4, p2MsCol = 5;
-
+            const formulaSheetResourceName = getVal(csvRows[9], 9); const formulaSheetLink = getVal(csvRows[9], 10);
+            if (formulaSheetResourceName && formulaSheetResourceName.toLowerCase().includes("formula sheet") && isLink(formulaSheetLink)) { subjectData.usefulResources.push({ name: formulaSheetResourceName, link: formulaSheetLink }); }
+            const p1PaperCol = 1, p1MsCol = 2; const p2PaperCol = 4, p2MsCol = 5;
             for (let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i];
-                const sessionName = getVal(row, 0);
+                const row = csvRows[i]; const sessionName = getVal(row, 0);
                 if (sessionName && isLink(getVal(row, p1PaperCol))) {
                     let session = subjectData.sessions.find(s => s.name === sessionName);
                     if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
                     session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) });
-                    if (isLink(getVal(row, p2PaperCol))) {
-                        session.papers.push({ title: "Paper 2A: Statistical Techniques", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) });
-                    }
+                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2A: Statistical Techniques", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) }); }
                 }
-            }
-            return subjectData;
+            } return subjectData;
         }
-
         function parseAqaEnglishMathsMultiPaper(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
             if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[4], 1) || subjectConfig.specLinkPlaceholder;
-
-            // Headers for papers are in row 8 (index 7)
-            const paper1Title = getVal(csvRows[7], 1);
-            const paper2Title = getVal(csvRows[7], 5);
+            const paper1Title = getVal(csvRows[7], 1); const paper2Title = getVal(csvRows[7], 5);
             const paper3Title = subjectConfig.subjectSlug === 'mathematics' && subjectConfig.qualType === 'ALevel' ? getVal(csvRows[7], 9) : null;
-
-            const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3;
-            const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
-            const p3PaperCol = 9, p3MsCol = 10; // Maths A-Level
-            const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
-
-
-            for (let i = 10; i < csvRows.length; i++) { // Data starts around row 10 (index 9)
-                const row = csvRows[i];
-                const sessionName = getVal(row, 0) || getVal(row, resourceSessionCol); // Session usually col 0 for papers, or col I for Maths resources
-                if (!sessionName) continue;
-
+            const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
+            const p3PaperCol = 9, p3MsCol = 10; const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i]; const sessionName = getVal(row, 0) || getVal(row, resourceSessionCol); if (!sessionName) continue;
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-
-                if (isLink(getVal(row, p1PaperCol))) {
-                    session.papers.push({
-                        title: paper1Title || "Paper 1",
-                        paperLink: getVal(row, p1PaperCol),
-                        insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null,
-                        msLink: getVal(row, p1MsCol)
-                    });
-                }
-                if (isLink(getVal(row, p2PaperCol))) {
-                     session.papers.push({
-                        title: paper2Title || "Paper 2",
-                        paperLink: getVal(row, p2PaperCol),
-                        insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null,
-                        msLink: getVal(row, p2MsCol)
-                    });
-                }
-                if (paper3Title && isLink(getVal(row, p3PaperCol))) { // For A-Level Maths Paper 3
-                    session.papers.push({
-                        title: paper3Title,
-                        paperLink: getVal(row, p3PaperCol),
-                        msLink: getVal(row, p3MsCol)
-                    });
+                if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) }); }
+                if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) }); }
+                if (paper3Title && isLink(getVal(row, p3PaperCol))) { session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
                 } else if (subjectConfig.subjectSlug === 'mathematics' && getVal(row, resourceNameCol) && isLink(getVal(row, resourceLinkCol))) {
-                    // A-Level Maths resources
-                     if (getVal(row, resourceNameCol).toLowerCase() !== 'n/a') {
-                        subjectData.usefulResources.push({ name: getVal(row, resourceNameCol), link: getVal(row, resourceLinkCol) });
-                    }
+                    if (getVal(row, resourceNameCol).toLowerCase() !== 'n/a') { subjectData.usefulResources.push({ name: getVal(row, resourceNameCol), link: getVal(row, resourceLinkCol) }); }
                 }
-            }
-            return subjectData;
+            } return subjectData;
         }
-        
         function parseEdexcelAppliedScience(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
             if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[5],1) || subjectConfig.specLinkPlaceholder;
-
             const unitTitles = [getVal(csvRows[7],1), getVal(csvRows[7],4), getVal(csvRows[7],7)];
-            const unitPaperCols = [1, 4, 7];
-            const unitMsCols =    [2, 5, 8];
-
+            const unitPaperCols = [1, 4, 7]; const unitMsCols = [2, 5, 8];
             for(let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i];
-                const sessionName = getVal(row, row.length -1); // Last non-empty cell
-                if(!sessionName) continue;
-
+                const row = csvRows[i]; const sessionName = getVal(row, row.length -1); if(!sessionName) continue;
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if(!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-
                 for(let u=0; u < unitTitles.length; u++) {
-                    const paperLink = getVal(row, unitPaperCols[u]);
-                    const msLink = getVal(row, unitMsCols[u]);
+                    const paperLink = getVal(row, unitPaperCols[u]); const msLink = getVal(row, unitMsCols[u]);
                     if(isLink(paperLink)) {
                         let unitName = unitTitles[u];
                         if (unitName.toLowerCase().includes("biology")) unitName = "Unit 1B: Biology";
                         else if (unitName.toLowerCase().includes("chemistry")) unitName = "Unit 1C: Chemistry";
                         else if (unitName.toLowerCase().includes("physics")) unitName = "Unit 1P: Physics";
-
                         session.papers.push({ title: unitName, paperLink: paperLink, msLink: msLink });
                     }
                 }
-            }
-            return subjectData;
+            } return subjectData;
         }
-
         function parseEdexcelBusinessIT(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
             if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[4],1) || subjectConfig.specLinkPlaceholder;
-
-            const paperTitle = getVal(csvRows[7],1); // e.g., Personal and Business Finance / Information Technology Systems
-            const paperCol = 1, msCol = 3; // Paper in B, MS in D
-            const resourceNameCol = 6, resourceLinkCol = 8; // Resource in G, Link in I
-
+            const paperTitle = getVal(csvRows[7],1); const paperCol = 1, msCol = 3;
+            const resourceNameCol = 6, resourceLinkCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i];
-                const sessionName = getVal(row, 0); // Session in col A
-                if (!sessionName) continue;
-
+                const row = csvRows[i]; const sessionName = getVal(row, 0); if (!sessionName) continue;
                 if (isLink(getVal(row, paperCol))) {
                     let session = subjectData.sessions.find(s => s.name === sessionName);
                     if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
                     session.papers.push({ title: paperTitle || "Main Paper", paperLink: getVal(row, paperCol), msLink: getVal(row, msCol) });
                 }
-                
-                const resourceName = getVal(row, resourceNameCol);
-                const resourceLink = getVal(row, resourceLinkCol);
-                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
-                    subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
-                }
-            }
-            return subjectData;
+                const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
+                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) { subjectData.usefulResources.push({ name: resourceName, link: resourceLink });}
+            } return subjectData;
         }
-
-        function parseOcrMultiPaper(csvRows, subjectConfig) { // For OCR Chem A/AS, Physics AS
+        function parseOcrMultiPaper(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
             if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[4],1) || subjectConfig.specLinkPlaceholder;
-
-            const paper1Title = getVal(csvRows[7],1);
-            const paper2Title = getVal(csvRows[7],4);
-            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[7],7) : null; // Only for A-Level
-
-            const p1PaperCol = 1, p1MsCol = 2;
-            const p2PaperCol = 4, p2MsCol = 5;
-            const p3PaperCol = 7, p3MsCol = 8; // For A-Level Paper 3
-
+            const paper1Title = getVal(csvRows[7],1); const paper2Title = getVal(csvRows[7],4);
+            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[7],7) : null;
+            const p1PaperCol = 1, p1MsCol = 2; const p2PaperCol = 4, p2MsCol = 5; const p3PaperCol = 7, p3MsCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i];
-                // Session name is the last non-empty cell with actual data
-                let sessionName = "";
+                const row = csvRows[i]; let sessionName = "";
                 for(let k = row.length -1; k >=0; k--) { if(getVal(row,k)) { sessionName = getVal(row,k); break; } }
-                if (!sessionName || sessionName.toLowerCase() === 'n/a') { // If last cell is N/A, try first cell
-                    sessionName = getVal(row, 0);
-                }
-                if (!sessionName) continue;
-
-
+                if (!sessionName || sessionName.toLowerCase() === 'n/a') { sessionName = getVal(row, 0); } if (!sessionName) continue;
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-
-                if (isLink(getVal(row, p1PaperCol))) {
-                    session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) });
-                }
-                if (isLink(getVal(row, p2PaperCol))) {
-                    session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) });
-                }
-                if (paper3Title && isLink(getVal(row, p3PaperCol))) {
-                    session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
-                }
-            }
-            return subjectData;
+                if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) }); }
+                if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) }); }
+                if (paper3Title && isLink(getVal(row, p3PaperCol))) { session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });}
+            } return subjectData;
         }
-        
-        function parseOcrMultiPaperWithResources(csvRows, subjectConfig) { // For OCR Physics A-Level
-            const subjectData = parseOcrMultiPaper(csvRows, subjectConfig); // Base parsing
-            
-            const resourceNameCol = 10, resourceLinkCol = 12, resourceSessionCol = 9; // Adjusted for Physics A-Level CSV
-            for (let i = 10; i < csvRows.length; i++) { // Start after headers
-                const row = csvRows[i];
-                const resourceName = getVal(row, resourceNameCol);
-                const resourceLink = getVal(row, resourceLinkCol);
-                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
-                    subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
-                }
-            }
-            return subjectData;
+        function parseOcrMultiPaperWithResources(csvRows, subjectConfig) {
+            const subjectData = parseOcrMultiPaper(csvRows, subjectConfig);
+            const resourceNameCol = 10, resourceLinkCol = 12, resourceSessionCol = 9;
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i]; const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
+                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) { subjectData.usefulResources.push({ name: resourceName, link: resourceLink });}
+            } return subjectData;
         }
 
 
         function generateSubjectHTML(subject) {
-            // ... (keep existing generateSubjectHTML function)
             const subjectAccordion = document.createElement('details');
             subjectAccordion.className = 'subject-accordion';
             subjectAccordion.dataset.subject = subject.subjectSlug;
             subjectAccordion.dataset.qualificationType = subject.qualType;
+
+            let additionalInfoHTML = '';
+            if (subject.additionalInfo) {
+                additionalInfoHTML = `
+                    <div class="subject-additional-info-section">
+                        <h3>${subject.additionalInfo.descriptionTitle || 'Exam Information'}</h3>
+                        ${subject.additionalInfo.details ? subject.additionalInfo.details.map(detail => `
+                            <p><strong>${detail.label}:</strong> ${detail.value}</p>
+                        `).join('') : ''}
+                        ${subject.additionalInfo.components ? subject.additionalInfo.components.map(comp => `
+                            <p><strong>${comp.name}:</strong> ${comp.details}</p>
+                        `).join('') : ''}
+                        ${subject.additionalInfo.source ? `<p class="info-source"><em>Source: ${subject.additionalInfo.source}</em></p>` : ''}
+                    </div>
+                `;
+            }
+
+            let specHTML = '';
+            if (subject.specLink) {
+                specHTML = `
+                    <div class="specifications-section">
+                        <h3>Specification</h3>
+                        <a href="${subject.specLink}" target="_blank" class="spec-link">View Specification</a>
+                    </div>`;
+            }
+
+            let resourcesHTML = '';
+            if (subject.usefulResources && subject.usefulResources.length > 0) {
+                resourcesHTML = `
+                    <div class="useful-resources-section">
+                        <h3>Useful Resources</h3>
+                        <ul>
+                            ${subject.usefulResources.map(res => `<li><a href="${res.link}" target="_blank">${res.name}</a></li>`).join('')}
+                        </ul>
+                    </div>`;
+            }
+            
+            let pastPapersSectionHTML = '';
+            if (subject.sessions && subject.sessions.length > 0) {
+                pastPapersSectionHTML = `
+                    <div class="past-papers-main-section">
+                        <h3 class="subject-content-subheading">Past Papers & Mark Schemes</h3>
+                        ${subject.sessions.map(session => `
+                            <div class="exam-session-group">
+                                <h4 class="exam-session-title">${session.name}</h4>
+                                ${session.papers.map(paper => `
+                                    <div class="exam-set">
+                                        <span class="exam-set-title">${paper.title || 'Paper'}</span>
+                                        <div class="document-links">
+                                            ${paper.paperLink ? `<a href="${paper.paperLink}" class="doc-link paper-link" target="_blank">Paper</a>` : ''}
+                                            ${paper.insertLink ? `<a href="${paper.insertLink}" class="doc-link insert-link" target="_blank">Insert</a>` : ''}
+                                            ${paper.msLink ? `<a href="${paper.msLink}" class="doc-link ms-link" target="_blank">Mark Scheme</a>` : ''}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
 
             subjectAccordion.innerHTML = `
                 <summary>
@@ -694,41 +769,16 @@
                     <span class="accordion-icon">+</span>
                 </summary>
                 <div class="subject-content">
-                    ${subject.specLink ? `
-                        <div class="specifications-section">
-                            <h3>Specification</h3>
-                            <a href="${subject.specLink}" target="_blank" class="spec-link">View Specification</a>
-                        </div>` : ''}
-                    ${subject.usefulResources && subject.usefulResources.length > 0 ? `
-                        <div class="useful-resources-section">
-                            <h3>Useful Resources</h3>
-                            <ul>
-                                ${subject.usefulResources.map(res => `<li><a href="${res.link}" target="_blank">${res.name}</a></li>`).join('')}
-                            </ul>
-                        </div>` : ''}
-                    <h3 class="exam-set-heading">Past Papers & Mark Schemes</h3>
-                    ${subject.sessions.map(session => `
-                        <div class="exam-session-group">
-                            <h4 class="exam-session-title">${session.name}</h4>
-                            ${session.papers.map(paper => `
-                                <div class="exam-set">
-                                    <span class="exam-set-title">${paper.title || 'Paper'}</span>
-                                    <div class="document-links">
-                                        ${paper.paperLink ? `<a href="${paper.paperLink}" class="doc-link paper-link" target="_blank">Paper</a>` : ''}
-                                        ${paper.insertLink ? `<a href="${paper.insertLink}" class="doc-link insert-link" target="_blank">Insert</a>` : ''}
-                                        ${paper.msLink ? `<a href="${paper.msLink}" class="doc-link ms-link" target="_blank">Mark Scheme</a>` : ''}
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `).join('')}
+                    ${additionalInfoHTML}
+                    ${specHTML}
+                    ${resourcesHTML}
+                    ${pastPapersSectionHTML}
                 </div>
             `;
             return subjectAccordion;
         }
         
         async function loadAndDisplaySubjects() {
-            // ... (keep existing loadAndDisplaySubjects, just ensure it calls the correct new parsers)
             let filesLoadedCount = 0;
             for (const subjectConfig of subjectsToProcess) {
                 try {
@@ -757,19 +807,27 @@
                             continue;
                     }
 
-                    if (parsedData && (parsedData.sessions.length > 0 || parsedData.specLink || (parsedData.usefulResources && parsedData.usefulResources.length > 0))) {
-                        allSubjectsData.push(parsedData);
-                        const subjectHTML = generateSubjectHTML(parsedData);
-                        const container = document.getElementById(`${parsedData.board}-subjects-list`);
-                        if (container) {
-                            container.appendChild(subjectHTML);
-                            filesLoadedCount++;
-                        } else {
-                             console.warn(`HTML container not found for board: ${parsedData.board}`);
+                    if (parsedData) {
+                        // Attach additional information
+                        const infoKey = `${parsedData.board}_${parsedData.subjectSlug}_${parsedData.qualType}`;
+                        if (additionalSubjectInfo[infoKey]) {
+                            parsedData.additionalInfo = additionalSubjectInfo[infoKey];
                         }
-                    } else {
-                        console.warn(`No data parsed or extracted for ${subjectConfig.csvFile}`);
-                        dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No data extracted from ${subjectConfig.csvFile}. Check CSV format.</p>`;
+
+                        if (parsedData.sessions.length > 0 || parsedData.specLink || (parsedData.usefulResources && parsedData.usefulResources.length > 0) || parsedData.additionalInfo) {
+                            allSubjectsData.push(parsedData);
+                            const subjectHTML = generateSubjectHTML(parsedData);
+                            const container = document.getElementById(`${parsedData.board}-subjects-list`);
+                            if (container) {
+                                container.appendChild(subjectHTML);
+                                filesLoadedCount++;
+                            } else {
+                                 console.warn(`HTML container not found for board: ${parsedData.board}`);
+                            }
+                        } else {
+                            console.warn(`No data parsed or extracted for ${subjectConfig.csvFile}`);
+                            dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No data extracted from ${subjectConfig.csvFile}. Check CSV format.</p>`;
+                        }
                     }
                 } catch (error) {
                     console.error(`Error processing ${subjectConfig.csvFile}:`, error);
@@ -787,7 +845,6 @@
         }
 
         function updateVisibility() {
-            // ... (keep existing updateVisibility function)
             let isAnyBoardVisibleForQual = false;
             
             examBoardTabs.forEach(boardTab => {
