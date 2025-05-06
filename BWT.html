@@ -31,7 +31,7 @@
             --toggle-bg: #ddd; /* Used by original theme toggle */
             --toggle-fg: #fff; /* Used by original theme toggle */
             --toggle-btn-color: #333; /* Color for toggle text */
-            
+
             /* Topic Colors (Light) */
             --topic-water-carbon-color: #6495ED; /* CornflowerBlue */
             --topic-global-color: #4682B4; /* SteelBlue */
@@ -43,11 +43,11 @@
             --topic-generic-compulsory-color: var(--compulsory-color);
 
             /* Nav Variables (Light Mode) */
-            --nav-bg-color: var(--heading-color); /* #2c5d63 */
+            --nav-bg-color: #2c5d63; /* Use a darker shade of heading color */
             --nav-text-color: #ffffff;
             --nav-link-hover-bg-color: #ffffff;
-            --nav-link-hover-text-color: var(--heading-color);
-            --nav-border-mobile-menu-top-color: var(--border-color);
+            --nav-link-hover-text-color: var(--nav-bg-color);
+            --nav-border-mobile-menu-top-color: #444; /* Darker border for contrast */
             --menu-toggle-color: #ffffff;
             --theme-toggle-nav-bg: rgba(255, 255, 255, 0.15); /* Slightly transparent white */
             --theme-toggle-nav-text: #ffffff;
@@ -119,35 +119,36 @@
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: space-between; 
-            padding: 0 20px; 
+            justify-content: space-between; /* Default to space-between */
+            padding: 0 20px;
             position: sticky;
             top: 0;
-            z-index: 999; 
+            z-index: 999;
             box-shadow: 0 2px 10px var(--box-shadow-color);
             transition: background-color 0.3s;
         }
-        .nav-left-content { 
-            display: flex;
-            align-items: center;
-        }
+
+        /* Removed .nav-left-content rules as the div is removed */
+
         .nav-menu-wrapper {
-            display: flex;
+            display: flex; /* Container for the actual menu ul */
+            /* Centering/sizing handled in media queries */
         }
+
         .nav-menu {
             list-style-type: none;
-            display: flex;
+            /* display, flex-direction, justify-content handled in media queries */
             align-items: center;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Inter', sans-serif;
         }
         .nav-menu li { margin: 0; }
         .nav-menu li a {
             display: block;
             color: var(--nav-text-color);
             text-align: center;
-            padding: 14px 18px; 
+            padding: 14px 18px;
             text-decoration: none;
             white-space: nowrap;
             transition: background-color 0.2s, color 0.2s;
@@ -160,30 +161,30 @@
             outline: none;
         }
         .menu-toggle {
-            display: none; 
+            display: none; /* Hidden by default on wide */
             background: none;
             border: none;
             color: var(--menu-toggle-color);
             font-size: 24px;
             cursor: pointer;
-            padding: 10px 0 10px 15px; 
+            padding: 10px 0 10px 15px;
             transition: color 0.3s;
-            order: 2; 
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         /* Theme Toggle Button - Integrated into Nav */
         .theme-toggle-button {
             background-color: var(--theme-toggle-nav-bg);
             color: var(--theme-toggle-nav-text);
-            border: 1px solid transparent; 
-            padding: 7px 12px; 
+            border: 1px solid transparent;
+            padding: 7px 12px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 0.85em; 
-            font-family: 'Inter', sans-serif; 
+            font-size: 0.85em;
+            font-family: 'Inter', sans-serif;
             transition: background-color 0.2s, color 0.2s;
-            margin-left: 15px; 
             white-space: nowrap;
+            flex-shrink: 0; /* Prevent shrinking */
         }
         .theme-toggle-button:hover {
              background-color: var(--theme-toggle-nav-hover-bg);
@@ -199,7 +200,8 @@
 
         .container {
             max-width: 1300px;
-            margin: calc(20px + 54px) auto 20px auto; 
+            /* Adjust top margin to account for fixed header height + desired spacing */
+            margin: calc(54px + 20px) auto 20px auto;
             background-color: var(--container-bg);
             padding: 30px 40px;
             border-radius: 8px;
@@ -207,8 +209,6 @@
             transition: background-color 0.3s;
             position: relative;
         }
-        
-        /* Back link removed */
 
         .section {
             margin-bottom: 35px;
@@ -345,11 +345,11 @@
          /* Nested UL for Changing Places and Urban examples */
         .case-study-list li ul {
             margin-top: 8px;
-            padding-left: 20px; 
-            list-style-type: disc; 
+            padding-left: 20px;
+            list-style-type: disc;
         }
         .case-study-list li ul li {
-            background-color: transparent; 
+            background-color: transparent;
             box-shadow: none;
             padding: 2px 0;
             font-size: 0.95em;
@@ -364,7 +364,7 @@
         .topic-block-urban li strong { color: var(--topic-urban-color); }
         /* Color for strong tags in nested lists as well */
         .topic-block-places li ul li strong,
-        .topic-block-urban li ul li strong { color: var(--text-color); font-weight: normal; } 
+        .topic-block-urban li ul li strong { color: var(--text-color); font-weight: normal; }
         body.dark-mode .topic-block-places li ul li strong,
         body.dark-mode .topic-block-urban li ul li strong { color: var(--text-color); }
 
@@ -391,56 +391,93 @@
 
         .key-number { font-weight: bold; color: var(--key-number-color); }
         .key-concept { font-weight: bold; color: var(--key-concept-color); }
-        
+
         /* --- START NAVIGATION MEDIA QUERIES --- */
-        @media screen and (max-width: 992px) { 
-            /* Removed empty .nav-container {} and .nav-left-content {} rulesets */
+
+        /* Wide screen styles (Desktop) */
+        @media screen and (min-width: 993px) {
+             .nav-container {
+                 justify-content: center; /* Center the nav-menu-wrapper */
+             }
+             .nav-menu-wrapper {
+                 flex-grow: 1; /* Takes up remaining space */
+                 justify-content: center; /* Centers the ul inside */
+                 max-width: 1400px; /* Limit width */
+                 margin: 0 auto; /* Center the wrapper */
+                 order: 2; /* Place in the middle visually */
+             }
+             .nav-menu {
+                 display: flex; /* Horizontal layout */
+                 flex-direction: row;
+                 justify-content: center; /* Center items within the ul */
+             }
+             .menu-toggle {
+                 display: none; /* Hide hamburger toggle */
+             }
+             .theme-toggle-button {
+                 margin-left: 0; /* No left margin */
+                 margin-right: 15px; /* Space after button */
+                 order: 1; /* Place first visually */
+             }
+        }
+
+        /* Tablet/Mobile screen styles */
+        @media screen and (max-width: 992px) {
+            .nav-container {
+                justify-content: space-between; /* Space between toggle/wrapper and toggle */
+            }
+            .nav-menu-wrapper {
+                width: auto; /* Size based on content */
+                margin: 0; /* Remove auto margin */
+                justify-content: flex-start; /* Align menu left */
+                flex-grow: 1; /* Allow wrapper to take up space */
+                order: 2; /* Place between toggle and menu toggle */
+            }
+            .nav-menu {
+                display: none; /* Hidden by default */
+                position: absolute;
+                top: 100%; /* Position below nav bar */
+                left: 0;
+                right: 0; /* Span full width */
+                background-color: var(--nav-bg-color);
+                flex-direction: column; /* Vertical layout */
+                overflow: hidden;
+                border-top: 1px solid var(--nav-border-mobile-menu-top-color);
+                max-height: 0; /* Used for animation */
+                transition: max-height 0.3s ease-out, background-color 0.3s;
+                justify-content: flex-start; /* Align items left */
+            }
+            .nav-menu.active {
+                display: flex; /* Show menu when active */
+                max-height: 500px; /* Sufficient height to show all items */
+            }
+            .nav-menu li {
+                width: 100%; /* Full width items */
+            }
+            .nav-menu li a {
+                padding: 12px 20px; /* Mobile link padding */
+                text-align: left;
+            }
+             /* Add border between mobile menu items */
+             .nav-menu li + li a {
+                 border-top: 1px solid var(--nav-border-mobile-menu-top-color);
+             }
 
             .menu-toggle {
-                display: block; 
-                padding: 10px 0 10px 15px; 
-                order: 2; 
+                display: block !important; /* Show toggle */
+                order: 3; /* Place last visually */
             }
 
             .theme-toggle-button {
-                 margin-left: 0; 
-                 margin-right: 10px; 
-                 order: 1; 
-            }
-            
-            .nav-menu-wrapper {
-                order: -1; 
-            }
-
-            .nav-menu { 
-                display: none; 
-                position: absolute;
-                top: 100%; 
-                left: 0;
-                right: 0;
-                background-color: var(--nav-bg-color);
-                flex-direction: column;
-                overflow: hidden;
-                border-top: 1px solid var(--nav-border-mobile-menu-top-color);
-                max-height: 0; 
-                transition: max-height 0.3s ease-out, background-color 0.3s;
-            }
-            .nav-menu.active { 
-                display: flex; 
-                max-height: 500px; 
-            }
-            .nav-menu li { 
-                width: 100%;
-            }
-            .nav-menu li a { 
-                padding: 12px 20px; 
-                text-align: left;
+                 margin-left: 0;
+                 margin-right: 10px; /* Space after toggle */
+                 order: 1; /* Place first visually */
             }
         }
-        /* Adjust nav-container content for very small screens if theme toggle and hamburger crowd */
+        /* Adjust padding for very small screens */
         @media screen and (max-width: 400px) {
             .nav-container {
-                padding: 0 10px; 
+                padding: 0 10px;
             }
             .theme-toggle-button {
                 font-size: 0.8em;
@@ -467,16 +504,15 @@
 <body>
 
 <div class="nav-container">
-    <div class="nav-left-content"> 
-        <div class="nav-menu-wrapper">
-            <ul class="nav-menu">
-                <li><a href="APR.html">A Level Papers</a></li>
-                <li><a href="SPBE.html">Geography Flashcards</a></li>
-                <li><a href="BWT.html">Geography Case Studies</a></li>
-            </ul>
-        </div>
-    </div>
     <button id="theme-toggle" class="theme-toggle-button">Toggle Theme</button>
+    <!-- Removed .nav-left-content as it's no longer needed for layout -->
+    <div class="nav-menu-wrapper">
+        <ul class="nav-menu">
+            <li><a href="APR.html">A Level Papers</a></li>
+            <li><a href="SPBE.html">Geography Flashcards</a></li>
+            <li><a href="BWT.html">Geography Case Studies</a></li>
+        </ul>
+    </div>
     <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
     </button>
@@ -785,29 +821,56 @@
 
         if (menuToggle && navMenu) {
             menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation(); 
+                e.stopPropagation();
                 const isExpanded = navMenu.classList.toggle('active');
                 this.setAttribute('aria-expanded', isExpanded.toString());
+                // Optional: Change icon on toggle
+                // this.querySelector('i').className = isExpanded ? 'fas fa-times' : 'fas fa-bars';
             });
 
+            // Close menu when clicking outside
             document.addEventListener('click', function(event) {
                 if (navMenu.classList.contains('active') &&
                     !navMenu.contains(event.target) &&
                     !menuToggle.contains(event.target)) {
                     navMenu.classList.remove('active');
                     menuToggle.setAttribute('aria-expanded', 'false');
+                    // Optional: Reset icon
+                    // menuToggle.querySelector('i').className = 'fas fa-bars';
                 }
             });
+             // Close menu when a menu item is clicked (useful for single page apps or smooth scrolling)
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                     if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                         // Optional: Reset icon
+                         // menuToggle.querySelector('i').className = 'fas fa-bars';
+                     }
+                });
+            });
 
-            const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html';
-            if (currentPageFilename) {
+
+            // Add 'active-nav-link' class based on current page filename
+            const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html'; // Default to index.html if path is root
+             // Handle case where current page might be the base URL without a filename
+             const urlPath = window.location.pathname.split('/').pop();
+             const actualCurrentPage = urlPath === "" ? "index.html" : urlPath;
+
+
+            if (actualCurrentPage) {
                 const navLinks = document.querySelectorAll('.nav-menu a');
                 navLinks.forEach(link => {
-                    const linkFilename = link.getAttribute('href').split('/').pop();
-                    if (linkFilename === currentPageFilename) {
-                        link.classList.add('active-nav-link');
-                    } else {
-                        link.classList.remove('active-nav-link');
+                    const linkHref = link.getAttribute('href');
+                    // Check if href exists and is not just '#' or empty
+                    if (linkHref && linkHref !== '#') {
+                         const linkFilename = linkHref.split('/').pop();
+                         if (linkFilename === actualCurrentPage) {
+                            link.classList.add('active-nav-link');
+                         } else {
+                            link.classList.remove('active-nav-link');
+                         }
                     }
                 });
             }
