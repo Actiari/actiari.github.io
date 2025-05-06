@@ -59,7 +59,7 @@
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center; /* Center nav items for wider screens */
+            justify-content: center; 
             padding: 0 20px;
             position: sticky;
             top: 0;
@@ -67,13 +67,12 @@
             box-shadow: 0 2px 10px var(--color-shadow);
         }
         
-        .nav-menu-wrapper { /* Added wrapper for better control on wide screens */
+        .nav-menu-wrapper {
             display: flex;
-            justify-content: center; /* Center the menu itself */
+            justify-content: center;
             width: 100%;
-            max-width: 1400px; /* Optional: max-width for very wide screens */
+            max-width: 1400px;
         }
-
 
         .nav-menu {
             list-style-type: none;
@@ -115,15 +114,13 @@
             font-size: 24px;
             cursor: pointer;
             padding: 10px 15px;
-            /* Position for mobile: will be handled by flex order */
         }
         
         .page-container {
             flex: 1;
-            padding: 0 20px; /* Keep horizontal padding */
-            width: 100%; /* Take full width */
-            margin: 20px auto; /* Vertical margin, horizontal auto for centering if max-width is re-added */
-            /* max-width: 1200px; Removed for full width */
+            padding: 0 20px;
+            width: 100%;
+            margin: 20px auto;
         }
 
         .page-header { text-align: center; margin-bottom: 30px; }
@@ -135,9 +132,8 @@
             border-radius: var(--border-radius);
             margin-bottom: 30px;
             box-shadow: 0 4px 15px var(--color-shadow);
-            /* max-width: 1200px; Removed, will take width of parent */
-            margin-left: auto; /* Center if page-container has padding */
-            margin-right: auto; /* Center if page-container has padding */
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .selector-group { margin-bottom: 20px; }
@@ -165,7 +161,8 @@
         }
         
         .exam-board-content, .subject-accordion { display: none; }
-        .exam-board-content.active, .subject-accordion.active { display: block; }
+        .exam-board-content.active, .subject-accordion.active-subject { display: block; } /* Changed to active-subject for clarity */
+
 
         .initial-message { text-align: center; color: var(--color-text-secondary); font-size: 1.1em; padding: 30px 15px; }
 
@@ -283,11 +280,11 @@
         }
 
         @media screen and (max-width: 992px) {
-            .nav-container { justify-content: space-between; /* Align menu toggle to one side */ }
-            .nav-menu-wrapper { justify-content: flex-start; /* Align menu to the left on mobile when open */ }
-            .menu-toggle { display: block; order: 1; /* Puts toggle after menu items for source order, but visually first */ }
+            .nav-container { justify-content: space-between; }
+            .nav-menu-wrapper { justify-content: flex-start; width: auto; /* Allow menu to not be full width when hamburger is active */ }
+            .menu-toggle { display: block; }
             .nav-menu {
-                display: none; /* Hidden by default on mobile */
+                display: none; 
                 position: absolute; top: 100%; left: 0; right: 0;
                 background-color: var(--nav-bg);
                 flex-direction: column;
@@ -297,8 +294,8 @@
                 transition: max-height 0.3s ease-out;
             }
             .nav-menu.active {
-                display: flex; /* Show when active */
-                max-height: 500px; /* Adjust as needed */
+                display: flex;
+                max-height: 500px;
             }
             .nav-menu li { width: 100%; }
             .nav-menu li a { padding: 12px 20px; text-align: left; }
@@ -324,7 +321,7 @@
 </head>
 <body>
     <div class="nav-container">
-        <div class="nav-menu-wrapper"> <!-- Wrapper for centering nav items -->
+        <div class="nav-menu-wrapper">
             <ul class="nav-menu">
                 <li><a href="PR.html">GCSE Past Papers</a></li>
                 <li><a href="APR.html">A Level Papers</a></li>
@@ -411,10 +408,9 @@
                 }
             });
             
-            // Highlight active nav link
-            const currentPageFilename = window.location.pathname.split('/').pop();
+            const currentPageFilename = window.location.pathname.split('/').pop() || 'APR.html'; // Default to APR.html if path is /
             if (currentPageFilename) {
-                const navLinks = navMenu.querySelectorAll('a');
+                const navLinks = document.querySelectorAll('.nav-menu a'); // Target more broadly
                 navLinks.forEach(link => {
                     if (link.getAttribute('href') === currentPageFilename) {
                         link.classList.add('active-nav-link');
@@ -426,7 +422,7 @@
         }
     });
 
-    // CSV Data Loading and UI Logic (Keep existing JS from previous response)
+    // CSV Data Loading and UI Logic
     document.addEventListener('DOMContentLoaded', async function () {
         const qualificationTabs = document.querySelectorAll('#qualification-selector .filter-tab');
         const examBoardTabs = document.querySelectorAll('#exam-board-selector .filter-tab');
@@ -437,12 +433,25 @@
         let allSubjectsData = [];
 
         const subjectsToProcess = [
+            // AQA
             { board: 'AQA', subjectName: 'Geography (A-Level)', subjectSlug: 'geography', qualType: 'ALevel', csvFile: 'DATA_AQA_Geography_ALevel.csv', parserType: 'AqaGeography' },
             { board: 'AQA', subjectName: 'Geography (AS-Level)', subjectSlug: 'geography', qualType: 'ASLevel', csvFile: 'DATA_AQA_Geography_ASLevel.csv', parserType: 'AqaGeography' },
             { board: 'AQA', subjectName: 'Core Maths', subjectSlug: 'core-maths', qualType: 'ALevel', csvFile: 'DATA_AQA_CoreMaths_ALevel.csv', parserType: 'AqaCoreMaths' },
+            { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_English_ALevel_Spec.pdf' },
+            { board: 'AQA', subjectName: 'English Language (AS-Level)', subjectSlug: 'english-language', qualType: 'ASLevel', csvFile: 'DATA_AQA_EnglishLanguage_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_English_ASLevel_Spec.pdf' },
+            { board: 'AQA', subjectName: 'Mathematics (A-Level)', subjectSlug: 'mathematics', qualType: 'ALevel', csvFile: 'DATA_AQA_Mathematics_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_Maths_ALevel_Spec.pdf' },
+            { board: 'AQA', subjectName: 'Mathematics (AS-Level)', subjectSlug: 'mathematics', qualType: 'ASLevel', csvFile: 'DATA_AQA_Mathematics_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_Maths_ASLevel_Spec.pdf' },
+            
+            // Edexcel
             { board: 'Edexcel', subjectName: 'Applied Science (BTEC)', subjectSlug: 'applied-science', qualType: 'BTEC', csvFile: 'DATA_Edexcel_AppliedScience_BTEC.csv', parserType: 'EdexcelAppliedScience' },
-            // Add other subject configs here as you create their CSVs
-            // { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_English_ALevel_Spec.pdf' },
+            { board: 'Edexcel', subjectName: 'Business Studies (BTEC - PBF)', subjectSlug: 'business-studies', qualType: 'BTEC', csvFile: 'DATA_Edexcel_BusinessStudies_BTEC.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'Edexcel_Business_BTEC_Spec.pdf' },
+            { board: 'Edexcel', subjectName: 'Information Technology (BTEC - ISU)', subjectSlug: 'information-technology', qualType: 'BTEC', csvFile: 'DATA_Edexcel_InformationTechnology_BTEC.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'Edexcel_IT_BTEC_Spec.pdf' },
+            
+            // OCR A
+            { board: 'OCRA', subjectName: 'Chemistry (A-Level)', subjectSlug: 'chemistry', qualType: 'ALevel', csvFile: 'DATA_OCRA_Chemistry_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Chemistry_ALevel_Spec.pdf' },
+            { board: 'OCRA', subjectName: 'Chemistry (AS-Level)', subjectSlug: 'chemistry', qualType: 'ASLevel', csvFile: 'DATA_OCRA_Chemistry_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Chemistry_ASLevel_Spec.pdf' },
+            { board: 'OCRA', subjectName: 'Physics (A-Level)', subjectSlug: 'physics', qualType: 'ALevel', csvFile: 'DATA_OCRA_Physics_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Physics_ALevel_Spec.pdf' },
+            { board: 'OCRA', subjectName: 'Physics (AS-Level)', subjectSlug: 'physics', qualType: 'ASLevel', csvFile: 'DATA_OCRA_Physics_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Physics_ASLevel_Spec.pdf' },
         ];
 
         function simpleCSVParser(csvText) {
@@ -473,15 +482,13 @@
         
         function parseAqaGeographyCsv(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            let paperHeaders = {};
-            let resourceHeaderCol = -1;
             
             csvRows.forEach((row, rowIndex) => {
                 if (rowIndex === 1 && row[1] && row[1].includes('|')) subjectData.subjectName = row[1].split('|')[1].trim();
 
                 const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3;
                 const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
-                const resourceNameCol = 9, resourceLinkCol = 11; // Assuming these are fixed for this CSV type
+                const resourceNameCol = 9, resourceLinkCol = 11;
 
                 if (rowIndex > 9 && row[0] && (row[p1PaperCol] || (row[resourceNameCol] && row[resourceNameCol].toLowerCase() !== 'n/a'))) {
                     const sessionName = row[0].trim();
@@ -525,23 +532,27 @@
 
         function parseAqaCoreMathsCsv(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            const specLinkRow = 4, specLinkCol = 1; // From CSV structure
-            const formulaSheetRow = 9, formulaSheetLinkCol = 10; // From CSV (Resource -> Link)
+            const specLinkRow = 4, specLinkCol = 1;
+            const formulaSheetResourceCol = 9, formulaSheetLinkCol = 10; // CSV has "Formula Sheet" as Resource, then Link
             const p1PaperCol = 1, p1MsCol = 2;
             const p2PaperCol = 4, p2MsCol = 5;
 
             if (csvRows[specLinkRow] && csvRows[specLinkRow][specLinkCol] && csvRows[specLinkRow][specLinkCol].startsWith('http')) {
                 subjectData.specLink = csvRows[specLinkRow][specLinkCol];
             }
-
-            // Check for Formula Sheet in the resource section (row 10, col 9 (Resource) and col 11 (Link))
-            // The CSV has "Formula Sheet" in column 9 of row 10 (index 9)
-            // and its link in column 11 of row 10 (index 9)
-            if (csvRows.length > 9 && csvRows[9][9] && csvRows[9][9].toLowerCase().includes("formula sheet") && csvRows[9][10] && csvRows[9][10].startsWith('http')) {
-                 subjectData.usefulResources.push({ name: csvRows[9][9], link: csvRows[9][10] });
+            
+            // Find Formula Sheet by looking for "Formula Sheet" in resource column (9) and link in (10)
+            // This usually starts around row 9/10 in the Core Maths CSV
+            for(let i = 8; i < 12 && i < csvRows.length; i++) { // Search a few rows for it
+                 if (csvRows[i][formulaSheetResourceCol] && csvRows[i][formulaSheetResourceCol].toLowerCase().includes("formula sheet") && 
+                     csvRows[i][formulaSheetLinkCol] && csvRows[i][formulaSheetLinkCol].startsWith('http')) {
+                    subjectData.usefulResources.push({ name: csvRows[i][formulaSheetResourceCol], link: csvRows[i][formulaSheetLinkCol] });
+                    break; 
+                }
             }
             
             csvRows.forEach((row, rowIndex) => {
+                // Data rows for Core Maths start after the header rows, typically around index 10
                 if (rowIndex > 9 && row[0] && row[p1PaperCol] && row[p1PaperCol].startsWith('http')) {
                     const sessionName = row[0].trim();
                     let session = subjectData.sessions.find(s => s.name === sessionName);
@@ -587,7 +598,6 @@
             unitHeaders.forEach((header, colIndex) => {
                 if (header && header.toLowerCase().includes("principles & applications")) {
                     let unitNamePart = header.substring(header.indexOf('-') + 1).trim();
-                    // Extract just "Biology", "Chemistry", "Physics"
                     if (unitNamePart.toLowerCase().includes("biology")) unitNamePart = "Biology";
                     else if (unitNamePart.toLowerCase().includes("chemistry")) unitNamePart = "Chemistry";
                     else if (unitNamePart.toLowerCase().includes("physics")) unitNamePart = "Physics";
@@ -600,16 +610,14 @@
 
             for (let i = dataStartRow; i < csvRows.length; i++) {
                 const row = csvRows[i];
-                // Session name is the last non-empty cell in data rows for this CSV type
                 let sessionName = "";
-                for (let j = row.length - 1; j >= 0; j--) {
+                for (let j = row.length - 1; j >= 0; j--) { // Session name is in the last populated cell of data rows
                     if (row[j] && row[j].trim()) {
                         sessionName = row[j].trim();
                         break;
                     }
                 }
                 if (!sessionName) continue;
-
 
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if (!session) {
@@ -621,7 +629,7 @@
                     const cols = unitCols[unitName];
                     if (row[cols.paper] && row[cols.paper].startsWith('http')) {
                         session.papers.push({
-                            title: unitName, // Use the cleaned unit name
+                            title: unitName,
                             paperLink: row[cols.paper],
                             msLink: row[cols.ms]
                         });
@@ -630,6 +638,46 @@
             }
              if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) {
                 subjectData.specLink = subjectConfig.specLinkPlaceholder;
+            }
+            return subjectData;
+        }
+
+        function parseGenericPaperMarkSchemeCsv(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: subjectConfig.specLinkPlaceholder, usefulResources: [], sessions: [] };
+            let headerRowIndex = -1;
+            let headers = [];
+
+            for(let i=0; i<csvRows.length; i++) {
+                if (csvRows[i].some(cell => cell && cell.trim() !== "")) { // Ensure cell is not null/undefined before trim
+                    headerRowIndex = i;
+                    headers = csvRows[i].map(h => h ? h.toLowerCase().trim() : ""); // Handle null/undefined cells in header
+                    break;
+                }
+            }
+            if (headerRowIndex === -1) return subjectData;
+
+            const sessionCol = headers.indexOf("session") !== -1 ? headers.indexOf("session") : 0;
+            const titleCol = headers.indexOf("paper title") !== -1 ? headers.indexOf("paper title") : (headers.indexOf("title") !==-1 ? headers.indexOf("title") : (headers.indexOf("paper") !==-1 ? headers.indexOf("paper") : 1));
+            const paperLinkCol = headers.indexOf("paper link") !== -1 ? headers.indexOf("paper link") : (headers.indexOf("link") !==-1 ? headers.indexOf("link") : 2);
+            const msLinkCol = headers.indexOf("ms link") !== -1 ? headers.indexOf("ms link") : (headers.indexOf("mark scheme") !==-1 ? headers.indexOf("mark scheme") : 3);
+            const insertLinkCol = headers.indexOf("insert link") !== -1 ? headers.indexOf("insert link") : (headers.indexOf("insert") !== -1 ? headers.indexOf("insert") : 4);
+
+            for (let i = headerRowIndex + 1; i < csvRows.length; i++) {
+                const row = csvRows[i];
+                if (!row[sessionCol] || !row[paperLinkCol] || !row[paperLinkCol].startsWith('http')) continue;
+
+                const sessionName = row[sessionCol].trim();
+                let session = subjectData.sessions.find(s => s.name === sessionName);
+                if (!session) {
+                    session = { name: sessionName, papers: [] };
+                    subjectData.sessions.push(session);
+                }
+                session.papers.push({
+                    title: row[titleCol] ? row[titleCol].trim() : "Paper",
+                    paperLink: row[paperLinkCol],
+                    msLink: row[msLinkCol] ? row[msLinkCol] : null, // Handle cases where MS link might be missing
+                    insertLink: (insertLinkCol < row.length && row[insertLinkCol] && row[insertLinkCol].toLowerCase() !== 'n/a' && row[insertLinkCol].startsWith('http')) ? row[insertLinkCol] : null
+                });
             }
             return subjectData;
         }
@@ -702,7 +750,9 @@
                         case 'EdexcelAppliedScience':
                             parsedData = parseEdexcelAppliedScienceCsv(csvRows, subjectConfig);
                             break;
-                        // Add other parsers if needed
+                        case 'GenericPaperMarkScheme':
+                             parsedData = parseGenericPaperMarkSchemeCsv(csvRows, subjectConfig);
+                             break;
                         default:
                             console.warn(`Unknown parser type: ${subjectConfig.parserType} for ${subjectConfig.csvFile}`);
                             continue;
@@ -748,15 +798,17 @@
                     }
                 });
 
-                if (boardHasMatchingSubjectsForQual) {
-                    boardTab.style.display = ''; 
-                    isAnyBoardVisibleForQual = true;
-                } else {
-                    boardTab.style.display = 'none';
-                    boardTab.classList.remove('active');
-                    boardTab.setAttribute('aria-selected', 'false');
-                    if (boardWrapper && boardWrapper.classList.contains('active')) { // Check if boardWrapper exists
-                        boardWrapper.classList.remove('active');
+                if (boardWrapper) { // Ensure wrapper exists before trying to style it
+                    if (boardHasMatchingSubjectsForQual) {
+                        boardTab.style.display = ''; 
+                        isAnyBoardVisibleForQual = true;
+                    } else {
+                        boardTab.style.display = 'none';
+                        boardTab.classList.remove('active');
+                        boardTab.setAttribute('aria-selected', 'false');
+                        if (boardWrapper.classList.contains('active')) {
+                            boardWrapper.classList.remove('active');
+                        }
                     }
                 }
             });
@@ -777,10 +829,10 @@
                     subjectAccordions.forEach(accordion => {
                         const subjectQualType = accordion.dataset.qualificationType;
                         if (activeQualificationFilter === 'all' || subjectQualType === activeQualificationFilter) {
-                            accordion.style.display = 'block'; // Use style.display for accordions
+                            accordion.classList.add('active-subject'); // Use class for visibility
                             visibleSubjectsInActiveBoard++;
                         } else {
-                            accordion.style.display = 'none';
+                            accordion.classList.remove('active-subject');
                         }
                     });
                     if(initialMessageContainer) initialMessageContainer.style.display = 'none';
@@ -821,7 +873,8 @@
                 examBoardTabs.forEach(ebTab => { ebTab.classList.remove('active'); ebTab.setAttribute('aria-selected', 'false'); });
                 activeExamBoardFilter = null; 
                 document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
-                document.querySelectorAll('.exam-board-content .no-subjects-message').forEach(msg => msg.style.display = 'none');
+                const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
+                if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.style.display = 'none');
                 updateVisibility();
             });
         });
@@ -829,7 +882,7 @@
         examBoardTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const newActiveBoard = tab.dataset.filterBoard;
-                if (activeExamBoardFilter === newActiveBoard && tab.classList.contains('active')) { // Clicking active board again
+                if (activeExamBoardFilter === newActiveBoard && tab.classList.contains('active')) {
                     tab.classList.remove('active');
                     tab.setAttribute('aria-selected', 'false');
                     activeExamBoardFilter = null;
@@ -840,7 +893,8 @@
                 }
                 
                 document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
-                 document.querySelectorAll('.exam-board-content .no-subjects-message').forEach(msg => msg.style.display = 'none');
+                 const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
+                if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.style.display = 'none');
 
                 updateVisibility();
             });
