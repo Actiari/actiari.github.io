@@ -33,9 +33,9 @@
             --base-subject-core-maths: var(--base-subject-maths);
 
             --nav-bg: var(--color-surface-variant);
-            --nav-text: #ffffff;
+            --nav-text: #ffffff; /* White text for navigation links */
             --nav-hover-bg: var(--color-primary-accent-generic);
-            --nav-hover-text: var(--color-background);
+            --nav-hover-text: var(--color-background); /* Dark text on hover */
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -52,9 +52,15 @@
         .nav-menu { list-style-type: none; display: flex; align-items: center; margin: 0; padding: 0; }
         .nav-menu li { margin: 0; }
         .nav-menu li a {
-            display: block; color: var(--nav-text); text-align: center; padding: 14px 18px;
-            text-decoration: none; white-space: nowrap; transition: background-color 0.2s, color 0.2s;
+            display: block; color: var(--nav-text); /* Apply the nav text color */
+            text-align: center; padding: 14px 18px;
+            text-decoration: none; /* Remove underline */
+            white-space: nowrap; transition: background-color 0.2s, color 0.2s;
             font-weight: 500; font-size: 0.95em;
+        }
+        /* Add visited state styling if you want it to match the unvisited state */
+        .nav-menu li a:visited {
+             color: var(--nav-text); /* Ensure visited links have the same color */
         }
         .nav-menu li a:hover, .nav-menu li a:focus, .nav-menu li a.active-nav-link {
             background-color: var(--nav-hover-bg); color: var(--nav-hover-text); outline: none;
@@ -161,7 +167,7 @@
             font-size: 0.95em;
         }
         .subject-additional-info-section p strong {
-            color: var(--color-text-primary); 
+            color: var(--color-text-primary);
             font-weight: 600;
             margin-right: 5px;
         }
@@ -176,7 +182,7 @@
         .subject-content > .specifications-section:last-child,
         .subject-content > .useful-resources-section:last-child {
             border-bottom: none;
-            margin-bottom: 10px; 
+            margin-bottom: 10px;
         }
         
         .spec-link {
@@ -195,8 +201,8 @@
         }
         .useful-resources-section li a:hover { color: var(--current-subject-accent); border-bottom-style: solid; }
         
-        .past-papers-main-section { 
-             margin-top: 0; 
+        .past-papers-main-section {
+             margin-top: 0;
         }
         
         .exam-session-group { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--color-border); }
@@ -240,7 +246,7 @@
                 background-color: var(--nav-bg); flex-direction: column; overflow: hidden;
                 border-top: 1px solid var(--color-border); max-height: 0; transition: max-height 0.3s ease-out;
             }
-            .nav-menu.active { display: flex; max-height: 500px; }
+            .nav-menu.active { display: flex; max-height: 500px; /* Adjust as needed */ }
             .nav-menu li { width: 100%; }
             .nav-menu li a { padding: 12px 20px; text-align: left; }
         }
@@ -266,7 +272,8 @@
 <body>
     <div class="nav-container">
         <div class="nav-menu-wrapper">
-            <ul class="nav-menu"></ul>
+            <ul class="nav-menu">
+                <!-- CORRECTED HTML: Removed the extra, empty <ul></ul> tag -->
                 <li><a href="index.html">Home</a></li>
                 <li><a href="APR.html">A Level Papers</a></li>
                 <li><a href="SPBE.html">Geography Flashcards</a></li>
@@ -510,12 +517,12 @@
             { board: 'AQA', subjectName: 'English Language (AS-Level)', subjectSlug: 'english-language', qualType: 'ASLevel', csvFile: 'DATA_AQA_EnglishLanguage_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
             { board: 'AQA', subjectName: 'Mathematics (A-Level)', subjectSlug: 'mathematics', qualType: 'ALevel', csvFile: 'DATA_AQA_Mathematics_ALevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
             { board: 'AQA', subjectName: 'Mathematics (AS-Level)', subjectSlug: 'mathematics', qualType: 'ASLevel', csvFile: 'DATA_AQA_Mathematics_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
-            
+
             // Edexcel
             { board: 'Edexcel', subjectName: 'Applied Science (BTEC)', subjectSlug: 'applied-science', qualType: 'BTEC', csvFile: 'DATA_Edexcel_AppliedScience_BTEC.csv', parserType: 'EdexcelAppliedScience' },
             { board: 'Edexcel', subjectName: 'Business Studies (BTEC - PBF)', subjectSlug: 'business-studies', qualType: 'BTEC', csvFile: 'DATA_Edexcel_BusinessStudies_BTEC.csv', parserType: 'EdexcelBusinessIT' },
             { board: 'Edexcel', subjectName: 'Information Technology (BTEC - ISU)', subjectSlug: 'information-technology', qualType: 'BTEC', csvFile: 'DATA_Edexcel_InformationTechnology_BTEC.csv', parserType: 'EdexcelBusinessIT' },
-            
+
             // OCR A
             { board: 'OCRA', subjectName: 'Chemistry (A-Level)', subjectSlug: 'chemistry', qualType: 'ALevel', csvFile: 'DATA_OCRA_Chemistry_ALevel.csv', parserType: 'OcrMultiPaper' },
             { board: 'OCRA', subjectName: 'Chemistry (AS-Level)', subjectSlug: 'chemistry', qualType: 'ASLevel', csvFile: 'DATA_OCRA_Chemistry_ASLevel.csv', parserType: 'OcrMultiPaper' },
@@ -549,7 +556,7 @@
                 return cells;
             });
         }
-        
+
         function getVal(row, colIndex) {
             return (row && colIndex < row.length && row[colIndex]) ? row[colIndex].trim() : "";
         }
@@ -561,38 +568,84 @@
         function parseAqaGeographyALevel(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
             if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
-            subjectData.specLink = subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf";
-            const p1PaperCol = 1, p1InsertCol = 3, p1MsCol = 2; 
+            subjectData.specLink = subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf"; // Placeholder if needed
+            const p1PaperCol = 1, p1InsertCol = 3, p1MsCol = 2;
             const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
             const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i];
                 const paperSessionName = getVal(row, 0);
-                const resourceSessionName = getVal(row, resourceSessionCol);
-                if (paperSessionName && isLink(getVal(row, p1PaperCol))) {
-                    let session = subjectData.sessions.find(s => s.name === paperSessionName);
-                    if (!session) { session = { name: paperSessionName, papers: [] }; subjectData.sessions.push(session); }
-                    session.papers.push({ title: "Paper 1: Physical Geography", paperLink: getVal(row, p1PaperCol), insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) });
-                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2: Human Geography", paperLink: getVal(row, p2PaperCol), insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) }); }
-                } else if (resourceSessionName && getVal(row, resourceNameCol) && isLink(getVal(row, resourceLinkCol))) {
-                     if (getVal(row, resourceNameCol).toLowerCase() !== 'n/a') { subjectData.usefulResources.push({ name: getVal(row, resourceNameCol), link: getVal(row, resourceLinkCol) }); }
+                const resourceSessionName = getVal(row, resourceSessionCol); // Resources often span multiple rows, use resource session name if present
+                const currentSessionName = paperSessionName || resourceSessionName;
+
+                if (currentSessionName) {
+                    let session = subjectData.sessions.find(s => s.name === currentSessionName);
+                    if (!session) { session = { name: currentSessionName, papers: [] }; subjectData.sessions.push(session); }
+
+                    // Handle Paper 1 links if present in this row
+                    if (isLink(getVal(row, p1PaperCol))) {
+                         // Check if Paper 1 for this session is already added (in case session names repeat on multiple lines for different papers)
+                         if (!session.papers.find(p => p.title === "Paper 1: Physical Geography")) {
+                             session.papers.push({ title: "Paper 1: Physical Geography", paperLink: getVal(row, p1PaperCol), insertLink: (getVal(row, p1InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p1InsertCol))) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) });
+                         }
+                    }
+                    // Handle Paper 2 links if present in this row
+                    if (isLink(getVal(row, p2PaperCol))) {
+                         // Check if Paper 2 for this session is already added
+                         if (!session.papers.find(p => p.title === "Paper 2: Human Geography")) {
+                             session.papers.push({ title: "Paper 2: Human Geography", paperLink: getVal(row, p2PaperCol), insertLink: (getVal(row, p2InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p2InsertCol))) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) });
+                         }
+                    }
+                    // Handle resources if present in this row
+                     const resourceName = getVal(row, resourceNameCol);
+                     const resourceLink = getVal(row, resourceLinkCol);
+                     if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                        // Check if resource is already added to avoid duplicates if session names repeat
+                        if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                             subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                        }
+                     }
                 }
-            } return subjectData;
+            }
+             // Sort sessions chronologically if their names are years/terms
+            subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+
+                const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+             });
+
+            return subjectData;
         }
-        function parseAqaGeographyASLevel(csvRows, subjectConfig) {
+         function parseAqaGeographyASLevel(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
             if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf";
             const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i]; const sessionName = getVal(row, 0);
-                if (sessionName && isLink(getVal(row, p1PaperCol))) {
+                if (sessionName) {
                     let session = subjectData.sessions.find(s => s.name === sessionName);
                     if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-                    session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: (getVal(row, p1InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p1InsertCol))) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) });
+                    if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: (getVal(row, p1InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p1InsertCol))) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) }); }
                     if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2", paperLink: getVal(row, p2PaperCol), insertLink: (getVal(row, p2InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p2InsertCol))) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) });}
                 }
-            } return subjectData;
+            }
+            // Sort sessions chronologically if their names are years/terms
+            subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
         }
         function parseAqaCoreMaths(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
@@ -603,13 +656,24 @@
             const p1PaperCol = 1, p1MsCol = 2; const p2PaperCol = 4, p2MsCol = 5;
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i]; const sessionName = getVal(row, 0);
-                if (sessionName && isLink(getVal(row, p1PaperCol))) {
+                if (sessionName) {
                     let session = subjectData.sessions.find(s => s.name === sessionName);
                     if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-                    session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) });
+                    if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) }); }
                     if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2A: Statistical Techniques", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) }); }
                 }
-            } return subjectData;
+            }
+            // Sort sessions
+             subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
         }
         function parseAqaEnglishMathsMultiPaper(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
@@ -620,55 +684,124 @@
             const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
             const p3PaperCol = 9, p3MsCol = 10; const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i]; const sessionName = getVal(row, 0) || getVal(row, resourceSessionCol); if (!sessionName) continue;
-                let session = subjectData.sessions.find(s => s.name === sessionName);
-                if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-                if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) }); }
-                if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) }); }
-                if (paper3Title && isLink(getVal(row, p3PaperCol))) { session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
-                } else if (subjectConfig.subjectSlug === 'mathematics' && getVal(row, resourceNameCol) && isLink(getVal(row, resourceLinkCol))) {
-                    if (getVal(row, resourceNameCol).toLowerCase() !== 'n/a') { subjectData.usefulResources.push({ name: getVal(row, resourceNameCol), link: getVal(row, resourceLinkCol) }); }
+                const row = csvRows[i];
+                const paperSessionName = getVal(row, 0);
+                const resourceSessionName = getVal(row, resourceSessionCol); // Resources might be on lines without papers
+                 const currentSessionName = paperSessionName || resourceSessionName;
+
+                if (currentSessionName) {
+                    let session = subjectData.sessions.find(s => s.name === currentSessionName);
+                    if (!session) { session = { name: currentSessionName, papers: [] }; subjectData.sessions.push(session); }
+
+                    if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) }); }
+                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) }); }
+                    if (paper3Title && isLink(getVal(row, p3PaperCol))) { session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });}
+
+                    const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
+                    if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                         if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                             subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                         }
+                    }
                 }
-            } return subjectData;
+            }
+             // Sort sessions
+             subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
         }
         function parseEdexcelAppliedScience(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
             if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[5],1) || subjectConfig.specLinkPlaceholder;
+            // Unit titles are often in row 7, starting from column 1, with 3 columns per unit (Title, Paper, MS)
             const unitTitles = [getVal(csvRows[7],1), getVal(csvRows[7],4), getVal(csvRows[7],7)];
             const unitPaperCols = [1, 4, 7]; const unitMsCols = [2, 5, 8];
             for(let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i]; const sessionName = getVal(row, row.length -1); if(!sessionName) continue;
+                const row = csvRows[i];
+                // Session name is typically in the last column for this format
+                const sessionName = getVal(row, row.length -1);
+                 if(!sessionName || sessionName.toLowerCase() === 'n/a') continue;
+
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if(!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
+
                 for(let u=0; u < unitTitles.length; u++) {
                     const paperLink = getVal(row, unitPaperCols[u]); const msLink = getVal(row, unitMsCols[u]);
                     if(isLink(paperLink)) {
                         let unitName = unitTitles[u];
+                        // Add unit letter for clarity, based on typical BTEC Applied Science units
                         if (unitName.toLowerCase().includes("biology")) unitName = "Unit 1B: Biology";
                         else if (unitName.toLowerCase().includes("chemistry")) unitName = "Unit 1C: Chemistry";
                         else if (unitName.toLowerCase().includes("physics")) unitName = "Unit 1P: Physics";
-                        session.papers.push({ title: unitName, paperLink: paperLink, msLink: msLink });
+                         // Prevent adding the same paper/ms pair multiple times for the same session
+                         if (!session.papers.some(p => p.paperLink === paperLink && p.msLink === msLink)) {
+                             session.papers.push({ title: unitName, paperLink: paperLink, msLink: msLink });
+                         }
                     }
                 }
-            } return subjectData;
+            }
+             // Sort sessions
+            subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
         }
         function parseEdexcelBusinessIT(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
             if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[4],1) || subjectConfig.specLinkPlaceholder;
             const paperTitle = getVal(csvRows[7],1); const paperCol = 1, msCol = 3;
-            const resourceNameCol = 6, resourceLinkCol = 8;
+            const resourceNameCol = 6, resourceLinkCol = 8; // Resource columns are fixed
             for (let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i]; const sessionName = getVal(row, 0); if (!sessionName) continue;
+                const row = csvRows[i];
+                const sessionName = getVal(row, 0); // Session name is usually in column 0
+                if (!sessionName || sessionName.toLowerCase() === 'n/a') continue;
+
+                // Handle Papers/Mark Schemes
                 if (isLink(getVal(row, paperCol))) {
                     let session = subjectData.sessions.find(s => s.name === sessionName);
                     if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-                    session.papers.push({ title: paperTitle || "Main Paper", paperLink: getVal(row, paperCol), msLink: getVal(row, msCol) });
+                     // Prevent adding the same paper/ms pair multiple times for the same session
+                    if (!session.papers.some(p => p.paperLink === getVal(row, paperCol) && p.msLink === getVal(row, msCol))) {
+                        session.papers.push({ title: paperTitle || "Main Paper", paperLink: getVal(row, paperCol), msLink: getVal(row, msCol) });
+                    }
                 }
-                const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
-                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) { subjectData.usefulResources.push({ name: resourceName, link: resourceLink });}
-            } return subjectData;
+
+                // Handle Resources - Resources might be on different rows or grouped differently
+                const resourceName = getVal(row, resourceNameCol);
+                const resourceLink = getVal(row, resourceLinkCol);
+                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                    // Add resources to the overall subject resources list
+                     if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                         subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                     }
+                }
+            }
+             // Sort sessions
+             subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
         }
         function parseOcrMultiPaper(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
@@ -678,23 +811,63 @@
             const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[7],7) : null;
             const p1PaperCol = 1, p1MsCol = 2; const p2PaperCol = 4, p2MsCol = 5; const p3PaperCol = 7, p3MsCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
-                const row = csvRows[i]; let sessionName = "";
-                for(let k = row.length -1; k >=0; k--) { if(getVal(row,k)) { sessionName = getVal(row,k); break; } }
-                if (!sessionName || sessionName.toLowerCase() === 'n/a') { sessionName = getVal(row, 0); } if (!sessionName) continue;
+                const row = csvRows[i];
+                 // Session name is often in the last non-empty column or column 0
+                 let sessionName = "";
+                 for(let k = row.length -1; k >=0; k--) {
+                     const val = getVal(row, k);
+                     if(val && val.toLowerCase() !== 'n/a') {
+                         sessionName = val;
+                         break;
+                     }
+                 }
+                if (!sessionName) continue;
+
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-                if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) }); }
-                if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) }); }
-                if (paper3Title && isLink(getVal(row, p3PaperCol))) { session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });}
-            } return subjectData;
+
+                // Prevent adding the same paper/ms pair multiple times for the same session
+                if (isLink(getVal(row, p1PaperCol))) {
+                     if (!session.papers.some(p => p.paperLink === getVal(row, p1PaperCol))) {
+                        session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) });
+                     }
+                }
+                if (isLink(getVal(row, p2PaperCol))) {
+                     if (!session.papers.some(p => p.paperLink === getVal(row, p2PaperCol))) {
+                        session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) });
+                     }
+                }
+                if (paper3Title && isLink(getVal(row, p3PaperCol))) {
+                     if (!session.papers.some(p => p.paperLink === getVal(row, p3PaperCol))) {
+                        session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
+                     }
+                }
+            }
+             // Sort sessions
+             subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
         }
         function parseOcrMultiPaperWithResources(csvRows, subjectConfig) {
-            const subjectData = parseOcrMultiPaper(csvRows, subjectConfig);
-            const resourceNameCol = 10, resourceLinkCol = 12, resourceSessionCol = 9;
+            const subjectData = parseOcrMultiPaper(csvRows, subjectConfig); // Start with papers/ms parsing
+            const resourceNameCol = 10, resourceLinkCol = 12; // Fixed resource columns
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i]; const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
-                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) { subjectData.usefulResources.push({ name: resourceName, link: resourceLink });}
-            } return subjectData;
+                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                     // Add resources to the overall subject resources list
+                     if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                         subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                     }
+                }
+            }
+            return subjectData;
         }
 
 
@@ -739,7 +912,7 @@
                         </ul>
                     </div>`;
             }
-            
+
             let pastPapersSectionHTML = '';
             if (subject.sessions && subject.sessions.length > 0) {
                 pastPapersSectionHTML = `
@@ -778,7 +951,7 @@
             `;
             return subjectAccordion;
         }
-        
+
         async function loadAndDisplaySubjects() {
             let filesLoadedCount = 0;
             for (const subjectConfig of subjectsToProcess) {
@@ -786,12 +959,15 @@
                     const response = await fetch(subjectConfig.csvFile);
                     if (!response.ok) {
                         console.warn(`Could not load ${subjectConfig.csvFile}: ${response.statusText}`);
-                        dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: Could not load ${subjectConfig.csvFile}. Please check filename and path.</p>`;
+                         // Only add warning if it's not already there
+                        if (!dataLoadingStatus.innerHTML.includes(`Warning: Could not load ${subjectConfig.csvFile}`)) {
+                             dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: Could not load ${subjectConfig.csvFile}. Please check filename and path.</p>`;
+                        }
                         continue;
                     }
                     const csvText = await response.text();
                     const csvRows = simpleCSVParser(csvText);
-                    
+
                     let parsedData;
                     switch (subjectConfig.parserType) {
                         case 'AqaGeographyALevel': parsedData = parseAqaGeographyALevel(csvRows, subjectConfig); break;
@@ -804,50 +980,61 @@
                         case 'OcrMultiPaperWithResources': parsedData = parseOcrMultiPaperWithResources(csvRows, subjectConfig); break;
                         default:
                             console.warn(`Unknown or unassigned parser type: ${subjectConfig.parserType} for ${subjectConfig.csvFile}`);
-                            dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No parser for ${subjectConfig.csvFile}.</p>`;
+                             if (!dataLoadingStatus.innerHTML.includes(`Warning: No parser for ${subjectConfig.csvFile}`)) {
+                                dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No parser for ${subjectConfig.csvFile}.</p>`;
+                            }
                             continue;
                     }
 
-                    if (parsedData) {
+                    if (parsedData && (parsedData.sessions.length > 0 || parsedData.specLink || (parsedData.usefulResources && parsedData.usefulResources.length > 0) || parsedData.additionalInfo)) {
                         // Attach additional information
                         const infoKey = `${parsedData.board}_${parsedData.subjectSlug}_${parsedData.qualType}`;
                         if (additionalSubjectInfo[infoKey]) {
                             parsedData.additionalInfo = additionalSubjectInfo[infoKey];
                         }
 
-                        if (parsedData.sessions.length > 0 || parsedData.specLink || (parsedData.usefulResources && parsedData.usefulResources.length > 0) || parsedData.additionalInfo) {
-                            allSubjectsData.push(parsedData);
-                            const subjectHTML = generateSubjectHTML(parsedData);
-                            const container = document.getElementById(`${parsedData.board}-subjects-list`);
-                            if (container) {
-                                container.appendChild(subjectHTML);
-                                filesLoadedCount++;
-                            } else {
-                                 console.warn(`HTML container not found for board: ${parsedData.board}`);
-                            }
+                        allSubjectsData.push(parsedData);
+                        const subjectHTML = generateSubjectHTML(parsedData);
+                        const container = document.getElementById(`${parsedData.board}-subjects-list`);
+                        if (container) {
+                            container.appendChild(subjectHTML);
+                            filesLoadedCount++;
                         } else {
-                            console.warn(`No data parsed or extracted for ${subjectConfig.csvFile}`);
-                            dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No data extracted from ${subjectConfig.csvFile}. Check CSV format.</p>`;
+                             console.warn(`HTML container not found for board: ${parsedData.board}`);
+                        }
+                    } else {
+                        console.warn(`No data parsed or extracted for ${subjectConfig.csvFile}`);
+                        if (!dataLoadingStatus.innerHTML.includes(`Warning: No data extracted from ${subjectConfig.csvFile}`)) {
+                             dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No data extracted from ${subjectConfig.csvFile}. Check CSV format.</p>`;
                         }
                     }
                 } catch (error) {
                     console.error(`Error processing ${subjectConfig.csvFile}:`, error);
-                    dataLoadingStatus.innerHTML += `<p style="color: red;">Error processing ${subjectConfig.csvFile}. Check console.</p>`;
+                    if (!dataLoadingStatus.innerHTML.includes(`Error processing ${subjectConfig.csvFile}`)) {
+                        dataLoadingStatus.innerHTML += `<p style="color: red;">Error processing ${subjectConfig.csvFile}. Check console.</p>`;
+                    }
                 }
             }
+             // Clear initial placeholder instruction first
+             dataLoadingStatus.innerHTML = '';
              if (filesLoadedCount > 0) {
-                 dataLoadingStatus.innerHTML = `<p>${filesLoadedCount} subject data file(s) processed. Use filters above.</p>`;
+                 dataLoadingStatus.innerHTML = `<p>${filesLoadedCount} subject data file(s) processed.</p>`;
                  if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">Please select qualification and exam board to view subjects.</p>';
             } else {
                  dataLoadingStatus.innerHTML = `<p>No subject data files found or loaded. Please check file names, locations, and ensure they are correctly formatted and configured in the script.</p>`;
                  if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">No data loaded. Check console for errors and file configurations.</p>';
             }
-            updateVisibility();
+            updateVisibility(); // Call updateVisibility after loading data
         }
 
         function updateVisibility() {
             let isAnyBoardVisibleForQual = false;
-            
+
+            // Hide all exam board content wrappers initially
+            document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
+             const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
+            if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.remove()); // Remove previous messages
+
             examBoardTabs.forEach(boardTab => {
                 const boardId = boardTab.dataset.filterBoard;
                 const boardWrapper = document.getElementById(boardId + '-content-wrapper');
@@ -862,25 +1049,26 @@
 
                 if (boardWrapper) {
                     if (boardHasMatchingSubjectsForQual) {
-                        boardTab.style.display = ''; 
+                        boardTab.style.display = ''; // Show the board tab
                         isAnyBoardVisibleForQual = true;
                     } else {
-                        boardTab.style.display = 'none';
-                        boardTab.classList.remove('active');
-                        boardTab.setAttribute('aria-selected', 'false');
-                        if (boardWrapper.classList.contains('active')) {
-                            boardWrapper.classList.remove('active');
+                        boardTab.style.display = 'none'; // Hide the board tab
+                        // If the currently active board tab is hidden, clear the active selection
+                        if (boardTab.classList.contains('active')) {
+                           boardTab.classList.remove('active');
+                           boardTab.setAttribute('aria-selected', 'false');
+                           activeExamBoardFilter = null; // Clear active board filter if its tab is hidden
                         }
                     }
                 }
             });
-            
-            const currentActiveBoardTab = document.querySelector('#exam-board-selector .filter-tab.active');
-            if (currentActiveBoardTab && currentActiveBoardTab.style.display === 'none') {
-                activeExamBoardFilter = null;
-                currentActiveBoardTab.classList.remove('active');
-                currentActiveBoardTab.setAttribute('aria-selected', 'false');
-            }
+
+            // After potentially clearing activeExamBoardFilter, check if there's still an active board
+             const currentActiveBoardTab = document.querySelector('#exam-board-selector .filter-tab.active');
+             if (!currentActiveBoardTab) {
+                 activeExamBoardFilter = null; // Ensure filter is null if no tab is active
+             }
+
 
             if (activeExamBoardFilter) {
                 const activeBoardWrapper = document.getElementById(activeExamBoardFilter + '-content-wrapper');
@@ -891,29 +1079,26 @@
                     subjectAccordions.forEach(accordion => {
                         const subjectQualType = accordion.dataset.qualificationType;
                         if (activeQualificationFilter === 'all' || subjectQualType === activeQualificationFilter) {
-                            accordion.classList.add('active-subject'); 
+                            accordion.classList.add('active-subject');
+                            accordion.style.display = 'block'; // Ensure it's displayed
                             visibleSubjectsInActiveBoard++;
                         } else {
                             accordion.classList.remove('active-subject');
+                            accordion.style.display = 'none'; // Hide subjects that don't match qual filter
                         }
                     });
+
                     if(initialMessageContainer) initialMessageContainer.style.display = 'none';
 
-                    let noSubjectsMsg = activeBoardWrapper.querySelector('.no-subjects-message');
                     if (visibleSubjectsInActiveBoard === 0) {
-                        if (!noSubjectsMsg) {
-                            noSubjectsMsg = document.createElement('p');
-                            noSubjectsMsg.className = 'initial-message no-subjects-message';
-                            activeBoardWrapper.appendChild(noSubjectsMsg);
-                        }
+                        const noSubjectsMsg = document.createElement('p');
+                        noSubjectsMsg.className = 'initial-message no-subjects-message';
                         noSubjectsMsg.textContent = `No subjects found for the selected qualification level in this exam board.`;
-                        noSubjectsMsg.style.display = 'block';
-                    } else {
-                        if (noSubjectsMsg) noSubjectsMsg.style.display = 'none';
+                        activeBoardWrapper.appendChild(noSubjectsMsg);
                     }
                 }
             } else {
-                 document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
+                 // No exam board selected, show initial message if needed
                  if (initialMessageContainer) {
                     initialMessageContainer.style.display = 'block';
                     if (isAnyBoardVisibleForQual) {
@@ -930,12 +1115,11 @@
                 qualificationTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
                 tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
                 activeQualificationFilter = tab.dataset.filterQual;
-                
+
+                // Reset exam board selection when qualification changes
                 examBoardTabs.forEach(ebTab => { ebTab.classList.remove('active'); ebTab.setAttribute('aria-selected', 'false'); });
-                activeExamBoardFilter = null; 
-                document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
-                const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
-                if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.style.display = 'none');
+                activeExamBoardFilter = null;
+
                 updateVisibility();
             });
         });
@@ -943,24 +1127,42 @@
         examBoardTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const newActiveBoard = tab.dataset.filterBoard;
-                if (activeExamBoardFilter === newActiveBoard && tab.classList.contains('active')) {
+                const isActive = tab.classList.contains('active');
+
+                // Check if the tab is visible for the current qualification
+                const boardId = tab.dataset.filterBoard;
+                const subjectsInThisBoardFromData = allSubjectsData.filter(s => s.board === boardId);
+                 let boardHasMatchingSubjectsForQual = subjectsInThisBoardFromData.some(subject =>
+                     activeQualificationFilter === 'all' || subject.qualType === activeQualificationFilter
+                 );
+
+                if (!boardHasMatchingSubjectsForQual) {
+                    // Should not happen if tab display logic is correct, but as a safeguard
+                    console.warn(`Clicked invisible board tab: ${boardId}`);
+                    return;
+                }
+
+
+                if (isActive) {
+                    // Clicking the active tab again deactivates it
                     tab.classList.remove('active');
                     tab.setAttribute('aria-selected', 'false');
                     activeExamBoardFilter = null;
                 } else {
+                    // Deactivate all other board tabs
                     examBoardTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-                    tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
+                    // Activate the clicked tab
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
                     activeExamBoardFilter = newActiveBoard;
                 }
-                
-                document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
-                 const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
-                if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.style.display = 'none');
+
                 updateVisibility();
             });
         });
 
-        await loadAndDisplaySubjects();
+        // Initial load
+        loadAndDisplaySubjects();
     });
     </script>
 </body>

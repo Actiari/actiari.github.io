@@ -28,11 +28,10 @@
             --footer-text-color: #777;
             --link-color: #2c5d63;
             --box-shadow-color: rgba(0, 0, 0, 0.08);
-            --toggle-bg: #ddd;
-            --toggle-fg: #fff;
+            --toggle-bg: #ddd; /* Used by original theme toggle */
+            --toggle-fg: #fff; /* Used by original theme toggle */
             --toggle-btn-color: #333; /* Color for toggle text */
-            --arrow-color: #333;     /* Arrow/Back text color (light mode) */
-
+            
             /* Topic Colors (Light) */
             --topic-water-carbon-color: #6495ED; /* CornflowerBlue */
             --topic-global-color: #4682B4; /* SteelBlue */
@@ -50,6 +49,9 @@
             --nav-link-hover-text-color: var(--heading-color);
             --nav-border-mobile-menu-top-color: var(--border-color);
             --menu-toggle-color: #ffffff;
+            --theme-toggle-nav-bg: rgba(255, 255, 255, 0.15); /* Slightly transparent white */
+            --theme-toggle-nav-text: #ffffff;
+            --theme-toggle-nav-hover-bg: rgba(255, 255, 255, 0.3);
         }
 
         /* Define Dark Mode Variables within .dark-mode class */
@@ -73,10 +75,9 @@
             --footer-text-color: #aaa;
             --link-color: #88c0d0; /* Light blue-teal */
             --box-shadow-color: rgba(0, 0, 0, 0.4);
-            --toggle-bg: #555;
-            --toggle-fg: #1a1a1a;
+            --toggle-bg: #555; /* Used by original theme toggle */
+            --toggle-fg: #1a1a1a; /* Used by original theme toggle */
             --toggle-btn-color: #e0e0e0; /* Color for toggle text */
-            --arrow-color: #e0e0e0;     /* Arrow/Back text color (dark mode) */
 
             /* Topic Colors (Dark) */
             --topic-water-carbon-color: #87CEFA; /* LightSkyBlue */
@@ -95,12 +96,15 @@
             --nav-link-hover-text-color: #1a1a1a;
             --nav-border-mobile-menu-top-color: var(--border-color);
             --menu-toggle-color: var(--text-color);
+            --theme-toggle-nav-bg: rgba(0, 0, 0, 0.2); /* Slightly transparent black */
+            --theme-toggle-nav-text: var(--text-color);
+            --theme-toggle-nav-hover-bg: rgba(0, 0, 0, 0.4);
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Keeping original body font for content */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.7;
             margin: 0;
             padding: 0;
@@ -115,19 +119,20 @@
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 0 20px; /* Horizontal padding */
+            justify-content: space-between; 
+            padding: 0 20px; 
             position: sticky;
             top: 0;
-            z-index: 990; /* Below fixed buttons */
+            z-index: 999; 
             box-shadow: 0 2px 10px var(--box-shadow-color);
             transition: background-color 0.3s;
         }
+        .nav-left-content { 
+            display: flex;
+            align-items: center;
+        }
         .nav-menu-wrapper {
             display: flex;
-            justify-content: center;
-            width: 100%;
-            max-width: 1300px; /* Match page container max-width */
         }
         .nav-menu {
             list-style-type: none;
@@ -135,14 +140,14 @@
             align-items: center;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif; /* Font for nav items */
+            font-family: 'Inter', sans-serif; 
         }
         .nav-menu li { margin: 0; }
         .nav-menu li a {
             display: block;
             color: var(--nav-text-color);
             text-align: center;
-            padding: 14px 18px; /* Controls nav height */
+            padding: 14px 18px; 
             text-decoration: none;
             white-space: nowrap;
             transition: background-color 0.2s, color 0.2s;
@@ -155,14 +160,33 @@
             outline: none;
         }
         .menu-toggle {
-            display: none; /* Hidden by default, shown in media query */
+            display: none; 
             background: none;
             border: none;
             color: var(--menu-toggle-color);
             font-size: 24px;
             cursor: pointer;
-            padding: 10px 15px;
+            padding: 10px 0 10px 15px; 
             transition: color 0.3s;
+            order: 2; 
+        }
+
+        /* Theme Toggle Button - Integrated into Nav */
+        .theme-toggle-button {
+            background-color: var(--theme-toggle-nav-bg);
+            color: var(--theme-toggle-nav-text);
+            border: 1px solid transparent; 
+            padding: 7px 12px; 
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85em; 
+            font-family: 'Inter', sans-serif; 
+            transition: background-color 0.2s, color 0.2s;
+            margin-left: 15px; 
+            white-space: nowrap;
+        }
+        .theme-toggle-button:hover {
+             background-color: var(--theme-toggle-nav-hover-bg);
         }
         /* --- END NAVIGATION STYLES --- */
 
@@ -175,9 +199,7 @@
 
         .container {
             max-width: 1300px;
-            /* Original margin: 20px auto; */
-            /* Nav height approx 54px (14+14 padding + ~26 line height) */
-            margin: calc(20px + 54px) auto 20px auto; /* Pushed down for sticky nav */
+            margin: calc(20px + 54px) auto 20px auto; 
             background-color: var(--container-bg);
             padding: 30px 40px;
             border-radius: 8px;
@@ -185,30 +207,8 @@
             transition: background-color 0.3s;
             position: relative;
         }
-        .back-link {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            color: #ffffff !important; /* FORCE WHITE TEXT */
-            background-color: var(--toggle-bg);
-            text-decoration: none;
-            font-size: 0.9em;
-            z-index: 1000; /* Above nav */
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            display: inline-flex;
-            align-items: center;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-        .back-link .arrow {
-             font-size: 1.3em;
-             margin-right: 6px;
-             line-height: 1;
-        }
-        .back-link:hover {
-             opacity: 0.8;
-        }
+        
+        /* Back link removed */
 
         .section {
             margin-bottom: 35px;
@@ -345,11 +345,11 @@
          /* Nested UL for Changing Places and Urban examples */
         .case-study-list li ul {
             margin-top: 8px;
-            padding-left: 20px; /* Indent nested list */
-            list-style-type: disc; /* Use bullets for nested */
+            padding-left: 20px; 
+            list-style-type: disc; 
         }
         .case-study-list li ul li {
-            background-color: transparent; /* Remove background from nested items */
+            background-color: transparent; 
             box-shadow: none;
             padding: 2px 0;
             font-size: 0.95em;
@@ -364,7 +364,7 @@
         .topic-block-urban li strong { color: var(--topic-urban-color); }
         /* Color for strong tags in nested lists as well */
         .topic-block-places li ul li strong,
-        .topic-block-urban li ul li strong { color: var(--text-color); font-weight: normal; } /* Reset if needed, or inherit */
+        .topic-block-urban li ul li strong { color: var(--text-color); font-weight: normal; } 
         body.dark-mode .topic-block-places li ul li strong,
         body.dark-mode .topic-block-urban li ul li strong { color: var(--text-color); }
 
@@ -391,64 +391,67 @@
 
         .key-number { font-weight: bold; color: var(--key-number-color); }
         .key-concept { font-weight: bold; color: var(--key-concept-color); }
-
-        /* Theme Toggle Button */
-        .theme-toggle-button {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background-color: var(--toggle-bg);
-            color: var(--toggle-btn-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-            z-index: 1000; /* Above nav */
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-        .theme-toggle-button:hover {
-             opacity: 0.8;
-        }
-
+        
         /* --- START NAVIGATION MEDIA QUERIES --- */
-        @media screen and (max-width: 992px) { /* Matches typical breakpoint for hamburger */
-            .nav-container {
-                justify-content: space-between; /* Align menu toggle to one side */
-            }
-            .nav-menu-wrapper {
-                /* Let toggle take space */
-                justify-content: flex-start;
-                width: auto; /* Allow toggle button to push menu */
-            }
+        @media screen and (max-width: 992px) { 
+            /* Removed empty .nav-container {} and .nav-left-content {} rulesets */
+
             .menu-toggle {
-                display: block; /* Show hamburger icon */
+                display: block; 
+                padding: 10px 0 10px 15px; 
+                order: 2; 
             }
-            .nav-menu {
-                display: none; /* Hide menu by default */
+
+            .theme-toggle-button {
+                 margin-left: 0; 
+                 margin-right: 10px; 
+                 order: 1; 
+            }
+            
+            .nav-menu-wrapper {
+                order: -1; 
+            }
+
+            .nav-menu { 
+                display: none; 
                 position: absolute;
-                top: 100%; /* Position below nav-container */
+                top: 100%; 
                 left: 0;
                 right: 0;
                 background-color: var(--nav-bg-color);
                 flex-direction: column;
                 overflow: hidden;
                 border-top: 1px solid var(--nav-border-mobile-menu-top-color);
-                max-height: 0; /* For transition */
+                max-height: 0; 
                 transition: max-height 0.3s ease-out, background-color 0.3s;
             }
-            .nav-menu.active {
-                display: flex; /* Show when active */
-                max-height: 500px; /* Arbitrary large enough value */
+            .nav-menu.active { 
+                display: flex; 
+                max-height: 500px; 
             }
-            .nav-menu li {
+            .nav-menu li { 
                 width: 100%;
             }
-            .nav-menu li a {
-                padding: 12px 20px; /* Adjust padding for vertical menu */
+            .nav-menu li a { 
+                padding: 12px 20px; 
                 text-align: left;
             }
         }
+        /* Adjust nav-container content for very small screens if theme toggle and hamburger crowd */
+        @media screen and (max-width: 400px) {
+            .nav-container {
+                padding: 0 10px; 
+            }
+            .theme-toggle-button {
+                font-size: 0.8em;
+                padding: 6px 10px;
+                margin-right: 5px;
+            }
+            .menu-toggle {
+                padding: 10px 0 10px 10px;
+            }
+        }
+
         @media (max-width: 768px) {
              .container {
                 margin-left: 15px;
@@ -464,23 +467,20 @@
 <body>
 
 <div class="nav-container">
-    <div class="nav-menu-wrapper">
-        <ul class="nav-menu">
-            <li><a href="PR.html">GCSE Past Papers</a></li>
-            <li><a href="APR.html">A Level Papers</a></li>
-            <li><a href="SPBE.html">Geography Flashcards</a></li>
-            <li><a href="BWT.html">Geography Case Studies</a></li>
-        </ul>
+    <div class="nav-left-content"> 
+        <div class="nav-menu-wrapper">
+            <ul class="nav-menu">
+                <li><a href="APR.html">A Level Papers</a></li>
+                <li><a href="SPBE.html">Geography Flashcards</a></li>
+                <li><a href="BWT.html">Geography Case Studies</a></li>
+            </ul>
+        </div>
     </div>
+    <button id="theme-toggle" class="theme-toggle-button">Toggle Theme</button>
     <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
     </button>
 </div>
-
-<a href="https://actiari.github.io/index.html" class="back-link" title="Back to Home Page">
-    <span class="arrow">←</span> Back to Home Page
-</a>
-<button id="theme-toggle" class="theme-toggle-button">Toggle Theme</button>
 
 <div class="container">
 
@@ -680,7 +680,6 @@
                     </ul>
                 </div>
             </div>
-             <!-- Note: Case studies for Hot Deserts, Glaciers, Ecosystems are also required if chosen -->
          </div>
 
         <div class="component-case-study-block">
@@ -740,7 +739,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- Note: Case studies for Population/Environment and Resource Security are also required if chosen -->
         </div>
     </div>
 
@@ -751,14 +749,14 @@
 </div>
 
 <script>
-    // Theme Toggle Logic (existing)
+    // Theme Toggle Logic
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
-    // const backLink = document.querySelector('.back-link'); // Not used in this script block
 
     function applyTheme() {
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || !savedTheme) {
+        // Default to dark if nothing saved or explicitly dark
+        if (savedTheme === 'dark' || (savedTheme === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             body.classList.add('dark-mode');
             themeToggle.textContent = 'Light Mode';
         } else {
@@ -766,7 +764,7 @@
             themeToggle.textContent = 'Dark Mode';
         }
     }
-    applyTheme();
+    applyTheme(); // Apply theme on initial load
 
     themeToggle.addEventListener('click', () => {
         body.classList.toggle('dark-mode');
@@ -787,12 +785,11 @@
 
         if (menuToggle && navMenu) {
             menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent click from bubbling to document
+                e.stopPropagation(); 
                 const isExpanded = navMenu.classList.toggle('active');
                 this.setAttribute('aria-expanded', isExpanded.toString());
             });
 
-            // Close menu if clicking outside
             document.addEventListener('click', function(event) {
                 if (navMenu.classList.contains('active') &&
                     !navMenu.contains(event.target) &&
@@ -802,13 +799,10 @@
                 }
             });
 
-            // Active Nav Link Highlighter
-            // Get the current page filename (e.g., "APR.html" or "index.html")
             const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html';
             if (currentPageFilename) {
                 const navLinks = document.querySelectorAll('.nav-menu a');
                 navLinks.forEach(link => {
-                    // Get the filename from the link's href
                     const linkFilename = link.getAttribute('href').split('/').pop();
                     if (linkFilename === currentPageFilename) {
                         link.classList.add('active-nav-link');
@@ -820,11 +814,6 @@
         }
     });
     // --- END NAVIGATION SCRIPT ---
-
-     // Optional: Hide back link if there's no history to go back to
-     // if (window.history.length <= 1) {
-         // document.querySelector('.back-link').style.display = 'none';
-     // }
 
 </script>
 
