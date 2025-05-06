@@ -1,830 +1,441 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AQA A-Level Geography (7037): Quick Guide</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* CSS Variables for Theming */
-        :root {
-            --bg-color: #f0f2f5;
-            --container-bg: #ffffff;
-            --text-color: #333;
-            --heading-color: #2c5d63;
-            --subheading-color: #4a7c59;
-            --border-color: #e0e0e0;
-            --table-header-bg: #e8f0eb;
-            --table-header-text: #3a6b4a;
-            --table-border-color: #d8e2dc;
-            --case-study-section-bg: #f9f9f9; /* Slightly different section bg */
-            --case-study-border: #d1d9e0; /* Slightly stronger border */
-            --case-study-list-bg: #fff;
-            --compulsory-color: #a0522d; /* Sienna */
-            --optional-color: #5f9ea0;  /* Cadet blue */
-            --key-number-color: #4682b4; /* Steel blue */
-            --key-concept-color: #2e8b57; /* Sea green */
-            --footer-text-color: #777;
-            --link-color: #2c5d63;
-            --box-shadow-color: rgba(0, 0, 0, 0.08);
-            --toggle-bg: #ddd;
-            --toggle-fg: #fff;
-            --toggle-btn-color: #333; /* Color for toggle text */
-            --arrow-color: #333;     /* Arrow/Back text color (light mode) */
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+  <style>
+    :root {
+      /* Dark theme variables from "Past Papers Archive" */
+      --color-background: #1a1d21;
+      --color-surface: #252930;
+      --color-surface-variant: #31363f;
+      --color-surface-hover: #3c424c;
+      --color-primary-accent-generic: #00b8d4; /* Main accent color */
+      --color-text-primary: #e8eaed;
+      --color-text-secondary: #b0b3b8;
+      --color-border: #40454c;
+      --color-shadow: rgba(0,0,0,0.3);
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --border-radius: 8px; /* Consistent border radius */
 
-            /* Topic Colors (Light) */
-            --topic-water-carbon-color: #6495ED; /* CornflowerBlue */
-            --topic-global-color: #4682B4; /* SteelBlue */
-            --topic-places-color: #BC8F8F; /* RosyBrown */
-            --topic-hazards-color: #CD5C5C; /* IndianRed */
-            --topic-coasts-color: #D2B48C; /* Tan */
-            --topic-urban-color: #778899; /* LightSlateGray */
-            --topic-generic-optional-color: var(--optional-color);
-            --topic-generic-compulsory-color: var(--compulsory-color);
+      --nav-bg: var(--color-surface-variant);
+      --nav-text: #ffffff; /* White text for nav links */
+      --nav-hover-bg: var(--color-primary-accent-generic);
+      --nav-hover-text: var(--color-background); /* Dark text for nav link hover */
+    }
 
-            /* Nav Variables (Light Mode) */
-            --nav-bg-color: var(--heading-color); /* #2c5d63 */
-            --nav-text-color: #ffffff;
-            --nav-link-hover-bg-color: #ffffff;
-            --nav-link-hover-text-color: var(--heading-color);
-            --nav-border-mobile-menu-top-color: var(--border-color);
-            --menu-toggle-color: #ffffff;
-        }
+    /* Base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--color-background);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      color: var(--color-text-primary);
+    }
+    
+    /* Navigation styles */
+    .nav-container {
+      background-color: var(--nav-bg);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* This will now be between nav-menu-wrapper and menu-toggle */
+      padding: 0 20px;
+      position: sticky; /* Make nav sticky */
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px var(--color-shadow);
+    }
+    
+    /* Removed .logo and .logo img CSS rules */
 
-        /* Define Dark Mode Variables within .dark-mode class */
-        body.dark-mode {
-            --bg-color: #1a1a1a;
-            --container-bg: #2a2a2a;
-            --text-color: #e0e0e0;
-            --heading-color: #88c0d0; /* Light blue-teal */
-            --subheading-color: #a3be8c; /* Light green */
-            --border-color: #444;
-            --table-header-bg: #3a3a3a;
-            --table-header-text: #a3be8c; /* Light green */
-            --table-border-color: #555;
-            --case-study-section-bg: #222; /* Darker section bg */
-            --case-study-border: #555; /* Darker border */
-            --case-study-list-bg: #383838;
-            --compulsory-color: #e59866; /* Lighter sienna */
-            --optional-color: #88c0d0;  /* Light blue-teal */
-            --key-number-color: #87ceeb; /* Sky blue */
-            --key-concept-color: #98fb98; /* Pale green */
-            --footer-text-color: #aaa;
-            --link-color: #88c0d0; /* Light blue-teal */
-            --box-shadow-color: rgba(0, 0, 0, 0.4);
-            --toggle-bg: #555;
-            --toggle-fg: #1a1a1a;
-            --toggle-btn-color: #e0e0e0; /* Color for toggle text */
-            --arrow-color: #e0e0e0;     /* Arrow/Back text color (dark mode) */
+    .nav-menu-wrapper { /* Added from source file */
+      display: flex; 
+      justify-content: center; /* Default to center menu items within the wrapper */
+      width: 100%; 
+      max-width: 1400px; 
+    }
+    
+    .nav-menu {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      margin: 0; 
+      padding: 0; 
+    }
 
-            /* Topic Colors (Dark) */
-            --topic-water-carbon-color: #87CEFA; /* LightSkyBlue */
-            --topic-global-color: #B0C4DE; /* LightSteelBlue */
-            --topic-places-color: #FBC4AB; /* Light RosyBrown/Peach */
-            --topic-hazards-color: #FFA07A; /* LightSalmon */
-            --topic-coasts-color: #F5DEB3; /* Wheat */
-            --topic-urban-color: #B0C4DE; /* LightSteelBlue */
-            --topic-generic-optional-color: var(--optional-color);
-            --topic-generic-compulsory-color: var(--compulsory-color);
+    .nav-menu li {
+      flex: 0 0 auto; 
+    }
+    
+    .nav-menu li a {
+      display: block;
+      color: var(--nav-text);
+      text-align: center;
+      padding: 14px 18px; 
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s, color 0.2s; 
+      font-weight: 500; 
+      font-size: 0.95em; 
+    }
+    
+    .nav-menu li a:hover,
+    .nav-menu li a.active-nav-link { 
+      background-color: var(--nav-hover-bg);
+      color: var(--nav-hover-text);
+    }
+    
+    .menu-toggle {
+      display: none; 
+      color: var(--nav-text);
+      background: none;
+      border: none;
+      font-size: 24px; /* Matched style_source icon size */
+      padding: 10px 15px; 
+      cursor: pointer;
+    }
+    
+    /* Main content styling */
+    .hero {
+      background-color: var(--color-surface); 
+      color: var(--color-text-primary);
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--color-primary-accent-generic); 
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      color: var(--color-text-secondary);
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: var(--color-primary-accent-generic);
+      color: var(--nav-hover-text); 
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      font-weight: bold;
+      transition: background-color 0.2s, filter 0.2s;
+    }
+    
+    .cta-button:hover {
+      filter: brightness(1.15); 
+    }
+    
+    .content {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: var(--color-primary-accent-generic); 
+    }
+    
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .card {
+      background-color: var(--color-surface);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px var(--color-shadow); 
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--color-border); 
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px var(--color-shadow); 
+    }
+    
+    .card-icon {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-surface-variant); 
+    }
+    .card-icon svg path {
+      fill: var(--color-primary-accent-generic);
+    }
+    
+    .card-content {
+      padding: 24px;
+    }
+    
+    .card h3 {
+      margin-bottom: 12px;
+      color: var(--color-text-primary);
+    }
+    
+    .card p {
+      margin-bottom: 16px;
+      color: var(--color-text-secondary);
+    }
+    
+    .card-link {
+      display: inline-block;
+      color: var(--color-primary-accent-generic);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .card-link:hover {
+      text-decoration: underline;
+      filter: brightness(1.1);
+    }
+    
+    .footer {
+      background-color: var(--nav-bg); 
+      color: var(--nav-text);
+      padding: 20px 20px; 
+      text-align: center;
+      font-size: 0.9rem; 
+    }
+    
+    .footer p {
+      margin-bottom: 10px;
+    }
+    
+    /* Media queries for responsive design */
+    @media screen and (max-width: 1100px) { /* Target's original breakpoint */
+      .nav-menu-wrapper { /* Added from source, adapted to this breakpoint */
+        justify-content: flex-start; 
+        width: auto; 
+      }
+      
+      .menu-toggle {
+        display: block !important; 
+        /* margin-left: auto; */ /* No longer needed as justify-content on parent handles it */
+      }
+      
+      .nav-menu {
+        display: none; 
+        width: 100%;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        background-color: var(--nav-bg); 
+        z-index: 999; 
+        border-top: 1px solid var(--color-border); 
+        box-shadow: 0 4px 10px var(--color-shadow); 
+        /* Source file uses max-height for animation, this one uses direct display toggle */
+      }
+      
+      .nav-menu.active {
+        display: flex !important; 
+      }
 
-            /* Nav Variables (Dark Mode) */
-            --nav-bg-color: #1f1f1f;
-            --nav-text-color: var(--text-color);
-            --nav-link-hover-bg-color: var(--heading-color);
-            --nav-link-hover-text-color: #1a1a1a;
-            --nav-border-mobile-menu-top-color: var(--border-color);
-            --menu-toggle-color: var(--text-color);
-        }
+      .nav-menu li {
+        width: 100%;
+      }
+      
+      .nav-menu li a {
+        text-align: left;
+        padding: 12px 20px; 
+        border-top: 1px solid var(--color-border); 
+      }
+      .nav-menu li:first-child a {
+          border-top: none; 
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+        body { font-size: 15px; }
+        .nav-container { padding: 0 15px; }
+        .content { padding: 30px 15px; }
+        .hero h1 { font-size: 2em; } 
+    }
 
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Keeping original body font for content */
-            line-height: 1.7;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* --- START NAVIGATION STYLES --- */
-        .nav-container {
-            background-color: var(--nav-bg-color);
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 20px; /* Horizontal padding */
-            position: sticky;
-            top: 0;
-            z-index: 990; /* Below fixed buttons */
-            box-shadow: 0 2px 10px var(--box-shadow-color);
-            transition: background-color 0.3s;
-        }
-        .nav-menu-wrapper {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            max-width: 1300px; /* Match page container max-width */
-        }
-        .nav-menu {
-            list-style-type: none;
-            display: flex;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif; /* Font for nav items */
-        }
-        .nav-menu li { margin: 0; }
-        .nav-menu li a {
-            display: block;
-            color: var(--nav-text-color);
-            text-align: center;
-            padding: 14px 18px; /* Controls nav height */
-            text-decoration: none;
-            white-space: nowrap;
-            transition: background-color 0.2s, color 0.2s;
-            font-weight: 500;
-            font-size: 0.95em;
-        }
-        .nav-menu li a:hover, .nav-menu li a:focus, .nav-menu li a.active-nav-link {
-            background-color: var(--nav-link-hover-bg-color);
-            color: var(--nav-link-hover-text-color);
-            outline: none;
-        }
-        .menu-toggle {
-            display: none; /* Hidden by default, shown in media query */
-            background: none;
-            border: none;
-            color: var(--menu-toggle-color);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 10px 15px;
-            transition: color 0.3s;
-        }
-        /* --- END NAVIGATION STYLES --- */
-
-        h1, h2, h3 {
-            color: var(--heading-color);
-        }
-        h1 { text-align: center; margin-top: 30px; margin-bottom: 25px; padding-top: 40px; }
-        h2 { border-bottom: 2px solid var(--heading-color); opacity: 0.8; padding-bottom: 8px; }
-        h3 { color: var(--subheading-color); }
-
-        .container {
-            max-width: 1300px;
-            /* Original margin: 20px auto; */
-            /* Nav height approx 54px (14+14 padding + ~26 line height) */
-            margin: calc(20px + 54px) auto 20px auto; /* Pushed down for sticky nav */
-            background-color: var(--container-bg);
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px var(--box-shadow-color);
-            transition: background-color 0.3s;
-            position: relative;
-        }
-        .back-link { /* Changed class name */
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            color: #ffffff !important; /* FORCE WHITE TEXT */
-            background-color: var(--toggle-bg);
-            text-decoration: none;
-            font-size: 0.9em;
-            z-index: 1000; /* Above nav */
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            display: inline-flex;
-            align-items: center;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-        .back-link .arrow { /* Style for arrow character */
-             font-size: 1.3em;
-             margin-right: 6px;
-             line-height: 1;
-        }
-        .back-link:hover {
-             opacity: 0.8;
-        }
-
-        .section {
-            margin-bottom: 35px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .section:last-child { border-bottom: none; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.95em;
-            table-layout: fixed;
-        }
-        th, td {
-            border: 1px solid var(--table-border-color);
-            padding: 12px 15px;
-            text-align: left;
-            vertical-align: top;
-            word-wrap: break-word;
-        }
-        th {
-            background-color: var(--table-header-bg);
-            font-weight: bold;
-            color: var(--table-header-text);
-        }
-        .weighting-column, .marks-column { width: 12%; }
-        .format-column { width: 18%; }
-        .content-column { width: 58%; }
-        .requirements-column { width: 48%; }
-
-        .compulsory { font-weight: bold; color: var(--compulsory-color); }
-        .optional-choice { font-style: italic; color: var(--optional-color); }
-
-        /* Topic Color Classes - For text color in assessment table */
-        .assessment-table-topic.topic-water-carbon { color: var(--topic-water-carbon-color); }
-        .assessment-table-topic.topic-global { color: var(--topic-global-color); }
-        .assessment-table-topic.topic-places { color: var(--topic-places-color); }
-        .assessment-table-topic.topic-hazards { color: var(--topic-hazards-color); }
-        .assessment-table-topic.topic-coasts { color: var(--topic-coasts-color); }
-        .assessment-table-topic.topic-urban { color: var(--topic-urban-color); }
-        .assessment-table-topic.topic-hot-deserts,
-        .assessment-table-topic.topic-glacial,
-        .assessment-table-topic.topic-ecosystems,
-        .assessment-table-topic.topic-population,
-        .assessment-table-topic.topic-resources {
-             color: var(--topic-generic-optional-color);
-             font-style: normal;
-             font-weight: bold;
-        }
-
-        .skills-list {
-            columns: 2;
-            -webkit-columns: 2;
-            -moz-columns: 2;
-            list-style-position: inside;
-            padding-left: 0;
-            margin-top: 15px;
-            font-size: 0.95em;
-        }
-        .skills-list li { margin-bottom: 6px; }
-
-        /* --- Case Study Section Styling --- */
-        .case-study-intro {
-            margin-bottom: 20px;
-            font-size: 1.05em;
-            line-height: 1.6;
-        }
-        .component-case-study-block {
-             background-color: var(--case-study-section-bg);
-             border: 1px solid var(--case-study-border);
-             border-top: 4px solid var(--heading-color);
-             border-radius: 5px;
-             margin-top: 30px;
-             margin-bottom: 30px;
-             overflow: hidden;
-        }
-        .component-case-study-block > h3 {
-             margin: 0;
-             padding: 15px 20px;
-             color: var(--subheading-color);
-             font-size: 1.2em;
-             font-weight: 600;
-             border-bottom: 1px solid var(--case-study-border);
-             background-color: rgba(0,0,0,0.02);
-        }
-         body.dark-mode .component-case-study-block > h3 {
-             background-color: rgba(255,255,255,0.03);
-         }
-
-        .topic-block {
-            padding: 20px;
-            border-top: 1px solid var(--border-color);
-            background-color: transparent;
-        }
-        .component-case-study-block > .topic-block:first-of-type {
-             border-top: none;
-        }
-        /* Apply specific background tints */
-        .topic-block-water-carbon { background-color: hsla(from var(--topic-water-carbon-color) h s l / 0.07); }
-        .topic-block-hazards { background-color: hsla(from var(--topic-hazards-color) h s l / 0.07); }
-        .topic-block-coasts { background-color: hsla(from var(--topic-coasts-color) h s l / 0.07); }
-        .topic-block-global { background-color: hsla(from var(--topic-global-color) h s l / 0.07); }
-        .topic-block-places { background-color: hsla(from var(--topic-places-color) h s l / 0.07); }
-        .topic-block-urban { background-color: hsla(from var(--topic-urban-color) h s l / 0.07); }
-
-
-        .topic-block h4 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: none;
-            font-size: 1.1em;
-            font-weight: 600;
-        }
-        /* Ensure H4 text color matches the topic color variable */
-        .topic-block-water-carbon h4 { color: var(--topic-water-carbon-color); }
-        .topic-block-hazards h4 { color: var(--topic-hazards-color); }
-        .topic-block-coasts h4 { color: var(--topic-coasts-color); }
-        .topic-block-global h4 { color: var(--topic-global-color); }
-        .topic-block-places h4 { color: var(--topic-places-color); }
-        .topic-block-urban h4 { color: var(--topic-urban-color); }
-
-        .case-study-list ul { list-style: none; padding-left: 0; margin-top: 0; }
-        .case-study-list li {
-            margin-bottom: 10px;
-            background-color: var(--case-study-list-bg);
-            padding: 10px 15px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border-left: none;
-        }
-         /* Nested UL for Changing Places and Urban examples */
-        .case-study-list li ul {
-            margin-top: 8px;
-            padding-left: 20px; /* Indent nested list */
-            list-style-type: disc; /* Use bullets for nested */
-        }
-        .case-study-list li ul li {
-            background-color: transparent; /* Remove background from nested items */
-            box-shadow: none;
-            padding: 2px 0;
-            font-size: 0.95em;
-        }
-
-        /* Make <li><strong> match topic color */
-        .topic-block-water-carbon li strong { color: var(--topic-water-carbon-color); }
-        .topic-block-hazards li strong { color: var(--topic-hazards-color); }
-        .topic-block-coasts li strong { color: var(--topic-coasts-color); }
-        .topic-block-global li strong { color: var(--topic-global-color); }
-        .topic-block-places li strong { color: var(--topic-places-color); }
-        .topic-block-urban li strong { color: var(--topic-urban-color); }
-        /* Color for strong tags in nested lists as well */
-        .topic-block-places li ul li strong,
-        .topic-block-urban li ul li strong { color: var(--text-color); font-weight: normal; } /* Reset if needed, or inherit */
-        body.dark-mode .topic-block-places li ul li strong,
-        body.dark-mode .topic-block-urban li ul li strong { color: var(--text-color); }
-
-
-        .spec-point {
-            font-size: 0.9em;
-            color: var(--text-color); opacity: 0.8;
-            margin-left: 10px;
-            font-style: italic;
-            display: block;
-            margin-top: 4px;
-        }
-        .changing-places-intro { margin-bottom: 10px; padding-left: 0; }
-        .topic-block-places .changing-places-intro { margin-bottom: 15px; }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: var(--footer-text-color);
-        }
-         .footer a { color: var(--link-color); text-decoration: none; }
-         .footer a:hover { text-decoration: underline; }
-
-        .key-number { font-weight: bold; color: var(--key-number-color); }
-        .key-concept { font-weight: bold; color: var(--key-concept-color); }
-
-        /* Theme Toggle Button */
-        .theme-toggle-button {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background-color: var(--toggle-bg);
-            color: var(--toggle-btn-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-            z-index: 1000; /* Above nav */
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-        .theme-toggle-button:hover {
-             opacity: 0.8;
-        }
-
-        /* --- START NAVIGATION MEDIA QUERIES --- */
-        @media screen and (max-width: 992px) { /* Matches typical breakpoint for hamburger */
-            .nav-container {
-                justify-content: space-between; /* Align menu toggle to one side */
-            }
-            .nav-menu-wrapper {
-                /* Let toggle take space */
-                justify-content: flex-start;
-                width: auto; /* Allow toggle button to push menu */
-            }
-            .menu-toggle {
-                display: block; /* Show hamburger icon */
-            }
-            .nav-menu {
-                display: none; /* Hide menu by default */
-                position: absolute;
-                top: 100%; /* Position below nav-container */
-                left: 0;
-                right: 0;
-                background-color: var(--nav-bg-color);
-                flex-direction: column;
-                overflow: hidden;
-                border-top: 1px solid var(--nav-border-mobile-menu-top-color);
-                max-height: 0; /* For transition */
-                transition: max-height 0.3s ease-out, background-color 0.3s;
-            }
-            .nav-menu.active {
-                display: flex; /* Show when active */
-                max-height: 500px; /* Arbitrary large enough value */
-            }
-            .nav-menu li {
-                width: 100%;
-            }
-            .nav-menu li a {
-                padding: 12px 20px; /* Adjust padding for vertical menu */
-                text-align: left;
-            }
-        }
-        @media (max-width: 768px) {
-             .container {
-                margin-left: 15px;
-                margin-right: 15px;
-                padding-left: 20px;
-                padding-right: 20px;
-             }
-        }
-        /* --- END NAVIGATION MEDIA QUERIES --- */
-
-    </style>
+    @media screen and (max-width: 600px) {
+      .cards-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero {
+        padding: 40px 20px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem; 
+      }
+    }
+     @media screen and (max-width: 576px) {
+        .hero h1 { font-size: 1.7em; } 
+    }
+  </style>
 </head>
 <body>
-
-<div class="nav-container">
+  <!-- Navigation with hamburger menu for tablets and mobile -->
+  <div class="nav-container">
     <div class="nav-menu-wrapper">
         <ul class="nav-menu">
-            <li><a href="PR.html">GCSE Past Papers</a></li>
-            <li><a href="APR.html">A Level Papers</a></li>
-            <li><a href="SPBE.html">Geography Flashcards</a></li>
-            <li><a href="BWT.html" class="active-nav-link">Geography Case Studies</a></li>
+          <li><a href="PR.html">GCSE Past Papers</a></li>
+          <li><a href="APR.html">A Level Papers</a></li>
+          <li><a href="SPBE.html">Geography Flashcards</a></li>
+          <li><a href="BWT.html">Geography Case Studies</a></li>
         </ul>
     </div>
     <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
     </button>
-</div>
+  </div>
+  
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Welcome to Your Study Hub</h1>
+    <p>Access a wide range of revision materials, past papers, flashcards, and case studies designed to help you excel in your exams.</p>
+    <a href="#resources" class="cta-button">Explore Resources</a>
+  </div>
 
-<a href="https://actiari.github.io/index.html" class="back-link" title="Back to Home Page">
-    <span class="arrow">←</span> Back to Home Page
-</a>
-<button id="theme-toggle" class="theme-toggle-button">Toggle Theme</button>
-
-<div class="container">
-
-    <h1>AQA A-Level Geography (7037): Quick Guide</h1>
-
-    <div class="section" id="assessment">
-        <h2>Assessment Structure</h2>
-
-        <h3>Component 1: Physical Geography</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th class="weighting-column">Weighting</th>
-                    <th class="format-column">Format</th>
-                    <th class="marks-column">Marks</th>
-                    <th class="content-column">Content Breakdown</th>
-                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="weighting-column"><span class="key-number">40%</span> of A-Level</td>
-                    <td class="format-column">Written Exam:<br><span class="key-number">2 hrs 30 mins</span></td>
-                    <td class="marks-column"><span class="key-number">120</span></td>
-                    <td class="content-column">
-                        <ul>
-                            <li>Section A: <span class="compulsory"><span class="assessment-table-topic topic-water-carbon">Water and Carbon Cycles</span></span> (<span class="key-number">36 marks</span>)
-                                <span class="spec-point">Key concepts: Systems (inputs, outputs, stores, flows, feedback), global distribution, drainage basins, carbon budget, climate links.</span>
-                            </li>
-                            <li>Section B: <span class="optional-choice">Choose ONE</span> (<span class="key-number">36 marks</span>):
-                                <ul>
-                                    <li><span class="assessment-table-topic topic-hot-deserts">Hot Desert Systems and Landscapes</span> <span class="spec-point">Key concepts: Aridity index, energy/sediment budgets, aeolian/fluvial processes, desertification.</span></li>
-                                    <li><span class="assessment-table-topic topic-coasts">Coastal Systems and Landscapes</span> <span class="spec-point">Key concepts: Energy/sediment budgets, erosion/deposition processes, sea level change (e.g., last <span class="key-number">10,000</span> years), management.</span></li>
-                                    <li><span class="assessment-table-topic topic-glacial">Glacial Systems and Landscapes</span> <span class="spec-point">Key concepts: Budgets, cold environments, glacial/fluvioglacial/periglacial processes, Pleistocene impacts.</span></li>
-                                </ul>
-                            </li>
-                            <li>Section C: <span class="optional-choice">Choose ONE</span> (<span class="key-number">48 marks</span>):
-                                <ul>
-                                    <li><span class="assessment-table-topic topic-hazards">Hazards</span> <span class="spec-point">Key concepts: Perception, responses (<span class="key-concept">Park Model</span>, <span class="key-concept">Hazard Management Cycle</span>), plate tectonics, specific hazard processes (volcanic, seismic, storm, fire).</span></li>
-                                    <li><span class="assessment-table-topic topic-ecosystems">Ecosystems under Stress</span> <span class="spec-point">Key concepts: Biodiversity, succession (<span class="key-concept">climatic climax</span>, <span class="key-concept">plagioclimax</span>), nutrient cycling, biome characteristics, sustainability.</span></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Component 2: Human Geography</h3>
-         <table>
-             <thead>
-                 <tr>
-                    <th class="weighting-column">Weighting</th>
-                    <th class="format-column">Format</th>
-                    <th class="marks-column">Marks</th>
-                    <th class="content-column">Content Breakdown</th>
-                </tr>
-             </thead>
-             <tbody>
-                 <tr>
-                    <td class="weighting-column"><span class="key-number">40%</span> of A-Level</td>
-                    <td class="format-column">Written Exam:<br><span class="key-number">2 hrs 30 mins</span></td>
-                    <td class="marks-column"><span class="key-number">120</span></td>
-                    <td class="content-column">
-                        <ul>
-                            <li>Section A: <span class="compulsory"><span class="assessment-table-topic topic-global">Global Systems and Global Governance</span></span> (<span class="key-number">36 marks</span>)
-                                <span class="spec-point">Key concepts: Globalisation dimensions (flows, TNCs), interdependence, inequalities, global commons governance (esp. Antarctica), trade patterns.</span>
-                            </li>
-                            <li>Section B: <span class="compulsory"><span class="assessment-table-topic topic-places">Changing Places</span></span> (<span class="key-number">36 marks</span>)
-                                <span class="spec-point">Key concepts: Place meaning (insider/outsider), representation, endogenous/exogenous factors, shifting flows, demographic/cultural/economic change.</span>
-                            </li>
-                            <li>Section C: <span class="optional-choice">Choose ONE</span> (<span class="key-number">48 marks</span>):
-                                <ul>
-                                    <li><span class="assessment-table-topic topic-urban">Contemporary Urban Environments</span> <span class="spec-point">Key concepts: Urbanisation trends (esp. post-<span class="key-number">1945</span>), world/megacities, urban forms/processes (segregation, inequality, SUDs, UHI), sustainability (<span class="key-concept">ecological footprint</span>, <span class="key-concept">liveability</span>).</span></li>
-                                    <li><span class="assessment-table-topic topic-population">Population and the Environment</span> <span class="spec-point">Key concepts: Population dynamics (<span class="key-concept">DTM</span>), distribution/density, migration, food security, health/disease patterns, resources (<span class="key-concept">Malthus</span>/<span class="key-concept">Boserup</span>).</span></li>
-                                    <li><span class="assessment-table-topic topic-resources">Resource Security</span> <span class="spec-point">Key concepts: Resource classification, peak resources, geopolitics, water/energy/mineral security, sustainability (<span class="key-concept">EIA</span>), supply/demand management.</span></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-             </tbody>
-        </table>
-
-        <h3>Component 3: Geography Fieldwork Investigation (NEA)</h3>
-         <table>
-             <thead>
-                 <tr>
-                     <th class="weighting-column">Weighting</th>
-                     <th class="format-column">Format</th>
-                     <th class="marks-column">Word Count</th>
-                     <th class="marks-column">Marks</th>
-                     <th class="requirements-column">Key Requirements</th>
-                 </tr>
-             </thead>
-             <tbody>
-                <tr>
-                    <td class="weighting-column"><span class="key-number">20%</span> of A-Level</td>
-                    <td class="format-column">Independent Investigation (NEA)</td>
-                    <td class="marks-column"><span class="key-number">3,000 - 4,000</span> words</td>
-                    <td class="marks-column"><span class="key-number">60</span></td>
-                    <td class="requirements-column">
-                        <ul>
-                            <li>Independent question/issue defined by student, linked to specification.</li>
-                            <li>Must include primary field data.</li>
-                            <li>Independent analysis, interpretation, evaluation, write-up.</li>
-                            <li>Requires understanding of methods, ethics, limitations.</li>
-                        </ul>
-                    </td>
-                </tr>
-             </tbody>
-        </table>
-    </div>
-
-    <div class="section" id="skills">
-        <h2>Geographical Skills Checklist</h2>
-        <p>Competence needed in <span class="key-concept">qualitative</span> and <span class="key-concept">quantitative</span> skills, including:</p>
-        <ul class="skills-list">
-            <li>Cartographic Skills</li>
-            <li>Graphical Skills</li>
-            <li>Statistical Skills (Descriptive & Inferential - e.g., <span class="key-concept">Spearman's Rank</span>, <span class="key-concept">Chi-Square</span>)</li>
-            <li>ICT Skills (GIS, databases, presentation)</li>
-            <li>Use & Annotation of Visuals</li>
-            <li>Literacy & Numeracy Application</li>
-            <li>Qualitative Data Collection & Analysis</li>
-            <li>Understanding 'Big Data' & Crowd-Sourcing</li>
-            <li>Use of Remotely Sensed Data</li>
-            <li>Ethical Considerations</li>
-            <li>Evaluation of Data/Methods</li>
-        </ul>
-    </div>
-
-    <div class="section" id="casestudies">
-        <h2>Essential A-Level Geography Case Studies</h2>
-        <p class="case-study-intro">The following list details key case studies that are highly recommended or explicitly required for a comprehensive understanding of the AQA A-Level Geography (7037) specification. It is crucial to develop detailed knowledge of these examples, including specific facts, figures, and links to geographical concepts.</p>
-
-         <div class="component-case-study-block">
-            <h3>Component 1: Physical Geography</h3>
-
-            <div class="topic-block topic-block-water-carbon">
-                <h4>Water and Carbon Cycles</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Amazon Rainforest:</strong> (Tropical Rainforest) For cycles, impacts of deforestation, climate change links.</li>
-                        <li><strong>Indonesian Rainforest:</strong> (Tropical Rainforest) For cycles, impacts of deforestation (e.g., palm oil), carbon storage.</li>
-                        <li><strong>River Wye, Wales:</strong> (River Catchment) Detailed study of catchment processes, landforms, and human impacts.</li>
-                        <li><strong>River Exe, Devon:</strong> (River Catchment) Characteristics, flood risk, and management strategies (e.g., Exe Estuary Management Partnership).</li>
-                        <li><strong>Boscastle Floods (2004):</strong> (River Catchment) Case study of a flash flood event, causes, impacts, and responses.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="topic-block topic-block-hazards">
-                <h4>Hazards</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Volcanic Hazards:</strong>
-                            <ul>
-                                <li><strong>Mt Etna, Italy:</strong> Frequent eruptions, monitoring, management in a MEDC.</li>
-                                <li><strong>Mt Merapi, Java, Indonesia:</strong> Explosive eruptions, impacts in a LEDC/EDC, evacuation strategies.</li>
-                                <li><strong>Eyjafjallajökull, Iceland (2010):</strong> Ash cloud impacts on aviation, global interconnectedness.</li>
-                                <li><strong>Montserrat (Soufrière Hills Volcano):</strong> Long-term eruption, socio-economic impacts, resettlement.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Seismic Hazards:</strong>
-                            <ul>
-                                <li><strong>Haiti Earthquake (2010):</strong> Devastating impacts in a very low-income country, challenges of aid and recovery.</li>
-                                <li><strong>Tohoku, Japan Earthquake and Tsunami (2011):</strong> High-magnitude event in a highly developed country, preparedness, complex impacts.</li>
-                                <li><strong>Indonesian Tsunami (Boxing Day 2004):</strong> Causes, widespread regional impacts, international response.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Storm Hazards:</strong>
-                            <ul>
-                                <li><strong>Cyclone Nargis, Myanmar (2008):</strong> Tropical storm impacts in a low-income country with political complexities.</li>
-                                <li><strong>Hurricane Katrina, New Orleans, USA (2005):</strong> Tropical storm impacts in a developed country, issues of social vulnerability.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Wildfire Hazards:</strong>
-                            <ul>
-                                <li><strong>The Alberta Wildfires, Canada (e.g., Fort McMurray 2016):</strong> Causes, impacts on environment and economy, management.</li>
-                                <li><strong>Los Angeles/California Wildfires (various years):</strong> Human-environment interactions, climate factors, urban-wildland interface.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Multi-Hazardous Environment:</strong> Example like The Philippines or Tohoku, Japan (already covered by specific hazards).</li>
-                        <li><strong>Local Scale Hazard (UK):</strong> A UK-based hazard event illustrating its physical nature and community response (e.g., Boscastle Floods 2004, Somerset Levels Floods 2013-14).</li>
-                    </ul>
-                </div>
-            </div>
-
-             <div class="topic-block topic-block-coasts">
-                <h4>Coastal Systems and Landscapes</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Holderness Coast, UK:</strong> (Coastal Environment) Rapid erosion, landforms (e.g., Flamborough Head, Spurn Head), coastal management strategies and conflicts.</li>
-                        <li><strong>Swanage, Dorset, UK:</strong> (Coastal Environment) Classic coastal landforms (e.g., headlands, bays, stacks, stumps like Old Harry Rocks).</li>
-                        <li><strong>Plymouth, UK:</strong> (Coastal Environment) Coastal management strategies in an urbanised coastal setting.</li>
-                        <li><strong>Odisha, India:</strong> (Contrasting Coastal Landscape) Coastal risks (e.g., cyclones, erosion), opportunities (e.g., tourism, fishing), and management strategies (e.g., ICZM, mangrove restoration).</li>
-                    </ul>
-                </div>
-            </div>
-         </div>
-
-        <div class="component-case-study-block">
-            <h3>Component 2: Human Geography</h3>
-
-             <div class="topic-block topic-block-global">
-                <h4>Global Systems and Global Governance</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Antarctica:</strong> Required study as a global common. Focus on threats (climate change, tourism, resource exploitation) and governance (Antarctic Treaty System, role of UNEP, IWC, NGOs).</li>
-                        <li><strong>TNC Study: Coca-Cola or Apple:</strong> Detailed study of one TNC, its global operations, spatial organisation, impacts on host/origin countries, and ethical considerations.</li>
-                        <li><strong>Global Trade in a Commodity: Bananas:</strong> Study the global trade of bananas, including supply chains, role of TNCs, fair trade schemes, and environmental/social issues.</li>
-                        <li><strong>Global Governance Institutions:</strong> Understanding the role and effectiveness of organisations like the UN and its agencies (e.g., WHO, UNEP) in managing global issues.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="topic-block topic-block-places">
-                <h4>Changing Places</h4>
-                 <p class="changing-places-intro">Requires study of your local place AND at least one contrasting distant place, focusing on lived experience and EITHER changing demographics/culture OR economic change/inequalities. The examples below illustrate key themes and provide specific locations for study.</p>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Place Examples & Themes:</strong>
-                            <ul>
-                                <li><strong>Meaning & Representation:</strong> Ground Zero (New York City), Stonehenge/Glastonbury. How places are perceived and represented.</li>
-                                <li><strong>Economic Change & Inequality:</strong> Detroit (USA - deindustrialisation, regeneration efforts), Plymouth (UK - historical economic shifts, current challenges/opportunities).</li>
-                                <li><strong>Regeneration & Rebranding:</strong> Medellin (Colombia - transformation from 'most dangerous city' to innovative urban hub), Llandudno (UK - coastal resort rebranding), London Olympics (urban regeneration).</li>
-                                <li><strong>External Forces & Place Identity:</strong> Bourneville (UK - Cadbury's influence, model village), Devonport, Plymouth (UK - impact of naval base, government policy, regeneration).</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-             <div class="topic-block topic-block-urban">
-                <h4>Contemporary Urban Environments</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Contrasting Urban Areas:</strong> Detailed studies of at least two contrasting urban areas (e.g., from different continents, varying in size, development level, and facing different challenges). Examples to consider:
-                            <ul>
-                                <li><strong>Las Vegas, USA:</strong> Rapid growth, resource management (water), unique economic base.</li>
-                                <li><strong>Los Angeles (LA), USA:</strong> Megacity characteristics, urban sprawl, social segregation, environmental challenges.</li>
-                                <li><strong>A major city in South Africa (e.g., Johannesburg or Cape Town):</strong> Post-apartheid urban dynamics, inequality, informal settlements.</li>
-                                <li><strong>Plymouth, UK:</strong> Post-industrial city, regeneration efforts, specific urban challenges.</li>
-                                <li><strong>London, UK:</strong> Global city, Docklands regeneration, Olympic legacy, housing crisis.</li>
-                                <li><strong>Shanghai, China:</strong> Rapid urbanisation, economic growth, megacity development.</li>
-                                <li><strong>Bengaluru (Bangalore), India:</strong> Tech hub, rapid growth, infrastructure strain.</li>
-                                <li><strong>Mumbai, India:</strong> Megacity, extreme wealth and poverty (e.g., Dharavi slum), coastal location.</li>
-                                <li><strong>Freiburg, Germany:</strong> Focus on urban sustainability, green initiatives, transport.</li>
-                            </ul>
-                            <em>Focus on themes such as urbanisation processes, urban forms, social and economic issues, environmental challenges, and sustainability strategies.</em>
-                        </li>
-                        <li><strong>Urban Regeneration Policies:</strong> Example such as Longbridge, Birmingham (post-industrial regeneration).</li>
-                        <li><strong>Sustainable Urban Drainage Systems (SUDs):</strong> Lamb Drove, Cambourne, UK.</li>
-                        <li><strong>River Restoration in an Urban Setting:</strong> River Skerne, Darlington, UK.</li>
-                        <li><strong>Waste Management:</strong> Comparison of strategies like incineration vs. landfill in a specified urban area.</li>
-                    </ul>
-                </div>
-            </div>
+  <!-- Main content -->
+  <div class="content">
+    <h2 class="section-title" id="resources">Our Resources</h2>
+    
+    <div class="cards-container">
+      <!-- GCSE Papers Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 5V19H5V5H19ZM21 3H3V21H21V3ZM17 17H7V16H17V17ZM17 15H7V14H17V15ZM17 12H7V7H17V12Z" fill="var(--color-primary-accent-generic)"/>
+          </svg>
         </div>
+        <div class="card-content">
+          <h3>GCSE Past Papers</h3>
+          <p>Find a collection of GCSE past papers from various exam boards to practice and prepare.</p>
+          <a href="PR.html" class="card-link">View Papers →</a>
+        </div>
+      </div>
+      
+      <!-- A Level Papers Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z" fill="var(--color-primary-accent-generic)"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>A Level & BTEC Papers</h3>
+          <p>Access A Level and BTEC past papers to sharpen your exam techniques and knowledge.</p>
+          <a href="APR.html" class="card-link">View Papers →</a>
+        </div>
+      </div>
+      
+      <!-- Geography Flashcards Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.58 11.4L17.3 4.01L16.35 3.41C15.91 3.15 15.36 3.01 14.78 3H9.22C8.64 3.01 8.09 3.15 7.65 3.41L6.7 4.01L2.42 11.4C2.14 11.89 2 12.46 2 13.04V17C2 18.1 2.9 19 4 19H20C21.1 19 22 18.1 22 17V13.04C22 12.46 21.86 11.89 21.58 11.4ZM12 16C10.34 16 9 14.66 9 13C9 11.34 10.34 10 12 10C13.66 10 15 11.34 15 13C15 14.66 13.66 16 12 16ZM7.5 6C8.33 6 9 6.67 9 7.5C9 8.33 8.33 9 7.5 9C6.67 9 6 8.33 6 7.5C6 6.67 6.67 6 7.5 6Z" fill="var(--color-primary-accent-generic)"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Geography Flashcards</h3>
+          <p>Interactive flashcards to help you learn and revise key Geography A-Level concepts.</p>
+          <a href="SPBE.html" class="card-link">View Flashcards →</a>
+        </div>
+      </div>
+      
+      <!-- Geography Case Studies Card -->
+      <div class="card">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM6.5 17.5L14.01 14.01L17.5 6.5L9.99 9.99L6.5 17.5ZM12 10.9C12.61 10.9 13.1 11.39 13.1 12C13.1 12.61 12.61 13.1 12 13.1C11.39 13.1 10.9 12.61 10.9 12C10.9 11.39 11.39 10.9 12 10.9Z" fill="var(--color-primary-accent-generic)"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Geography Case Studies</h3>
+          <p>Detailed A-Level Geography case studies to support your understanding and application.</p>
+          <a href="BWT.html" class="card-link">View Case Studies →</a>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="footer">
-        <p>Based on AQA A-Level Geography (7037) Specification Version 1.2 (September 2019). Case study list compiled from common teaching resources. Always refer to the official <a href="https://www.aqa.org.uk/subjects/geography/a-level/geography-7037/specification/specification-at-a-glance" target="_blank" rel="noopener noreferrer">AQA specification</a> for definitive details and consult your teacher for specific guidance.</p>
-    </div>
+  <!-- Footer -->
+  <div class="footer">
+    <p>Providing quality educational resources to aid your learning journey.</p>
+  </div>
 
-</div>
-
-<script>
-    // Theme Toggle Logic (existing)
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    function applyTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || !savedTheme) {
-            body.classList.add('dark-mode');
-            themeToggle.textContent = 'Light Mode';
-        } else {
-            body.classList.remove('dark-mode');
-            themeToggle.textContent = 'Dark Mode';
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (menuToggle && navMenu) { 
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation(); 
+      const isExpanded = navMenu.classList.toggle('active');
+      this.setAttribute('aria-expanded', isExpanded.toString()); // Added aria-expanded update
+    });
+    
+    document.addEventListener('click', function(event) {
+      if (navMenu.classList.contains('active') && 
+          !navMenu.contains(event.target) && 
+          !menuToggle.contains(event.target)) {
+        navMenu.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false'); // Added aria-expanded update
+      }
+    });
+    
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 1100) { 
+        if (navMenu.classList.contains('active')) { // Only if active
+            navMenu.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false'); // Added aria-expanded update
         }
-    }
-    applyTheme();
-
-    themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        let theme = 'light';
-        if (body.classList.contains('dark-mode')) {
-            theme = 'dark';
-            themeToggle.textContent = 'Light Mode';
-        } else {
-             themeToggle.textContent = 'Dark Mode';
-        }
-        localStorage.setItem('theme', theme);
+      }
     });
 
-    // --- START NAVIGATION SCRIPT ---
-    document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-
-        if (menuToggle && navMenu) {
-            menuToggle.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent click from bubbling to document
-                const isExpanded = navMenu.classList.toggle('active');
-                this.setAttribute('aria-expanded', isExpanded.toString());
-            });
-
-            // Close menu if clicking outside
-            document.addEventListener('click', function(event) {
-                if (navMenu.classList.contains('active') &&
-                    !navMenu.contains(event.target) &&
-                    !menuToggle.contains(event.target)) {
-                    navMenu.classList.remove('active');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-
-            // Active Nav Link Highlighter
-            // Get the current page filename (e.g., "APR.html" or "BWT.html")
-            const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html';
-            if (currentPageFilename) {
-                const navLinks = document.querySelectorAll('.nav-menu a');
-                navLinks.forEach(link => {
-                    // Get the filename from the link's href
-                    const linkFilename = link.getAttribute('href').split('/').pop();
-                    if (linkFilename === currentPageFilename) {
-                        link.classList.add('active-nav-link');
-                    } else {
-                        link.classList.remove('active-nav-link');
-                    }
-                });
+    const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html'; 
+    if (currentPageFilename) {
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPageFilename) {
+                link.classList.add('active-nav-link');
+            } else {
+                link.classList.remove('active-nav-link');
             }
-        }
-    });
-    // --- END NAVIGATION SCRIPT ---
-
-    // Optional: Hide back link if there's no history to go back to
-    // if (window.history.length <= 1) {
-    //     const backLinkElement = document.querySelector('.back-link');
-    //     if (backLinkElement) backLinkElement.style.display = 'none';
-    // }
-
-</script>
-
+        });
+    }
+  }
+});
+  </script>
 </body>
 </html>
