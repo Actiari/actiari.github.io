@@ -5,7 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      /* Dark theme variables from "Past Papers Archive" */
+      --color-background: #1a1d21;
+      --color-surface: #252930;
+      --color-surface-variant: #31363f;
+      --color-surface-hover: #3c424c;
+      --color-primary-accent-generic: #00b8d4; /* Main accent color */
+      --color-text-primary: #e8eaed;
+      --color-text-secondary: #b0b3b8;
+      --color-border: #40454c;
+      --color-shadow: rgba(0,0,0,0.3);
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --border-radius: 8px; /* Consistent border radius */
+
+      --nav-bg: var(--color-surface-variant);
+      --nav-text: #ffffff; /* White text for nav links */
+      --nav-hover-bg: var(--color-primary-accent-generic);
+      --nav-hover-text: var(--color-background); /* Dark text for nav link hover */
+    }
+
     /* Base styles */
     * {
       box-sizing: border-box;
@@ -14,27 +35,31 @@
     }
     
     body {
-      background-color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--color-background);
+      font-family: var(--font-main);
       line-height: 1.6;
-      color: #333;
+      color: var(--color-text-primary);
     }
     
     /* Navigation styles */
     .nav-container {
-      background-color: #333;
+      background-color: var(--nav-bg);
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-between; /* Logo left, toggle right */
       padding: 0 20px;
-      position: relative;
+      position: sticky; /* Make nav sticky */
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px var(--color-shadow);
     }
     
     .logo {
       display: flex;
       align-items: center;
       text-decoration: none;
+      padding: 10px 0; /* Give logo some vertical padding */
     }
     
     .logo img {
@@ -43,51 +68,53 @@
       vertical-align: middle;
     }
     
-/* Replace the current .nav-menu CSS with this */
-.nav-menu {
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-  transition: all 0.3s ease;
-  margin-left: 0;
-  width: 100%;
-  justify-content: flex-start; /* Changed from space-between to flex-start */
-}
+    .nav-menu {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      margin: 0; /* Reset margin */
+      padding: 0; /* Reset padding */
+      /* flex-start will be handled by media query for collapsed menu */
+    }
 
-/* Add this to adjust the width of each nav item */
-.nav-menu li {
-  flex: 0 0 auto; /* Don't grow or shrink, stay at natural width */
-}
+    .nav-menu li {
+      flex: 0 0 auto; 
+    }
     
     .nav-menu li a {
       display: block;
-      color: white;
+      color: var(--nav-text);
       text-align: center;
-      padding: 20px 16px;
+      padding: 14px 18px; /* Matched style_source */
       text-decoration: none;
       white-space: nowrap;
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, color 0.2s; /* Matched style_source */
+      font-weight: 500; /* Matched style_source */
+      font-size: 0.95em; /* Matched style_source */
     }
     
-    .nav-menu li a:hover {
-      background-color: #444;
+    .nav-menu li a:hover,
+    .nav-menu li a.active-nav-link { /* Added active class styling */
+      background-color: var(--nav-hover-bg);
+      color: var(--nav-hover-text);
     }
     
     .menu-toggle {
-      display: none;
-      color: white;
+      display: none; /* Hidden by default, shown in media query */
+      color: var(--nav-text);
       background: none;
       border: none;
       font-size: 24px;
-      padding: 12px 16px;
+      padding: 10px 15px; /* Matched style_source */
       cursor: pointer;
-      margin-left: auto;
+      /* margin-left: auto; is default due to space-between on nav-container */
     }
     
     /* Main content styling */
     .hero {
-      background-color: #2c3e50;
-      color: white;
+      background-color: var(--color-surface); /* Darker surface for hero */
+      color: var(--color-text-primary);
       padding: 60px 20px;
       text-align: center;
     }
@@ -95,27 +122,29 @@
     .hero h1 {
       font-size: 2.5rem;
       margin-bottom: 20px;
+      color: var(--color-primary-accent-generic); /* Accent for hero title */
     }
     
     .hero p {
       font-size: 1.2rem;
       max-width: 800px;
       margin: 0 auto 30px;
+      color: var(--color-text-secondary);
     }
     
     .cta-button {
       display: inline-block;
-      background-color: #3498db;
-      color: white;
+      background-color: var(--color-primary-accent-generic);
+      color: var(--nav-hover-text); /* Dark text for contrast on accent bg */
       padding: 12px 24px;
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: var(--border-radius);
       font-weight: bold;
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, filter 0.2s;
     }
     
     .cta-button:hover {
-      background-color: #2980b9;
+      filter: brightness(1.15); /* Common hover effect for dark theme buttons */
     }
     
     .content {
@@ -128,7 +157,7 @@
       text-align: center;
       margin-bottom: 40px;
       font-size: 2rem;
-      color: #2c3e50;
+      color: var(--color-primary-accent-generic); /* Accent for section titles */
     }
     
     .cards-container {
@@ -139,16 +168,17 @@
     }
     
     .card {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background-color: var(--color-surface);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px var(--color-shadow); /* Themed shadow */
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--color-border); /* Subtle border */
     }
     
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 20px var(--color-shadow); /* Enhanced hover shadow */
     }
     
     .card-icon {
@@ -156,7 +186,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #f8f9fa;
+      background-color: var(--color-surface-variant); /* Slightly different bg for icon area */
+    }
+    /* Update SVG fill color */
+    .card-icon svg path {
+      fill: var(--color-primary-accent-generic);
     }
     
     .card-content {
@@ -165,30 +199,32 @@
     
     .card h3 {
       margin-bottom: 12px;
-      color: #2c3e50;
+      color: var(--color-text-primary);
     }
     
     .card p {
       margin-bottom: 16px;
-      color: #666;
+      color: var(--color-text-secondary);
     }
     
     .card-link {
       display: inline-block;
-      color: #3498db;
+      color: var(--color-primary-accent-generic);
       text-decoration: none;
       font-weight: bold;
     }
     
     .card-link:hover {
       text-decoration: underline;
+      filter: brightness(1.1);
     }
     
     .footer {
-      background-color: #2c3e50;
-      color: white;
-      padding: 40px 20px;
+      background-color: var(--nav-bg); /* Consistent with nav */
+      color: var(--nav-text);
+      padding: 20px 20px; /* Adjusted padding */
       text-align: center;
+      font-size: 0.9rem; /* Matched style_source */
     }
     
     .footer p {
@@ -198,61 +234,47 @@
     /* Media queries for responsive design */
     @media screen and (max-width: 1100px) {
       .nav-container {
-        flex-wrap: wrap;
-        padding: 0;
+        /* flex-wrap: wrap; */ /* Removed, handled by menu toggle logic */
+        /* padding: 0; */ /* Nav container still needs padding */
       }
       
       .logo {
-        padding: 10px 20px;
+        /* padding: 10px 20px; */ /* Padding is on nav-container now */
       }
       
-/* Add or replace these CSS rules */
-.menu-toggle {
-  display: none;
-  color: white;
-  background: none;
-  border: none;
-  font-size: 24px;
-  padding: 12px 16px;
-  cursor: pointer;
-  z-index: 100;
-}
+      .menu-toggle {
+        display: block !important; 
+        margin-left: auto; /* Ensure toggle is on the right */
+      }
+      
+      .nav-menu {
+        display: none; 
+        width: 100%;
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Position below the .nav-container */
+        left: 0;
+        background-color: var(--nav-bg); /* Themed background */
+        z-index: 999; /* Ensure it's above content but below modals if any */
+        border-top: 1px solid var(--color-border); /* Separator line */
+        box-shadow: 0 4px 10px var(--color-shadow); /* Shadow for dropdown */
+      }
+      
+      .nav-menu.active {
+        display: flex !important; 
+      }
 
-.nav-menu {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-@media screen and (max-width: 1100px) {
-  .menu-toggle {
-    display: block !important; /* Force display with !important */
-  }
-  
-  .nav-menu {
-    display: none; /* Hide by default on mobile */
-    width: 100%;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #333;
-    z-index: 99;
-  }
-  
-  .nav-menu.active {
-    display: flex !important; /* Show when active with !important */
-  }
-}
       .nav-menu li {
         width: 100%;
       }
       
       .nav-menu li a {
         text-align: left;
-        padding: 16px 20px;
-        border-top: 1px solid #444;
+        padding: 12px 20px; /* Matched style_source */
+        border-top: 1px solid var(--color-border); /* Separator for items */
+      }
+      .nav-menu li:first-child a {
+          border-top: none; /* Remove top border for the first item */
       }
       
       .hero h1 {
@@ -264,6 +286,13 @@
       }
     }
     
+    @media screen and (max-width: 768px) {
+        body { font-size: 15px; }
+        .nav-container { padding: 0 15px; }
+        .content { padding: 30px 15px; }
+        .hero h1 { font-size: 2em; } /* Matched style_source */
+    }
+
     @media screen and (max-width: 600px) {
       .cards-container {
         grid-template-columns: 1fr;
@@ -274,8 +303,11 @@
       }
       
       .hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.8rem; /* Consistent with your original media query */
       }
+    }
+     @media screen and (max-width: 576px) {
+        .hero h1 { font-size: 1.7em; } /* Matched style_source */
     }
   </style>
 </head>
@@ -294,6 +326,13 @@
     </ul>
   </div>
   
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Welcome to Your Study Hub</h1>
+    <p>Access a wide range of revision materials, past papers, flashcards, and case studies designed to help you excel in your exams.</p>
+    <a href="#resources" class="cta-button">Explore Resources</a>
+  </div>
+
   <!-- Main content -->
   <div class="content">
     <h2 class="section-title" id="resources">Our Resources</h2>
@@ -303,11 +342,12 @@
       <div class="card">
         <div class="card-icon">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 5V19H5V5H19ZM21 3H3V21H21V3ZM17 17H7V16H17V17ZM17 15H7V14H17V15ZM17 12H7V7H17V12Z" fill="#3498db"/>
+            <path d="M19 5V19H5V5H19ZM21 3H3V21H21V3ZM17 17H7V16H17V17ZM17 15H7V14H17V15ZM17 12H7V7H17V12Z" fill="var(--color-primary-accent-generic)"/>
           </svg>
         </div>
         <div class="card-content">
           <h3>GCSE Past Papers</h3>
+          <p>Find a collection of GCSE past papers from various exam boards to practice and prepare.</p>
           <a href="PR.html" class="card-link">View Papers →</a>
         </div>
       </div>
@@ -316,11 +356,12 @@
       <div class="card">
         <div class="card-icon">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z" fill="#3498db"/>
+            <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z" fill="var(--color-primary-accent-generic)"/>
           </svg>
         </div>
         <div class="card-content">
           <h3>A Level & BTEC Papers</h3>
+          <p>Access A Level and BTEC past papers to sharpen your exam techniques and knowledge.</p>
           <a href="APR.html" class="card-link">View Papers →</a>
         </div>
       </div>
@@ -329,11 +370,12 @@
       <div class="card">
         <div class="card-icon">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21.58 11.4L17.3 4.01L16.35 3.41C15.91 3.15 15.36 3.01 14.78 3H9.22C8.64 3.01 8.09 3.15 7.65 3.41L6.7 4.01L2.42 11.4C2.14 11.89 2 12.46 2 13.04V17C2 18.1 2.9 19 4 19H20C21.1 19 22 18.1 22 17V13.04C22 12.46 21.86 11.89 21.58 11.4ZM12 16C10.34 16 9 14.66 9 13C9 11.34 10.34 10 12 10C13.66 10 15 11.34 15 13C15 14.66 13.66 16 12 16ZM7.5 6C8.33 6 9 6.67 9 7.5C9 8.33 8.33 9 7.5 9C6.67 9 6 8.33 6 7.5C6 6.67 6.67 6 7.5 6Z" fill="#3498db"/>
+            <path d="M21.58 11.4L17.3 4.01L16.35 3.41C15.91 3.15 15.36 3.01 14.78 3H9.22C8.64 3.01 8.09 3.15 7.65 3.41L6.7 4.01L2.42 11.4C2.14 11.89 2 12.46 2 13.04V17C2 18.1 2.9 19 4 19H20C21.1 19 22 18.1 22 17V13.04C22 12.46 21.86 11.89 21.58 11.4ZM12 16C10.34 16 9 14.66 9 13C9 11.34 10.34 10 12 10C13.66 10 15 11.34 15 13C15 14.66 13.66 16 12 16ZM7.5 6C8.33 6 9 6.67 9 7.5C9 8.33 8.33 9 7.5 9C6.67 9 6 8.33 6 7.5C6 6.67 6.67 6 7.5 6Z" fill="var(--color-primary-accent-generic)"/>
           </svg>
         </div>
         <div class="card-content">
           <h3>Geography Flashcards</h3>
+          <p>Interactive flashcards to help you learn and revise key Geography A-Level concepts.</p>
           <a href="SPBE.html" class="card-link">View Flashcards →</a>
         </div>
       </div>
@@ -342,42 +384,64 @@
       <div class="card">
         <div class="card-icon">
           <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM6.5 17.5L14.01 14.01L17.5 6.5L9.99 9.99L6.5 17.5ZM12 10.9C12.61 10.9 13.1 11.39 13.1 12C13.1 12.61 12.61 13.1 12 13.1C11.39 13.1 10.9 12.61 10.9 12C10.9 11.39 11.39 10.9 12 10.9Z" fill="#3498db"/>
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM6.5 17.5L14.01 14.01L17.5 6.5L9.99 9.99L6.5 17.5ZM12 10.9C12.61 10.9 13.1 11.39 13.1 12C13.1 12.61 12.61 13.1 12 13.1C11.39 13.1 10.9 12.61 10.9 12C10.9 11.39 11.39 10.9 12 10.9Z" fill="var(--color-primary-accent-generic)"/>
           </svg>
         </div>
         <div class="card-content">
           <h3>Geography Case Studies</h3>
+          <p>Detailed A-Level Geography case studies to support your understanding and application.</p>
           <a href="BWT.html" class="card-link">View Case Studies →</a>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2024 Study Hub. All rights reserved.</p>
+    <p>Providing quality educational resources to aid your learning journey.</p>
+  </div>
+
   <script>
 document.addEventListener('DOMContentLoaded', function() {
   const menuToggle = document.querySelector('.menu-toggle');
   const navMenu = document.querySelector('.nav-menu');
   
-  // Simply toggle the active class on click
-  menuToggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    navMenu.classList.toggle('active');
-  });
-  
-  // Close menu when clicking outside
-  document.addEventListener('click', function(event) {
-    if (navMenu.classList.contains('active') && 
-        !navMenu.contains(event.target) && 
-        !menuToggle.contains(event.target)) {
-      navMenu.classList.remove('active');
+  if (menuToggle && navMenu) { // Check if elements exist
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent click from bubbling to document
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking outside if it's active
+    document.addEventListener('click', function(event) {
+      if (navMenu.classList.contains('active') && 
+          !navMenu.contains(event.target) && 
+          !menuToggle.contains(event.target)) {
+        navMenu.classList.remove('active');
+      }
+    });
+    
+    // Optional: Close menu on resize if window becomes larger than mobile breakpoint
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 1100) { // Ensure this matches your CSS breakpoint
+        navMenu.classList.remove('active');
+      }
+    });
+
+    // Active Nav Link
+    const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html'; // Default for root
+    if (currentPageFilename) {
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPageFilename) {
+                link.classList.add('active-nav-link');
+            } else {
+                link.classList.remove('active-nav-link');
+            }
+        });
     }
-  });
-  
-  // Handle window resize
-  window.addEventListener('resize', function() {
-    if (window.innerWidth > 1100) {
-      navMenu.classList.remove('active');
-    }
-  });
+  }
 });
   </script>
 </body>

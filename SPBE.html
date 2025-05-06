@@ -8,21 +8,30 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     :root {
-      --primary: #2e7d32;
-      --primary-dark: #1b5e20;
-      --primary-light: #81c784;
-      --secondary: #388e3c;
-      --accent: #66bb6a;
-      --dark: #1a2e1a;
-      --light: #f8f9fa;
-      --success: #4caf50;
-      --warning: #ffa000;
-      --danger: #d32f2f;
-      --gray: #616161;
-      --gray-light: #e8f5e9;
-      --border-radius: 12px;
-      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      /* Variables from style_source.html */
+      --color-background: #1a1d21;
+      --color-surface: #252930;
+      --color-surface-variant: #31363f;
+      --color-surface-hover: #3c424c;
+      --color-primary-accent-generic: #00b8d4;
+      --color-text-primary: #e8eaed;
+      --color-text-secondary: #b0b3b8;
+      --color-border: #40454c;
+      --color-shadow: rgba(0,0,0,0.3);
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --border-radius: 8px; /* style_source.html uses 8px */
+
+      --nav-bg: var(--color-surface-variant);
+      --nav-text: #ffffff;
+      --nav-hover-bg: var(--color-primary-accent-generic);
+      --nav-hover-text: var(--color-background); /* Text color on nav hover */
+
+      /* Original flashcard app specific variables that might be kept or adapted */
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      /* Re-map some semantic colors if needed, or use style_source directly */
+      --success: #34a853; /* Green from style_source geography */
+      --warning: #fbbc05; /* Yellow from style_source english */
+      --danger: #ea4335;  /* Red from style_source chemistry */
     }
     
     * {
@@ -32,25 +41,28 @@
     }
     
     body {
-      background-color: #f0f8f0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--color-background);
+      font-family: var(--font-main);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
-      color: var(--dark);
+      color: var(--color-text-primary);
       display: flex;
-      flex-direction: column; /* Ensure body stretches to fill the viewport */
+      flex-direction: column; 
       min-height: 100vh;
     }
     
     .nav-container {
-      background-color: var(--primary-dark);
+      background-color: var(--nav-bg);
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center; /* Center the navigation links */
-      padding: 10px 20px;
-      position: relative;
+      justify-content: center; 
+      padding: 0 20px; /* Adjusted padding to match style_source */
+      position: sticky; /* Added sticky to match style_source */
+      top: 0; /* Added sticky to match style_source */
+      z-index: 1000; /* Added sticky to match style_source */
+      box-shadow: 0 2px 10px var(--color-shadow); /* Added shadow */
     }
     
     .nav-menu {
@@ -67,17 +79,21 @@
     
     .nav-menu li a {
       display: block;
-      color: white;
+      color: var(--nav-text);
       text-align: center;
-      padding: 14px 16px;
+      padding: 14px 18px; /* Matched style_source */
       text-decoration: none;
       white-space: nowrap;
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, color 0.2s; /* Matched style_source */
+      font-weight: 500; /* Matched style_source */
+      font-size: 0.95em; /* Matched style_source */
     }
     
     .nav-menu li a:hover,
-    .nav-menu li a:focus {
-      background-color: var(--primary);
+    .nav-menu li a:focus,
+    .nav-menu li a.active-nav-link { /* Added active-nav-link for consistency */
+      background-color: var(--nav-hover-bg);
+      color: var(--nav-hover-text);
       outline: none;
     }
     
@@ -85,17 +101,17 @@
       display: none;
       background: none;
       border: none;
-      color: white;
+      color: var(--nav-text);
       font-size: 24px;
       cursor: pointer;
-      padding: 8px;
+      padding: 10px 15px; /* Matched style_source */
     }
     
     #app-container {
       max-width: 1200px;
       margin: 20px auto;
       padding: 0 20px;
-      flex: 1; /* Allow the main content to grow and push the footer down */
+      flex: 1; 
     }
     
     .app-header {
@@ -107,7 +123,7 @@
     .app-title {
       font-size: 2.2rem;
       font-weight: 700;
-      color: var(--primary-dark);
+      color: var(--color-primary-accent-generic); /* Updated */
       margin-bottom: 8px;
     }
     
@@ -118,11 +134,11 @@
     }
     
     .sidebar {
-      background-color: white;
+      background-color: var(--color-surface); /* Updated */
       border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
+      box-shadow: 0 4px 15px var(--color-shadow); /* Updated */
       padding: 20px;
-      border: 1px solid var(--gray-light);
+      border: 1px solid var(--color-border); /* Updated */
       height: fit-content;
       position: sticky;
       top: 20px;
@@ -136,7 +152,7 @@
     .sidebar-title {
       font-size: 1.1rem;
       font-weight: 600;
-      color: var(--primary-dark);
+      color: var(--color-text-primary); /* Updated */
       margin-bottom: 16px;
       display: flex;
       align-items: center;
@@ -144,7 +160,7 @@
     
     .sidebar-title i {
       margin-right: 10px;
-      color: var(--primary);
+      color: var(--color-primary-accent-generic); /* Updated */
     }
 
     .topic-grid {
@@ -154,8 +170,8 @@
     }
     
     .topic-card {
-      background-color: white;
-      border: 1px solid var(--gray-light);
+      background-color: var(--color-surface-variant); /* Updated */
+      border: 1px solid var(--color-border); /* Updated */
       border-radius: var(--border-radius);
       padding: 16px;
       text-align: center;
@@ -164,30 +180,32 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      color: var(--color-text-primary); /* Updated */
     }
     
     .topic-card:hover,
     .topic-card:focus {
       transform: translateY(-3px);
-      box-shadow: var(--box-shadow);
-      border-color: var(--primary-light);
+      box-shadow: 0 6px 20px var(--color-shadow); /* Enhanced shadow on hover */
+      border-color: var(--color-primary-accent-generic); /* Updated */
+      background-color: var(--color-surface-hover); /* Updated */
       outline: none;
     }
     
     .topic-card.active {
-      background-color: var(--primary);
-      color: white;
-      border-color: var(--primary);
+      background-color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--nav-hover-text); /* Updated for contrast */
+      border-color: var(--color-primary-accent-generic); /* Updated */
     }
     
     .topic-icon {
       font-size: 1.8rem;
       margin-bottom: 10px;
-      color: var(--primary);
+      color: var(--color-primary-accent-generic); /* Updated */
     }
     
     .topic-card.active .topic-icon {
-      color: white;
+      color: var(--nav-hover-text); /* Updated for contrast */
     }
     
     .topic-name {
@@ -206,7 +224,7 @@
       margin-bottom: 16px;
       background: none;
       border: none;
-      color: var (--primary);
+      color: var(--color-primary-accent-generic); /* Updated */
       cursor: pointer;
       font-weight: 500;
       padding: 8px;
@@ -216,6 +234,7 @@
     .back-btn:focus {
       text-decoration: underline;
       outline: none;
+      color: var(--color-text-primary); /* Lighter on hover */
     }
     
     .back-btn i {
@@ -229,26 +248,29 @@
     }
     
     .subtopic-card {
-      background-color: white;
-      border: 1px solid var(--gray-light);
+      background-color: var(--color-surface-variant); /* Updated */
+      border: 1px solid var(--color-border); /* Updated */
       border-radius: var(--border-radius);
       padding: 14px;
       cursor: pointer;
       transition: var(--transition);
       position: relative;
+      color: var(--color-text-primary); /* Updated */
     }
     
     .subtopic-card:hover,
     .subtopic-card:focus {
       transform: translateY(-3px);
-      box-shadow: var (--box-shadow);
-      border-color: var(--primary-light);
+      box-shadow: 0 6px 20px var(--color-shadow); /* Enhanced shadow */
+      border-color: var(--color-primary-accent-generic); /* Updated */
+      background-color: var(--color-surface-hover); /* Updated */
       outline: none;
     }
     
     .subtopic-card.active {
-      background-color: var(--primary-light);
-      border-color: var(--primary-light);
+      background-color: var(--color-primary-accent-generic); /* Updated */
+      border-color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--nav-hover-text); /* Updated for contrast */
     }
     
     .subtopic-name {
@@ -260,32 +282,39 @@
     
     .subtopic-icon {
       margin-right: 8px;
-      color: var(--primary); /* Ensure icon color is visible */
+      color: var(--color-primary-accent-generic); /* Updated */
       font-size: 1rem;
+    }
+    .subtopic-card.active .subtopic-icon {
+      color: var(--nav-hover-text); /* Updated for contrast on active card */
     }
     
     .subtopic-count {
       font-size: 0.8rem;
-      color: var (--gray);
+      color: var(--color-text-secondary); /* Updated */
+    }
+    .subtopic-card.active .subtopic-count {
+      color: var(--nav-hover-text); /* Updated for contrast */
+      opacity: 0.8;
     }
     
     .bookmark-btn {
-      display: none; /* Hide bookmark button */
+      display: none; 
     }
     
     .bookmarks-section {
-      display: none; /* Hide bookmarks section */
+      display: none; 
     }
     
     .flashcard-view {
-      background-color: white;
+      background-color: var(--color-surface); /* Updated */
       border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
+      box-shadow: 0 4px 15px var(--color-shadow); /* Updated */
       padding: 30px;
       min-height: 400px;
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--gray-light);
+      border: 1px solid var(--color-border); /* Updated */
       animation: fadeIn 0.5s ease-out;
     }
     
@@ -298,7 +327,7 @@
     
     .flashcard-progress {
       font-size: 0.9rem;
-      color: var(--gray);
+      color: var(--color-text-secondary); /* Updated */
       font-weight: 500;
     }
     
@@ -314,8 +343,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--gray-light);
-      color: var(--gray);
+      background-color: var(--color-surface-variant); /* Updated */
+      color: var(--color-text-secondary); /* Updated */
       cursor: pointer;
       transition: var(--transition);
       border: none;
@@ -323,14 +352,14 @@
     
     .action-btn:hover,
     .action-btn:focus {
-      background-color: var(--primary-light);
-      color: white;
+      background-color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--nav-hover-text); /* Updated */
       outline: none;
     }
     
-    .action-btn.bookmarked {
-      background-color: var(--warning);
-      color: white;
+    .action-btn.bookmarked { /* Style for bookmarked, even if hidden, for completeness */
+      background-color: var(--warning); 
+      color: var(--color-background);
     }
     
     .flashcard-content {
@@ -343,20 +372,21 @@
     }
     
     .flashcard {
-      background-color: white;
+      background-color: var(--color-surface-variant); /* Updated */
       border-radius: var(--border-radius);
       padding: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slightly darker shadow for depth */
       transition: var(--transition);
-      border: 1px solid var(--gray-light);
+      border: 1px solid var(--color-border); /* Updated */
       transform-style: preserve-3d;
-      min-height: 400px; /* Fixed minimum height */
-      height: 400px; /* Force constant height */
-      overflow-y: auto; /* Enable scroll if content overflows */
+      min-height: 400px; 
+      height: 400px; 
+      overflow-y: auto; 
       display: flex;
       flex-direction: column;
       cursor: pointer;
       position: relative;
+      color: var(--color-text-primary); /* Updated */
     }
     
     .flashcard.flipping {
@@ -365,7 +395,7 @@
     
     .flashcard-subtopic {
       font-size: 0.9rem;
-      color: var(--primary);
+      color: var(--color-primary-accent-generic); /* Updated */
       margin-bottom: 12px;
       font-weight: 500;
       display: flex;
@@ -387,7 +417,7 @@
     .flashcard-question h3,
     .flashcard-answer h3 {
       font-size: 1.3rem;
-      color: var(--primary-dark);
+      color: var(--color-text-primary); /* Updated */
       margin-bottom: 20px;
       display: flex;
       align-items: center;
@@ -395,23 +425,23 @@
     
     .flashcard-question h3 i {
       margin-right: 12px;
-      color: var(--primary);
+      color: var(--color-primary-accent-generic); /* Updated */
     }
     
     .flashcard-question p {
       font-size: 1.1rem;
-      color: var(--dark);
+      color: var(--color-text-primary); /* Updated */
       line-height: 1.7;
     }
     
     .flashcard-answer h3 i {
       margin-right: 12px;
-      color: var(--success);
+      color: var(--success); /* Keep success color for answer indication */
     }
     
     .flashcard-answer-content {
       font-size: 1.1rem;
-      color: var(--dark);
+      color: var(--color-text-primary); /* Updated */
       line-height: 1.7;
     }
     
@@ -428,7 +458,7 @@
       text-align: center;
       margin-top: 20px;
       font-size: 0.9rem;
-      color: var(--gray);
+      color: var(--color-text-secondary); /* Updated */
       font-weight: 500;
     }
     
@@ -439,39 +469,45 @@
     }
     
     .nav-btn {
-      padding: 12px 24px;
+      padding: 10px 20px; /* Adjusted padding */
       border-radius: var(--border-radius);
       font-weight: 500;
       cursor: pointer;
       transition: var(--transition);
       display: flex;
       align-items: center;
-      border: none;
+      border: 1px solid transparent; /* Base border */
+      font-size: 0.95em; /* Matched style_source filter-tab */
     }
     
     .nav-btn:disabled {
-      opacity: 0.5;
+      opacity: 0.6; /* Slightly more visible disabled state */
       cursor: not-allowed;
+      filter: grayscale(50%);
     }
     
     .nav-btn.prev {
-      background-color: var(--gray-light);
-      color: var(--gray);
+      background-color: var(--color-surface-hover); /* Updated */
+      color: var(--color-text-primary); /* Updated */
+      border-color: var(--color-border); /* Updated */
     }
     
     .nav-btn.prev:hover:not(:disabled),
     .nav-btn.prev:focus:not(:disabled) {
-      background-color: #e0e0e0;
+      background-color: var(--color-border); /* Darker hover */
+      color: var(--color-text-primary);
     }
     
     .nav-btn.next {
-      background-color: var(--primary);
-      color: white;
+      background-color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--nav-hover-text); /* Updated for contrast */
+      border-color: var(--color-primary-accent-generic); /* Updated */
     }
     
     .nav-btn.next:hover:not(:disabled),
     .nav-btn.next:focus:not(:disabled) {
-      background-color: var(--primary-dark);
+      filter: brightness(1.1); /* Slight brighten, common pattern */
+      transform: translateY(-1px);
     }
     
     .nav-btn i {
@@ -482,31 +518,44 @@
       text-align: center;
       padding: 40px 20px;
       animation: fadeIn 0.5s ease-out;
+      color: var(--color-text-secondary); /* Updated */
     }
     
     .empty-state i {
       font-size: 3rem;
-      color: var (--gray-light);
+      color: var(--color-surface-variant); /* Updated, less prominent */
       margin-bottom: 20px;
     }
     
     .empty-state h3 {
       font-size: 1.3rem;
-      color: var(--gray);
+      color: var(--color-text-primary); /* Updated */
       margin-bottom: 10px;
     }
     
     .empty-state p {
-      color: var(--gray);
+      color: var(--color-text-secondary); /* Updated */
       margin-bottom: 20px;
     }
     
-    .error-boundary {
+    .error-boundary { /* Error styling */
       padding: 20px;
-      background-color: #ffebee;
+      background-color: var(--color-surface);
       border-radius: var(--border-radius);
       color: var(--danger);
+      border: 1px solid var(--danger);
       margin: 20px 0;
+    }
+    .error-boundary h3 {
+        color: var(--danger);
+    }
+    .error-boundary .nav-btn.next { /* Button in error boundary */
+        background-color: var(--danger);
+        color: white;
+        border-color: var(--danger);
+    }
+    .error-boundary .nav-btn.next:hover {
+        filter: brightness(0.9);
     }
     
     @keyframes fadeIn {
@@ -538,7 +587,7 @@
     
     @keyframes flipCard {
       0% { transform: rotateY(0); }
-      50% { transform: rotateY(90deg); }
+      50% { transform: rotateY(90deg); } /* Content hidden mid-flip */
       100% { transform: rotateY(0); }
     }
     
@@ -569,6 +618,9 @@
     }
     
     @media screen and (max-width: 992px) {
+      .nav-container { /* Copied from style_source.html for consistency */
+        justify-content: space-between;
+      }
       .app-layout {
         grid-template-columns: 1fr;
       }
@@ -586,34 +638,46 @@
         display: block;
       }
       
-      .nav-menu {
+      .nav-menu { /* Copied from style_source.html for consistency */
+        display: none;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background-color: var(--primary-dark);
+        background-color: var(--nav-bg);
         flex-direction: column;
-        max-height: 0;
         overflow: hidden;
-        transition: max-height 0.3s ease;
-        z-index: 1000;
+        border-top: 1px solid var(--color-border);
+        max-height: 0;
+        transition: max-height 0.3s ease-out;
       }
       
-      .nav-menu.active {
-        max-height: 500px;
-        padding: 10px 0;
+      .nav-menu.active { /* Copied from style_source.html for consistency */
+        display: flex;
+        max-height: 500px; /* Ensure this is enough */
       }
       
-      .nav-menu li {
+      .nav-menu li { /* Copied from style_source.html for consistency */
         width: 100%;
       }
       
-      .nav-menu li a {
+      .nav-menu li a { /* Copied from style_source.html for consistency */
         padding: 12px 20px;
+        text-align: left;
       }
     }
     
     @media screen and (max-width: 768px) {
+      body { /* From style_source.html, though flashcards has padding:0 already */
+          font-size:15px; 
+      }
+      .nav-container { /* From style_source.html */
+          padding: 0 15px;
+      }
+      #app-container { /* Adapted from style_source.html .page-container */
+         margin: 15px; 
+         padding: 0;
+      }
       .app-header {
         margin-bottom: 20px;
       }
@@ -642,6 +706,9 @@
     }
     
     @media screen and (max-width: 576px) {
+      .app-title { /* From style_source.html .page-header h1 */
+        font-size: 1.7em;
+      }
       .nav-btn {
         padding: 10px 16px;
         font-size: 0.9rem;
@@ -659,17 +726,18 @@
       
       .flashcard {
         padding: 20px;
-        min-height: 250px;
+        min-height: 250px; /* Adjusted min-height */
+        height: auto; /* Allow height to adjust for content on small screens */
       }
     }
     
     footer {
-      background-color: var(--primary-dark); /* Solid background */
-      color: white; /* Ensure text is visible */
+      background-color: var(--nav-bg); /* Matched style_source */
+      color: var(--nav-text); /* Matched style_source */
       text-align: center;
-      padding: 20px 0; /* Add padding for vertical centering */
+      padding: 20px 0; 
       font-size: 0.9rem;
-      margin-top: auto; /* Push footer to the bottom */
+      margin-top: auto; 
     }
   </style>
   <title>Geography Flashcards</title>
@@ -679,6 +747,10 @@
 </head>
 <body>
   <div class="nav-container">
+    <!-- Hamburger Menu Toggle Button, identical to style_source.html -->
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
     <ul class="nav-menu">
       <li><a href="PR.html">GCSE Past Papers</a></li>
       <li><a href="APR.html">A Level Papers</a></li>
@@ -688,33 +760,38 @@
   </div>
 
   <script>
+    // Hamburger Menu Toggle & Active Nav Link Logic (adapted from style_source.html)
     document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('.nav-menu');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
 
-      if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const isExpanded = navMenu.classList.toggle('active');
-          this.setAttribute('aria-expanded', isExpanded);
-        });
-
-        document.addEventListener('click', function(event) {
-          if (navMenu.classList.contains('active') &&
-              !navMenu.contains(event.target) &&
-              !menuToggle.contains(event.target)) {
-            navMenu.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-          }
-        });
-
-        window.addEventListener('resize', function() {
-          if (window.innerWidth > 992) {
-            navMenu.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-          }
-        });
-      }
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isExpanded = navMenu.classList.toggle('active');
+                this.setAttribute('aria-expanded', isExpanded.toString());
+            });
+            document.addEventListener('click', function(event) {
+                if (navMenu.classList.contains('active') &&
+                    !navMenu.contains(event.target) &&
+                    !menuToggle.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+            // Highlight active nav link
+            const currentPageFilename = window.location.pathname.split('/').pop() || 'SPBE.html'; // Default to current page if root
+            if (currentPageFilename) {
+                const navLinks = document.querySelectorAll('.nav-menu a');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPageFilename) {
+                        link.classList.add('active-nav-link');
+                    } else {
+                        link.classList.remove('active-nav-link');
+                    }
+                });
+            }
+        }
     });
   </script>
   
@@ -747,7 +824,7 @@
               <h3>Something went wrong</h3>
               <p>Please refresh the page to continue</p>
               <button 
-                className="nav-btn next"
+                className="nav-btn next" // Uses themed button style
                 onClick={() => window.location.reload()}
               >
                 <i className="fas fa-sync-alt"></i>
@@ -781,7 +858,7 @@
         "Mt Merapi": `<ul>
           <li>2010 eruption: VEI 4</li>
           <li>Deaths: ~353</li>
-          <li>Injuries: &gt;1,000; significant infrastructure damage</li>
+          <li>Injuries: >1,000; significant infrastructure damage</li>
         </ul>`,
         "Eyjafjallajökull": `<ul>
           <li>2010 eruption: VEI 4</li>
@@ -794,7 +871,7 @@
           <li>Long-term socio-economic impact</li>
         </ul>`,
         "Yellowstone": `<ul>
-          <li>Supervolcano; last major eruption: &gt;600,000 years ago</li>
+          <li>Supervolcano; last major eruption: >600,000 years ago</li>
           <li>Potential eruption: VEI 8; catastrophic global impact</li>
         </ul>`,
         "Boxing Day Tsunami": `<ul>
@@ -804,7 +881,7 @@
         </ul>`,
         "Haiti": `<ul>
           <li>2010 earthquake: magnitude 7.0</li>
-          <li>Deaths: &gt;230,000; Injuries: ~300,000</li>
+          <li>Deaths: >230,000; Injuries: ~300,000</li>
           <li>Damage: $8-14 billion</li>
         </ul>`,
         "Cyclone Nargis": `<ul>
@@ -814,11 +891,11 @@
         </ul>`,
         "Hurricane Katrina": `<ul>
           <li>2005 event: ~1,833 deaths</li>
-          <li>Displacement: &gt;250,000 people</li>
-          <li>Damage: &gt;$125 billion</li>
+          <li>Displacement: >250,000 people</li>
+          <li>Damage: >$125 billion</li>
         </ul>`,
         "LA Wildfire": `<ul>
-          <li>Recent events: evacuations and property losses &gt;$2 billion</li>
+          <li>Recent events: evacuations and property losses >$2 billion</li>
           <li>Widespread damage in urban areas</li>
         </ul>`,
         "Alberta Wildfire": `<ul>
@@ -832,7 +909,7 @@
         </ul>`,
         "Typhoon Haiyan": `<ul>
           <li>2013 event in the Philippines</li>
-          <li>Deaths: &gt;6,300; one of the strongest cyclones recorded</li>
+          <li>Deaths: >6,300; one of the strongest cyclones recorded</li>
           <li>Widespread destruction</li>
         </ul>`,
         "Ground Zero": `<ul>
@@ -878,7 +955,7 @@
           id: 'hazards',
           name: 'Hazards',
           icon: 'fa-mountain',
-          color: '#2e7d32',
+          // color: '#2e7d32', // color property removed, will be handled by CSS if needed
           subtopics: [
             "Volcanoes",
             "Tsunamis",
@@ -893,7 +970,7 @@
             "Hazard Response"
           ],
           subtopicIcons: {
-            "Volcanoes": "fa-volcano", // Ensure icon is defined and visible
+            "Volcanoes": "fa-volcano", 
             "Tsunamis": "fa-water",
             "Earthquakes": "fa-layer-group",
             "Tropical Storms": "fa-wind",
@@ -910,7 +987,7 @@
           id: 'changing-places',
           name: 'Changing Places',
           icon: 'fa-city',
-          color: '#1565c0',
+          // color: '#1565c0',
           subtopics: [
             "Place Meaning",
             "Artistic Representation",
@@ -940,7 +1017,7 @@
           id: 'global-governance',
           name: 'Global Governance',
           icon: 'fa-globe',
-          color: '#6a1b9a',
+          // color: '#6a1b9a',
           subtopics: [
             "Global Systems",
             "Global Inequality",
@@ -958,7 +1035,7 @@
           id: 'coasts',
           name: 'Coasts',
           icon: 'fa-water',
-          color: '#0277bd',
+          // color: '#0277bd',
           subtopics: [
             "Coastal Processes",
             "Landforms",
@@ -975,8 +1052,8 @@
         {
           id: 'carbon',
           name: 'Carbon & Water',
-          icon: 'fa-tint', // Updated icon to better fit the topic
-          color: '#2e7d32',
+          icon: 'fa-tint', 
+          // color: '#2e7d32',
           subtopics: [
             "Carbon Cycle",
             "Energy Security",
@@ -994,7 +1071,7 @@
           id: 'contemporary-urban',
           name: 'Contemporary Urban',
           icon: 'fa-building',
-          color: '#6a1b9a',
+          // color: '#6a1b9a',
           subtopics: [
             "Urban Processes",
             "Urban Climate",
@@ -1988,10 +2065,10 @@
         return bookmarkedCards.includes(cardId);
       }, [bookmarkedCards]);
       
-      const selectTopic = (topic) => {
+      const selectTopic = (topicName) => { // Changed param to topicName
         setAnimationClass('slide-out');
         setTimeout(() => {
-          setSelectedTopic(topic);
+          setSelectedTopic(topicName); // Use topicName
           setSelectedSubtopic(null);
           setView('subtopics');
           setAnimationClass('slide-in');
@@ -2026,9 +2103,9 @@
         }, 300);
       };
       
-      const showBookmarks = () => {}; // Remove bookmarks functionality
+      const showBookmarks = () => {}; 
       
-      const toggleCardBookmark = () => {}; // Remove bookmark toggle functionality
+      const toggleCardBookmark = () => {}; 
       
       const nextCard = () => {
         if (filteredCards.length === 0) return;
@@ -2044,11 +2121,13 @@
       };
       
       const prevCard = () => {
-        if (filteredCards.length === 0 || currentCardIndex === 0) return;
+        if (filteredCards.length === 0 ) return; // No prev if already at 0
         
         setIsFlipping(true);
         setTimeout(() => {
-          setCurrentCardIndex(prev => prev - 1);
+          setCurrentCardIndex(prev => 
+            prev > 0 ? prev - 1 : filteredCards.length -1 // Loop to end if at start
+        );
           setShowAnswer(false);
           setIsFlipping(false);
         }, 300);
@@ -2061,7 +2140,7 @@
         setTimeout(() => {
           setShowAnswer(!showAnswer);
           setIsFlipping(false);
-        }, 150);
+        }, 150); // Faster flip
       };
       
       const getSubtopicCardCount = (subtopic) => {
@@ -2071,22 +2150,10 @@
         ).length;
       };
       
-      const getSubtopicIcon = (subtopic) => {
-        const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
-        if (!topic || !topic.subtopicIcons) return 'fa-folder';
-        return topic.subtopicIcons[subtopic] || {
-          "Volcanoes": "fa-volcano",
-          "Tsunamis": "fa-water",
-          "Earthquakes": "fa-layer-group",
-          "Tropical Storms": "fa-wind",
-          "Wildfires": "fa-fire",
-          "General": "fa-info-circle",
-          "Geophysical Hazards": "fa-globe",
-                   "Atmospheric Hazards": "fa-cloud",
-          "Hydrological Hazards": "fa-water",
-          "Perception of Hazards": "fa-eye",
-          "Hazard Response": "fa-hands-helping"
-        }[subtopic] || 'fa-folder';
+      const getSubtopicIcon = (subtopicName) => { // Renamed param for clarity
+        const topicData = topicConfig.find(t => t.name === selectedTopic); // Ensure filtering by current selectedTopic
+        if (!topicData || !topicData.subtopicIcons) return 'fa-folder'; // Default icon
+        return topicData.subtopicIcons[subtopicName] || 'fa-folder'; // Default icon if specific not found
       };
       
       React.useEffect(() => {
@@ -2100,9 +2167,9 @@
             case 'ArrowLeft':
               prevCard();
               break;
-            case ' ':
+            case ' ': // Spacebar
             case 'Enter':
-              e.preventDefault();
+              e.preventDefault(); // Prevent page scroll/button activation
               toggleAnswer();
               break;
             default:
@@ -2112,11 +2179,11 @@
         
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-      }, [view, filteredCards, currentCardIndex, showAnswer]);
+      }, [view, filteredCards, currentCardIndex, showAnswer, nextCard, prevCard, toggleAnswer]); // Added dependencies
       
       return (
         <ErrorBoundary>
-          <div id="app-container">
+          {/* App container id is in HTML body, not part of React component */}
             <div className="app-header">
               <h1 className="app-title">Geography Flashcards</h1>
             </div>
@@ -2124,7 +2191,7 @@
             <div className="app-layout">
               <div className="sidebar">
                 <div className="sidebar-section">
-                  <div className="search-container"></div>
+                  {/* Search container can be added here later if needed */}
                 </div>
                 
                 <div className={`sidebar-section ${animationClass}`}>
@@ -2139,7 +2206,7 @@
                         {topicConfig.map(topic => (
                           <button
                             key={topic.id}
-                            className="topic-card"
+                            className={`topic-card ${selectedTopic === topic.name ? 'active' : ''}`}
                             onClick={() => selectTopic(topic.name)}
                             aria-label={`Select ${topic.name} topic`}
                           >
@@ -2170,22 +2237,22 @@
                           </div>
                           
                           <div className="subtopic-list">
-                            {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopic => (
+                            {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopicItem => ( // Renamed to subtopicItem
                               <div
-                                key={subtopic}
-                                className="subtopic-card"
-                                onClick={() => selectSubtopic(subtopic)}
-                                aria-label={`Select ${subtopic} subtopic`}
+                                key={subtopicItem}
+                                className={`subtopic-card ${selectedSubtopic === subtopicItem ? 'active' : ''}`}
+                                onClick={() => selectSubtopic(subtopicItem)}
+                                aria-label={`Select ${subtopicItem} subtopic`}
                                 role="button"
-                                tabIndex="0"
-                                onKeyDown={(e) => e.key === 'Enter' && selectSubtopic(subtopic)}
+                                tabIndex="0" // Make it focusable
+                                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectSubtopic(subtopicItem)}
                               >
                                 <div className="subtopic-name">
-                                  <i className={`fas ${getSubtopicIcon(subtopic)} subtopic-icon`}></i>
-                                  {subtopic}
+                                  <i className={`fas ${getSubtopicIcon(subtopicItem)} subtopic-icon`}></i>
+                                  {subtopicItem}
                                 </div>
                                 <div className="subtopic-count">
-                                  {getSubtopicCardCount(subtopic)} cards
+                                  {getSubtopicCardCount(subtopicItem)} cards
                                 </div>
                               </div>
                             ))}
@@ -2206,18 +2273,19 @@
                         {selectedSubtopic && ` • ${selectedSubtopic}`}
                       </div>
                       <div className="flashcard-actions">
-                        {/* Bookmark button removed */}
+                        {/* Bookmark button removed from UI */}
                       </div>
                     </div>
                     
                     <div 
                       className="flashcard-content" 
                       onClick={toggleAnswer}
-                      role="button"
-                      tabIndex="0"
-                      aria-label={showAnswer ? 'Hide answer' : 'Show answer'}
+                      role="button" // ARIA role
+                      tabIndex="0"  // Make it focusable
+                      aria-label={showAnswer ? 'Hide answer. Press Space or Enter to toggle.' : 'Show answer. Press Space or Enter to toggle.'}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault(); // Prevent default space scroll
                           toggleAnswer();
                         }
                       }}
@@ -2251,7 +2319,7 @@
                       </div>
                       
                       <div className="flashcard-instruction">
-                        {!showAnswer ? 'Click to reveal answer' : 'Click to hide answer'}
+                        {!showAnswer ? 'Click or press Space/Enter to reveal answer' : 'Click or press Space/Enter to hide answer'}
                       </div>
                     </div>
                     
@@ -2259,8 +2327,8 @@
                       <button 
                         className="nav-btn prev"
                         onClick={prevCard}
-                        disabled={currentCardIndex === 0}
-                        aria-label="Previous card"
+                        // disabled={currentCardIndex === 0 && filteredCards.length > 0} // Keep disabled logic simple
+                        aria-label="Previous card (Left Arrow)"
                       >
                         <i className="fas fa-arrow-left"></i>
                         Previous
@@ -2268,20 +2336,20 @@
                       <button 
                         className="nav-btn next"
                         onClick={nextCard}
-                        aria-label="Next card"
+                        aria-label="Next card (Right Arrow)"
                       >
                         Next
                         <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
                   </>
-                ) : view === 'flashcards' ? (
+                ) : view === 'flashcards' ? ( // Handles empty filtered set
                   <div className="empty-state">
-                    <i className="fas fa-map"></i>
+                    <i className="fas fa-map"></i> {/* Changed icon */}
                     <h3>No flashcards found</h3>
-                    <p>Try changing your search or selection criteria</p>
+                    <p>No flashcards match your current selection.</p>
                     <button 
-                      className="nav-btn next"
+                      className="nav-btn next" // Themed button
                       onClick={goBackToSubtopics}
                       aria-label="Back to subtopics"
                     >
@@ -2289,23 +2357,22 @@
                       Back to Subtopics
                     </button>
                   </div>
-                ) : (
+                ) : ( // Initial empty state
                   <div className="empty-state">
-                    <i className="fas fa-globe"></i>
+                    <i className="fas fa-chalkboard-teacher"></i> {/* Changed icon */}
                     <h3>Select a topic to begin</h3>
-                    <p>Choose from the topics on the left to view flashcards</p>
+                    <p>Choose a topic and subtopic from the sidebar to view flashcards.</p>
                   </div>
                 )}
               </div>
             </div>
-          </div>
         </ErrorBoundary>
       );
     };
     
     ReactDOM.render(
       <GeographyFlashcardApp />,
-      document.getElementById('app-container')
+      document.getElementById('app-container') // Ensure this div exists in HTML body
     );
   </script>
 </body>
