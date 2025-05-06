@@ -680,7 +680,7 @@
             if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[4], 1) || subjectConfig.specLinkPlaceholder;
             const paper1Title = getVal(csvRows[7], 1); const paper2Title = getVal(csvRows[7], 5);
-            const paper3Title = subjectConfig.subjectSlug === 'mathematics' && subjectConfig.qualType === 'ALevel' ? getVal(csvRows[7], 9) : null;
+            const paper3Title = getVal(csvRows[7], 9);
             const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
             const p3PaperCol = 9, p3MsCol = 10; const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
