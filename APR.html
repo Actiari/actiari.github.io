@@ -34,8 +34,8 @@
             --base-subject-physics: #0b57d0;
             --base-subject-core-maths: var(--base-subject-maths);
 
-            /* Nav specific (can align with above if desired) */
-            --nav-bg: var(--color-surface-variant); /* Using existing dark variant */
+            /* Nav specific */
+            --nav-bg: var(--color-surface-variant);
             --nav-text: #ffffff;
             --nav-hover-bg: var(--color-primary-accent-generic);
             --nav-hover-text: var(--color-background);
@@ -54,18 +54,24 @@
             font-size: 16px;
         }
 
-        /* Navigation Styles (Adapted from code.txt) */
         .nav-container {
             background-color: var(--nav-bg);
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 0 20px; /* Removed top/bottom padding to make it slimmer */
-            position: sticky; /* Make nav sticky */
+            justify-content: center; 
+            padding: 0 20px;
+            position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px var(--color-shadow);
+        }
+        
+        .nav-menu-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 1400px;
         }
 
         .nav-menu {
@@ -84,7 +90,7 @@
             display: block;
             color: var(--nav-text);
             text-align: center;
-            padding: 14px 18px; /* Adjusted padding */
+            padding: 14px 18px;
             text-decoration: none;
             white-space: nowrap;
             transition: background-color 0.2s, color 0.2s;
@@ -94,36 +100,31 @@
 
         .nav-menu li a:hover,
         .nav-menu li a:focus,
-        .nav-menu li a.active-nav-link { /* Style for active link */
+        .nav-menu li a.active-nav-link {
             background-color: var(--nav-hover-bg);
             color: var(--nav-hover-text);
             outline: none;
         }
 
         .menu-toggle {
-            display: none; /* Hidden by default, shown in media query */
+            display: none;
             background: none;
             border: none;
             color: var(--nav-text);
             font-size: 24px;
             cursor: pointer;
-            padding: 10px 15px; /* Adjusted padding */
-            position: absolute; /* Position relative to nav-container */
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            padding: 10px 15px;
         }
         
-        .page-container { /* Renamed from #app-container to avoid conflict */
-            flex: 1; /* Allow content to grow */
-            padding: 0 20px; /* Horizontal padding */
-            max-width: 1200px;
-            margin: 20px auto; /* Centering and top/bottom margin */
+        .page-container {
+            flex: 1;
+            padding: 0 20px;
+            width: 100%;
+            margin: 20px auto;
         }
 
         .page-header { text-align: center; margin-bottom: 30px; }
         .page-header h1 { color: var(--color-primary-accent-generic); font-size: 2.2em; font-weight: 700; margin-bottom: 5px; }
-        /* .page-header .subtitle was removed */
 
         .global-selectors-container {
             background-color: var(--color-surface);
@@ -131,6 +132,8 @@
             border-radius: var(--border-radius);
             margin-bottom: 30px;
             box-shadow: 0 4px 15px var(--color-shadow);
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .selector-group { margin-bottom: 20px; }
@@ -158,7 +161,8 @@
         }
         
         .exam-board-content, .subject-accordion { display: none; }
-        .exam-board-content.active, .subject-accordion.active { display: block; }
+        .exam-board-content.active, .subject-accordion.active-subject { display: block; } /* Changed to active-subject for clarity */
+
 
         .initial-message { text-align: center; color: var(--color-text-secondary); font-size: 1.1em; padding: 30px 15px; }
 
@@ -171,7 +175,7 @@
         .subject-accordion {
             margin-bottom: 12px; border-radius: var(--border-radius);
             overflow: hidden; border: 1px solid var(--color-border);
-            --current-subject-accent: var(--base-subject-default); /* Default */
+            --current-subject-accent: var(--base-subject-default);
         }
         .subject-accordion[data-subject="geography"] { --current-subject-accent: var(--base-subject-geography); }
         .subject-accordion[data-subject="core-maths"] { --current-subject-accent: var(--base-subject-core-maths); }
@@ -258,7 +262,7 @@
         .paper-link { background-color: var(--current-subject-accent); color: #fff; border-color: var(--current-subject-accent); }
         .ms-link { background-color: transparent; color: var(--current-subject-accent); border: 1px solid var(--current-subject-accent); }
         .ms-link:hover { background-color: var(--current-subject-accent); color: #fff; }
-        .insert-link { background-color: #ffc107; color: var(--color-background); border-color: #ffc107;} /* Specific color for inserts */
+        .insert-link { background-color: #ffc107; color: var(--color-background); border-color: #ffc107;}
         .insert-link:hover { filter: brightness(0.9); }
         .formula-link { background-color: var(--color-primary-accent-generic); color: var(--color-background); border-color: var(--color-primary-accent-generic); }
 
@@ -267,32 +271,39 @@
         .placeholder-instruction a { color: var(--color-background); font-weight: 600; text-decoration: underline; }
         
         footer {
-            background-color: var(--nav-bg); /* Match nav background */
+            background-color: var(--nav-bg);
             color: var(--nav-text);
             text-align: center;
             padding: 20px 0;
             font-size: 0.9rem;
-            margin-top: auto; /* Push footer to bottom */
+            margin-top: auto;
         }
 
         @media screen and (max-width: 992px) {
+            .nav-container { justify-content: space-between; }
+            .nav-menu-wrapper { justify-content: flex-start; width: auto; /* Allow menu to not be full width when hamburger is active */ }
             .menu-toggle { display: block; }
             .nav-menu {
+                display: none; 
                 position: absolute; top: 100%; left: 0; right: 0;
                 background-color: var(--nav-bg);
-                flex-direction: column; max-height: 0;
-                overflow: hidden; transition: max-height 0.3s ease-out;
+                flex-direction: column;
+                overflow: hidden;
                 border-top: 1px solid var(--color-border);
+                max-height: 0;
+                transition: max-height 0.3s ease-out;
             }
-            .nav-menu.active { max-height: 500px; /* Adjust as needed */ }
+            .nav-menu.active {
+                display: flex;
+                max-height: 500px;
+            }
             .nav-menu li { width: 100%; }
             .nav-menu li a { padding: 12px 20px; text-align: left; }
         }
         @media (max-width: 768px) {
-            body { padding: 0; font-size:15px; } /* Remove body padding for full-width nav */
-            .nav-container { padding: 0 15px; /* Adjust padding for mobile nav */ }
-            .menu-toggle { right: 15px; }
-            .page-container { margin: 15px; padding: 0;} /* Adjust page container margin */
+            body { padding: 0; font-size:15px; }
+            .nav-container { padding: 0 15px; }
+            .page-container { margin: 15px; padding: 0;}
             .page-header h1 { font-size: 2em; }
             .global-selectors-container { padding: 15px; }
             .filter-tab { font-size: 0.95em; padding: 8px 14px; }
@@ -310,23 +321,22 @@
 </head>
 <body>
     <div class="nav-container">
+        <div class="nav-menu-wrapper">
+            <ul class="nav-menu">
+                <li><a href="PR.html">GCSE Past Papers</a></li>
+                <li><a href="APR.html">A Level Papers</a></li>
+                <li><a href="SPBE.html">Geography Flashcards</a></li>
+                <li><a href="BWT.html">Geography Case Studies</a></li>
+            </ul>
+        </div>
         <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
             <i class="fas fa-bars"></i>
         </button>
-        <ul class="nav-menu">
-            <!-- Navigation links will be dynamically updated by JS if needed, or hardcode current page -->
-            <!-- Example: <li><a href="APR.html" class="active-nav-link">A Level Papers</a></li> -->
-            <li><a href="#">Home (Example)</a></li>
-            <li><a href="#">GCSE Papers (Example)</a></li>
-            <li><a href="#" class="active-nav-link">A Level/BTEC Papers</a></li>
-            <li><a href="#">Flashcards (Example)</a></li>
-        </ul>
     </div>
 
     <div class="page-container">
         <header class="page-header">
             <h1>Past Papers Archive</h1>
-            <!-- Subtitle removed -->
         </header>
 
         <div class="global-selectors-container">
@@ -353,7 +363,6 @@
              <p class="initial-message">Loading data or select filters to begin.</p>
         </div>
 
-        <!-- Content Wrappers for each Exam Board - will be populated by JS -->
         <div class="exam-board-content" id="AQA-content-wrapper" data-board-id="AQA" role="tabpanel">
             <h3 class="exam-board-title">AQA Subjects</h3>
             <section id="AQA-subjects-list" class="subjects-list-container"></section>
@@ -378,7 +387,7 @@
     </footer>
 
     <script>
-    // Hamburger Menu Toggle
+    // Hamburger Menu Toggle & Active Nav Link
     document.addEventListener('DOMContentLoaded', function() {
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
@@ -398,12 +407,12 @@
                     menuToggle.setAttribute('aria-expanded', 'false');
                 }
             });
-
-            // Update current page nav link
-            const currentPage = window.location.pathname.split('/').pop();
-            if (currentPage) {
-                navMenu.querySelectorAll('a').forEach(link => {
-                    if (link.getAttribute('href') === currentPage) {
+            
+            const currentPageFilename = window.location.pathname.split('/').pop() || 'APR.html'; // Default to APR.html if path is /
+            if (currentPageFilename) {
+                const navLinks = document.querySelectorAll('.nav-menu a'); // Target more broadly
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPageFilename) {
                         link.classList.add('active-nav-link');
                     } else {
                         link.classList.remove('active-nav-link');
@@ -421,20 +430,28 @@
         const dataLoadingStatus = document.getElementById('data-loading-status');
         let activeQualificationFilter = 'all';
         let activeExamBoardFilter = null;
-        let allSubjectsData = []; // To store successfully loaded and parsed subject data
+        let allSubjectsData = [];
 
-        // Define subjects to attempt to load
         const subjectsToProcess = [
             // AQA
             { board: 'AQA', subjectName: 'Geography (A-Level)', subjectSlug: 'geography', qualType: 'ALevel', csvFile: 'DATA_AQA_Geography_ALevel.csv', parserType: 'AqaGeography' },
             { board: 'AQA', subjectName: 'Geography (AS-Level)', subjectSlug: 'geography', qualType: 'ASLevel', csvFile: 'DATA_AQA_Geography_ASLevel.csv', parserType: 'AqaGeography' },
             { board: 'AQA', subjectName: 'Core Maths', subjectSlug: 'core-maths', qualType: 'ALevel', csvFile: 'DATA_AQA_CoreMaths_ALevel.csv', parserType: 'AqaCoreMaths' },
-            { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_English_ALevel_Spec.pdf' }, // Example for future
+            { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_English_ALevel_Spec.pdf' },
+            { board: 'AQA', subjectName: 'English Language (AS-Level)', subjectSlug: 'english-language', qualType: 'ASLevel', csvFile: 'DATA_AQA_EnglishLanguage_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_English_ASLevel_Spec.pdf' },
+            { board: 'AQA', subjectName: 'Mathematics (A-Level)', subjectSlug: 'mathematics', qualType: 'ALevel', csvFile: 'DATA_AQA_Mathematics_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_Maths_ALevel_Spec.pdf' },
+            { board: 'AQA', subjectName: 'Mathematics (AS-Level)', subjectSlug: 'mathematics', qualType: 'ASLevel', csvFile: 'DATA_AQA_Mathematics_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_Maths_ASLevel_Spec.pdf' },
+            
             // Edexcel
             { board: 'Edexcel', subjectName: 'Applied Science (BTEC)', subjectSlug: 'applied-science', qualType: 'BTEC', csvFile: 'DATA_Edexcel_AppliedScience_BTEC.csv', parserType: 'EdexcelAppliedScience' },
             { board: 'Edexcel', subjectName: 'Business Studies (BTEC - PBF)', subjectSlug: 'business-studies', qualType: 'BTEC', csvFile: 'DATA_Edexcel_BusinessStudies_BTEC.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'Edexcel_Business_BTEC_Spec.pdf' },
+            { board: 'Edexcel', subjectName: 'Information Technology (BTEC - ISU)', subjectSlug: 'information-technology', qualType: 'BTEC', csvFile: 'DATA_Edexcel_InformationTechnology_BTEC.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'Edexcel_IT_BTEC_Spec.pdf' },
+            
             // OCR A
             { board: 'OCRA', subjectName: 'Chemistry (A-Level)', subjectSlug: 'chemistry', qualType: 'ALevel', csvFile: 'DATA_OCRA_Chemistry_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Chemistry_ALevel_Spec.pdf' },
+            { board: 'OCRA', subjectName: 'Chemistry (AS-Level)', subjectSlug: 'chemistry', qualType: 'ASLevel', csvFile: 'DATA_OCRA_Chemistry_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Chemistry_ASLevel_Spec.pdf' },
+            { board: 'OCRA', subjectName: 'Physics (A-Level)', subjectSlug: 'physics', qualType: 'ALevel', csvFile: 'DATA_OCRA_Physics_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Physics_ALevel_Spec.pdf' },
+            { board: 'OCRA', subjectName: 'Physics (AS-Level)', subjectSlug: 'physics', qualType: 'ASLevel', csvFile: 'DATA_OCRA_Physics_ASLevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'OCRA_Physics_ASLevel_Spec.pdf' },
         ];
 
         function simpleCSVParser(csvText) {
@@ -447,7 +464,7 @@
                     const char = line[i];
                     if (char === '"') {
                         inQuotes = !inQuotes;
-                        if (i + 1 < line.length && line[i+1] === '"') { // Handle "" as a single "
+                        if (i + 1 < line.length && line[i+1] === '"') {
                             currentCell += '"';
                             i++;
                         }
@@ -463,35 +480,20 @@
             });
         }
         
-        // --- Specific CSV Parsers ---
         function parseAqaGeographyCsv(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            let paperHeaders = {};
-            let resourceHeaderCol = -1;
             
             csvRows.forEach((row, rowIndex) => {
-                if (rowIndex === 1 && row[1] && row[1].includes('|')) subjectData.subjectName = row[1].split('|')[1].trim(); // Overwrite with CSV name if present
+                if (rowIndex === 1 && row[1] && row[1].includes('|')) subjectData.subjectName = row[1].split('|')[1].trim();
 
-                // Heuristic for header row (look for "Paper 1", "Resource")
-                if (row.some(cell => cell.toLowerCase().includes("paper 1")) && row.some(cell => cell.toLowerCase().includes("resource"))) {
-                    row.forEach((header, colIndex) => {
-                        const h = header.toLowerCase();
-                        if (h.includes("paper 1")) paperHeaders.p1_paper = colIndex;
-                        else if (h.includes("paper 2")) paperHeaders.p2_paper = colIndex;
-                        else if (h.includes("resource") && resourceHeaderCol === -1) resourceHeaderCol = colIndex;
-                    });
-                }
-                 // Column indices based on AQA Geography CSV
                 const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3;
                 const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
                 const resourceNameCol = 9, resourceLinkCol = 11;
 
-
-                // Data rows start after a few header/empty rows
-                if (rowIndex > 9 && row[0] && (row[p1PaperCol] || row[resourceNameCol])) { // Check for session year or resource name
+                if (rowIndex > 9 && row[0] && (row[p1PaperCol] || (row[resourceNameCol] && row[resourceNameCol].toLowerCase() !== 'n/a'))) {
                     const sessionName = row[0].trim();
 
-                    if (row[p1PaperCol] && row[p1PaperCol].startsWith('http')) { // Likely a paper session row
+                    if (row[p1PaperCol] && row[p1PaperCol].startsWith('http')) {
                         let session = subjectData.sessions.find(s => s.name === sessionName);
                         if (!session) {
                             session = { name: sessionName, papers: [] };
@@ -499,30 +501,29 @@
                         }
                         if (row[p1PaperCol]) {
                              session.papers.push({
-                                title: "Paper 1: Physical Geography", // From CSV structure
+                                title: "Paper 1: Physical Geography",
                                 paperLink: row[p1PaperCol],
                                 insertLink: (row[p1InsertCol] && row[p1InsertCol].toLowerCase() !== 'n/a') ? row[p1InsertCol] : null,
                                 msLink: row[p1MsCol]
                             });
                         }
-                        if (row[p2PaperCol]) {
+                        if (row[p2PaperCol] && row[p2PaperCol].startsWith('http')) {
                             session.papers.push({
-                                title: "Paper 2: Human Geography", // From CSV structure
+                                title: "Paper 2: Human Geography",
                                 paperLink: row[p2PaperCol],
                                 insertLink: (row[p2InsertCol] && row[p2InsertCol].toLowerCase() !== 'n/a') ? row[p2InsertCol] : null,
                                 msLink: row[p2MsCol]
                             });
                         }
-                    } else if (resourceHeaderCol !== -1 && row[resourceNameCol] && row[resourceLinkCol] && row[resourceLinkCol].startsWith('http')) {
-                        if (row[resourceNameCol].toLowerCase().includes("specification")) {
+                    } else if (row[resourceNameCol] && row[resourceLinkCol] && row[resourceLinkCol].startsWith('http') && row[resourceNameCol].toLowerCase() !== 'n/a') {
+                         if (row[resourceNameCol].toLowerCase().includes("specification")) {
                             subjectData.specLink = row[resourceLinkCol];
-                        } else if (row[resourceNameCol].toLowerCase() !== 'n/a') {
+                        } else {
                             subjectData.usefulResources.push({ name: row[resourceNameCol], link: row[resourceLinkCol] });
                         }
                     }
                 }
             });
-             // If spec link wasn't found in resources, use placeholder from config
             if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) {
                 subjectData.specLink = subjectConfig.specLinkPlaceholder;
             }
@@ -531,20 +532,28 @@
 
         function parseAqaCoreMathsCsv(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            let paperHeaders = {};
-             // Header indices
             const specLinkRow = 4, specLinkCol = 1;
-            const formulaSheetRow = 9, formulaSheetLinkCol = 10; // Approximate
+            const formulaSheetResourceCol = 9, formulaSheetLinkCol = 10; // CSV has "Formula Sheet" as Resource, then Link
             const p1PaperCol = 1, p1MsCol = 2;
             const p2PaperCol = 4, p2MsCol = 5;
 
-            if (csvRows[specLinkRow] && csvRows[specLinkRow][specLinkCol]) subjectData.specLink = csvRows[specLinkRow][specLinkCol];
-            if (csvRows[formulaSheetRow] && csvRows[formulaSheetRow][formulaSheetLinkCol] && csvRows[formulaSheetRow][formulaSheetLinkCol].startsWith('http')) {
-                 subjectData.usefulResources.push({ name: "Formula Sheet", link: csvRows[formulaSheetRow][formulaSheetLinkCol]});
+            if (csvRows[specLinkRow] && csvRows[specLinkRow][specLinkCol] && csvRows[specLinkRow][specLinkCol].startsWith('http')) {
+                subjectData.specLink = csvRows[specLinkRow][specLinkCol];
+            }
+            
+            // Find Formula Sheet by looking for "Formula Sheet" in resource column (9) and link in (10)
+            // This usually starts around row 9/10 in the Core Maths CSV
+            for(let i = 8; i < 12 && i < csvRows.length; i++) { // Search a few rows for it
+                 if (csvRows[i][formulaSheetResourceCol] && csvRows[i][formulaSheetResourceCol].toLowerCase().includes("formula sheet") && 
+                     csvRows[i][formulaSheetLinkCol] && csvRows[i][formulaSheetLinkCol].startsWith('http')) {
+                    subjectData.usefulResources.push({ name: csvRows[i][formulaSheetResourceCol], link: csvRows[i][formulaSheetLinkCol] });
+                    break; 
+                }
             }
             
             csvRows.forEach((row, rowIndex) => {
-                if (rowIndex > 9 && row[0] && row[p1PaperCol] && row[p1PaperCol].startsWith('http')) { // Data row
+                // Data rows for Core Maths start after the header rows, typically around index 10
+                if (rowIndex > 9 && row[0] && row[p1PaperCol] && row[p1PaperCol].startsWith('http')) {
                     const sessionName = row[0].trim();
                     let session = subjectData.sessions.find(s => s.name === sessionName);
                     if (!session) {
@@ -565,41 +574,50 @@
                     }
                 }
             });
-            if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) { // Fallback
+             if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) {
                 subjectData.specLink = subjectConfig.specLinkPlaceholder;
-            } else if (!subjectData.specLink) { // If still no spec link, try to find it in usefulResources
-                 const specResource = subjectData.usefulResources.find(r => r.name.toLowerCase().includes("specification"));
-                 if (specResource) subjectData.specLink = specResource.link;
             }
             return subjectData;
         }
 
         function parseEdexcelAppliedScienceCsv(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
-            const specLinkRow = 5, specLinkCol = 1; // Spec link is in row 6 (index 5)
-            const unitHeaderRow = 7; // Unit headers are in row 8 (index 7)
-            const paperMsHeaderRow = 9; // "Paper", "Mark Scheme" are in row 10 (index 9)
+            const specLinkRow = 5, specLinkCol = 1;
+            const unitHeaderRow = 7;
+            const paperMsHeaderRow = 9;
             const dataStartRow = 10;
 
-            if (csvRows[specLinkRow] && csvRows[specLinkRow][specLinkCol]) subjectData.specLink = csvRows[specLinkRow][specLinkCol];
+            if (csvRows[specLinkRow] && csvRows[specLinkRow][specLinkCol] && csvRows[specLinkRow][specLinkCol].startsWith('http')) {
+                 subjectData.specLink = csvRows[specLinkRow][specLinkCol];
+            }
 
-            let unitCols = {}; // To store column index for each unit's Paper/MS
+            let unitCols = {};
             const unitHeaders = csvRows[unitHeaderRow];
             const paperMsHeaders = csvRows[paperMsHeaderRow];
 
             unitHeaders.forEach((header, colIndex) => {
                 if (header && header.toLowerCase().includes("principles & applications")) {
-                    const unitName = header.substring(header.indexOf('-') + 1).trim(); // Extract "Biology", "Chemistry", "Physics"
+                    let unitNamePart = header.substring(header.indexOf('-') + 1).trim();
+                    if (unitNamePart.toLowerCase().includes("biology")) unitNamePart = "Biology";
+                    else if (unitNamePart.toLowerCase().includes("chemistry")) unitNamePart = "Chemistry";
+                    else if (unitNamePart.toLowerCase().includes("physics")) unitNamePart = "Physics";
+                    
                     if (paperMsHeaders[colIndex] && paperMsHeaders[colIndex].toLowerCase() === 'paper') {
-                        unitCols[unitName] = { paper: colIndex, ms: colIndex + 1 }; // Assume MS is next col
+                        unitCols[unitNamePart] = { paper: colIndex, ms: colIndex + 1 };
                     }
                 }
             });
 
             for (let i = dataStartRow; i < csvRows.length; i++) {
                 const row = csvRows[i];
-                const sessionName = row[row.length -1]; // Session year is typically the last column for data rows
-                if (!sessionName || !sessionName.trim()) continue;
+                let sessionName = "";
+                for (let j = row.length - 1; j >= 0; j--) { // Session name is in the last populated cell of data rows
+                    if (row[j] && row[j].trim()) {
+                        sessionName = row[j].trim();
+                        break;
+                    }
+                }
+                if (!sessionName) continue;
 
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if (!session) {
@@ -618,34 +636,31 @@
                     }
                 });
             }
-            if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) { // Fallback
+             if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) {
                 subjectData.specLink = subjectConfig.specLinkPlaceholder;
             }
             return subjectData;
         }
-        
+
         function parseGenericPaperMarkSchemeCsv(csvRows, subjectConfig) {
-            // A very basic parser for simpler "Session, Paper Title, Paper Link, MS Link, [Insert Link]" CSVs
-            // Assumes header is the first non-empty row and data follows.
-            // This needs to be adapted if your "generic" CSVs have more complex layouts.
             const subjectData = { ...subjectConfig, specLink: subjectConfig.specLinkPlaceholder, usefulResources: [], sessions: [] };
             let headerRowIndex = -1;
             let headers = [];
 
             for(let i=0; i<csvRows.length; i++) {
-                if (csvRows[i].some(cell => cell.trim() !== "")) {
+                if (csvRows[i].some(cell => cell && cell.trim() !== "")) { // Ensure cell is not null/undefined before trim
                     headerRowIndex = i;
-                    headers = csvRows[i].map(h => h.toLowerCase().trim());
+                    headers = csvRows[i].map(h => h ? h.toLowerCase().trim() : ""); // Handle null/undefined cells in header
                     break;
                 }
             }
-            if (headerRowIndex === -1) return subjectData; // No content
+            if (headerRowIndex === -1) return subjectData;
 
             const sessionCol = headers.indexOf("session") !== -1 ? headers.indexOf("session") : 0;
-            const titleCol = headers.indexOf("paper title") !== -1 ? headers.indexOf("paper title") : (headers.indexOf("title") !==-1 ? headers.indexOf("title") : 1);
-            const paperLinkCol = headers.indexOf("paper link") !== -1 ? headers.indexOf("paper link") : (headers.indexOf("paper") !==-1 ? headers.indexOf("paper") : 2);
+            const titleCol = headers.indexOf("paper title") !== -1 ? headers.indexOf("paper title") : (headers.indexOf("title") !==-1 ? headers.indexOf("title") : (headers.indexOf("paper") !==-1 ? headers.indexOf("paper") : 1));
+            const paperLinkCol = headers.indexOf("paper link") !== -1 ? headers.indexOf("paper link") : (headers.indexOf("link") !==-1 ? headers.indexOf("link") : 2);
             const msLinkCol = headers.indexOf("ms link") !== -1 ? headers.indexOf("ms link") : (headers.indexOf("mark scheme") !==-1 ? headers.indexOf("mark scheme") : 3);
-            const insertLinkCol = headers.indexOf("insert link") !== -1 ? headers.indexOf("insert link") : (headers.indexOf("insert") !== -1 ? headers.indexOf("insert") : 4); // Optional
+            const insertLinkCol = headers.indexOf("insert link") !== -1 ? headers.indexOf("insert link") : (headers.indexOf("insert") !== -1 ? headers.indexOf("insert") : 4);
 
             for (let i = headerRowIndex + 1; i < csvRows.length; i++) {
                 const row = csvRows[i];
@@ -660,14 +675,13 @@
                 session.papers.push({
                     title: row[titleCol] ? row[titleCol].trim() : "Paper",
                     paperLink: row[paperLinkCol],
-                    msLink: row[msLinkCol],
-                    insertLink: (insertLinkCol < row.length && row[insertLinkCol] && row[insertLinkCol].toLowerCase() !== 'n/a') ? row[insertLinkCol] : null
+                    msLink: row[msLinkCol] ? row[msLinkCol] : null, // Handle cases where MS link might be missing
+                    insertLink: (insertLinkCol < row.length && row[insertLinkCol] && row[insertLinkCol].toLowerCase() !== 'n/a' && row[insertLinkCol].startsWith('http')) ? row[insertLinkCol] : null
                 });
             }
             return subjectData;
         }
-
-
+        
         function generateSubjectHTML(subject) {
             const subjectAccordion = document.createElement('details');
             subjectAccordion.className = 'subject-accordion';
@@ -703,7 +717,6 @@
                                         ${paper.paperLink ? `<a href="${paper.paperLink}" class="doc-link paper-link" target="_blank">Paper</a>` : ''}
                                         ${paper.insertLink ? `<a href="${paper.insertLink}" class="doc-link insert-link" target="_blank">Insert</a>` : ''}
                                         ${paper.msLink ? `<a href="${paper.msLink}" class="doc-link ms-link" target="_blank">Mark Scheme</a>` : ''}
-                                        ${paper.formulaLink ? `<a href="${paper.formulaLink}" class="doc-link formula-link" target="_blank">Formula Sheet</a>` : ''}
                                     </div>
                                 </div>
                             `).join('')}
@@ -721,7 +734,7 @@
                     const response = await fetch(subjectConfig.csvFile);
                     if (!response.ok) {
                         console.warn(`Could not load ${subjectConfig.csvFile}: ${response.statusText}`);
-                        continue; // Skip this file
+                        continue;
                     }
                     const csvText = await response.text();
                     const csvRows = simpleCSVParser(csvText);
@@ -745,88 +758,87 @@
                             continue;
                     }
 
-                    if (parsedData && (parsedData.sessions.length > 0 || parsedData.specLink || parsedData.usefulResources.length > 0)) {
+                    if (parsedData && (parsedData.sessions.length > 0 || parsedData.specLink || (parsedData.usefulResources && parsedData.usefulResources.length > 0))) {
                         allSubjectsData.push(parsedData);
                         const subjectHTML = generateSubjectHTML(parsedData);
                         const container = document.getElementById(`${parsedData.board}-subjects-list`);
                         if (container) {
                             container.appendChild(subjectHTML);
                             filesLoadedCount++;
-                        } else {
-                            console.warn(`Container not found for board: ${parsedData.board}`);
                         }
                     }
                 } catch (error) {
                     console.error(`Error processing ${subjectConfig.csvFile}:`, error);
                 }
             }
-            if (filesLoadedCount > 0) {
-                 dataLoadingStatus.innerHTML = `<p>${filesLoadedCount} subject data file(s) loaded successfully. Use filters above.</p>`;
+             if (filesLoadedCount > 0) {
+                 dataLoadingStatus.innerHTML = `<p>${filesLoadedCount} subject data file(s) processed. Use filters above.</p>`;
+                 if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">Please select qualification and exam board to view subjects.</p>';
             } else {
-                 dataLoadingStatus.innerHTML = `<p>No subject data files found or loaded. Please check file names and locations.</p>`;
+                 dataLoadingStatus.innerHTML = `<p>No subject data files found or loaded. Please check file names, locations, and ensure they are correctly formatted.</p>`;
+                 if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">No data loaded. Check console for errors.</p>';
+
             }
-            updateVisibility(); // Initial filter application
+            updateVisibility();
         }
 
 
         function updateVisibility() {
-            let isAnyBoardVisibleForQual = false; // Checks if any board has content for the selected QUALIFICATION
+            let isAnyBoardVisibleForQual = false;
             
             examBoardTabs.forEach(boardTab => {
                 const boardId = boardTab.dataset.filterBoard;
                 const boardWrapper = document.getElementById(boardId + '-content-wrapper');
-                const subjectsInBoard = allSubjectsData.filter(s => s.board === boardId);
+                const subjectsInThisBoardFromData = allSubjectsData.filter(s => s.board === boardId);
                 let boardHasMatchingSubjectsForQual = false;
 
-                subjectsInBoard.forEach(subject => {
+                subjectsInThisBoardFromData.forEach(subject => {
                     if (activeQualificationFilter === 'all' || subject.qualType === activeQualificationFilter) {
                         boardHasMatchingSubjectsForQual = true;
                     }
                 });
 
-                if (boardHasMatchingSubjectsForQual) {
-                    boardTab.style.display = ''; 
-                    isAnyBoardVisibleForQual = true;
-                } else {
-                    boardTab.style.display = 'none';
-                    boardTab.classList.remove('active');
-                    boardTab.setAttribute('aria-selected', 'false');
-                    if (boardWrapper.classList.contains('active')) {
-                        boardWrapper.classList.remove('active');
+                if (boardWrapper) { // Ensure wrapper exists before trying to style it
+                    if (boardHasMatchingSubjectsForQual) {
+                        boardTab.style.display = ''; 
+                        isAnyBoardVisibleForQual = true;
+                    } else {
+                        boardTab.style.display = 'none';
+                        boardTab.classList.remove('active');
+                        boardTab.setAttribute('aria-selected', 'false');
+                        if (boardWrapper.classList.contains('active')) {
+                            boardWrapper.classList.remove('active');
+                        }
                     }
                 }
             });
             
-            // If current active exam board tab is now hidden, deselect it
             const currentActiveBoardTab = document.querySelector('#exam-board-selector .filter-tab.active');
             if (currentActiveBoardTab && currentActiveBoardTab.style.display === 'none') {
-                activeExamBoardFilter = null; // This will trigger showing initial message if needed
+                activeExamBoardFilter = null;
                 currentActiveBoardTab.classList.remove('active');
                 currentActiveBoardTab.setAttribute('aria-selected', 'false');
             }
 
-            // Show/hide subjects within the *currently selected* exam board
             if (activeExamBoardFilter) {
                 const activeBoardWrapper = document.getElementById(activeExamBoardFilter + '-content-wrapper');
                 if (activeBoardWrapper) {
-                    activeBoardWrapper.classList.add('active'); // Ensure the board wrapper is active
+                    activeBoardWrapper.classList.add('active');
                     const subjectAccordions = activeBoardWrapper.querySelectorAll('.subject-accordion');
                     let visibleSubjectsInActiveBoard = 0;
                     subjectAccordions.forEach(accordion => {
                         const subjectQualType = accordion.dataset.qualificationType;
                         if (activeQualificationFilter === 'all' || subjectQualType === activeQualificationFilter) {
-                            accordion.classList.add('active'); // This means it's visible due to JS logic, not CSS display:block
+                            accordion.classList.add('active-subject'); // Use class for visibility
                             visibleSubjectsInActiveBoard++;
                         } else {
-                            accordion.classList.remove('active');
+                            accordion.classList.remove('active-subject');
                         }
                     });
                     if(initialMessageContainer) initialMessageContainer.style.display = 'none';
 
+                    let noSubjectsMsg = activeBoardWrapper.querySelector('.no-subjects-message');
                     if (visibleSubjectsInActiveBoard === 0) {
-                        // If an exam board is selected, but has no items for the current qual filter
-                        // We might want a message *inside* the board wrapper here
-                        let noSubjectsMsg = activeBoardWrapper.querySelector('.no-subjects-message');
                         if (!noSubjectsMsg) {
                             noSubjectsMsg = document.createElement('p');
                             noSubjectsMsg.className = 'initial-message no-subjects-message';
@@ -835,13 +847,10 @@
                         noSubjectsMsg.textContent = `No subjects found for the selected qualification level in this exam board.`;
                         noSubjectsMsg.style.display = 'block';
                     } else {
-                        let noSubjectsMsg = activeBoardWrapper.querySelector('.no-subjects-message');
                         if (noSubjectsMsg) noSubjectsMsg.style.display = 'none';
                     }
-
-
                 }
-            } else { // No exam board is selected
+            } else {
                  document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
                  if (initialMessageContainer) {
                     initialMessageContainer.style.display = 'block';
@@ -861,13 +870,11 @@
                 tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
                 activeQualificationFilter = tab.dataset.filterQual;
                 
-                // When qualification changes, reset active exam board and hide all board content first
                 examBoardTabs.forEach(ebTab => { ebTab.classList.remove('active'); ebTab.setAttribute('aria-selected', 'false'); });
                 activeExamBoardFilter = null; 
                 document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
-                document.querySelectorAll('.exam-board-content .no-subjects-message').forEach(msg => msg.style.display = 'none');
-
-
+                const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
+                if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.style.display = 'none');
                 updateVisibility();
             });
         });
@@ -875,28 +882,25 @@
         examBoardTabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const newActiveBoard = tab.dataset.filterBoard;
-                if (activeExamBoardFilter === newActiveBoard) { // Clicking the already active board
+                if (activeExamBoardFilter === newActiveBoard && tab.classList.contains('active')) {
                     tab.classList.remove('active');
                     tab.setAttribute('aria-selected', 'false');
                     activeExamBoardFilter = null;
-                    document.getElementById(newActiveBoard + '-content-wrapper').classList.remove('active');
                 } else {
                     examBoardTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
                     tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
                     activeExamBoardFilter = newActiveBoard;
                 }
                 
-                // Hide all board content first, then updateVisibility will show the correct one
                 document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
-                document.querySelectorAll('.exam-board-content .no-subjects-message').forEach(msg => msg.style.display = 'none');
+                 const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
+                if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.style.display = 'none');
 
                 updateVisibility();
             });
         });
 
-        // Initial Load
         await loadAndDisplaySubjects();
-        // updateVisibility(); // Called at the end of loadAndDisplaySubjects
     });
     </script>
 </body>
