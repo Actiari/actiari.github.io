@@ -857,7 +857,7 @@
         }
         function parseOcrMultiPaperWithResources(csvRows, subjectConfig) {
             const subjectData = parseOcrMultiPaper(csvRows, subjectConfig); // Start with papers/ms parsing
-            const resourceNameCol = 10, resourceLinkCol = 12; // Fixed resource columns
+            const resourceNameCol = 10, resourceLinkCol = 11; // Changed resourceLinkCol from 12 to 11 for OCR Physics CSV
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i]; const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
                 if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
