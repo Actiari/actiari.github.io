@@ -3,586 +3,851 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AQA A-Level Geography (7037): Quick Guide</title>
+    <title>Past Papers Archive</title>
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS Variables for Theming */
         :root {
-            --bg-color: #f0f2f5;
-            --container-bg: #ffffff;
-            --text-color: #333;
-            --heading-color: #2c5d63;
-            --subheading-color: #4a7c59;
-            --border-color: #e0e0e0;
-            --table-header-bg: #e8f0eb;
-            --table-header-text: #3a6b4a;
-            --table-border-color: #d8e2dc;
-            --case-study-section-bg: #f9f9f9; /* Slightly different section bg */
-            --case-study-border: #d1d9e0; /* Slightly stronger border */
-            --case-study-list-bg: #fff;
-            --compulsory-color: #a0522d; /* Sienna */
-            --optional-color: #5f9ea0;  /* Cadet blue */
-            --key-number-color: #4682b4; /* Steel blue */
-            --key-concept-color: #2e8b57; /* Sea green */
-            --footer-text-color: #777;
-            --link-color: #2c5d63;
-            --box-shadow-color: rgba(0, 0, 0, 0.08);
-            --toggle-bg: #ddd;
-            --toggle-fg: #fff;
-            --toggle-btn-color: #333; /* Color for toggle text */
-            --arrow-color: #333;     /* Arrow/Back text color (light mode) */
+            /* Main Theme from Past Papers Archive */
+            --color-background: #1a1d21;
+            --color-surface: #252930;
+            --color-surface-variant: #31363f;
+            --color-surface-hover: #3c424c;
+            --color-primary-accent-generic: #00b8d4; /* For active tabs, nav hover */
+            --color-text-primary: #e8eaed;
+            --color-text-secondary: #b0b3b8;
+            --color-border: #40454c;
+            --color-shadow: rgba(0,0,0,0.3);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 8px; /* Consistent border radius */
 
-            /* Topic Colors (Light) */
-            --topic-water-carbon-color: #6495ED; /* CornflowerBlue */
-            --topic-global-color: #4682B4; /* SteelBlue */
-            --topic-places-color: #BC8F8F; /* RosyBrown */
-            --topic-hazards-color: #CD5C5C; /* IndianRed */
-            --topic-coasts-color: #D2B48C; /* Tan */
-            --topic-urban-color: #778899; /* LightSlateGray */
-            --topic-generic-optional-color: var(--optional-color);
-            --topic-generic-compulsory-color: var(--compulsory-color);
+            /* Subject Colors */
+            --base-subject-default: #5f6368;
+            --base-subject-maths: #4285f4;
+            --base-subject-english: #fbbc05;
+            --base-subject-geography: #34a853;
+            --base-subject-app-science: #9333ea;
+            --base-subject-business: #10b981;
+            --base-subject-it: #6366f1;
+            --base-subject-chemistry: #ea4335;
+            --base-subject-physics: #0b57d0;
+            --base-subject-core-maths: var(--base-subject-maths);
+
+            /* Nav specific */
+            --nav-bg: var(--color-surface-variant);
+            --nav-text: #ffffff;
+            --nav-hover-bg: var(--color-primary-accent-generic);
+            --nav-hover-text: var(--color-background);
         }
 
-        /* Define Dark Mode Variables within .dark-mode class */
-        body.dark-mode {
-            --bg-color: #1a1a1a;
-            --container-bg: #2a2a2a;
-            --text-color: #e0e0e0;
-            --heading-color: #88c0d0; /* Light blue-teal */
-            --subheading-color: #a3be8c; /* Light green */
-            --border-color: #444;
-            --table-header-bg: #3a3a3a;
-            --table-header-text: #a3be8c; /* Light green */
-            --table-border-color: #555;
-            --case-study-section-bg: #222; /* Darker section bg */
-            --case-study-border: #555; /* Darker border */
-            --case-study-list-bg: #383838;
-            --compulsory-color: #e59866; /* Lighter sienna */
-            --optional-color: #88c0d0;  /* Light blue-teal */
-            --key-number-color: #87ceeb; /* Sky blue */
-            --key-concept-color: #98fb98; /* Pale green */
-            --footer-text-color: #aaa;
-            --link-color: #88c0d0; /* Light blue-teal */
-            --box-shadow-color: rgba(0, 0, 0, 0.4);
-            --toggle-bg: #555;
-            --toggle-fg: #1a1a1a;
-            --toggle-btn-color: #e0e0e0; /* Color for toggle text */
-            --arrow-color: #e0e0e0;     /* Arrow/Back text color (dark mode) */
-
-            /* Topic Colors (Dark) */
-            --topic-water-carbon-color: #87CEFA; /* LightSkyBlue */
-            --topic-global-color: #B0C4DE; /* LightSteelBlue */
-            --topic-places-color: #FBC4AB; /* Light RosyBrown/Peach */
-            --topic-hazards-color: #FFA07A; /* LightSalmon */
-            --topic-coasts-color: #F5DEB3; /* Wheat */
-            --topic-urban-color: #B0C4DE; /* LightSteelBlue */
-            --topic-generic-optional-color: var(--optional-color);
-            --topic-generic-compulsory-color: var(--compulsory-color);
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
+            font-family: var(--font-main);
+            line-height: 1.6;
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: 16px;
+        }
+
+        .nav-container {
+            background-color: var(--nav-bg);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center nav items for wider screens */
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--color-shadow);
+        }
+        
+        .nav-menu-wrapper { /* Added wrapper for better control on wide screens */
+            display: flex;
+            justify-content: center; /* Center the menu itself */
+            width: 100%;
+            max-width: 1400px; /* Optional: max-width for very wide screens */
+        }
+
+
+        .nav-menu {
+            list-style-type: none;
+            display: flex;
+            align-items: center;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
-        h1, h2, h3 {
-            color: var(--heading-color);
-        }
-        h1 { text-align: center; margin-top: 30px; margin-bottom: 25px; padding-top: 40px; } /* Added padding-top */
-        h2 { border-bottom: 2px solid var(--heading-color); opacity: 0.8; padding-bottom: 8px; }
-        h3 { color: var(--subheading-color); }
-
-        .container {
-            max-width: 1300px;
-            margin: 20px auto;
-            background-color: var(--container-bg);
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px var(--box-shadow-color);
-            transition: background-color 0.3s;
-            position: relative;
-        }
-        .back-link { /* Changed class name */
-            position: fixed; /* Changed from absolute */
-            top: 15px; /* Adjust vertical position */
-            left: 15px; /* Adjust horizontal position */
-            color: #ffffff !important; /* FORCE WHITE TEXT */
-            background-color: var(--toggle-bg); /* Match toggle style */
-            text-decoration: none;
-            font-size: 0.9em; /* Adjusted size */
-            z-index: 1000;
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            display: inline-flex; /* Align arrow and text */
-            align-items: center;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-        .back-link .arrow { /* Style for arrow character */
-             font-size: 1.3em;
-             margin-right: 6px;
-             line-height: 1;
-             /* Arrow color will inherit from .back-link */
-        }
-        .back-link:hover {
-             opacity: 0.8;
         }
 
-        .section {
-            margin-bottom: 35px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .section:last-child { border-bottom: none; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.95em;
-            table-layout: fixed;
-        }
-        th, td {
-            border: 1px solid var(--table-border-color);
-            padding: 12px 15px;
-            text-align: left;
-            vertical-align: top;
-            word-wrap: break-word;
-        }
-        th {
-            background-color: var(--table-header-bg);
-            font-weight: bold;
-            color: var(--table-header-text);
-        }
-        .weighting-column, .marks-column { width: 12%; }
-        .format-column { width: 18%; }
-        .content-column { width: 58%; }
-        .requirements-column { width: 48%; }
-
-        .compulsory { font-weight: bold; color: var(--compulsory-color); }
-        .optional-choice { font-style: italic; color: var(--optional-color); }
-
-        /* Topic Color Classes - For text color in assessment table */
-        .assessment-table-topic.topic-water-carbon { color: var(--topic-water-carbon-color); }
-        .assessment-table-topic.topic-global { color: var(--topic-global-color); }
-        .assessment-table-topic.topic-places { color: var(--topic-places-color); }
-        .assessment-table-topic.topic-hazards { color: var(--topic-hazards-color); }
-        .assessment-table-topic.topic-coasts { color: var(--topic-coasts-color); }
-        .assessment-table-topic.topic-urban { color: var(--topic-urban-color); }
-        .assessment-table-topic.topic-hot-deserts,
-        .assessment-table-topic.topic-glacial,
-        .assessment-table-topic.topic-ecosystems,
-        .assessment-table-topic.topic-population,
-        .assessment-table-topic.topic-resources {
-             color: var(--topic-generic-optional-color);
-             font-style: normal;
-             font-weight: bold;
+        .nav-menu li {
+            margin: 0;
         }
 
-        .skills-list {
-            columns: 2;
-            -webkit-columns: 2;
-            -moz-columns: 2;
-            list-style-position: inside;
-            padding-left: 0;
-            margin-top: 15px;
-            font-size: 0.95em;
-        }
-        .skills-list li { margin-bottom: 6px; }
-
-        /* --- Case Study Section Styling --- */
-        .component-case-study-block {
-             background-color: var(--case-study-section-bg);
-             border: 1px solid var(--case-study-border);
-             border-top: 4px solid var(--heading-color);
-             border-radius: 5px;
-             margin-top: 30px;
-             margin-bottom: 30px;
-             overflow: hidden;
-        }
-        .component-case-study-block > h3 {
-             margin: 0;
-             padding: 15px 20px;
-             color: var(--subheading-color);
-             font-size: 1.2em;
-             font-weight: 600;
-             border-bottom: 1px solid var(--case-study-border);
-             background-color: rgba(0,0,0,0.02);
-        }
-         body.dark-mode .component-case-study-block > h3 {
-             background-color: rgba(255,255,255,0.03);
-         }
-
-        .topic-block {
-            padding: 20px;
-            border-top: 1px solid var(--border-color);
-            background-color: transparent;
-        }
-        .component-case-study-block > .topic-block:first-of-type {
-             border-top: none;
-        }
-        /* Apply specific background tints */
-        .topic-block-water-carbon { background-color: hsla(from var(--topic-water-carbon-color) h s l / 0.07); }
-        .topic-block-hazards { background-color: hsla(from var(--topic-hazards-color) h s l / 0.07); }
-        .topic-block-coasts { background-color: hsla(from var(--topic-coasts-color) h s l / 0.07); }
-        .topic-block-global { background-color: hsla(from var(--topic-global-color) h s l / 0.07); }
-        .topic-block-places { background-color: hsla(from var(--topic-places-color) h s l / 0.07); }
-        .topic-block-urban { background-color: hsla(from var(--topic-urban-color) h s l / 0.07); }
-
-
-        .topic-block h4 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: none;
-            font-size: 1.1em;
-            font-weight: 600;
-        }
-        /* Ensure H4 text color matches the topic color variable */
-        .topic-block-water-carbon h4 { color: var(--topic-water-carbon-color); }
-        .topic-block-hazards h4 { color: var(--topic-hazards-color); }
-        .topic-block-coasts h4 { color: var(--topic-coasts-color); }
-        .topic-block-global h4 { color: var(--topic-global-color); }
-        .topic-block-places h4 { color: var(--topic-places-color); }
-        .topic-block-urban h4 { color: var(--topic-urban-color); }
-
-        .case-study-list ul { list-style: none; padding-left: 0; margin-top: 0; }
-        .case-study-list li {
-            margin-bottom: 10px;
-            background-color: var(--case-study-list-bg);
-            padding: 10px 15px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border-left: none;
-        }
-        /* Make <li><strong> match topic color */
-        .topic-block-water-carbon li strong { color: var(--topic-water-carbon-color); }
-        .topic-block-hazards li strong { color: var(--topic-hazards-color); }
-        .topic-block-coasts li strong { color: var(--topic-coasts-color); }
-        .topic-block-global li strong { color: var(--topic-global-color); }
-        .topic-block-places li strong { color: var(--topic-places-color); }
-        .topic-block-urban li strong { color: var(--topic-urban-color); }
-
-
-        .spec-point {
-            font-size: 0.9em;
-            color: var(--text-color); opacity: 0.8;
-            margin-left: 10px;
-            font-style: italic;
+        .nav-menu li a {
             display: block;
-            margin-top: 4px;
-        }
-        .changing-places-intro { margin-bottom: 10px; padding-left: 0; }
-        .topic-block-places .changing-places-intro { margin-bottom: 15px; }
-
-        .footer {
+            color: var(--nav-text);
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: var(--footer-text-color);
+            padding: 14px 18px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 0.2s, color 0.2s;
+            font-weight: 500;
+            font-size: 0.95em;
         }
-         .footer a { color: var(--link-color); text-decoration: none; }
-         .footer a:hover { text-decoration: underline; }
 
-        .key-number { font-weight: bold; color: var(--key-number-color); }
-        .key-concept { font-weight: bold; color: var(--key-concept-color); }
+        .nav-menu li a:hover,
+        .nav-menu li a:focus,
+        .nav-menu li a.active-nav-link {
+            background-color: var(--nav-hover-bg);
+            color: var(--nav-hover-text);
+            outline: none;
+        }
 
-        /* Theme Toggle Button */
-        .theme-toggle-button {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            background-color: var(--toggle-bg);
-            color: var(--toggle-btn-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            border-radius: 20px;
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--nav-text);
+            font-size: 24px;
             cursor: pointer;
-            font-size: 0.9em;
-            z-index: 1000;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            padding: 10px 15px;
+            /* Position for mobile: will be handled by flex order */
         }
-        .theme-toggle-button:hover {
-             opacity: 0.8;
+        
+        .page-container {
+            flex: 1;
+            padding: 0 20px; /* Keep horizontal padding */
+            width: 100%; /* Take full width */
+            margin: 20px auto; /* Vertical margin, horizontal auto for centering if max-width is re-added */
+            /* max-width: 1200px; Removed for full width */
         }
 
+        .page-header { text-align: center; margin-bottom: 30px; }
+        .page-header h1 { color: var(--color-primary-accent-generic); font-size: 2.2em; font-weight: 700; margin-bottom: 5px; }
+
+        .global-selectors-container {
+            background-color: var(--color-surface);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px var(--color-shadow);
+            /* max-width: 1200px; Removed, will take width of parent */
+            margin-left: auto; /* Center if page-container has padding */
+            margin-right: auto; /* Center if page-container has padding */
+        }
+        
+        .selector-group { margin-bottom: 20px; }
+        .selector-group:last-child { margin-bottom: 0; }
+        .selector-group h2 {
+            font-size: 0.9em; color: var(--color-text-secondary);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 10px; padding-left: 5px;
+        }
+
+        .filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-tab {
+            padding: 10px 18px; background-color: var(--color-surface-variant);
+            color: var(--color-text-primary); border: none; border-radius: var(--border-radius);
+            cursor: pointer; font-size: 1em; font-weight: 500;
+            transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--color-border);
+        }
+        .filter-tab:hover { background-color: var(--color-surface-hover); }
+        .filter-tab.active {
+            background-color: var(--color-primary-accent-generic);
+            color: var(--color-background); font-weight: 600;
+            box-shadow: 0 0 10px rgba(0, 184, 212, 0.4);
+            border-color: var(--color-primary-accent-generic);
+        }
+        
+        .exam-board-content, .subject-accordion { display: none; }
+        .exam-board-content.active, .subject-accordion.active { display: block; }
+
+        .initial-message { text-align: center; color: var(--color-text-secondary); font-size: 1.1em; padding: 30px 15px; }
+
+        .exam-board-title {
+            color: var(--color-text-primary); margin-top: 20px; margin-bottom: 20px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--color-border);
+            font-size: 1.5em; font-weight: 600;
+        }
+
+        .subject-accordion {
+            margin-bottom: 12px; border-radius: var(--border-radius);
+            overflow: hidden; border: 1px solid var(--color-border);
+            --current-subject-accent: var(--base-subject-default);
+        }
+        .subject-accordion[data-subject="geography"] { --current-subject-accent: var(--base-subject-geography); }
+        .subject-accordion[data-subject="core-maths"] { --current-subject-accent: var(--base-subject-core-maths); }
+        .subject-accordion[data-subject="mathematics"] { --current-subject-accent: var(--base-subject-maths); }
+        .subject-accordion[data-subject="english-language"] { --current-subject-accent: var(--base-subject-english); }
+        .subject-accordion[data-subject="applied-science"] { --current-subject-accent: var(--base-subject-app-science); }
+        .subject-accordion[data-subject="business-studies"] { --current-subject-accent: var(--base-subject-business); }
+        .subject-accordion[data-subject="information-technology"] { --current-subject-accent: var(--base-subject-it); }
+        .subject-accordion[data-subject="chemistry"] { --current-subject-accent: var(--base-subject-chemistry); }
+        .subject-accordion[data-subject="physics"] { --current-subject-accent: var(--base-subject-physics); }
+
+        .subject-accordion > summary {
+            font-size: 1.2em; font-weight: 500; padding: 15px 20px 15px 35px;
+            background-color: var(--color-surface-variant); color: var(--color-text-primary);
+            cursor: pointer; list-style: none;
+            display: flex; justify-content: space-between; align-items: center;
+            position: relative; transition: background-color 0.2s ease-in-out;
+        }
+        .subject-accordion > summary::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 10px;
+            background-color: var(--current-subject-accent);
+        }
+        .subject-accordion > summary::-webkit-details-marker { display: none; }
+        .subject-accordion > summary .summary-text { flex-grow: 1; }
+        .subject-accordion > summary .accordion-icon {
+            font-size: 1.4em; color: var(--current-subject-accent);
+            transition: transform 0.2s ease-in-out; margin-left: 10px;
+        }
+        .subject-accordion[open] > summary {
+            background-color: var(--current-subject-accent); color: #fff;
+        }
+        .subject-accordion[open] > summary .accordion-icon {
+            transform: rotate(45deg); color: #fff;
+        }
+
+        .subject-content {
+            padding: 20px; background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .specifications-section, .useful-resources-section {
+            margin-bottom: 20px; padding-bottom: 15px;
+            border-bottom: 1px dashed var(--color-border);
+        }
+        .specifications-section:last-child, .useful-resources-section:last-child { border-bottom: none; margin-bottom: 10px;}
+        .specifications-section h3, .useful-resources-section h3 {
+            color: var(--current-subject-accent); font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        .spec-link {
+            display: inline-block; background-color: var(--color-surface-variant);
+            padding: 9px 16px; border-radius: var(--border-radius); text-decoration: none;
+            font-weight: 500; border: 1px solid var(--current-subject-accent);
+            color: var(--current-subject-accent);
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .spec-link:hover { background-color: var(--current-subject-accent); color: #fff; }
+
+        .useful-resources-section ul { list-style: none; padding-left: 0; }
+        .useful-resources-section li { margin-bottom: 8px; }
+        .useful-resources-section li a {
+            color: var(--color-text-primary); text-decoration: none; padding: 3px 0;
+            border-bottom: 1px dotted var(--current-subject-accent);
+            transition: color 0.2s, border-bottom-color 0.2s; word-break: break-all;
+        }
+        .useful-resources-section li a:hover { color: var(--current-subject-accent); border-bottom-style: solid; }
+
+        .exam-session-group { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--color-border); }
+        .exam-session-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .exam-session-title { font-size: 1.15em; color: var(--color-text-primary); margin-bottom: 15px; font-weight: 600; }
+
+        .exam-set { background-color: var(--color-surface-variant); padding: 15px; margin-bottom: 15px; border-radius: var(--border-radius); border-left: 4px solid var(--current-subject-accent); }
+        .exam-set-title { font-weight: 500; color: var(--color-text-primary); font-size: 1em; margin-bottom: 12px; }
+        .document-links { display: flex; flex-wrap: wrap; gap: 10px; }
+        .doc-link {
+            padding: 8px 14px; border-radius: var(--border-radius); text-decoration: none;
+            font-size: 0.9em; font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease, filter 0.2s;
+            text-align: center; min-width: 90px; display: inline-block;
+            border: 1px solid transparent;
+        }
+        .doc-link:hover { transform: translateY(-1px); filter: brightness(1.15); }
+
+        .paper-link { background-color: var(--current-subject-accent); color: #fff; border-color: var(--current-subject-accent); }
+        .ms-link { background-color: transparent; color: var(--current-subject-accent); border: 1px solid var(--current-subject-accent); }
+        .ms-link:hover { background-color: var(--current-subject-accent); color: #fff; }
+        .insert-link { background-color: #ffc107; color: var(--color-background); border-color: #ffc107;}
+        .insert-link:hover { filter: brightness(0.9); }
+        .formula-link { background-color: var(--color-primary-accent-generic); color: var(--color-background); border-color: var(--color-primary-accent-generic); }
+
+        .placeholder-instruction { background-color: #ffc107; color: var(--color-background); padding: 15px 20px; margin-top:30px; border-radius: var(--border-radius); text-align: center; font-size: 0.95em; }
+        .placeholder-instruction strong { font-size: 1.1em; display: block; margin-bottom: 5px; }
+        .placeholder-instruction a { color: var(--color-background); font-weight: 600; text-decoration: underline; }
+        
+        footer {
+            background-color: var(--nav-bg);
+            color: var(--nav-text);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        @media screen and (max-width: 992px) {
+            .nav-container { justify-content: space-between; /* Align menu toggle to one side */ }
+            .nav-menu-wrapper { justify-content: flex-start; /* Align menu to the left on mobile when open */ }
+            .menu-toggle { display: block; order: 1; /* Puts toggle after menu items for source order, but visually first */ }
+            .nav-menu {
+                display: none; /* Hidden by default on mobile */
+                position: absolute; top: 100%; left: 0; right: 0;
+                background-color: var(--nav-bg);
+                flex-direction: column;
+                overflow: hidden;
+                border-top: 1px solid var(--color-border);
+                max-height: 0;
+                transition: max-height 0.3s ease-out;
+            }
+            .nav-menu.active {
+                display: flex; /* Show when active */
+                max-height: 500px; /* Adjust as needed */
+            }
+            .nav-menu li { width: 100%; }
+            .nav-menu li a { padding: 12px 20px; text-align: left; }
+        }
+        @media (max-width: 768px) {
+            body { padding: 0; font-size:15px; }
+            .nav-container { padding: 0 15px; }
+            .page-container { margin: 15px; padding: 0;}
+            .page-header h1 { font-size: 2em; }
+            .global-selectors-container { padding: 15px; }
+            .filter-tab { font-size: 0.95em; padding: 8px 14px; }
+            .exam-board-title { font-size: 1.3em; }
+            .subject-accordion > summary { font-size: 1.1em; padding: 12px 15px 12px 30px; }
+            .subject-accordion > summary::before { width: 8px; }
+            .document-links { flex-direction: column; align-items: stretch; }
+            .doc-link { width: 100%; }
+        }
+        @media screen and (max-width: 576px) {
+            .page-header h1 { font-size: 1.7em; }
+            .filter-tab { font-size: 0.9em; padding: 7px 10px; }
+        }
     </style>
 </head>
 <body>
-
-<a href="https://actiari.github.io/index.html" class="back-link" title="Back to Home Page">
-    <span class="arrow">←</span> Back to Home Page
-</a>
-<button id="theme-toggle" class="theme-toggle-button">Toggle Theme</button>
-
-<div class="container">
-
-    <h1>AQA A-Level Geography (7037): Quick Guide</h1>
-
-    <div class="section" id="assessment">
-        <h2>Assessment Structure</h2>
-
-        <h3>Component 1: Physical Geography</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th class="weighting-column">Weighting</th>
-                    <th class="format-column">Format</th>
-                    <th class="marks-column">Marks</th>
-                    <th class="content-column">Content Breakdown</th>
-                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="weighting-column"><span class="key-number">40%</span> of A-Level</td>
-                    <td class="format-column">Written Exam:<br><span class="key-number">2 hrs 30 mins</span></td>
-                    <td class="marks-column"><span class="key-number">120</span></td>
-                    <td class="content-column">
-                        <ul>
-                            <li>Section A: <span class="compulsory"><span class="assessment-table-topic topic-water-carbon">Water and Carbon Cycles</span></span> (<span class="key-number">36 marks</span>)
-                                <span class="spec-point">Key concepts: Systems (inputs, outputs, stores, flows, feedback), global distribution, drainage basins, carbon budget, climate links.</span>
-                            </li>
-                            <li>Section B: <span class="optional-choice">Choose ONE</span> (<span class="key-number">36 marks</span>):
-                                <ul>
-                                    <li><span class="assessment-table-topic topic-hot-deserts">Hot Desert Systems and Landscapes</span> <span class="spec-point">Key concepts: Aridity index, energy/sediment budgets, aeolian/fluvial processes, desertification.</span></li>
-                                    <li><span class="assessment-table-topic topic-coasts">Coastal Systems and Landscapes</span> <span class="spec-point">Key concepts: Energy/sediment budgets, erosion/deposition processes, sea level change (e.g., last <span class="key-number">10,000</span> years), management.</span></li>
-                                    <li><span class="assessment-table-topic topic-glacial">Glacial Systems and Landscapes</span> <span class="spec-point">Key concepts: Budgets, cold environments, glacial/fluvioglacial/periglacial processes, Pleistocene impacts.</span></li>
-                                </ul>
-                            </li>
-                            <li>Section C: <span class="optional-choice">Choose ONE</span> (<span class="key-number">48 marks</span>):
-                                <ul>
-                                    <li><span class="assessment-table-topic topic-hazards">Hazards</span> <span class="spec-point">Key concepts: Perception, responses (<span class="key-concept">Park Model</span>, <span class="key-concept">Hazard Management Cycle</span>), plate tectonics, specific hazard processes (volcanic, seismic, storm, fire).</span></li>
-                                    <li><span class="assessment-table-topic topic-ecosystems">Ecosystems under Stress</span> <span class="spec-point">Key concepts: Biodiversity, succession (<span class="key-concept">climatic climax</span>, <span class="key-concept">plagioclimax</span>), nutrient cycling, biome characteristics, sustainability.</span></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Component 2: Human Geography</h3>
-         <table>
-             <thead>
-                 <tr>
-                    <th class="weighting-column">Weighting</th>
-                    <th class="format-column">Format</th>
-                    <th class="marks-column">Marks</th>
-                    <th class="content-column">Content Breakdown</th>
-                </tr>
-             </thead>
-             <tbody>
-                 <tr>
-                    <td class="weighting-column"><span class="key-number">40%</span> of A-Level</td>
-                    <td class="format-column">Written Exam:<br><span class="key-number">2 hrs 30 mins</span></td>
-                    <td class="marks-column"><span class="key-number">120</span></td>
-                    <td class="content-column">
-                        <ul>
-                            <li>Section A: <span class="compulsory"><span class="assessment-table-topic topic-global">Global Systems and Global Governance</span></span> (<span class="key-number">36 marks</span>)
-                                <span class="spec-point">Key concepts: Globalisation dimensions (flows, TNCs), interdependence, inequalities, global commons governance (esp. Antarctica), trade patterns.</span>
-                            </li>
-                            <li>Section B: <span class="compulsory"><span class="assessment-table-topic topic-places">Changing Places</span></span> (<span class="key-number">36 marks</span>)
-                                <span class="spec-point">Key concepts: Place meaning (insider/outsider), representation, endogenous/exogenous factors, shifting flows, demographic/cultural/economic change.</span>
-                            </li>
-                            <li>Section C: <span class="optional-choice">Choose ONE</span> (<span class="key-number">48 marks</span>):
-                                <ul>
-                                    <li><span class="assessment-table-topic topic-urban">Contemporary Urban Environments</span> <span class="spec-point">Key concepts: Urbanisation trends (esp. post-<span class="key-number">1945</span>), world/megacities, urban forms/processes (segregation, inequality, SUDs, UHI), sustainability (<span class="key-concept">ecological footprint</span>, <span class="key-concept">liveability</span>).</span></li>
-                                    <li><span class="assessment-table-topic topic-population">Population and the Environment</span> <span class="spec-point">Key concepts: Population dynamics (<span class="key-concept">DTM</span>), distribution/density, migration, food security, health/disease patterns, resources (<span class="key-concept">Malthus</span>/<span class="key-concept">Boserup</span>).</span></li>
-                                    <li><span class="assessment-table-topic topic-resources">Resource Security</span> <span class="spec-point">Key concepts: Resource classification, peak resources, geopolitics, water/energy/mineral security, sustainability (<span class="key-concept">EIA</span>), supply/demand management.</span></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-             </tbody>
-        </table>
-
-        <h3>Component 3: Geography Fieldwork Investigation (NEA)</h3>
-         <table>
-             <thead>
-                 <tr>
-                     <th class="weighting-column">Weighting</th>
-                     <th class="format-column">Format</th>
-                     <th class="marks-column">Word Count</th>
-                     <th class="marks-column">Marks</th>
-                     <th class="requirements-column">Key Requirements</th>
-                 </tr>
-             </thead>
-             <tbody>
-                <tr>
-                    <td class="weighting-column"><span class="key-number">20%</span> of A-Level</td>
-                    <td class="format-column">Independent Investigation (NEA)</td>
-                    <td class="marks-column"><span class="key-number">3,000 - 4,000</span> words</td>
-                    <td class="marks-column"><span class="key-number">60</span></td>
-                    <td class="requirements-column">
-                        <ul>
-                            <li>Independent question/issue defined by student, linked to specification.</li>
-                            <li>Must include primary field data.</li>
-                            <li>Independent analysis, interpretation, evaluation, write-up.</li>
-                            <li>Requires understanding of methods, ethics, limitations.</li>
-                        </ul>
-                    </td>
-                </tr>
-             </tbody>
-        </table>
+    <div class="nav-container">
+        <div class="nav-menu-wrapper"> <!-- Wrapper for centering nav items -->
+            <ul class="nav-menu">
+                <li><a href="PR.html">GCSE Past Papers</a></li>
+                <li><a href="APR.html">A Level Papers</a></li>
+                <li><a href="SPBE.html">Geography Flashcards</a></li>
+                <li><a href="BWT.html">Geography Case Studies</a></li>
+            </ul>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
 
-    <div class="section" id="skills">
-        <h2>Geographical Skills Checklist</h2>
-        <p>Competence needed in <span class="key-concept">qualitative</span> and <span class="key-concept">quantitative</span> skills, including:</p>
-        <ul class="skills-list">
-            <li>Cartographic Skills</li>
-            <li>Graphical Skills</li>
-            <li>Statistical Skills (Descriptive & Inferential - e.g., <span class="key-concept">Spearman's Rank</span>, <span class="key-concept">Chi-Square</span>)</li>
-            <li>ICT Skills (GIS, databases, presentation)</li>
-            <li>Use & Annotation of Visuals</li>
-            <li>Literacy & Numeracy Application</li>
-            <li>Qualitative Data Collection & Analysis</li>
-            <li>Understanding 'Big Data' & Crowd-Sourcing</li>
-            <li>Use of Remotely Sensed Data</li>
-            <li>Ethical Considerations</li>
-            <li>Evaluation of Data/Methods</li>
-        </ul>
-    </div>
+    <div class="page-container">
+        <header class="page-header">
+            <h1>Past Papers Archive</h1>
+        </header>
 
-    <div class="section" id="casestudies">
-        <h2>Case Study Checklist</h2>
-
-         <div class="component-case-study-block">
-            <h3>Component 1: Physical Geography</h3>
-
-            <div class="topic-block topic-block-water-carbon">
-                <h4>Water and Carbon Cycles</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Tropical Rainforest:</strong> Example needed for cycles, impacts, change.</li>
-                        <li><strong>River Catchment (Local Scale):</strong> Example needed for processes, potentially linking to field data, flooding, supply.</li>
-                    </ul>
+        <div class="global-selectors-container">
+            <div class="selector-group">
+                <h2>Select Qualification Level</h2>
+                <div class="filter-tabs" id="qualification-selector" role="tablist" aria-label="Qualification Levels">
+                    <button class="filter-tab active" data-filter-qual="all" role="tab" aria-selected="true">All</button>
+                    <button class="filter-tab" data-filter-qual="ALevel" role="tab" aria-selected="false">A-Levels</button>
+                    <button class="filter-tab" data-filter-qual="ASLevel" role="tab" aria-selected="false">AS-Levels</button>
+                    <button class="filter-tab" data-filter-qual="BTEC" role="tab" aria-selected="false">BTECs</button>
                 </div>
             </div>
-
-            <div class="topic-block topic-block-hazards">
-                <h4>Hazards</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Volcanoes:</strong> Examples of recent events (e.g., Mt Etna, Mt Merapi, Eyjafjallajökull, Montserrat).</li>
-                        <li><strong>Seismic:</strong> Example of recent event (e.g., Haiti 2010). Includes Tsunami (e.g., Boxing Day 2004).</li>
-                        <li><strong>Storms:</strong> Two recent tropical storms in contrasting areas (e.g., Cyclone Nargis & Hurricane Katrina).</li>
-                        <li><strong>Wildfire:</strong> Example of recent event (e.g., Alberta or California).</li>
-                        <li><strong>Multi-Hazardous Environment:</strong> One example beyond UK (e.g., Tohoku, Japan or Philippines).</li>
-                        <li><strong>Local Scale Hazard:</strong> One UK example for physical nature & community response.</li>
-                    </ul>
+            <div class="selector-group">
+                <h2>Select Exam Board</h2>
+                <div class="filter-tabs" id="exam-board-selector" role="tablist" aria-label="Exam Boards">
+                    <button class="filter-tab" data-filter-board="AQA" role="tab" aria-selected="false" aria-controls="AQA-content-wrapper">AQA</button>
+                    <button class="filter-tab" data-filter-board="Edexcel" role="tab" aria-selected="false" aria-controls="Edexcel-content-wrapper">Edexcel</button>
+                    <button class="filter-tab" data-filter-board="OCRA" role="tab" aria-selected="false" aria-controls="OCRA-content-wrapper">OCR A</button>
                 </div>
             </div>
+        </div>
 
-             <div class="topic-block topic-block-coasts">
-                <h4>Coastal Systems and Landscapes</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Coastal Environment (Local Scale):</strong> UK Example(s) for processes, landforms, management (e.g., Holderness Coast).</li>
-                        <li><strong>Contrasting Coastal Landscape (Beyond UK):</strong> Example for risks, opportunities, management (e.g., Odisha, India).</li>
-                    </ul>
-                </div>
-            </div>
-             <!-- Note: Case studies for Hot Deserts, Glaciers, Ecosystems are also required if chosen -->
-         </div>
+        <div id="initial-message-container">
+             <p class="initial-message">Loading data or select filters to begin.</p>
+        </div>
 
-        <div class="component-case-study-block">
-            <h3>Component 2: Human Geography</h3>
+        <div class="exam-board-content" id="AQA-content-wrapper" data-board-id="AQA" role="tabpanel">
+            <h3 class="exam-board-title">AQA Subjects</h3>
+            <section id="AQA-subjects-list" class="subjects-list-container"></section>
+        </div>
+        <div class="exam-board-content" id="Edexcel-content-wrapper" data-board-id="Edexcel" role="tabpanel">
+            <h3 class="exam-board-title">Edexcel Subjects</h3>
+            <section id="Edexcel-subjects-list" class="subjects-list-container"></section>
+        </div>
+        <div class="exam-board-content" id="OCRA-content-wrapper" data-board-id="OCRA" role="tabpanel">
+            <h3 class="exam-board-title">OCR A Subjects</h3>
+            <section id="OCRA-subjects-list" class="subjects-list-container"></section>
+        </div>
 
-             <div class="topic-block topic-block-global">
-                <h4>Global Systems and Global Governance</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Antarctica:</strong> Required study as global common (threats, governance - ATS, UNEP, IWC, NGOs).</li>
-                        <li><strong>Global Trade:</strong> Example of at least one food commodity OR one manufacturing product.</li>
-                        <li><strong>TNC Study:</strong> Detailed reference to a specified TNC.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="topic-block topic-block-places">
-                <h4>Changing Places</h4>
-                 <p class="changing-places-intro">Requires study of your local place AND at least one contrasting distant place, focusing on lived experience and EITHER changing demographics/culture OR economic change/inequalities.</p>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Place Examples:</strong> <em>(Illustrative themes - your chosen local/contrasting places are key)</em>
-                            <ul>
-                                <li><strong>Meaning/Representation:</strong> Ground Zero (NYC), Stonehenge/Glastonbury.</li>
-                                <li><strong>Economic Change/Inequality:</strong> Detroit, Plymouth.</li>
-                                <li><strong>Regeneration/Rebranding:</strong> London Olympics, Llandudno, Medellin.</li>
-                                <li><strong>External Forces:</strong> Bourneville (TNC impact), Devonport (Govt. policy).</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-             <div class="topic-block topic-block-urban">
-                <h4>Contemporary Urban Environments</h4>
-                <div class="case-study-list">
-                    <ul>
-                        <li><strong>Contrasting Urban Areas:</strong> Two contrasting urban area case studies needed (e.g., varying size, development level) for themes like well-being, environment, sustainability.</li>
-                        <li><strong>Urban Drainage:</strong> Example of SUDs implementation.</li>
-                        <li><strong>River Restoration:</strong> Example of a specific project.</li>
-                        <li><strong>Waste Management:</strong> Comparison of incineration vs landfill in specified area.</li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Note: Case studies for Population/Environment and Resource Security are also required if chosen -->
+        <div class="placeholder-instruction" id="data-loading-status" style="margin-top: 40px;">
+            <p>Please ensure CSV files are named correctly and placed in the root directory.</p>
         </div>
     </div>
 
-    <div class="footer">
-        <p>Based on AQA A-Level Geography (7037) Specification Version 1.2 (September 2019). Always refer to the official <a href="https://www.aqa.org.uk/subjects/geography/a-level/geography-7037/specification/specification-at-a-glance" target="_blank" rel="noopener noreferrer">AQA specification</a> for definitive details.</p>
-    </div>
+    <footer>
+        <p>Content sourced from publicly available educational materials. Please verify with official exam board websites.</p>
+        <p>Icons by Font Awesome. Fonts by Google Fonts.</p>
+    </footer>
 
-</div>
+    <script>
+    // Hamburger Menu Toggle & Active Nav Link
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
 
-<script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const backLink = document.querySelector('.back-link'); // Get the back link
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isExpanded = navMenu.classList.toggle('active');
+                this.setAttribute('aria-expanded', isExpanded.toString());
+            });
 
-    // Function to apply theme based on localStorage or default to dark
-    function applyTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        // Default to dark if no theme saved OR if saved theme is dark
-        if (savedTheme === 'dark' || !savedTheme) {
-            body.classList.add('dark-mode');
-            themeToggle.textContent = 'Light Mode';
-            // No need to explicitly set localStorage here, only on toggle
-        } else {
-            body.classList.remove('dark-mode');
-            themeToggle.textContent = 'Dark Mode';
+            document.addEventListener('click', function(event) {
+                if (navMenu.classList.contains('active') &&
+                    !navMenu.contains(event.target) &&
+                    !menuToggle.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Highlight active nav link
+            const currentPageFilename = window.location.pathname.split('/').pop();
+            if (currentPageFilename) {
+                const navLinks = navMenu.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPageFilename) {
+                        link.classList.add('active-nav-link');
+                    } else {
+                        link.classList.remove('active-nav-link');
+                    }
+                });
+            }
         }
-    }
-
-    // Apply theme on initial load
-    applyTheme();
-
-    // Toggle theme on button click
-    themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        let theme = 'light';
-        if (body.classList.contains('dark-mode')) {
-            theme = 'dark';
-            themeToggle.textContent = 'Light Mode';
-        } else {
-             themeToggle.textContent = 'Dark Mode';
-        }
-        localStorage.setItem('theme', theme);
     });
 
-     // Optional: Hide back link if there's no history to go back to
-     // if (window.history.length <= 1) {
-         // backLink.style.display = 'none';
-     // }
+    // CSV Data Loading and UI Logic (Keep existing JS from previous response)
+    document.addEventListener('DOMContentLoaded', async function () {
+        const qualificationTabs = document.querySelectorAll('#qualification-selector .filter-tab');
+        const examBoardTabs = document.querySelectorAll('#exam-board-selector .filter-tab');
+        const initialMessageContainer = document.getElementById('initial-message-container');
+        const dataLoadingStatus = document.getElementById('data-loading-status');
+        let activeQualificationFilter = 'all';
+        let activeExamBoardFilter = null;
+        let allSubjectsData = [];
 
-</script>
+        const subjectsToProcess = [
+            { board: 'AQA', subjectName: 'Geography (A-Level)', subjectSlug: 'geography', qualType: 'ALevel', csvFile: 'DATA_AQA_Geography_ALevel.csv', parserType: 'AqaGeography' },
+            { board: 'AQA', subjectName: 'Geography (AS-Level)', subjectSlug: 'geography', qualType: 'ASLevel', csvFile: 'DATA_AQA_Geography_ASLevel.csv', parserType: 'AqaGeography' },
+            { board: 'AQA', subjectName: 'Core Maths', subjectSlug: 'core-maths', qualType: 'ALevel', csvFile: 'DATA_AQA_CoreMaths_ALevel.csv', parserType: 'AqaCoreMaths' },
+            { board: 'Edexcel', subjectName: 'Applied Science (BTEC)', subjectSlug: 'applied-science', qualType: 'BTEC', csvFile: 'DATA_Edexcel_AppliedScience_BTEC.csv', parserType: 'EdexcelAppliedScience' },
+            // Add other subject configs here as you create their CSVs
+            // { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'GenericPaperMarkScheme', specLinkPlaceholder: 'AQA_English_ALevel_Spec.pdf' },
+        ];
 
+        function simpleCSVParser(csvText) {
+            const lines = csvText.trim().split(/\r?\n/);
+            return lines.map(line => {
+                const cells = [];
+                let currentCell = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                        if (i + 1 < line.length && line[i+1] === '"') {
+                            currentCell += '"';
+                            i++;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        cells.push(currentCell.trim());
+                        currentCell = '';
+                    } else {
+                        currentCell += char;
+                    }
+                }
+                cells.push(currentCell.trim());
+                return cells;
+            });
+        }
+        
+        function parseAqaGeographyCsv(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
+            let paperHeaders = {};
+            let resourceHeaderCol = -1;
+            
+            csvRows.forEach((row, rowIndex) => {
+                if (rowIndex === 1 && row[1] && row[1].includes('|')) subjectData.subjectName = row[1].split('|')[1].trim();
+
+                const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3;
+                const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
+                const resourceNameCol = 9, resourceLinkCol = 11; // Assuming these are fixed for this CSV type
+
+                if (rowIndex > 9 && row[0] && (row[p1PaperCol] || (row[resourceNameCol] && row[resourceNameCol].toLowerCase() !== 'n/a'))) {
+                    const sessionName = row[0].trim();
+
+                    if (row[p1PaperCol] && row[p1PaperCol].startsWith('http')) {
+                        let session = subjectData.sessions.find(s => s.name === sessionName);
+                        if (!session) {
+                            session = { name: sessionName, papers: [] };
+                            subjectData.sessions.push(session);
+                        }
+                        if (row[p1PaperCol]) {
+                             session.papers.push({
+                                title: "Paper 1: Physical Geography",
+                                paperLink: row[p1PaperCol],
+                                insertLink: (row[p1InsertCol] && row[p1InsertCol].toLowerCase() !== 'n/a') ? row[p1InsertCol] : null,
+                                msLink: row[p1MsCol]
+                            });
+                        }
+                        if (row[p2PaperCol] && row[p2PaperCol].startsWith('http')) {
+                            session.papers.push({
+                                title: "Paper 2: Human Geography",
+                                paperLink: row[p2PaperCol],
+                                insertLink: (row[p2InsertCol] && row[p2InsertCol].toLowerCase() !== 'n/a') ? row[p2InsertCol] : null,
+                                msLink: row[p2MsCol]
+                            });
+                        }
+                    } else if (row[resourceNameCol] && row[resourceLinkCol] && row[resourceLinkCol].startsWith('http') && row[resourceNameCol].toLowerCase() !== 'n/a') {
+                         if (row[resourceNameCol].toLowerCase().includes("specification")) {
+                            subjectData.specLink = row[resourceLinkCol];
+                        } else {
+                            subjectData.usefulResources.push({ name: row[resourceNameCol], link: row[resourceLinkCol] });
+                        }
+                    }
+                }
+            });
+            if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) {
+                subjectData.specLink = subjectConfig.specLinkPlaceholder;
+            }
+            return subjectData;
+        }
+
+        function parseAqaCoreMathsCsv(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
+            const specLinkRow = 4, specLinkCol = 1; // From CSV structure
+            const formulaSheetRow = 9, formulaSheetLinkCol = 10; // From CSV (Resource -> Link)
+            const p1PaperCol = 1, p1MsCol = 2;
+            const p2PaperCol = 4, p2MsCol = 5;
+
+            if (csvRows[specLinkRow] && csvRows[specLinkRow][specLinkCol] && csvRows[specLinkRow][specLinkCol].startsWith('http')) {
+                subjectData.specLink = csvRows[specLinkRow][specLinkCol];
+            }
+
+            // Check for Formula Sheet in the resource section (row 10, col 9 (Resource) and col 11 (Link))
+            // The CSV has "Formula Sheet" in column 9 of row 10 (index 9)
+            // and its link in column 11 of row 10 (index 9)
+            if (csvRows.length > 9 && csvRows[9][9] && csvRows[9][9].toLowerCase().includes("formula sheet") && csvRows[9][10] && csvRows[9][10].startsWith('http')) {
+                 subjectData.usefulResources.push({ name: csvRows[9][9], link: csvRows[9][10] });
+            }
+            
+            csvRows.forEach((row, rowIndex) => {
+                if (rowIndex > 9 && row[0] && row[p1PaperCol] && row[p1PaperCol].startsWith('http')) {
+                    const sessionName = row[0].trim();
+                    let session = subjectData.sessions.find(s => s.name === sessionName);
+                    if (!session) {
+                        session = { name: sessionName, papers: [] };
+                        subjectData.sessions.push(session);
+                    }
+                    session.papers.push({
+                        title: "Paper 1",
+                        paperLink: row[p1PaperCol],
+                        msLink: row[p1MsCol]
+                    });
+                    if (row[p2PaperCol] && row[p2PaperCol].startsWith('http')) {
+                        session.papers.push({
+                            title: "Paper 2A: Statistical Techniques",
+                            paperLink: row[p2PaperCol],
+                            msLink: row[p2MsCol]
+                        });
+                    }
+                }
+            });
+             if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) {
+                subjectData.specLink = subjectConfig.specLinkPlaceholder;
+            }
+            return subjectData;
+        }
+
+        function parseEdexcelAppliedScienceCsv(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
+            const specLinkRow = 5, specLinkCol = 1;
+            const unitHeaderRow = 7;
+            const paperMsHeaderRow = 9;
+            const dataStartRow = 10;
+
+            if (csvRows[specLinkRow] && csvRows[specLinkRow][specLinkCol] && csvRows[specLinkRow][specLinkCol].startsWith('http')) {
+                 subjectData.specLink = csvRows[specLinkRow][specLinkCol];
+            }
+
+            let unitCols = {};
+            const unitHeaders = csvRows[unitHeaderRow];
+            const paperMsHeaders = csvRows[paperMsHeaderRow];
+
+            unitHeaders.forEach((header, colIndex) => {
+                if (header && header.toLowerCase().includes("principles & applications")) {
+                    let unitNamePart = header.substring(header.indexOf('-') + 1).trim();
+                    // Extract just "Biology", "Chemistry", "Physics"
+                    if (unitNamePart.toLowerCase().includes("biology")) unitNamePart = "Biology";
+                    else if (unitNamePart.toLowerCase().includes("chemistry")) unitNamePart = "Chemistry";
+                    else if (unitNamePart.toLowerCase().includes("physics")) unitNamePart = "Physics";
+                    
+                    if (paperMsHeaders[colIndex] && paperMsHeaders[colIndex].toLowerCase() === 'paper') {
+                        unitCols[unitNamePart] = { paper: colIndex, ms: colIndex + 1 };
+                    }
+                }
+            });
+
+            for (let i = dataStartRow; i < csvRows.length; i++) {
+                const row = csvRows[i];
+                // Session name is the last non-empty cell in data rows for this CSV type
+                let sessionName = "";
+                for (let j = row.length - 1; j >= 0; j--) {
+                    if (row[j] && row[j].trim()) {
+                        sessionName = row[j].trim();
+                        break;
+                    }
+                }
+                if (!sessionName) continue;
+
+
+                let session = subjectData.sessions.find(s => s.name === sessionName);
+                if (!session) {
+                    session = { name: sessionName, papers: [] };
+                    subjectData.sessions.push(session);
+                }
+
+                Object.keys(unitCols).forEach(unitName => {
+                    const cols = unitCols[unitName];
+                    if (row[cols.paper] && row[cols.paper].startsWith('http')) {
+                        session.papers.push({
+                            title: unitName, // Use the cleaned unit name
+                            paperLink: row[cols.paper],
+                            msLink: row[cols.ms]
+                        });
+                    }
+                });
+            }
+             if (!subjectData.specLink && subjectConfig.specLinkPlaceholder) {
+                subjectData.specLink = subjectConfig.specLinkPlaceholder;
+            }
+            return subjectData;
+        }
+        
+        function generateSubjectHTML(subject) {
+            const subjectAccordion = document.createElement('details');
+            subjectAccordion.className = 'subject-accordion';
+            subjectAccordion.dataset.subject = subject.subjectSlug;
+            subjectAccordion.dataset.qualificationType = subject.qualType;
+
+            subjectAccordion.innerHTML = `
+                <summary>
+                    <span class="summary-text">${subject.subjectName}</span>
+                    <span class="accordion-icon">+</span>
+                </summary>
+                <div class="subject-content">
+                    ${subject.specLink ? `
+                        <div class="specifications-section">
+                            <h3>Specification</h3>
+                            <a href="${subject.specLink}" target="_blank" class="spec-link">View Specification</a>
+                        </div>` : ''}
+                    ${subject.usefulResources && subject.usefulResources.length > 0 ? `
+                        <div class="useful-resources-section">
+                            <h3>Useful Resources</h3>
+                            <ul>
+                                ${subject.usefulResources.map(res => `<li><a href="${res.link}" target="_blank">${res.name}</a></li>`).join('')}
+                            </ul>
+                        </div>` : ''}
+                    <h3 class="exam-set-heading">Past Papers & Mark Schemes</h3>
+                    ${subject.sessions.map(session => `
+                        <div class="exam-session-group">
+                            <h4 class="exam-session-title">${session.name}</h4>
+                            ${session.papers.map(paper => `
+                                <div class="exam-set">
+                                    <span class="exam-set-title">${paper.title}</span>
+                                    <div class="document-links">
+                                        ${paper.paperLink ? `<a href="${paper.paperLink}" class="doc-link paper-link" target="_blank">Paper</a>` : ''}
+                                        ${paper.insertLink ? `<a href="${paper.insertLink}" class="doc-link insert-link" target="_blank">Insert</a>` : ''}
+                                        ${paper.msLink ? `<a href="${paper.msLink}" class="doc-link ms-link" target="_blank">Mark Scheme</a>` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            return subjectAccordion;
+        }
+        
+        async function loadAndDisplaySubjects() {
+            let filesLoadedCount = 0;
+            for (const subjectConfig of subjectsToProcess) {
+                try {
+                    const response = await fetch(subjectConfig.csvFile);
+                    if (!response.ok) {
+                        console.warn(`Could not load ${subjectConfig.csvFile}: ${response.statusText}`);
+                        continue;
+                    }
+                    const csvText = await response.text();
+                    const csvRows = simpleCSVParser(csvText);
+                    
+                    let parsedData;
+                    switch (subjectConfig.parserType) {
+                        case 'AqaGeography':
+                            parsedData = parseAqaGeographyCsv(csvRows, subjectConfig);
+                            break;
+                        case 'AqaCoreMaths':
+                            parsedData = parseAqaCoreMathsCsv(csvRows, subjectConfig);
+                            break;
+                        case 'EdexcelAppliedScience':
+                            parsedData = parseEdexcelAppliedScienceCsv(csvRows, subjectConfig);
+                            break;
+                        // Add other parsers if needed
+                        default:
+                            console.warn(`Unknown parser type: ${subjectConfig.parserType} for ${subjectConfig.csvFile}`);
+                            continue;
+                    }
+
+                    if (parsedData && (parsedData.sessions.length > 0 || parsedData.specLink || (parsedData.usefulResources && parsedData.usefulResources.length > 0))) {
+                        allSubjectsData.push(parsedData);
+                        const subjectHTML = generateSubjectHTML(parsedData);
+                        const container = document.getElementById(`${parsedData.board}-subjects-list`);
+                        if (container) {
+                            container.appendChild(subjectHTML);
+                            filesLoadedCount++;
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Error processing ${subjectConfig.csvFile}:`, error);
+                }
+            }
+             if (filesLoadedCount > 0) {
+                 dataLoadingStatus.innerHTML = `<p>${filesLoadedCount} subject data file(s) processed. Use filters above.</p>`;
+                 if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">Please select qualification and exam board to view subjects.</p>';
+            } else {
+                 dataLoadingStatus.innerHTML = `<p>No subject data files found or loaded. Please check file names, locations, and ensure they are correctly formatted.</p>`;
+                 if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">No data loaded. Check console for errors.</p>';
+
+            }
+            updateVisibility();
+        }
+
+
+        function updateVisibility() {
+            let isAnyBoardVisibleForQual = false;
+            
+            examBoardTabs.forEach(boardTab => {
+                const boardId = boardTab.dataset.filterBoard;
+                const boardWrapper = document.getElementById(boardId + '-content-wrapper');
+                const subjectsInThisBoardFromData = allSubjectsData.filter(s => s.board === boardId);
+                let boardHasMatchingSubjectsForQual = false;
+
+                subjectsInThisBoardFromData.forEach(subject => {
+                    if (activeQualificationFilter === 'all' || subject.qualType === activeQualificationFilter) {
+                        boardHasMatchingSubjectsForQual = true;
+                    }
+                });
+
+                if (boardHasMatchingSubjectsForQual) {
+                    boardTab.style.display = ''; 
+                    isAnyBoardVisibleForQual = true;
+                } else {
+                    boardTab.style.display = 'none';
+                    boardTab.classList.remove('active');
+                    boardTab.setAttribute('aria-selected', 'false');
+                    if (boardWrapper && boardWrapper.classList.contains('active')) { // Check if boardWrapper exists
+                        boardWrapper.classList.remove('active');
+                    }
+                }
+            });
+            
+            const currentActiveBoardTab = document.querySelector('#exam-board-selector .filter-tab.active');
+            if (currentActiveBoardTab && currentActiveBoardTab.style.display === 'none') {
+                activeExamBoardFilter = null;
+                currentActiveBoardTab.classList.remove('active');
+                currentActiveBoardTab.setAttribute('aria-selected', 'false');
+            }
+
+            if (activeExamBoardFilter) {
+                const activeBoardWrapper = document.getElementById(activeExamBoardFilter + '-content-wrapper');
+                if (activeBoardWrapper) {
+                    activeBoardWrapper.classList.add('active');
+                    const subjectAccordions = activeBoardWrapper.querySelectorAll('.subject-accordion');
+                    let visibleSubjectsInActiveBoard = 0;
+                    subjectAccordions.forEach(accordion => {
+                        const subjectQualType = accordion.dataset.qualificationType;
+                        if (activeQualificationFilter === 'all' || subjectQualType === activeQualificationFilter) {
+                            accordion.style.display = 'block'; // Use style.display for accordions
+                            visibleSubjectsInActiveBoard++;
+                        } else {
+                            accordion.style.display = 'none';
+                        }
+                    });
+                    if(initialMessageContainer) initialMessageContainer.style.display = 'none';
+
+                    let noSubjectsMsg = activeBoardWrapper.querySelector('.no-subjects-message');
+                    if (visibleSubjectsInActiveBoard === 0) {
+                        if (!noSubjectsMsg) {
+                            noSubjectsMsg = document.createElement('p');
+                            noSubjectsMsg.className = 'initial-message no-subjects-message';
+                            activeBoardWrapper.appendChild(noSubjectsMsg);
+                        }
+                        noSubjectsMsg.textContent = `No subjects found for the selected qualification level in this exam board.`;
+                        noSubjectsMsg.style.display = 'block';
+                    } else {
+                        if (noSubjectsMsg) noSubjectsMsg.style.display = 'none';
+                    }
+                }
+            } else {
+                 document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
+                 if (initialMessageContainer) {
+                    initialMessageContainer.style.display = 'block';
+                    if (isAnyBoardVisibleForQual) {
+                        initialMessageContainer.innerHTML = '<p class="initial-message">Please select an exam board to view subjects.</p>';
+                    } else {
+                        initialMessageContainer.innerHTML = '<p class="initial-message">No subjects available for the selected qualification level. Try "All" or a different level.</p>';
+                    }
+                 }
+            }
+        }
+
+
+        qualificationTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                qualificationTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+                tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
+                activeQualificationFilter = tab.dataset.filterQual;
+                
+                examBoardTabs.forEach(ebTab => { ebTab.classList.remove('active'); ebTab.setAttribute('aria-selected', 'false'); });
+                activeExamBoardFilter = null; 
+                document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
+                document.querySelectorAll('.exam-board-content .no-subjects-message').forEach(msg => msg.style.display = 'none');
+                updateVisibility();
+            });
+        });
+
+        examBoardTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const newActiveBoard = tab.dataset.filterBoard;
+                if (activeExamBoardFilter === newActiveBoard && tab.classList.contains('active')) { // Clicking active board again
+                    tab.classList.remove('active');
+                    tab.setAttribute('aria-selected', 'false');
+                    activeExamBoardFilter = null;
+                } else {
+                    examBoardTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+                    tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
+                    activeExamBoardFilter = newActiveBoard;
+                }
+                
+                document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
+                 document.querySelectorAll('.exam-board-content .no-subjects-message').forEach(msg => msg.style.display = 'none');
+
+                updateVisibility();
+            });
+        });
+
+        await loadAndDisplaySubjects();
+    });
+    </script>
 </body>
 </html>
