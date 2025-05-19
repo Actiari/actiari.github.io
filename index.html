@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Home - Tools</title> <!-- Changed title slightly for clarity -->
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -177,7 +177,14 @@
 
 
     /* Main content styling */
-    .hero {
+    .content {
+      padding: 40px 20px; /* Retained padding for spacing around cards */
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Hero styles - kept for reference, but hero removed from HTML */
+    /* .hero {
       background-color: var(--color-surface);
       color: var(--color-text-primary);
       padding: 60px 20px;
@@ -210,26 +217,21 @@
 
     .cta-button:hover {
       filter: brightness(1.15);
-    }
+    } */
 
-    .content {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-title {
+    /* Section title styles - kept for reference, but section title removed from HTML */
+    /* .section-title {
       text-align: center;
       margin-bottom: 40px;
       font-size: 2rem;
       color: var(--color-primary-accent-generic);
-    }
+    } */
 
     .cards-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
-      margin-bottom: 60px;
+      /* margin-bottom: 60px; Removed as footer is gone, content padding will handle bottom space */
     }
 
     .card {
@@ -283,7 +285,8 @@
       filter: brightness(1.1);
     }
 
-    .footer {
+    /* Footer styles - kept for reference, but footer removed from HTML */
+    /* .footer {
       background-color: var(--nav-bg);
       color: var(--nav-text);
       padding: 20px 20px;
@@ -293,31 +296,31 @@
 
     .footer p {
       margin-bottom: 10px;
-    }
+    } */
 
     /* Media queries for responsive design - Ensure these don't conflict with nav */
     @media screen and (max-width: 1100px) { /* Keep this for non-nav adjustments */
         /* Nav adjustments handled above */
-        .hero h1 { font-size: 2rem; }
-        .hero p { font-size: 1rem; }
+        /* .hero h1 { font-size: 2rem; } */ /* Hero removed */
+        /* .hero p { font-size: 1rem; } */ /* Hero removed */
     }
 
     @media screen and (max-width: 768px) { /* Keep this for non-nav adjustments */
         body { font-size: 15px; }
         /* nav-container padding handled in nav media query */
         .content { padding: 30px 15px; }
-        .hero h1 { font-size: 2em; }
+        /* .hero h1 { font-size: 2em; } */ /* Hero removed */
     }
 
     @media screen and (max-width: 600px) { /* Keep this for non-nav adjustments */
       .cards-container {
         grid-template-columns: 1fr;
       }
-      .hero { padding: 40px 20px; }
-      .hero h1 { font-size: 1.8rem; }
+      /* .hero { padding: 40px 20px; } */ /* Hero removed */
+      /* .hero h1 { font-size: 1.8rem; } */ /* Hero removed */
     }
      @media screen and (max-width: 576px) { /* Keep this for non-nav adjustments */
-        .hero h1 { font-size: 1.7em; }
+        /* .hero h1 { font-size: 1.7em; } */ /* Hero removed */
     }
   </style>
 </head>
@@ -337,16 +340,9 @@
     </button>
   </div>
 
-  <!-- Hero Section -->
-  <div class="hero">
-    <h1>Welcome to Your Study Hub</h1>
-    <p>Access a wide range of revision materials, past papers, flashcards, and case studies designed to help you excel in your exams.</p>
-    <a href="#resources" class="cta-button">Explore Resources</a>
-  </div>
-
   <!-- Main content -->
   <div class="content">
-    <h2 class="section-title" id="resources">Our Resources</h2>
+    <!-- Removed hero section and section title -->
 
     <div class="cards-container">
 
@@ -394,10 +390,7 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <p>Providing quality educational resources to aid your learning journey.</p>
-  </div>
+  <!-- Removed footer -->
 
   <script>
 document.addEventListener('DOMContentLoaded', function() {
