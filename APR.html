@@ -863,15 +863,17 @@
             const p3PaperCol = 7, p3MsCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i];
-                // Session name is often in the last non-empty column or column 0
-                 let sessionName = "";
-                 for(let k = row.length -1; k >=0; k--) {
-                     const val = getVal(row, k);
-                     if(val && val.toLowerCase() !== 'n/a') {
-                         sessionName = val;
-                         break;
-                     }
-                 }
+                // Use the first column as session name if available; otherwise fallback to scanning from the end.
+                let sessionName = getVal(row, 0);
+                if (!sessionName) {
+                    for (let k = row.length - 1; k >= 0; k--) {
+                        const val = getVal(row, k);
+                        if (val && val.toLowerCase() !== 'n/a') {
+                            sessionName = val;
+                            break;
+                        }
+                    }
+                }
                 if (!sessionName) continue;
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }

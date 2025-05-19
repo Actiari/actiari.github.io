@@ -141,7 +141,7 @@
       border: 1px solid var(--color-border); /* Updated */
       height: fit-content;
       position: sticky;
-      top: 20px;
+      top: 20px; /* Adjusted for nav height potentially, ensure it looks good */
       animation: slideInLeft 0.5s ease-out;
     }
     
@@ -311,11 +311,13 @@
       border-radius: var(--border-radius);
       box-shadow: 0 4px 15px var(--color-shadow); /* Updated */
       padding: 30px;
-      min-height: 400px;
+      /* min-height: 400px; /* MODIFIED: Replaced with fixed height */
+      height: 630px; /* ADDED: Fixed height for the entire flashcard area */
       display: flex;
       flex-direction: column;
       border: 1px solid var(--color-border); /* Updated */
       animation: fadeIn 0.5s ease-out;
+      /* overflow: hidden; /* Optional: Consider if content might unexpectedly overflow container */
     }
     
     .flashcard-header {
@@ -363,10 +365,10 @@
     }
     
     .flashcard-content {
-      flex: 1;
+      flex: 1; /* This makes it take available space between header and nav */
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: center; /* Vertically centers the .flashcard and .flashcard-instruction block */
       perspective: 1000px;
       position: relative;
     }
@@ -379,9 +381,9 @@
       transition: var(--transition);
       border: 1px solid var(--color-border); /* Updated */
       transform-style: preserve-3d;
-      min-height: 400px; 
-      height: 400px; 
-      overflow-y: auto; 
+      /* min-height: 400px; /* This is good, but height: 400px is more direct */
+      height: 400px; /* Fixed height for the card itself */
+      overflow-y: auto; /* Allows content to scroll if it exceeds 400px */
       display: flex;
       flex-direction: column;
       cursor: pointer;
@@ -408,10 +410,10 @@
     
     .flashcard-question, 
     .flashcard-answer {
-      flex: 1;
+      flex: 1; /* Allows question/answer content to fill card space if needed */
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: center; /* Centers content within the question/answer area */
     }
     
     .flashcard-question h3,
@@ -456,7 +458,7 @@
     
     .flashcard-instruction {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 20px; /* Sits below the .flashcard div */
       font-size: 0.9rem;
       color: var(--color-text-secondary); /* Updated */
       font-weight: 500;
@@ -516,9 +518,16 @@
     
     .empty-state {
       text-align: center;
-      padding: 40px 20px;
+      padding: 40px 20px; /* Internal padding for the content of empty state */
       animation: fadeIn 0.5s ease-out;
       color: var(--color-text-secondary); /* Updated */
+      
+      /* ADDED: Make empty-state fill .flashcard-view and center its content */
+      flex-grow: 1; /* Takes up available space in the flex parent (.flashcard-view) */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     
     .empty-state i {
@@ -622,12 +631,13 @@
         justify-content: space-between;
       }
       .app-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Sidebar stacks on top */
       }
       
       .sidebar {
-        position: static;
+        position: static; /* No longer sticky when stacked */
         margin-bottom: 20px;
+        top: auto; /* Reset sticky top */
       }
       
       .topic-grid {
@@ -687,7 +697,8 @@
       }
       
       .flashcard-view {
-        padding: 20px;
+        padding: 20px; /* Reduced padding */
+        /* height: 630px; /* Height remains same unless overridden for smaller screens */
       }
       
       .flashcard-question h3,
@@ -723,11 +734,18 @@
         width: 100%;
         justify-content: center;
       }
+
+      .flashcard-view {
+        height: 500px; /* ADDED: Adjusted fixed height for small mobile screens */
+        /* padding: 20px; /* Already set in 768px breakpoint */
+      }
       
       .flashcard {
         padding: 20px;
-        min-height: 250px; /* Adjusted min-height */
-        height: auto; /* Allow height to adjust for content on small screens */
+        /* min-height: 250px; /* MODIFIED: Replaced with fixed height */
+        height: 250px; /* MODIFIED: Fixed height for card on small screens */
+        overflow-y: auto; /* ENSURE this is set for scrolling */
+        /* height: auto; /* MODIFIED: Removed to enforce fixed size */
       }
     }
     
@@ -792,6 +810,16 @@
                 });
             }
         }
+        // Adjust sidebar top based on nav-container height
+        const navContainer = document.querySelector('.nav-container');
+        const sidebar = document.querySelector('.sidebar'); // This might not work if sidebar is rendered by React later.
+                                                            // However, sidebar's position: sticky, top: 20px is CSS based.
+                                                            // If nav height is dynamic, this would be more complex.
+                                                            // For now, assuming nav height is fairly constant.
+        // if (navContainer && sidebar && getComputedStyle(sidebar).position === 'sticky') {
+        //    const navHeight = navContainer.offsetHeight;
+        //    sidebar.style.top = navHeight + 20 + 'px'; // 20px is the desired gap
+        // } // Commented out as sticky top fixed value is likely fine with non-dynamic nav
     });
   </script>
   
@@ -846,7 +874,7 @@
       const [selectedTopic, setSelectedTopic] = React.useState(null);
       const [selectedSubtopic, setSelectedSubtopic] = React.useState(null);
       const [bookmarkedCards, setBookmarkedCards] = React.useState([]);
-      const [view, setView] = React.useState('topics');
+      const [view, setView] = React.useState('topics'); // Initial view state
       const [animationClass, setAnimationClass] = React.useState('');
 
       const caseStudyFacts = {
@@ -955,31 +983,16 @@
           id: 'hazards',
           name: 'Hazards',
           icon: 'fa-mountain',
-          // color: '#2e7d32', // color property removed, will be handled by CSS if needed
           subtopics: [
-            "Volcanoes",
-            "Tsunamis",
-            "Earthquakes",
-            "Tropical Storms",
-            "Wildfires",
-            "General",
-            "Geophysical Hazards",
-            "Atmospheric Hazards",
-            "Hydrological Hazards",
-            "Perception of Hazards",
-            "Hazard Response"
+            "Volcanoes", "Tsunamis", "Earthquakes", "Tropical Storms", "Wildfires", 
+            "General", "Geophysical Hazards", "Atmospheric Hazards", "Hydrological Hazards", 
+            "Perception of Hazards", "Hazard Response"
           ],
           subtopicIcons: {
-            "Volcanoes": "fa-volcano", 
-            "Tsunamis": "fa-water",
-            "Earthquakes": "fa-layer-group",
-            "Tropical Storms": "fa-wind",
-            "Wildfires": "fa-fire",
-            "General": "fa-info-circle",
-            "Geophysical Hazards": "fa-globe",
-            "Atmospheric Hazards": "fa-cloud",
-            "Hydrological Hazards": "fa-water",
-            "Perception of Hazards": "fa-eye",
+            "Volcanoes": "fa-volcano", "Tsunamis": "fa-water", "Earthquakes": "fa-layer-group",
+            "Tropical Storms": "fa-wind", "Wildfires": "fa-fire", "General": "fa-info-circle",
+            "Geophysical Hazards": "fa-globe", "Atmospheric Hazards": "fa-cloud", 
+            "Hydrological Hazards": "fa-tint", "Perception of Hazards": "fa-eye", 
             "Hazard Response": "fa-hands-helping"
           }
         },
@@ -987,102 +1000,66 @@
           id: 'changing-places',
           name: 'Changing Places',
           icon: 'fa-city',
-          // color: '#1565c0',
           subtopics: [
-            "Place Meaning",
-            "Artistic Representation",
-            "Changing Places",
-            "Forces of Change",
-            "Rebranding",
-            "General",
-            "Emotional Attachment",
-            "Perception of Place",
-            "Social Constructs",
-            "Identity and Belonging"
+            "Place Meaning", "Artistic Representation", "Changing Places", "Forces of Change", 
+            "Rebranding", "General", "Emotional Attachment", "Perception of Place", 
+            "Social Constructs", "Identity and Belonging"
           ],
           subtopicIcons: {
-            "Place Meaning": "fa-map-marker-alt",
-            "Artistic Representation": "fa-paint-brush",
-            "Changing Places": "fa-exchange-alt",
-            "Forces of Change": "fa-bolt",
-            "Rebranding": "fa-tag",
-            "General": "fa-info-circle",
-            "Emotional Attachment": "fa-heart",
-            "Perception of Place": "fa-eye",
-            "Social Constructs": "fa-users",
+            "Place Meaning": "fa-map-marker-alt", "Artistic Representation": "fa-paint-brush",
+            "Changing Places": "fa-exchange-alt", "Forces of Change": "fa-bolt", "Rebranding": "fa-tag",
+            "General": "fa-info-circle", "Emotional Attachment": "fa-heart", 
+            "Perception of Place": "fa-eye", "Social Constructs": "fa-users", 
             "Identity and Belonging": "fa-id-badge"
           }
         },
+        // ... other topics from original code ...
         {
           id: 'global-governance',
           name: 'Global Governance',
           icon: 'fa-globe',
-          // color: '#6a1b9a',
           subtopics: [
-            "Global Systems",
-            "Global Inequality",
-            "International Agreements",
-            "Global Institutions"
+            "Global Systems", "Global Inequality", "International Agreements", "Global Institutions"
           ],
           subtopicIcons: {
-            "Global Systems": "fa-network-wired",
-            "Global Inequality": "fa-balance-scale",
-            "International Agreements": "fa-handshake",
-            "Global Institutions": "fa-university"
+            "Global Systems": "fa-network-wired", "Global Inequality": "fa-balance-scale",
+            "International Agreements": "fa-handshake", "Global Institutions": "fa-university"
           }
         },
         {
           id: 'coasts',
           name: 'Coasts',
           icon: 'fa-water',
-          // color: '#0277bd',
           subtopics: [
-            "Coastal Processes",
-            "Landforms",
-            "Management",
-            "Case Studies"
+            "Coastal Processes", "Landforms", "Management", "Case Studies"
           ],
           subtopicIcons: {
-            "Coastal Processes": "fa-wave-square",
-            "Landforms": "fa-mountain",
-            "Management": "fa-tasks",
-            "Case Studies": "fa-book"
+            "Coastal Processes": "fa-wave-square", "Landforms": "fa-mountain",
+            "Management": "fa-tasks", "Case Studies": "fa-book"
           }
         },
         {
           id: 'carbon',
           name: 'Carbon & Water',
           icon: 'fa-tint', 
-          // color: '#2e7d32',
           subtopics: [
-            "Carbon Cycle",
-            "Energy Security",
-            "Climate Change",
-            "Mitigation"
+            "Carbon Cycle", "Energy Security", "Climate Change", "Mitigation"
           ],
           subtopicIcons: {
-            "Carbon Cycle": "fa-recycle",
-            "Energy Security": "fa-battery-three-quarters",
-            "Climate Change": "fa-temperature-high",
-            "Mitigation": "fa-hands-helping"
+            "Carbon Cycle": "fa-recycle", "Energy Security": "fa-battery-three-quarters",
+            "Climate Change": "fa-temperature-high", "Mitigation": "fa-hands-helping"
           }
         },
         {
           id: 'contemporary-urban',
           name: 'Contemporary Urban',
           icon: 'fa-building',
-          // color: '#6a1b9a',
           subtopics: [
-            "Urban Processes",
-            "Urban Climate",
-            "Urban Drainage",
-            "Sustainable Cities"
+            "Urban Processes", "Urban Climate", "Urban Drainage", "Sustainable Cities"
           ],
           subtopicIcons: {
-            "Urban Processes": "fa-city",
-            "Urban Climate": "fa-cloud-sun",
-            "Urban Drainage": "fa-water",
-            "Sustainable Cities": "fa-leaf"
+            "Urban Processes": "fa-city", "Urban Climate": "fa-cloud-sun",
+            "Urban Drainage": "fa-water", "Sustainable Cities": "fa-leaf"
           }
         }
       ];
@@ -1092,949 +1069,134 @@
         let idCounter = 1;
         
         const hazardsFlashcards = [
-          {
-            id: idCounter++,
-            question: "Describe the key details of the Mt Etna case study.",
-            answer: caseStudyFacts["Mt Etna"],
-            topic: "Hazards",
-            subtopic: "Volcanoes",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Analyze the immediate and long-term responses for Mt Etna.",
-            answer: `<ul>
-              <li>Immediate: Evacuation plans activated, air traffic diverted</li>
-              <li>Long-term: Continuous monitoring systems upgraded, tourism management improved</li>
-            </ul>`,
-            topic: "Hazards",
-            subtopic: "Volcanoes",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Compare the eruptions of Mt Etna and Mt Merapi.",
-            answer: `<ul>
-              <li>Mt Etna: Frequent but less violent eruptions, well-monitored</li>
-              <li>Mt Merapi: More explosive eruptions, higher casualty rates</li>
-              <li>Both: Significant economic impacts but different management approaches</li>
-            </ul>`,
-            topic: "Hazards",
-            subtopic: "Volcanoes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Describe the key details of the Boxing Day Tsunami case study.",
-            answer: caseStudyFacts["Boxing Day Tsunami"],
-            topic: "Hazards",
-            subtopic: "Tsunamis",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Explain why the 2004 Indian Ocean tsunami was so devastating.",
-            answer: `<ul>
-              <li>Magnitude 9.1-9.3 earthquake generated massive wave energy</li>
-              <li>Lack of early warning system in Indian Ocean region</li>
-              <li>High population density in coastal areas</li>
-              <li>Low-lying coastal topography increased inundation</li>
-            </ul>`,
-            topic: "Hazards",
-            subtopic: "Tsunamis",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Describe the key details of the Haiti earthquake case study.",
-            answer: caseStudyFacts["Haiti"],
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Explain why the 2010 Haiti earthquake was particularly destructive.",
-            answer: `<ul>
-              <li>Shallow focus (13km) increased surface shaking</li>
-              <li>Poor building construction standards</li>
-              <li>High population density in Port-au-Prince</li>
-              <li>Limited emergency response capacity</li>
-              <li>Pre-existing poverty and poor infrastructure</li>
-            </ul>`,
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Describe the key details of Hurricane Katrina.",
-            answer: caseStudyFacts["Hurricane Katrina"],
-            topic: "Hazards",
-            subtopic: "Tropical Storms",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Compare the impacts of Hurricane Katrina and Cyclone Nargis.",
-            answer: `<ul>
-              <li>Katrina: $125 billion damage, 1,833 deaths, mostly in USA</li>
-              <li>Nargis: ~138,000 deaths, millions displaced, Myanmar</li>
-              <li>Different response capacities due to economic differences</li>
-              <li>Both highlighted need for better preparedness</li>
-            </ul>`,
-            topic: "Hazards",
-            subtopic: "Tropical Storms",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Describe the key details of the Alberta wildfire case study.",
-            answer: caseStudyFacts["Alberta Wildfire"],
-            topic: "Hazards",
-            subtopic: "Wildfires",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Explain the factors that contributed to the severity of the Alberta wildfires.",
-            answer: `<ul>
-              <li>Unusually hot and dry weather conditions</li>
-              <li>Abundant fuel from boreal forest</li>
-              <li>Strong winds spread fires rapidly</li>
-              <li>Proximity to Fort McMurray increased economic impact</li>
-              <li>Climate change increasing wildfire risk in boreal regions</li>
-            </ul>`,
-            topic: "Hazards",
-            subtopic: "Wildfires",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is a hazard?",
-            answer: "A hazard is an event that has the potential to cause harm to the environment, people or the economy.",
-            topic: "Hazards",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? A natural hazard is an event which is the result of either human or environmental processes.",
-            answer: "False. A natural hazard is an event caused by environmental processes that would occur without the presence of humans.",
-            topic: "Hazards",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define the term geophysical hazard.",
-            answer: "A geophysical hazard is caused by land processes. Examples of geophysical hazards include: Earthquakes, Volcanic activity, Mass movements like landslides and mudflows.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? A natural hazard always results in a disaster.",
-            answer: "False. A natural hazard has the potential to cause harm, but a disaster only occurs when actual harm happens.",
-            topic: "Hazards",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Give one example of an atmospheric hazard.",
-            answer: "Examples of atmospheric hazards include: Tropical storms, Wildfires.",
-            topic: "Hazards",
-            subtopic: "Atmospheric Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Which type of hazard is caused by the movement and distribution of water?",
-            answer: "A hydrological hazard is caused by the movement and distribution of water, such as floods.",
-            topic: "Hazards",
-            subtopic: "Hydrological Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What factors affect people's perception of hazards?",
-            answer: "People's perceptions of hazards are influenced by economic and cultural factors.",
-            topic: "Hazards",
-            subtopic: "Perception of Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Name one economic factor which affects hazard perception.",
-            answer: "Economic factors which affect people's perception of hazards include: Quality of housing and infrastructure, Spending on preparation and prediction, Investment in education.",
-            topic: "Hazards",
-            subtopic: "Perception of Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is a disaster?",
-            answer: "A disaster is when harm occurs to the environment, people or the economy.",
-            topic: "Hazards",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Name one cultural factor which affects hazard perception.",
-            answer: "Cultural factors affecting hazard perception include: Cultural values and beliefs, Trust in scientists and government officials, Previous experiences with hazards.",
-            topic: "Hazards",
-            subtopic: "Perception of Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is fatalism in the context of hazard response?",
-            answer: "Fatalism is when people believe that hazards cannot be avoided and so must be accepted, often leading to inaction.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is adjustment/adaptation in the context of a hazard response?",
-            answer: "Adjustment/adaptation is changing behaviour to reduce potential losses, such as improving awareness of hazards and practising earthquake drills.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define the term mitigation.",
-            answer: "Mitigation is working to reduce or prevent the occurrence of hazards, for example, by building sea walls to prevent flooding.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is integrated risk management?",
-            answer: "Integrated risk management involves analysing potential risks and implementing a coordinated approach to manage and reduce them.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? Intensity and magnitude are the same thing for hazards.",
-            answer: "False. Intensity and magnitude are similar but not the same. Magnitude measures the amount of energy released. Intensity measures the degree of shaking in a particular location.",
-            topic: "Hazards",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define risk sharing.",
-            answer: "Risk sharing is working together to reduce the risk and sharing the costs of hazard response, for example, buying home insurance.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is distribution in relation to hazards?",
-            answer: "Distribution refers to where hazards occur.",
-            topic: "Hazards",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "How does the level of development affect hazard response?",
-            answer: "More developed countries are more likely to have mitigation and adaptation strategies in place. They are usually better prepared to respond to hazards effectively.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "How does distribution affect hazard response?",
-            answer: "Distribution affects hazard response because in more hazardous locations, people are more prepared for hazard events as they invest significant time and money to protect themselves.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the hazard management cycle?",
-            answer: "The hazard management cycle is a model that shows how the events of one hazard event inform planning and preparation for the next hazard event.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define response in the context of hazard events.",
-            answer: "Response is the stage of the hazard management cycle involving search and rescue and provision of emergency medical assistance and aid.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? The time taken for each stage of the hazard management cycle is always the same.",
-            answer: "False. The time taken for each stage of the hazard management cycle will vary due to factors such as level of development, magnitude of the hazard, quality of governance, and aid available.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Which human response model outlines how people react to hazard events and how hazards affect people's quality of life?",
-            answer: "The Park model of human response describes how people react to hazard events and how hazards affect people's quality of life.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? In the Park model, LDE countries tend to recover more quickly than HDE countries.",
-            answer: "False. In the Park model, LDE countries tend to recover less quickly than HDE countries.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What factors affect the steepness of the downward curve in the Park model?",
-            answer: "The steepness of the downward curve in the Park model varies depending on the nature and magnitude of the hazard. A high-magnitude event that happens very suddenly will have a steeper and deeper curve than a slow-onset, low-magnitude event.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define the term recovery in the context of hazard events.",
-            answer: "Recovery is the stage of the hazard management cycle involving restoring services and reconstructing damaged buildings.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Name the three phases in the Park model.",
-            answer: "The three phases in the Park model are: Relief, Rehabilitation, Reconstruction.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the preparedness stage of the hazard response cycle?",
-            answer: "The preparedness stage includes activities such as earthquake drills and public awareness campaigns.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? Less developed countries are more likely to have mitigation and adaptation strategies in place.",
-            answer: "False. More developed countries are more likely to have mitigation and adaptation strategies in place and will be better prepared to respond to hazards effectively.",
-            topic: "Hazards",
-            subtopic: "Hazard Response",
-            type: "conceptual"
-          }
+          { id: idCounter++, question: "Describe the key details of the Mt Etna case study.", answer: caseStudyFacts["Mt Etna"], topic: "Hazards", subtopic: "Volcanoes", type: "caseStudy" },
+          { id: idCounter++, question: "Analyze the immediate and long-term responses for Mt Etna.", answer: `<ul><li>Immediate: Evacuation plans activated, air traffic diverted</li><li>Long-term: Continuous monitoring systems upgraded, tourism management improved</li></ul>`, topic: "Hazards", subtopic: "Volcanoes", type: "caseStudy" },
+          { id: idCounter++, question: "Compare the eruptions of Mt Etna and Mt Merapi.", answer: `<ul><li>Mt Etna: Frequent but less violent eruptions, well-monitored</li><li>Mt Merapi: More explosive eruptions, higher casualty rates</li><li>Both: Significant economic impacts but different management approaches</li></ul>`, topic: "Hazards", subtopic: "Volcanoes", type: "conceptual" },
+          { id: idCounter++, question: "Describe the key details of the Boxing Day Tsunami case study.", answer: caseStudyFacts["Boxing Day Tsunami"], topic: "Hazards", subtopic: "Tsunamis", type: "caseStudy" },
+          { id: idCounter++, question: "Explain why the 2004 Indian Ocean tsunami was so devastating.", answer: `<ul><li>Magnitude 9.1-9.3 earthquake generated massive wave energy</li><li>Lack of early warning system in Indian Ocean region</li><li>High population density in coastal areas</li><li>Low-lying coastal topography increased inundation</li></ul>`, topic: "Hazards", subtopic: "Tsunamis", type: "conceptual" },
+          { id: idCounter++, question: "Describe the key details of the Haiti earthquake case study.", answer: caseStudyFacts["Haiti"], topic: "Hazards", subtopic: "Earthquakes", type: "caseStudy" },
+          { id: idCounter++, question: "Explain why the 2010 Haiti earthquake was particularly destructive.", answer: `<ul><li>Shallow focus (13km) increased surface shaking</li><li>Poor building construction standards</li><li>High population density in Port-au-Prince</li><li>Limited emergency response capacity</li><li>Pre-existing poverty and poor infrastructure</li></ul>`, topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "Describe the key details of Hurricane Katrina.", answer: caseStudyFacts["Hurricane Katrina"], topic: "Hazards", subtopic: "Tropical Storms", type: "caseStudy" },
+          { id: idCounter++, question: "Compare the impacts of Hurricane Katrina and Cyclone Nargis.", answer: `<ul><li>Katrina: $125 billion damage, 1,833 deaths, mostly in USA</li><li>Nargis: ~138,000 deaths, millions displaced, Myanmar</li><li>Different response capacities due to economic differences</li><li>Both highlighted need for better preparedness</li></ul>`, topic: "Hazards", subtopic: "Tropical Storms", type: "conceptual" },
+          { id: idCounter++, question: "Describe the key details of the Alberta wildfire case study.", answer: caseStudyFacts["Alberta Wildfire"], topic: "Hazards", subtopic: "Wildfires", type: "caseStudy" },
+          { id: idCounter++, question: "Explain the factors that contributed to the severity of the Alberta wildfires.", answer: `<ul><li>Unusually hot and dry weather conditions</li><li>Abundant fuel from boreal forest</li><li>Strong winds spread fires rapidly</li><li>Proximity to Fort McMurray increased economic impact</li><li>Climate change increasing wildfire risk in boreal regions</li></ul>`, topic: "Hazards", subtopic: "Wildfires", type: "conceptual" },
+          { id: idCounter++, question: "What is a hazard?", answer: "A hazard is an event that has the potential to cause harm to the environment, people or the economy.", topic: "Hazards", subtopic: "General", type: "conceptual" },
+          { id: idCounter++, question: "True or False? A natural hazard is an event which is the result of either human or environmental processes.", answer: "False. A natural hazard is an event caused by environmental processes that would occur without the presence of humans.", topic: "Hazards", subtopic: "General", type: "conceptual" },
+          { id: idCounter++, question: "Define the term geophysical hazard.", answer: "A geophysical hazard is caused by land processes. Examples of geophysical hazards include: Earthquakes, Volcanic activity, Mass movements like landslides and mudflows.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "True or False? A natural hazard always results in a disaster.", answer: "False. A natural hazard has the potential to cause harm, but a disaster only occurs when actual harm happens.", topic: "Hazards", subtopic: "General", type: "conceptual" },
+          { id: idCounter++, question: "Give one example of an atmospheric hazard.", answer: "Examples of atmospheric hazards include: Tropical storms, Wildfires.", topic: "Hazards", subtopic: "Atmospheric Hazards", type: "conceptual" },
+          { id: idCounter++, question: "Which type of hazard is caused by the movement and distribution of water?", answer: "A hydrological hazard is caused by the movement and distribution of water, such as floods.", topic: "Hazards", subtopic: "Hydrological Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What factors affect people's perception of hazards?", answer: "People's perceptions of hazards are influenced by economic and cultural factors.", topic: "Hazards", subtopic: "Perception of Hazards", type: "conceptual" },
+          { id: idCounter++, question: "Name one economic factor which affects hazard perception.", answer: "Economic factors which affect people's perception of hazards include: Quality of housing and infrastructure, Spending on preparation and prediction, Investment in education.", topic: "Hazards", subtopic: "Perception of Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is a disaster?", answer: "A disaster is when harm occurs to the environment, people or the economy.", topic: "Hazards", subtopic: "General", type: "conceptual" },
+          { id: idCounter++, question: "Name one cultural factor which affects hazard perception.", answer: "Cultural factors affecting hazard perception include: Cultural values and beliefs, Trust in scientists and government officials, Previous experiences with hazards.", topic: "Hazards", subtopic: "Perception of Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is fatalism in the context of hazard response?", answer: "Fatalism is when people believe that hazards cannot be avoided and so must be accepted, often leading to inaction.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "What is adjustment/adaptation in the context of a hazard response?", answer: "Adjustment/adaptation is changing behaviour to reduce potential losses, such as improving awareness of hazards and practising earthquake drills.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "Define the term mitigation.", answer: "Mitigation is working to reduce or prevent the occurrence of hazards, for example, by building sea walls to prevent flooding.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "What is integrated risk management?", answer: "Integrated risk management involves analysing potential risks and implementing a coordinated approach to manage and reduce them.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "True or False? Intensity and magnitude are the same thing for hazards.", answer: "False. Intensity and magnitude are similar but not the same. Magnitude measures the amount of energy released. Intensity measures the degree of shaking in a particular location.", topic: "Hazards", subtopic: "General", type: "conceptual" },
+          { id: idCounter++, question: "Define risk sharing.", answer: "Risk sharing is working together to reduce the risk and sharing the costs of hazard response, for example, buying home insurance.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "What is distribution in relation to hazards?", answer: "Distribution refers to where hazards occur.", topic: "Hazards", subtopic: "General", type: "conceptual" },
+          { id: idCounter++, question: "How does the level of development affect hazard response?", answer: "More developed countries are more likely to have mitigation and adaptation strategies in place. They are usually better prepared to respond to hazards effectively.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "How does distribution affect hazard response?", answer: "Distribution affects hazard response because in more hazardous locations, people are more prepared for hazard events as they invest significant time and money to protect themselves.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "What is the hazard management cycle?", answer: "The hazard management cycle is a model that shows how the events of one hazard event inform planning and preparation for the next hazard event.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "Define response in the context of hazard events.", answer: "Response is the stage of the hazard management cycle involving search and rescue and provision of emergency medical assistance and aid.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "True or False? The time taken for each stage of the hazard management cycle is always the same.", answer: "False. The time taken for each stage of the hazard management cycle will vary due to factors such as level of development, magnitude of the hazard, quality of governance, and aid available.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "Which human response model outlines how people react to hazard events and how hazards affect people's quality of life?", answer: "The Park model of human response describes how people react to hazard events and how hazards affect people's quality of life.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "True or False? In the Park model, LDE countries tend to recover more quickly than HDE countries.", answer: "False. In the Park model, LDE countries tend to recover less quickly than HDE countries.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "What factors affect the steepness of the downward curve in the Park model?", answer: "The steepness of the downward curve in the Park model varies depending on the nature and magnitude of the hazard. A high-magnitude event that happens very suddenly will have a steeper and deeper curve than a slow-onset, low-magnitude event.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "Define the term recovery in the context of hazard events.", answer: "Recovery is the stage of the hazard management cycle involving restoring services and reconstructing damaged buildings.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "Name the three phases in the Park model.", answer: "The three phases in the Park model are: Relief, Rehabilitation, Reconstruction.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "What is the preparedness stage of the hazard response cycle?", answer: "The preparedness stage includes activities such as earthquake drills and public awareness campaigns.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" },
+          { id: idCounter++, question: "True or False? Less developed countries are more likely to have mitigation and adaptation strategies in place.", answer: "False. More developed countries are more likely to have mitigation and adaptation strategies in place and will be better prepared to respond to hazards effectively.", topic: "Hazards", subtopic: "Hazard Response", type: "conceptual" }
         ];
         
         const changingPlacesFlashcards = [
-          {
-            id: idCounter++,
-            question: "Describe the key details of the Ground Zero case study.",
-            answer: caseStudyFacts["Ground Zero"],
-            topic: "Changing Places",
-            subtopic: "Place Meaning",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Explain how places can have different meanings for different groups.",
-            answer: `<ul>
-              <li>Insiders vs outsiders perspectives</li>
-              <li>Historical vs contemporary meanings</li>
-              <li>Personal experiences shape perceptions</li>
-              <li>Media representation influences understanding</li>
-              <li>Example: Ground Zero as memorial vs tourist site</li>
-            </ul>`,
-            topic: "Changing Places",
-            subtopic: "Place Meaning",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "How can artistic representations influence our perception of place?",
-            answer: `<ul>
-              <li>Art can capture emotional connections to place</li>
-              <li>Can challenge or reinforce stereotypes</li>
-              <li>Provides alternative perspectives on place</li>
-              <li>Example: Songs about New York shaping its image</li>
-              <li>Art can document changes in places over time</li>
-            </ul>`,
-            topic: "Changing Places",
-            subtopic: "Artistic Representation",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Describe the key details of the Detroit case study.",
-            answer: caseStudyFacts["Detroit"],
-            topic: "Changing Places",
-            subtopic: "Changing Places",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Analyze the causes of Detroit's economic decline.",
-            answer: `<ul>
-              <li>Decline of automobile industry</li>
-              <li>Globalization and outsourcing of manufacturing</li>
-              <li>Racial tensions and white flight</li>
-              <li>Poor urban planning decisions</li>
-              <li>Failure to diversify economy</li>
-            </ul>`,
-            topic: "Changing Places",
-            subtopic: "Changing Places",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Describe the key details of the Medellin case study.",
-            answer: caseStudyFacts["Medellin"],
-            topic: "Changing Places",
-            subtopic: "Forces of Change",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Evaluate the role of urban planning in Medellin's transformation.",
-            answer: `<ul>
-              <li>Social urbanism approach focused on poorest areas</li>
-              <li>Cable cars connecting hillside favelas to city center</li>
-              <li>Library parks as community hubs</li>
-              <li>Improved public transportation reduced segregation</li>
-              <li>Combined physical and social interventions</li>
-            </ul>`,
-            topic: "Changing Places",
-            subtopic: "Forces of Change",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Describe the key details of the London Olympics rebranding case study.",
-            answer: caseStudyFacts["London Olympics"],
-            topic: "Changing Places",
-            subtopic: "Rebranding",
-            type: "caseStudy"
-          },
-          {
-            id: idCounter++,
-            question: "Assess the effectiveness of the London Olympics in regenerating East London.",
-            answer: `<ul>
-              <li>Successes: Improved infrastructure, new housing, Olympic Park legacy</li>
-              <li>Challenges: Gentrification concerns, affordability issues</li>
-              <li>Mixed results on promised employment benefits</li>
-              <li>Long-term economic impact still being evaluated</li>
-              <li>Improved international image of London</li>
-            </ul>`,
-            topic: "Changing Places",
-            subtopic: "Rebranding",
-            type: "conceptual"
-          }
+          { id: idCounter++, question: "Describe the key details of the Ground Zero case study.", answer: caseStudyFacts["Ground Zero"], topic: "Changing Places", subtopic: "Place Meaning", type: "caseStudy" },
+          { id: idCounter++, question: "Explain how places can have different meanings for different groups.", answer: `<ul><li>Insiders vs outsiders perspectives</li><li>Historical vs contemporary meanings</li><li>Personal experiences shape perceptions</li><li>Media representation influences understanding</li><li>Example: Ground Zero as memorial vs tourist site</li></ul>`, topic: "Changing Places", subtopic: "Place Meaning", type: "conceptual" },
+          { id: idCounter++, question: "How can artistic representations influence our perception of place?", answer: `<ul><li>Art can capture emotional connections to place</li><li>Can challenge or reinforce stereotypes</li><li>Provides alternative perspectives on place</li><li>Example: Songs about New York shaping its image</li><li>Art can document changes in places over time</li></ul>`, topic: "Changing Places", subtopic: "Artistic Representation", type: "conceptual" },
+          { id: idCounter++, question: "Describe the key details of the Detroit case study.", answer: caseStudyFacts["Detroit"], topic: "Changing Places", subtopic: "Changing Places", type: "caseStudy" },
+          { id: idCounter++, question: "Analyze the causes of Detroit's economic decline.", answer: `<ul><li>Decline of automobile industry</li><li>Globalization and outsourcing of manufacturing</li><li>Racial tensions and white flight</li><li>Poor urban planning decisions</li><li>Failure to diversify economy</li></ul>`, topic: "Changing Places", subtopic: "Changing Places", type: "conceptual" },
+          { id: idCounter++, question: "Describe the key details of the Medellin case study.", answer: caseStudyFacts["Medellin"], topic: "Changing Places", subtopic: "Forces of Change", type: "caseStudy" },
+          { id: idCounter++, question: "Evaluate the role of urban planning in Medellin's transformation.", answer: `<ul><li>Social urbanism approach focused on poorest areas</li><li>Cable cars connecting hillside favelas to city center</li><li>Library parks as community hubs</li><li>Improved public transportation reduced segregation</li><li>Combined physical and social interventions</li></ul>`, topic: "Changing Places", subtopic: "Forces of Change", type: "conceptual" },
+          { id: idCounter++, question: "Describe the key details of the London Olympics rebranding case study.", answer: caseStudyFacts["London Olympics"], topic: "Changing Places", subtopic: "Rebranding", type: "caseStudy" },
+          { id: idCounter++, question: "Assess the effectiveness of the London Olympics in regenerating East London.", answer: `<ul><li>Successes: Improved infrastructure, new housing, Olympic Park legacy</li><li>Challenges: Gentrification concerns, affordability issues</li><li>Mixed results on promised employment benefits</li><li>Long-term economic impact still being evaluated</li><li>Improved international image of London</li></ul>`, topic: "Changing Places", subtopic: "Rebranding", type: "conceptual" }
         ];
         
         const additionalFlashcards = [
-          {
-            id: idCounter++,
-            question: "What are the four main layers of the Earth?",
-            answer: "<ul><li>Crust</li><li>Mantle</li><li>Outer core</li><li>Inner core</li></ul>",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define continental crust.",
-            answer: "The continental crust is a thicker (up to 70km), less dense layer than the oceanic crust. It is mainly composed of granite.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the asthenosphere?",
-            answer: "The asthenosphere is a plastic-type layer in the upper mantle that moves slowly under high pressure and carries the lithosphere on top.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? The lower mantle is cooler and less dense than the upper mantle.",
-            answer: "False. The lower mantle is hotter and more dense than the upper mantle.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the composition of the inner core?",
-            answer: "The inner core is a solid centre, mostly composed of iron.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define the term lithosphere.",
-            answer: "The lithosphere is the rigid layer above the asthenosphere, together with the crust. Together, they float on top of the asthenosphere.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What are the two key causes of extreme heat in the Earth's core?",
-            answer: "<ul><li>Radioactive decay of elements such as uranium and potassium</li><li>Residual heat from the collisions of asteroids and other small bodies resulted in the formation of Earth.</li></ul>",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? There are only seven tectonic plates.",
-            answer: "False. There are seven major tectonic plates and several minor ones.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define oceanic crust.",
-            answer: "Oceanic crust is a thinner (5–10 km) and denser layer mainly composed of basalt.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the main driver of tectonic activity?",
-            answer: "The main driver of tectonic activity is the heat from the Earth's core.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the theory of plate tectonics?",
-            answer: "The theory of plate tectonics is a scientific theory that revolutionised people's understanding and study of geological processes and the Earth, explaining phenomena such as earthquakes, volcanic eruptions, mountain formations and continental movement.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Who proposed the Continental Drift Theory?",
-            answer: "Alfred Wegener proposed the Continental Drift Theory.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is convection current theory?",
-            answer: "Convection current theory explains tectonic plate movement as the result of heat from radioactive decay in the core moving upwards in the mantle, creating currents that carry the lithospheric plates above.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define slab pull.",
-            answer: "Slab pull is the process where gravity pulls a subducting plate down into the mantle at a subduction zone.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? Slab pull is less important than ridge push in causing plate movement.",
-            answer: "False. Slab pull is much more important than ridge push in causing the movement of tectonic plates.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? Wegener's Continental Drift Theory explained how tectonic plates move.",
-            answer: "False. Wegener's theory stated that the continents had moved but was unable to suggest how or why.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is palaeomagnetism?",
-            answer: "Palaeomagnetism is evidence that the sea floor has gradually moved apart at a mid-ocean ridge. It is shown by the alignment of minerals in cooled lava with the Earth's magnetic field.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is seafloor spreading?",
-            answer: "Seafloor spreading is the process by which new oceanic crust is formed at mid-ocean ridges and moves away from the ridge over time.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What evidence did Wegener use to support his Continental Drift Theory?",
-            answer: "<ul><li>The fit of continents.</li><li>Fossil distributions.</li><li>Rock type and structural similarities.</li><li>Past climatic evidence.</li></ul>",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is gravitational sliding (or ridge push)?",
-            answer: "Gravitational sliding (or ridge push) is the process where gravity pulls the lithosphere down the slope created as new oceanic crust cools and becomes denser. This pushes the crust forward.",
-            topic: "Hazards",
-            subtopic: "Geophysical Hazards",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the focus of an earthquake?",
-            answer: "The focus of an earthquake is the point below the Earth's surface where the earthquake starts.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define the term epicentre.",
-            answer: "The epicentre is the point on the Earth's surface directly above the focus of an earthquake.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? Most earthquakes occur far from plate boundaries.",
-            answer: "False. Most earthquakes (about 95%) occur close to or at plate margins.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What are P waves?",
-            answer: "P waves are primary seismic waves that are the fastest, reach the surface first, travel through liquids and solids, and cause backwards and forward shaking.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define the term liquefaction.",
-            answer: "Liquefaction is when shaking causes loose or saturated soils to lose their strength and act like a liquid rather than a solid.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the Ring of Fire?",
-            answer: "The Ring of Fire is the area surrounding the Pacific Ocean where many earthquakes occur.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What are S waves?",
-            answer: "S waves are secondary seismic waves that are slower than P waves, only travel through solids, and cause a sideways motion.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? Intra-plate earthquakes occur at plate margins.",
-            answer: "False. Intra-plate earthquakes are those that do not happen at plate margins.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the name of a large wave caused by an earthquake beneath the sea bed that lifts water?",
-            answer: "A tsunami is a large wave created when an earthquake occurs beneath the sea bed, displacing water and forcing it upwards.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Which type of seismic wave is the most damaging?",
-            answer: "L waves are surface seismic waves that are the slowest, cause a side-to-side motion, and are the most damaging.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is magnitude in the context of earthquakes?",
-            answer: "Magnitude is the energy released at the source (focus) of an earthquake.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define the Moment Magnitude Scale (MMS).",
-            answer: "The Moment Magnitude Scale (MMS) is used to measure the magnitude of earthquakes, ranging from 1 to 10.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? The Moment Magnitude Scale is a linear scale.",
-            answer: "False. The Moment Magnitude Scale is a logarithmic scale.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What does the Modified Mercalli Intensity Scale measure?",
-            answer: "The Modified Mercalli Intensity Scale measures the intensity of an earthquake, which is its impact on people, as well as on the built and natural environments.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define seismic gap theory.",
-            answer: "Seismic gap theory suggests that if there has been little or no earthquake activity at a plate margin for a long time, it is more likely to experience a large earthquake in the future.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? It is possible to predict earthquakes accurately.",
-            answer: "False. It is not possible to predict earthquakes accurately.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What are foreshocks?",
-            answer: "Foreshocks are pre-cursor earthquakes that may indicate a larger earthquake will follow.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What does a strainmeter measure?",
-            answer: "A strainmeter measures deformation, which might indicate that pressure is building up before an earthquake.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Concentrations of which gas in the atmosphere may increase before an earthquake?",
-            answer: "Concentrations of radon gas in the atmosphere may increase before an earthquake.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is the probability of a 6.7 magnitude earthquake in the Los Angeles area within the next 30 years?",
-            answer: "The probability of a 6.7 magnitude earthquake in the Los Angeles area within the next 30 years is 60%.",
-            topic: "Hazards",
-            subtopic: "Earthquakes",
-            type: "conceptual"
-          }
+          { id: idCounter++, question: "What are the four main layers of the Earth?", answer: "<ul><li>Crust</li><li>Mantle</li><li>Outer core</li><li>Inner core</li></ul>", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "Define continental crust.", answer: "The continental crust is a thicker (up to 70km), less dense layer than the oceanic crust. It is mainly composed of granite.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is the asthenosphere?", answer: "The asthenosphere is a plastic-type layer in the upper mantle that moves slowly under high pressure and carries the lithosphere on top.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "True or False? The lower mantle is cooler and less dense than the upper mantle.", answer: "False. The lower mantle is hotter and more dense than the upper mantle.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is the composition of the inner core?", answer: "The inner core is a solid centre, mostly composed of iron.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "Define the term lithosphere.", answer: "The lithosphere is the rigid layer above the asthenosphere, together with the crust. Together, they float on top of the asthenosphere.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What are the two key causes of extreme heat in the Earth's core?", answer: "<ul><li>Radioactive decay of elements such as uranium and potassium</li><li>Residual heat from the collisions of asteroids and other small bodies resulted in the formation of Earth.</li></ul>", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "True or False? There are only seven tectonic plates.", answer: "False. There are seven major tectonic plates and several minor ones.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "Define oceanic crust.", answer: "Oceanic crust is a thinner (5–10 km) and denser layer mainly composed of basalt.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is the main driver of tectonic activity?", answer: "The main driver of tectonic activity is the heat from the Earth's core.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is the theory of plate tectonics?", answer: "The theory of plate tectonics is a scientific theory that revolutionised people's understanding and study of geological processes and the Earth, explaining phenomena such as earthquakes, volcanic eruptions, mountain formations and continental movement.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "Who proposed the Continental Drift Theory?", answer: "Alfred Wegener proposed the Continental Drift Theory.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is convection current theory?", answer: "Convection current theory explains tectonic plate movement as the result of heat from radioactive decay in the core moving upwards in the mantle, creating currents that carry the lithospheric plates above.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "Define slab pull.", answer: "Slab pull is the process where gravity pulls a subducting plate down into the mantle at a subduction zone.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "True or False? Slab pull is less important than ridge push in causing plate movement.", answer: "False. Slab pull is much more important than ridge push in causing the movement of tectonic plates.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "True or False? Wegener's Continental Drift Theory explained how tectonic plates move.", answer: "False. Wegener's theory stated that the continents had moved but was unable to suggest how or why.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is palaeomagnetism?", answer: "Palaeomagnetism is evidence that the sea floor has gradually moved apart at a mid-ocean ridge. It is shown by the alignment of minerals in cooled lava with the Earth's magnetic field.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is seafloor spreading?", answer: "Seafloor spreading is the process by which new oceanic crust is formed at mid-ocean ridges and moves away from the ridge over time.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What evidence did Wegener use to support his Continental Drift Theory?", answer: "<ul><li>The fit of continents.</li><li>Fossil distributions.</li><li>Rock type and structural similarities.</li><li>Past climatic evidence.</li></ul>", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is gravitational sliding (or ridge push)?", answer: "Gravitational sliding (or ridge push) is the process where gravity pulls the lithosphere down the slope created as new oceanic crust cools and becomes denser. This pushes the crust forward.", topic: "Hazards", subtopic: "Geophysical Hazards", type: "conceptual" },
+          { id: idCounter++, question: "What is the focus of an earthquake?", answer: "The focus of an earthquake is the point below the Earth's surface where the earthquake starts.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "Define the term epicentre.", answer: "The epicentre is the point on the Earth's surface directly above the focus of an earthquake.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "True or False? Most earthquakes occur far from plate boundaries.", answer: "False. Most earthquakes (about 95%) occur close to or at plate margins.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What are P waves?", answer: "P waves are primary seismic waves that are the fastest, reach the surface first, travel through liquids and solids, and cause backwards and forward shaking.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "Define the term liquefaction.", answer: "Liquefaction is when shaking causes loose or saturated soils to lose their strength and act like a liquid rather than a solid.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What is the Ring of Fire?", answer: "The Ring of Fire is the area surrounding the Pacific Ocean where many earthquakes occur.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What are S waves?", answer: "S waves are secondary seismic waves that are slower than P waves, only travel through solids, and cause a sideways motion.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "True or False? Intra-plate earthquakes occur at plate margins.", answer: "False. Intra-plate earthquakes are those that do not happen at plate margins.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What is the name of a large wave caused by an earthquake beneath the sea bed that lifts water?", answer: "A tsunami is a large wave created when an earthquake occurs beneath the sea bed, displacing water and forcing it upwards.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" }, // Note: this is also a Tsunami subtopic question
+          { id: idCounter++, question: "Which type of seismic wave is the most damaging?", answer: "L waves are surface seismic waves that are the slowest, cause a side-to-side motion, and are the most damaging.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What is magnitude in the context of earthquakes?", answer: "Magnitude is the energy released at the source (focus) of an earthquake.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "Define the Moment Magnitude Scale (MMS).", answer: "The Moment Magnitude Scale (MMS) is used to measure the magnitude of earthquakes, ranging from 1 to 10.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "True or False? The Moment Magnitude Scale is a linear scale.", answer: "False. The Moment Magnitude Scale is a logarithmic scale.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What does the Modified Mercalli Intensity Scale measure?", answer: "The Modified Mercalli Intensity Scale measures the intensity of an earthquake, which is its impact on people, as well as on the built and natural environments.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "Define seismic gap theory.", answer: "Seismic gap theory suggests that if there has been little or no earthquake activity at a plate margin for a long time, it is more likely to experience a large earthquake in the future.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "True or False? It is possible to predict earthquakes accurately.", answer: "False. It is not possible to predict earthquakes accurately.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What are foreshocks?", answer: "Foreshocks are pre-cursor earthquakes that may indicate a larger earthquake will follow.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What does a strainmeter measure?", answer: "A strainmeter measures deformation, which might indicate that pressure is building up before an earthquake.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "Concentrations of which gas in the atmosphere may increase before an earthquake?", answer: "Concentrations of radon gas in the atmosphere may increase before an earthquake.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
+          { id: idCounter++, question: "What is the probability of a 6.7 magnitude earthquake in the Los Angeles area within the next 30 years?", answer: "The probability of a 6.7 magnitude earthquake in the Los Angeles area within the next 30 years is 60%.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" }
         ];
 
         const placeFlashcards = [
-          {
-            id: idCounter++,
-            question: "Define the term place in geography.",
-            answer: "Place in geography is space plus meaning.",
-            topic: "Place",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is topophobia?",
-            answer: "Topophobia is a negative attachment to a place.",
-            topic: "Place",
-            subtopic: "Emotional Attachment",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define topophilia.",
-            answer: "Topophilia is a positive attachment to a place.",
-            topic: "Place",
-            subtopic: "Emotional Attachment",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? People can only form attachments to places they have visited.",
-            answer: "False. People can form attachments to places through perception gained from media or hearing the experiences of others.",
-            topic: "Place",
-            subtopic: "Emotional Attachment",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is place perspective?",
-            answer: "Place perspective is the combination of lived experience and perception of place.",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define localism.",
-            answer: "Localism is a preference for the place closest to you.",
-            topic: "Place",
-            subtopic: "Identity and Belonging",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What does regionalism refer to in terms of place identity?",
-            answer: "Regionalism refers to identification with a distinct region, such as describing oneself as 'Cornish' rather than 'English'.",
-            topic: "Place",
-            subtopic: "Identity and Belonging",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define sense of place.",
-            answer: "Sense of place is the attachment between person and place due to lived experience, or the distinctive character of a place.",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What are the three ways to think about how to define place?",
-            answer: "<ul><li>Location.</li><li>Locale.</li><li>Sense of place.</li></ul>",
-            topic: "Place",
-            subtopic: "General",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What is placelessness?",
-            answer: "Placelessness is essentially no sense of place, involving no awareness of the deep and symbolic significance of places and no appreciation of their identities.",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What does it mean for a place to be a social construct?",
-            answer: "For a place to be a social construct means that some people can feel 'in place' and some can feel 'out of place'.",
-            topic: "Place",
-            subtopic: "Social Constructs",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define placemaking processes.",
-            answer: "Placemaking processes are actions used to create spatial inclusion or exclusion.",
-            topic: "Place",
-            subtopic: "Social Constructs",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? Dominant groups always create spatial inclusion.",
-            answer: "False. Dominant groups can create social norms that lead to spatial exclusion for those who deviate from the norm.",
-            topic: "Place",
-            subtopic: "Social Constructs",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What are insider perspectives?",
-            answer: "Insider perspectives come from being fluent in the local language, being born in the place, and knowing the customs and norms.",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define outsider perspectives.",
-            answer: "Outsider perspectives are views held by people who are not from the area or do not fit the social norm.",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "True or False? People with insider perspectives usually feel safe in a place.",
-            answer: "True. People with insider perspectives usually feel safe in a place.",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What factors contribute to insider perspectives?",
-            answer: "<ul><li>Being fluent in the local language.</li><li>Being born in the place.</li><li>Knowing customs and norms.</li><li>Having friends/family connections.</li></ul>",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "Define spatial exclusion.",
-            answer: "Spatial exclusion is the process of physically preventing certain groups from accessing or using specific spaces.",
-            topic: "Place",
-            subtopic: "Social Constructs",
-            type: "conceptual"
-          },
-          {
-            id: idCounter++,
-            question: "What can cause people from the local area to have outsider perspectives?",
-            answer: "People from the local area can have outsider perspectives if they do not fit the social norm, such as those with different sexualities or genders.",
-            topic: "Place",
-            subtopic: "Perception of Place",
-            type: "conceptual"
-          }
+          { id: idCounter++, question: "Define the term place in geography.", answer: "Place in geography is space plus meaning.", topic: "Changing Places", subtopic: "General", type: "conceptual" }, // Changed topic to "Changing Places"
+          { id: idCounter++, question: "What is topophobia?", answer: "Topophobia is a negative attachment to a place.", topic: "Changing Places", subtopic: "Emotional Attachment", type: "conceptual" },
+          { id: idCounter++, question: "Define topophilia.", answer: "Topophilia is a positive attachment to a place.", topic: "Changing Places", subtopic: "Emotional Attachment", type: "conceptual" },
+          { id: idCounter++, question: "True or False? People can only form attachments to places they have visited.", answer: "False. People can form attachments to places through perception gained from media or hearing the experiences of others.", topic: "Changing Places", subtopic: "Emotional Attachment", type: "conceptual" },
+          { id: idCounter++, question: "What is place perspective?", answer: "Place perspective is the combination of lived experience and perception of place.", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" },
+          { id: idCounter++, question: "Define localism.", answer: "Localism is a preference for the place closest to you.", topic: "Changing Places", subtopic: "Identity and Belonging", type: "conceptual" },
+          { id: idCounter++, question: "What does regionalism refer to in terms of place identity?", answer: "Regionalism refers to identification with a distinct region, such as describing oneself as 'Cornish' rather than 'English'.", topic: "Changing Places", subtopic: "Identity and Belonging", type: "conceptual" },
+          { id: idCounter++, question: "Define sense of place.", answer: "Sense of place is the attachment between person and place due to lived experience, or the distinctive character of a place.", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" },
+          { id: idCounter++, question: "What are the three ways to think about how to define place?", answer: "<ul><li>Location.</li><li>Locale.</li><li>Sense of place.</li></ul>", topic: "Changing Places", subtopic: "General", type: "conceptual" },
+          { id: idCounter++, question: "What is placelessness?", answer: "Placelessness is essentially no sense of place, involving no awareness of the deep and symbolic significance of places and no appreciation of their identities.", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" },
+          { id: idCounter++, question: "What does it mean for a place to be a social construct?", answer: "For a place to be a social construct means that some people can feel 'in place' and some can feel 'out of place'.", topic: "Changing Places", subtopic: "Social Constructs", type: "conceptual" },
+          { id: idCounter++, question: "Define placemaking processes.", answer: "Placemaking processes are actions used to create spatial inclusion or exclusion.", topic: "Changing Places", subtopic: "Social Constructs", type: "conceptual" },
+          { id: idCounter++, question: "True or False? Dominant groups always create spatial inclusion.", answer: "False. Dominant groups can create social norms that lead to spatial exclusion for those who deviate from the norm.", topic: "Changing Places", subtopic: "Social Constructs", type: "conceptual" },
+          { id: idCounter++, question: "What are insider perspectives?", answer: "Insider perspectives come from being fluent in the local language, being born in the place, and knowing the customs and norms.", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" },
+          { id: idCounter++, question: "Define outsider perspectives.", answer: "Outsider perspectives are views held by people who are not from the area or do not fit the social norm.", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" },
+          { id: idCounter++, question: "True or False? People with insider perspectives usually feel safe in a place.", answer: "True. People with insider perspectives usually feel safe in a place.", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" },
+          { id: idCounter++, question: "What factors contribute to insider perspectives?", answer: "<ul><li>Being fluent in the local language.</li><li>Being born in the place.</li><li>Knowing customs and norms.</li><li>Having friends/family connections.</li></ul>", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" },
+          { id: idCounter++, question: "Define spatial exclusion.", answer: "Spatial exclusion is the process of physically preventing certain groups from accessing or using specific spaces.", topic: "Changing Places", subtopic: "Social Constructs", type: "conceptual" },
+          { id: idCounter++, question: "What can cause people from the local area to have outsider perspectives?", answer: "People from the local area can have outsider perspectives if they do not fit the social norm, such as those with different sexualities or genders.", topic: "Changing Places", subtopic: "Perception of Place", type: "conceptual" }
         ];
-
+        
         generatedFlashcards = [
           ...hazardsFlashcards,
           ...changingPlacesFlashcards,
           ...additionalFlashcards,
-          ...placeFlashcards
+          ...placeFlashcards // Ensure these are correctly categorized or merged if needed
         ];
         
         setFlashcards(generatedFlashcards);
-        setFilteredCards(generatedFlashcards);
+        // setFilteredCards(generatedFlashcards); // This will be handled by useEffect
       }, []);
 
       React.useEffect(() => {
@@ -2042,123 +1204,112 @@
       }, [generateFlashcards]);
 
       React.useEffect(() => {
-        let filtered = [...flashcards];
+        let filtered = flashcards; // Start with all cards if no topic/subtopic
         
         if (selectedTopic) {
-          filtered = filtered.filter(card => card.topic === selectedTopic);
+          filtered = flashcards.filter(card => card.topic === selectedTopic);
         }
         
         if (selectedSubtopic) {
+          // Further filter based on subtopic from the already topic-filtered list
           filtered = filtered.filter(card => card.subtopic === selectedSubtopic);
         }
         
-        if (view === 'bookmarks') {
-          filtered = filtered.filter(card => bookmarkedCards.includes(card.id));
-        }
+        // This handles the case where 'bookmarks' view might be implemented later
+        // if (view === 'bookmarks') { 
+        //   filtered = flashcards.filter(card => bookmarkedCards.includes(card.id) && 
+        //     (!selectedTopic || card.topic === selectedTopic) && 
+        //     (!selectedSubtopic || card.subtopic === selectedSubtopic)
+        //   );
+        // }
         
         setFilteredCards(filtered);
         setCurrentCardIndex(0);
         setShowAnswer(false);
-      }, [flashcards, selectedTopic, selectedSubtopic, view, bookmarkedCards]);
+      }, [flashcards, selectedTopic, selectedSubtopic, bookmarkedCards]); // Removed 'view' as primary filter trigger, topic/subtopic selection handles it
 
-      const isCardBookmarked = React.useCallback((cardId) => {
-        return bookmarkedCards.includes(cardId);
-      }, [bookmarkedCards]);
       
-      const selectTopic = (topicName) => { // Changed param to topicName
-        setAnimationClass('slide-out');
-        setTimeout(() => {
-          setSelectedTopic(topicName); // Use topicName
-          setSelectedSubtopic(null);
-          setView('subtopics');
-          setAnimationClass('slide-in');
-        }, 300);
+      const selectTopic = (topicName) => {
+        setAnimationClass('slide-out'); // For sidebar visual transition if needed
+        setSelectedTopic(topicName);
+        setSelectedSubtopic(null); // Reset subtopic when new topic selected
+        setView('subtopics'); // Change view to show subtopics
+        // Animation for main content area if it changes, but here sidebar content changes mostly
+        // If main content also slides, apply animation there.
+        // setTimeout(() => {
+        //   setAnimationClass('slide-in');
+        // }, 300); // This animation class might be for sidebar items
       };
       
-      const selectSubtopic = (subtopic) => {
-        setAnimationClass('slide-out');
-        setTimeout(() => {
-          setSelectedSubtopic(subtopic);
-          setView('flashcards');
-          setAnimationClass('slide-in');
-        }, 300);
+      const selectSubtopic = (subtopicName) => {
+        // Similar animation logic if subtopic selection animates a view change
+        setSelectedSubtopic(subtopicName);
+        setView('flashcards'); // Change view to show flashcards
       };
       
       const goBackToTopics = () => {
-        setAnimationClass('slide-out');
-        setTimeout(() => {
-          setSelectedTopic(null);
-          setSelectedSubtopic(null);
-          setView('topics');
-          setAnimationClass('slide-in');
-        }, 300);
+        setSelectedTopic(null);
+        setSelectedSubtopic(null);
+        setView('topics');
       };
       
       const goBackToSubtopics = () => {
-        setAnimationClass('slide-out');
-        setTimeout(() => {
-          setSelectedSubtopic(null);
-          setView('subtopics');
-          setAnimationClass('slide-in');
-        }, 300);
+        setSelectedSubtopic(null);
+        setView('subtopics'); // Stay within the currently selectedTopic
       };
       
-      const showBookmarks = () => {}; 
+      // Bookmark functionality is not being implemented as per current focus
+      // const showBookmarks = () => {}; 
+      // const toggleCardBookmark = () => {}; 
       
-      const toggleCardBookmark = () => {}; 
-      
-      const nextCard = () => {
+      const nextCard = React.useCallback(() => {
         if (filteredCards.length === 0) return;
         
         setIsFlipping(true);
         setTimeout(() => {
-          setCurrentCardIndex(prev => 
-            prev < filteredCards.length - 1 ? prev + 1 : 0
-          );
+          setCurrentCardIndex(prev => (prev + 1) % filteredCards.length); // Loop
           setShowAnswer(false);
           setIsFlipping(false);
-        }, 300);
-      };
+        }, 300); // Animation duration for flip/transition
+      }, [filteredCards.length]);
       
-      const prevCard = () => {
-        if (filteredCards.length === 0 ) return; // No prev if already at 0
+      const prevCard = React.useCallback(() => {
+        if (filteredCards.length === 0) return;
         
         setIsFlipping(true);
         setTimeout(() => {
-          setCurrentCardIndex(prev => 
-            prev > 0 ? prev - 1 : filteredCards.length -1 // Loop to end if at start
-        );
+          setCurrentCardIndex(prev => (prev - 1 + filteredCards.length) % filteredCards.length); // Loop
           setShowAnswer(false);
           setIsFlipping(false);
         }, 300);
-      };
+      }, [filteredCards.length]);
       
-      const toggleAnswer = () => {
+      const toggleAnswer = React.useCallback(() => {
         if (isFlipping || filteredCards.length === 0) return;
         
-        setIsFlipping(true);
+        setIsFlipping(true); // Use isFlipping for the card's visual flip
         setTimeout(() => {
-          setShowAnswer(!showAnswer);
+          setShowAnswer(prevShow => !prevShow);
           setIsFlipping(false);
-        }, 150); // Faster flip
-      };
+        }, 150); // Shorter duration for the content switch part of flip
+      }, [isFlipping, filteredCards.length]);
       
-      const getSubtopicCardCount = (subtopic) => {
+      const getSubtopicCardCount = (subtopicName) => {
+        if (!selectedTopic) return 0; // Should not happen if we are listing subtopics
         return flashcards.filter(card => 
-          card.subtopic === subtopic && 
-          (!selectedTopic || card.topic === selectedTopic)
+          card.topic === selectedTopic && card.subtopic === subtopicName
         ).length;
       };
       
-      const getSubtopicIcon = (subtopicName) => { // Renamed param for clarity
-        const topicData = topicConfig.find(t => t.name === selectedTopic); // Ensure filtering by current selectedTopic
-        if (!topicData || !topicData.subtopicIcons) return 'fa-folder'; // Default icon
-        return topicData.subtopicIcons[subtopicName] || 'fa-folder'; // Default icon if specific not found
+      const getSubtopicIcon = (subtopicName) => {
+        const topicData = topicConfig.find(t => t.name === selectedTopic);
+        if (!topicData || !topicData.subtopicIcons) return 'fa-folder';
+        return topicData.subtopicIcons[subtopicName] || 'fa-folder';
       };
       
       React.useEffect(() => {
         const handleKeyDown = (e) => {
-          if (view !== 'flashcards') return;
+          if (view !== 'flashcards' || filteredCards.length === 0) return;
           
           switch(e.key) {
             case 'ArrowRight':
@@ -2167,10 +1318,22 @@
             case 'ArrowLeft':
               prevCard();
               break;
-            case ' ': // Spacebar
+            case ' ': 
             case 'Enter':
-              e.preventDefault(); // Prevent page scroll/button activation
-              toggleAnswer();
+              // Only toggle if focus is not on a button already (to prevent double action)
+              if (document.activeElement && 
+                  (document.activeElement.tagName === 'BUTTON' || 
+                   document.activeElement.classList.contains('flashcard-content'))) {
+                // If focus is on a button, let the button's own handler work.
+                // If focus is on flashcard-content, then proceed.
+                if (document.activeElement.classList.contains('flashcard-content')) {
+                   e.preventDefault(); 
+                   toggleAnswer();
+                }
+              } else {
+                 e.preventDefault(); 
+                 toggleAnswer();
+              }
               break;
             default:
               break;
@@ -2179,29 +1342,23 @@
         
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-      }, [view, filteredCards, currentCardIndex, showAnswer, nextCard, prevCard, toggleAnswer]); // Added dependencies
+      }, [view, filteredCards, currentCardIndex, showAnswer, nextCard, prevCard, toggleAnswer, isFlipping]);
       
       return (
         <ErrorBoundary>
-          {/* App container id is in HTML body, not part of React component */}
             <div className="app-header">
               <h1 className="app-title">Geography Flashcards</h1>
             </div>
             
             <div className="app-layout">
               <div className="sidebar">
-                <div className="sidebar-section">
-                  {/* Search container can be added here later if needed */}
-                </div>
-                
-                <div className={`sidebar-section ${animationClass}`}>
+                {/* Sidebar content changes based on 'view' state */}
+                <div className={`sidebar-section ${animationClass}`}> {/* animationClass for potential transitions */}
                   {view === 'topics' && (
                     <>
                       <div className="sidebar-title">
-                        <i className="fas fa-layer-group"></i>
-                        Topics
+                        <i className="fas fa-layer-group"></i> Topics
                       </div>
-                      
                       <div className="topic-grid">
                         {topicConfig.map(topic => (
                           <button
@@ -2218,48 +1375,50 @@
                     </>
                   )}
                   
-                  {(view === 'subtopics' || view === 'flashcards') && selectedTopic && (
+                  {view === 'subtopics' && selectedTopic && (
                     <div className="subtopic-container">
-                      <button 
-                        className="back-btn" 
-                        onClick={view === 'subtopics' ? goBackToTopics : goBackToSubtopics}
-                        aria-label={`Go back to ${view === 'subtopics' ? 'topics' : 'subtopics'}`}
-                      >
-                        <i className="fas fa-arrow-left"></i>
-                        {view === 'subtopics' ? 'Back to Topics' : 'Back to Subtopics'}
+                      <button className="back-btn" onClick={goBackToTopics} aria-label="Back to topics">
+                        <i className="fas fa-arrow-left"></i> Back to Topics
                       </button>
-                      
-                      {view === 'subtopics' && (
-                        <>
-                          <div className="sidebar-title">
-                            <i className={`fas ${topicConfig.find(t => t.name === selectedTopic)?.icon || 'fa-folder'}`}></i>
-                            {selectedTopic} Subtopics
+                      <div className="sidebar-title">
+                        <i className={`fas ${topicConfig.find(t => t.name === selectedTopic)?.icon || 'fa-folder'}`}></i>
+                        {selectedTopic} Subtopics
+                      </div>
+                      <div className="subtopic-list">
+                        {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopicItem => (
+                          <div
+                            key={subtopicItem}
+                            className={`subtopic-card ${selectedSubtopic === subtopicItem ? 'active' : ''}`}
+                            onClick={() => selectSubtopic(subtopicItem)}
+                            aria-label={`Select ${subtopicItem} subtopic`}
+                            role="button"
+                            tabIndex="0"
+                            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectSubtopic(subtopicItem)}
+                          >
+                            <div className="subtopic-name">
+                              <i className={`fas ${getSubtopicIcon(subtopicItem)} subtopic-icon`}></i>
+                              {subtopicItem}
+                            </div>
+                            <div className="subtopic-count">
+                              {getSubtopicCardCount(subtopicItem)} cards
+                            </div>
                           </div>
-                          
-                          <div className="subtopic-list">
-                            {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopicItem => ( // Renamed to subtopicItem
-                              <div
-                                key={subtopicItem}
-                                className={`subtopic-card ${selectedSubtopic === subtopicItem ? 'active' : ''}`}
-                                onClick={() => selectSubtopic(subtopicItem)}
-                                aria-label={`Select ${subtopicItem} subtopic`}
-                                role="button"
-                                tabIndex="0" // Make it focusable
-                                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && selectSubtopic(subtopicItem)}
-                              >
-                                <div className="subtopic-name">
-                                  <i className={`fas ${getSubtopicIcon(subtopicItem)} subtopic-icon`}></i>
-                                  {subtopicItem}
-                                </div>
-                                <div className="subtopic-count">
-                                  {getSubtopicCardCount(subtopicItem)} cards
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </>
-                      )}
+                        ))}
+                      </div>
                     </div>
+                  )}
+
+                  {view === 'flashcards' && selectedTopic && selectedSubtopic && (
+                     <div className="subtopic-container"> {/* Show selected topic/subtopic info */}
+                       <button className="back-btn" onClick={goBackToSubtopics} aria-label="Back to subtopics">
+                         <i className="fas fa-arrow-left"></i> Back to Subtopics ({selectedTopic})
+                       </button>
+                       <div className="sidebar-title">
+                         <i className={`fas ${getSubtopicIcon(selectedSubtopic)}`}></i>
+                         Current: {selectedSubtopic}
+                       </div>
+                       {/* Optionally list other subtopics here, grayed out, or just keep it simple */}
+                     </div>
                   )}
                 </div>
               </div>
@@ -2270,23 +1429,21 @@
                     <div className="flashcard-header">
                       <div className="flashcard-progress">
                         Card {currentCardIndex + 1} of {filteredCards.length}
-                        {selectedSubtopic && ` • ${selectedSubtopic}`}
+                        {selectedSubtopic && ` • ${selectedTopic} - ${selectedSubtopic}`}
                       </div>
-                      <div className="flashcard-actions">
-                        {/* Bookmark button removed from UI */}
-                      </div>
+                      {/* flashcard-actions div is present but empty as per original hidden bookmark */}
+                      <div className="flashcard-actions"></div>
                     </div>
                     
                     <div 
                       className="flashcard-content" 
                       onClick={toggleAnswer}
-                      role="button" // ARIA role
-                      tabIndex="0"  // Make it focusable
-                      aria-label={showAnswer ? 'Hide answer. Press Space or Enter to toggle.' : 'Show answer. Press Space or Enter to toggle.'}
+                      role="button"
+                      tabIndex="0"
+                      aria-label={showAnswer ? `Card showing answer for ${filteredCards[currentCardIndex].subtopic}. Click or press Space/Enter to show question.` : `Card showing question for ${filteredCards[currentCardIndex].subtopic}. Click or press Space/Enter to show answer.`}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault(); // Prevent default space scroll
-                          toggleAnswer();
+                          e.preventDefault(); toggleAnswer();
                         }
                       }}
                     >
@@ -2298,18 +1455,12 @@
                         
                         {!showAnswer ? (
                           <div className="flashcard-question">
-                            <h3>
-                              <i className="fas fa-question-circle"></i>
-                              Question
-                            </h3>
+                            <h3><i className="fas fa-question-circle"></i> Question</h3>
                             <p>{filteredCards[currentCardIndex].question}</p>
                           </div>
                         ) : (
                           <div className="flashcard-answer">
-                            <h3>
-                              <i className="fas fa-lightbulb"></i>
-                              Answer
-                            </h3>
+                            <h3><i className="fas fa-lightbulb"></i> Answer</h3>
                             <div 
                               className="flashcard-answer-content"
                               dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}
@@ -2319,49 +1470,33 @@
                       </div>
                       
                       <div className="flashcard-instruction">
-                        {!showAnswer ? 'Click or press Space/Enter to reveal answer' : 'Click or press Space/Enter to hide answer'}
+                        {!showAnswer ? 'Click card or press Space/Enter to reveal answer' : 'Click card or press Space/Enter to hide answer'}
                       </div>
                     </div>
                     
                     <div className="flashcard-nav">
-                      <button 
-                        className="nav-btn prev"
-                        onClick={prevCard}
-                        // disabled={currentCardIndex === 0 && filteredCards.length > 0} // Keep disabled logic simple
-                        aria-label="Previous card (Left Arrow)"
-                      >
-                        <i className="fas fa-arrow-left"></i>
-                        Previous
+                      <button className="nav-btn prev" onClick={prevCard} aria-label="Previous card (Left Arrow)">
+                        <i className="fas fa-arrow-left"></i> Previous
                       </button>
-                      <button 
-                        className="nav-btn next"
-                        onClick={nextCard}
-                        aria-label="Next card (Right Arrow)"
-                      >
-                        Next
-                        <i className="fas fa-arrow-right"></i>
+                      <button className="nav-btn next" onClick={nextCard} aria-label="Next card (Right Arrow)">
+                        Next <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
                   </>
-                ) : view === 'flashcards' ? ( // Handles empty filtered set
+                ) : view === 'flashcards' && filteredCards.length === 0 ? (
                   <div className="empty-state">
-                    <i className="fas fa-map"></i> {/* Changed icon */}
+                    <i className="fas fa-map"></i>
                     <h3>No flashcards found</h3>
-                    <p>No flashcards match your current selection.</p>
-                    <button 
-                      className="nav-btn next" // Themed button
-                      onClick={goBackToSubtopics}
-                      aria-label="Back to subtopics"
-                    >
-                      <i className="fas fa-arrow-left"></i>
-                      Back to Subtopics
+                    <p>No flashcards match your current selection: {selectedTopic} - {selectedSubtopic}.</p>
+                    <button className="nav-btn next" onClick={goBackToSubtopics} aria-label="Back to subtopics">
+                      <i className="fas fa-arrow-left"></i> Back to Subtopics
                     </button>
                   </div>
-                ) : ( // Initial empty state
+                ) : ( // Initial empty state or when view is 'topics' or 'subtopics' but not 'flashcards'
                   <div className="empty-state">
-                    <i className="fas fa-chalkboard-teacher"></i> {/* Changed icon */}
+                    <i className="fas fa-chalkboard-teacher"></i>
                     <h3>Select a topic to begin</h3>
-                    <p>Choose a topic and subtopic from the sidebar to view flashcards.</p>
+                    <p>Choose a topic and then a subtopic from the sidebar to view flashcards.</p>
                   </div>
                 )}
               </div>
@@ -2372,7 +1507,7 @@
     
     ReactDOM.render(
       <GeographyFlashcardApp />,
-      document.getElementById('app-container') // Ensure this div exists in HTML body
+      document.getElementById('app-container')
     );
   </script>
 </body>
