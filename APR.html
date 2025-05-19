@@ -847,53 +847,59 @@
         }
         function parseOcrMultiPaper(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
-            if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
-            subjectData.specLink = getVal(csvRows[4],1) || subjectConfig.specLinkPlaceholder;
-            const paper1Title = getVal(csvRows[7],1); const paper2Title = getVal(csvRows[7],4);
-            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[7],7) : null;
-            const p1PaperCol = 1, p1MsCol = 2; const p2PaperCol = 4, p2MsCol = 5; const p3PaperCol = 7, p3MsCol = 8;
-            for (let i = 10; i < csvRows.length; i++) {
+            // Use different header row indexes for AS-Level vs A-Level Chemistry
+            const headerRowIndex = subjectConfig.qualType === 'ASLevel' ? 6 : 7;
+            if (getVal(csvRows[1], 1)) {
+                subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
+            }
+            subjectData.specLink = getVal(csvRows[4], 1) || subjectConfig.specLinkPlaceholder;
+            const paper1Title = getVal(csvRows[headerRowIndex], 1);
+            const paper2Title = getVal(csvRows[headerRowIndex], 4);
+            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[headerRowIndex], 7) : null;
+            const p1PaperCol = 1, p1MsCol = 2;
+            const p2PaperCol = 4, p2MsCol = 5;
+            const p3PaperCol = 7, p3MsCol = 8;
+            const startRow = subjectConfig.qualType === 'ASLevel' ? 9 : 10;
+            for (let i = startRow; i < csvRows.length; i++) {
                 const row = csvRows[i];
-                 // Session name is often in the last non-empty column or column 0
-                 let sessionName = "";
-                 for(let k = row.length -1; k >=0; k--) {
-                     const val = getVal(row, k);
-                     if(val && val.toLowerCase() !== 'n/a') {
-                         sessionName = val;
-                         break;
-                     }
-                 }
+                let sessionName = "";
+                for (let k = row.length - 1; k >= 0; k--) {
+                    const val = getVal(row, k);
+                    if (val && val.toLowerCase() !== 'n/a') {
+                        sessionName = val;
+                        break;
+                    }
+                }
                 if (!sessionName) continue;
-
                 let session = subjectData.sessions.find(s => s.name === sessionName);
-                if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-
-                // Prevent adding the same paper/ms pair multiple times for the same session
+                if (!session) {
+                    session = { name: sessionName, papers: [] };
+                    subjectData.sessions.push(session);
+                }
                 if (isLink(getVal(row, p1PaperCol))) {
-                     if (!session.papers.some(p => p.paperLink === getVal(row, p1PaperCol))) {
+                    if (!session.papers.some(p => p.paperLink === getVal(row, p1PaperCol))) {
                         session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) });
-                     }
+                    }
                 }
                 if (isLink(getVal(row, p2PaperCol))) {
-                     if (!session.papers.some(p => p.paperLink === getVal(row, p2PaperCol))) {
+                    if (!session.papers.some(p => p.paperLink === getVal(row, p2PaperCol))) {
                         session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) });
-                     }
+                    }
                 }
                 if (paper3Title && isLink(getVal(row, p3PaperCol))) {
-                     if (!session.papers.some(p => p.paperLink === getVal(row, p3PaperCol))) {
+                    if (!session.papers.some(p => p.paperLink === getVal(row, p3PaperCol))) {
                         session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
-                     }
+                    }
                 }
             }
-             // Sort sessions
-             subjectData.sessions.sort((a, b) => {
+            subjectData.sessions.sort((a, b) => {
                 const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
                 const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
                 if (yearA !== yearB) return yearA - yearB;
-                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
                 const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
                 const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
-                 return monthA - monthB;
+                return monthA - monthB;
             });
             return subjectData;
         }
