@@ -569,8 +569,8 @@
         // --- PARSERS ---
         function parseAqaGeographyALevel(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            // UPDATED: Extract subject name and spec link from row 1 (if provided)
-            const partsAL = getVal(csvRows[1], 1).split('|');
+            // UPDATED: Extract subject name and spec link from row 0 instead of row 1
+            const partsAL = getVal(csvRows[0], 1).split('|');
             subjectData.subjectName = partsAL[1] ? partsAL[1].trim() : subjectConfig.subjectName;
             subjectData.specLink = partsAL[2] ? partsAL[2].trim() : (subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf");
             const p1PaperCol = 1, p1InsertCol = 3, p1MsCol = 2;
@@ -627,8 +627,8 @@
         }
          function parseAqaGeographyASLevel(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            // UPDATED: Extract subject name and spec link from row 1 (if provided)
-            const partsAS = getVal(csvRows[1], 1).split('|');
+            // UPDATED: Extract subject name and spec link from row 0 instead of row 1
+            const partsAS = getVal(csvRows[0], 1).split('|');
             subjectData.subjectName = partsAS[1] ? partsAS[1].trim() : subjectConfig.subjectName;
             subjectData.specLink = partsAS[2] ? partsAS[2].trim() : (subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf");
             const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
