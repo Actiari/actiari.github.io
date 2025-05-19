@@ -237,6 +237,15 @@
             background-color: var(--nav-bg); color: var(--nav-text); text-align: center;
             padding: 20px 0; font-size: 0.9rem; margin-top: auto;
         }
+        #data-loading-status {
+            position: fixed;
+            bottom: 80px; /* adjust distance above footer if needed */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            z-index: 1000;
+            margin: 0; /* remove the margin-top */
+        }
         @media screen and (max-width: 992px) {
             .nav-container { justify-content: space-between; }
             .nav-menu-wrapper { justify-content: flex-start; width: auto; }
