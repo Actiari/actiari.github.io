@@ -851,13 +851,20 @@
         }
         function parseOcrMultiPaper(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] }; // added initialization
-            // UPDATED: For A Level, use header row index 8 instead of 7
-            const titleRow = subjectConfig.qualType === 'ASLevel' ? 6 : 8;
-            const paper1Title = getVal(csvRows[titleRow], 1);
-            const paper2Title = getVal(csvRows[titleRow], 4);
-            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[titleRow], 7) : null;
-            const p1PaperCol = 1, p1MsCol = 2;
-            const p2PaperCol = 4, p2MsCol = 5;
+            // Determine header row based on qualification and subject
+            let headerRow;
+            if (subjectConfig.qualType === 'ASLevel') {
+                headerRow = 6;
+            } else if (subjectConfig.subjectSlug === 'chemistry') {  // For A Level Chemistry use row 7
+                headerRow = 7;
+            } else {
+                headerRow = 8;
+            }
+            const paper1Title = getVal(csvRows[headerRow], 1);
+            const paper2Title = getVal(csvRows[headerRow], 4);
+            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[headerRow], 7) : null;
+            const p1PaperCol = 1, p1MsCol = 2; 
+            const p2PaperCol = 4, p2MsCol = 5; 
             const p3PaperCol = 7, p3MsCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i];
