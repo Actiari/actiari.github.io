@@ -850,11 +850,8 @@
             return subjectData;
         }
         function parseOcrMultiPaper(csvRows, subjectConfig) {
-            const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
-            if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
-            subjectData.specLink = getVal(csvRows[4],1) || subjectConfig.specLinkPlaceholder;
-            // Determine header row index based on qualification type: use row 6 for ASLevel, row 7 for ALevel
-            const titleRow = subjectConfig.qualType === 'ASLevel' ? 6 : 7;
+            // UPDATED: For A Level, use header row index 8 instead of 7
+            const titleRow = subjectConfig.qualType === 'ASLevel' ? 6 : 8;
             const paper1Title = getVal(csvRows[titleRow],1);
             const paper2Title = getVal(csvRows[titleRow],4);
             const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[titleRow],7) : null;
@@ -863,7 +860,6 @@
             const p3PaperCol = 7, p3MsCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i];
-                // Use the first column as session name if available; otherwise fallback to scanning from the end.
                 let sessionName = getVal(row, 0);
                 if (!sessionName) {
                     for (let k = row.length - 1; k >= 0; k--) {

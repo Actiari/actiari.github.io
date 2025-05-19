@@ -141,7 +141,7 @@
       border: 1px solid var(--color-border); /* Updated */
       height: fit-content;
       position: sticky;
-      top: 20px; /* Adjusted for nav height potentially, ensure it looks good */
+      top: 20px; 
       animation: slideInLeft 0.5s ease-out;
     }
     
@@ -307,17 +307,15 @@
     }
     
     .flashcard-view {
-      background-color: var(--color-surface); /* Updated */
+      background-color: var(--color-surface); 
       border-radius: var(--border-radius);
-      box-shadow: 0 4px 15px var(--color-shadow); /* Updated */
+      box-shadow: 0 4px 15px var(--color-shadow); 
       padding: 30px;
-      /* min-height: 400px; /* MODIFIED: Replaced with fixed height */
-      height: 630px; /* ADDED: Fixed height for the entire flashcard area */
+      height: 630px; /* Fixed height for the entire flashcard area */
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--color-border); /* Updated */
+      border: 1px solid var(--color-border); 
       animation: fadeIn 0.5s ease-out;
-      /* overflow: hidden; /* Optional: Consider if content might unexpectedly overflow container */
     }
     
     .flashcard-header {
@@ -329,7 +327,7 @@
     
     .flashcard-progress {
       font-size: 0.9rem;
-      color: var(--color-text-secondary); /* Updated */
+      color: var(--color-text-secondary); 
       font-weight: 500;
     }
     
@@ -345,8 +343,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--color-surface-variant); /* Updated */
-      color: var(--color-text-secondary); /* Updated */
+      background-color: var(--color-surface-variant); 
+      color: var(--color-text-secondary); 
       cursor: pointer;
       transition: var(--transition);
       border: none;
@@ -354,41 +352,40 @@
     
     .action-btn:hover,
     .action-btn:focus {
-      background-color: var(--color-primary-accent-generic); /* Updated */
-      color: var(--nav-hover-text); /* Updated */
+      background-color: var(--color-primary-accent-generic); 
+      color: var(--nav-hover-text); 
       outline: none;
     }
     
-    .action-btn.bookmarked { /* Style for bookmarked, even if hidden, for completeness */
+    .action-btn.bookmarked { 
       background-color: var(--warning); 
       color: var(--color-background);
     }
     
     .flashcard-content {
-      flex: 1; /* This makes it take available space between header and nav */
+      flex: 1; 
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Vertically centers the .flashcard and .flashcard-instruction block */
+      justify-content: center; 
       perspective: 1000px;
       position: relative;
     }
     
     .flashcard {
-      background-color: var(--color-surface-variant); /* Updated */
+      background-color: var(--color-surface-variant); 
       border-radius: var(--border-radius);
       padding: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slightly darker shadow for depth */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
       transition: var(--transition);
-      border: 1px solid var(--color-border); /* Updated */
+      border: 1px solid var(--color-border); 
       transform-style: preserve-3d;
-      /* min-height: 400px; /* This is good, but height: 400px is more direct */
       height: 400px; /* Fixed height for the card itself */
       overflow-y: auto; /* Allows content to scroll if it exceeds 400px */
       display: flex;
       flex-direction: column;
       cursor: pointer;
       position: relative;
-      color: var(--color-text-primary); /* Updated */
+      color: var(--color-text-primary); 
     }
     
     .flashcard.flipping {
@@ -397,7 +394,7 @@
     
     .flashcard-subtopic {
       font-size: 0.9rem;
-      color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--color-primary-accent-generic); 
       margin-bottom: 12px;
       font-weight: 500;
       display: flex;
@@ -410,16 +407,16 @@
     
     .flashcard-question, 
     .flashcard-answer {
-      flex: 1; /* Allows question/answer content to fill card space if needed */
+      flex: 1; 
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Centers content within the question/answer area */
+      justify-content: center; 
     }
     
     .flashcard-question h3,
     .flashcard-answer h3 {
       font-size: 1.3rem;
-      color: var(--color-text-primary); /* Updated */
+      color: var(--color-text-primary); 
       margin-bottom: 20px;
       display: flex;
       align-items: center;
@@ -427,23 +424,23 @@
     
     .flashcard-question h3 i {
       margin-right: 12px;
-      color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--color-primary-accent-generic); 
     }
     
     .flashcard-question p {
       font-size: 1.1rem;
-      color: var(--color-text-primary); /* Updated */
+      color: var(--color-text-primary); 
       line-height: 1.7;
     }
     
     .flashcard-answer h3 i {
       margin-right: 12px;
-      color: var(--success); /* Keep success color for answer indication */
+      color: var(--success); 
     }
     
     .flashcard-answer-content {
       font-size: 1.1rem;
-      color: var(--color-text-primary); /* Updated */
+      color: var(--color-text-primary); 
       line-height: 1.7;
     }
     
@@ -458,9 +455,9 @@
     
     .flashcard-instruction {
       text-align: center;
-      margin-top: 20px; /* Sits below the .flashcard div */
+      margin-top: 20px; 
       font-size: 0.9rem;
-      color: var(--color-text-secondary); /* Updated */
+      color: var(--color-text-secondary); 
       font-weight: 500;
     }
     
@@ -471,44 +468,44 @@
     }
     
     .nav-btn {
-      padding: 10px 20px; /* Adjusted padding */
+      padding: 10px 20px; 
       border-radius: var(--border-radius);
       font-weight: 500;
       cursor: pointer;
       transition: var(--transition);
       display: flex;
       align-items: center;
-      border: 1px solid transparent; /* Base border */
-      font-size: 0.95em; /* Matched style_source filter-tab */
+      border: 1px solid transparent; 
+      font-size: 0.95em; 
     }
     
     .nav-btn:disabled {
-      opacity: 0.6; /* Slightly more visible disabled state */
+      opacity: 0.6; 
       cursor: not-allowed;
       filter: grayscale(50%);
     }
     
     .nav-btn.prev {
-      background-color: var(--color-surface-hover); /* Updated */
-      color: var(--color-text-primary); /* Updated */
-      border-color: var(--color-border); /* Updated */
+      background-color: var(--color-surface-hover); 
+      color: var(--color-text-primary); 
+      border-color: var(--color-border); 
     }
     
     .nav-btn.prev:hover:not(:disabled),
     .nav-btn.prev:focus:not(:disabled) {
-      background-color: var(--color-border); /* Darker hover */
+      background-color: var(--color-border); 
       color: var(--color-text-primary);
     }
     
     .nav-btn.next {
-      background-color: var(--color-primary-accent-generic); /* Updated */
-      color: var(--nav-hover-text); /* Updated for contrast */
-      border-color: var(--color-primary-accent-generic); /* Updated */
+      background-color: var(--color-primary-accent-generic); 
+      color: var(--nav-hover-text); 
+      border-color: var(--color-primary-accent-generic); 
     }
     
     .nav-btn.next:hover:not(:disabled),
     .nav-btn.next:focus:not(:disabled) {
-      filter: brightness(1.1); /* Slight brighten, common pattern */
+      filter: brightness(1.1); 
       transform: translateY(-1px);
     }
     
@@ -518,12 +515,10 @@
     
     .empty-state {
       text-align: center;
-      padding: 40px 20px; /* Internal padding for the content of empty state */
+      padding: 40px 20px; 
       animation: fadeIn 0.5s ease-out;
-      color: var(--color-text-secondary); /* Updated */
-      
-      /* ADDED: Make empty-state fill .flashcard-view and center its content */
-      flex-grow: 1; /* Takes up available space in the flex parent (.flashcard-view) */
+      color: var(--color-text-secondary);       
+      flex-grow: 1; 
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -532,22 +527,22 @@
     
     .empty-state i {
       font-size: 3rem;
-      color: var(--color-surface-variant); /* Updated, less prominent */
+      color: var(--color-surface-variant); 
       margin-bottom: 20px;
     }
     
     .empty-state h3 {
       font-size: 1.3rem;
-      color: var(--color-text-primary); /* Updated */
+      color: var(--color-text-primary); 
       margin-bottom: 10px;
     }
     
     .empty-state p {
-      color: var(--color-text-secondary); /* Updated */
+      color: var(--color-text-secondary); 
       margin-bottom: 20px;
     }
     
-    .error-boundary { /* Error styling */
+    .error-boundary { 
       padding: 20px;
       background-color: var(--color-surface);
       border-radius: var(--border-radius);
@@ -558,7 +553,7 @@
     .error-boundary h3 {
         color: var(--danger);
     }
-    .error-boundary .nav-btn.next { /* Button in error boundary */
+    .error-boundary .nav-btn.next { 
         background-color: var(--danger);
         color: white;
         border-color: var(--danger);
@@ -596,7 +591,7 @@
     
     @keyframes flipCard {
       0% { transform: rotateY(0); }
-      50% { transform: rotateY(90deg); } /* Content hidden mid-flip */
+      50% { transform: rotateY(90deg); } 
       100% { transform: rotateY(0); }
     }
     
@@ -627,17 +622,17 @@
     }
     
     @media screen and (max-width: 992px) {
-      .nav-container { /* Copied from style_source.html for consistency */
+      .nav-container { 
         justify-content: space-between;
       }
       .app-layout {
-        grid-template-columns: 1fr; /* Sidebar stacks on top */
+        grid-template-columns: 1fr; 
       }
       
       .sidebar {
-        position: static; /* No longer sticky when stacked */
+        position: static; 
         margin-bottom: 20px;
-        top: auto; /* Reset sticky top */
+        top: auto; 
       }
       
       .topic-grid {
@@ -648,7 +643,7 @@
         display: block;
       }
       
-      .nav-menu { /* Copied from style_source.html for consistency */
+      .nav-menu { 
         display: none;
         position: absolute;
         top: 100%;
@@ -662,29 +657,29 @@
         transition: max-height 0.3s ease-out;
       }
       
-      .nav-menu.active { /* Copied from style_source.html for consistency */
+      .nav-menu.active { 
         display: flex;
-        max-height: 500px; /* Ensure this is enough */
+        max-height: 500px; 
       }
       
-      .nav-menu li { /* Copied from style_source.html for consistency */
+      .nav-menu li { 
         width: 100%;
       }
       
-      .nav-menu li a { /* Copied from style_source.html for consistency */
+      .nav-menu li a { 
         padding: 12px 20px;
         text-align: left;
       }
     }
     
     @media screen and (max-width: 768px) {
-      body { /* From style_source.html, though flashcards has padding:0 already */
+      body { 
           font-size:15px; 
       }
-      .nav-container { /* From style_source.html */
+      .nav-container { 
           padding: 0 15px;
       }
-      #app-container { /* Adapted from style_source.html .page-container */
+      #app-container { 
          margin: 15px; 
          padding: 0;
       }
@@ -697,8 +692,7 @@
       }
       
       .flashcard-view {
-        padding: 20px; /* Reduced padding */
-        /* height: 630px; /* Height remains same unless overridden for smaller screens */
+        padding: 20px; 
       }
       
       .flashcard-question h3,
@@ -717,7 +711,7 @@
     }
     
     @media screen and (max-width: 576px) {
-      .app-title { /* From style_source.html .page-header h1 */
+      .app-title { 
         font-size: 1.7em;
       }
       .nav-btn {
@@ -736,22 +730,19 @@
       }
 
       .flashcard-view {
-        height: 500px; /* ADDED: Adjusted fixed height for small mobile screens */
-        /* padding: 20px; /* Already set in 768px breakpoint */
+        height: 500px; 
       }
       
       .flashcard {
         padding: 20px;
-        /* min-height: 250px; /* MODIFIED: Replaced with fixed height */
-        height: 250px; /* MODIFIED: Fixed height for card on small screens */
-        overflow-y: auto; /* ENSURE this is set for scrolling */
-        /* height: auto; /* MODIFIED: Removed to enforce fixed size */
+        height: 250px; 
+        overflow-y: auto; 
       }
     }
     
     footer {
-      background-color: var(--nav-bg); /* Matched style_source */
-      color: var(--nav-text); /* Matched style_source */
+      background-color: var(--nav-bg); 
+      color: var(--nav-text); 
       text-align: center;
       padding: 20px 0; 
       font-size: 0.9rem;
@@ -765,7 +756,6 @@
 </head>
 <body>
   <div class="nav-container">
-    <!-- Hamburger Menu Toggle Button, identical to style_source.html -->
     <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
     </button>
@@ -778,7 +768,6 @@
   </div>
 
   <script>
-    // Hamburger Menu Toggle & Active Nav Link Logic (adapted from style_source.html)
     document.addEventListener('DOMContentLoaded', function() {
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
@@ -797,8 +786,7 @@
                     menuToggle.setAttribute('aria-expanded', 'false');
                 }
             });
-            // Highlight active nav link
-            const currentPageFilename = window.location.pathname.split('/').pop() || 'SPBE.html'; // Default to current page if root
+            const currentPageFilename = window.location.pathname.split('/').pop() || 'SPBE.html'; 
             if (currentPageFilename) {
                 const navLinks = document.querySelectorAll('.nav-menu a');
                 navLinks.forEach(link => {
@@ -810,16 +798,6 @@
                 });
             }
         }
-        // Adjust sidebar top based on nav-container height
-        const navContainer = document.querySelector('.nav-container');
-        const sidebar = document.querySelector('.sidebar'); // This might not work if sidebar is rendered by React later.
-                                                            // However, sidebar's position: sticky, top: 20px is CSS based.
-                                                            // If nav height is dynamic, this would be more complex.
-                                                            // For now, assuming nav height is fairly constant.
-        // if (navContainer && sidebar && getComputedStyle(sidebar).position === 'sticky') {
-        //    const navHeight = navContainer.offsetHeight;
-        //    sidebar.style.top = navHeight + 20 + 'px'; // 20px is the desired gap
-        // } // Commented out as sticky top fixed value is likely fine with non-dynamic nav
     });
   </script>
   
@@ -852,7 +830,7 @@
               <h3>Something went wrong</h3>
               <p>Please refresh the page to continue</p>
               <button 
-                className="nav-btn next" // Uses themed button style
+                className="nav-btn next" 
                 onClick={() => window.location.reload()}
               >
                 <i className="fas fa-sync-alt"></i>
@@ -874,9 +852,10 @@
       const [selectedTopic, setSelectedTopic] = React.useState(null);
       const [selectedSubtopic, setSelectedSubtopic] = React.useState(null);
       const [bookmarkedCards, setBookmarkedCards] = React.useState([]);
-      const [view, setView] = React.useState('topics'); // Initial view state
+      const [view, setView] = React.useState('topics'); 
       const [animationClass, setAnimationClass] = React.useState('');
 
+      // FULL caseStudyFacts from your original post
       const caseStudyFacts = {
         "Mt Etna": `<ul>
           <li>VEI: 2-3</li>
@@ -978,6 +957,7 @@
         </ul>`
       };
 
+      // FULL topicConfig from your original post
       const topicConfig = [
         {
           id: 'hazards',
@@ -1013,7 +993,6 @@
             "Identity and Belonging": "fa-id-badge"
           }
         },
-        // ... other topics from original code ...
         {
           id: 'global-governance',
           name: 'Global Governance',
@@ -1064,6 +1043,7 @@
         }
       ];
 
+      // FULL generateFlashcards with all data from your original post
       const generateFlashcards = React.useCallback(() => {
         let generatedFlashcards = [];
         let idCounter = 1;
@@ -1152,7 +1132,7 @@
           { id: idCounter++, question: "What is the Ring of Fire?", answer: "The Ring of Fire is the area surrounding the Pacific Ocean where many earthquakes occur.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
           { id: idCounter++, question: "What are S waves?", answer: "S waves are secondary seismic waves that are slower than P waves, only travel through solids, and cause a sideways motion.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
           { id: idCounter++, question: "True or False? Intra-plate earthquakes occur at plate margins.", answer: "False. Intra-plate earthquakes are those that do not happen at plate margins.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
-          { id: idCounter++, question: "What is the name of a large wave caused by an earthquake beneath the sea bed that lifts water?", answer: "A tsunami is a large wave created when an earthquake occurs beneath the sea bed, displacing water and forcing it upwards.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" }, // Note: this is also a Tsunami subtopic question
+          { id: idCounter++, question: "What is the name of a large wave caused by an earthquake beneath the sea bed that lifts water?", answer: "A tsunami is a large wave created when an earthquake occurs beneath the sea bed, displacing water and forcing it upwards.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" }, 
           { id: idCounter++, question: "Which type of seismic wave is the most damaging?", answer: "L waves are surface seismic waves that are the slowest, cause a side-to-side motion, and are the most damaging.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
           { id: idCounter++, question: "What is magnitude in the context of earthquakes?", answer: "Magnitude is the energy released at the source (focus) of an earthquake.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
           { id: idCounter++, question: "Define the Moment Magnitude Scale (MMS).", answer: "The Moment Magnitude Scale (MMS) is used to measure the magnitude of earthquakes, ranging from 1 to 10.", topic: "Hazards", subtopic: "Earthquakes", type: "conceptual" },
@@ -1167,7 +1147,7 @@
         ];
 
         const placeFlashcards = [
-          { id: idCounter++, question: "Define the term place in geography.", answer: "Place in geography is space plus meaning.", topic: "Changing Places", subtopic: "General", type: "conceptual" }, // Changed topic to "Changing Places"
+          { id: idCounter++, question: "Define the term place in geography.", answer: "Place in geography is space plus meaning.", topic: "Changing Places", subtopic: "General", type: "conceptual" },
           { id: idCounter++, question: "What is topophobia?", answer: "Topophobia is a negative attachment to a place.", topic: "Changing Places", subtopic: "Emotional Attachment", type: "conceptual" },
           { id: idCounter++, question: "Define topophilia.", answer: "Topophilia is a positive attachment to a place.", topic: "Changing Places", subtopic: "Emotional Attachment", type: "conceptual" },
           { id: idCounter++, question: "True or False? People can only form attachments to places they have visited.", answer: "False. People can form attachments to places through perception gained from media or hearing the experiences of others.", topic: "Changing Places", subtopic: "Emotional Attachment", type: "conceptual" },
@@ -1192,11 +1172,10 @@
           ...hazardsFlashcards,
           ...changingPlacesFlashcards,
           ...additionalFlashcards,
-          ...placeFlashcards // Ensure these are correctly categorized or merged if needed
+          ...placeFlashcards
         ];
         
         setFlashcards(generatedFlashcards);
-        // setFilteredCards(generatedFlashcards); // This will be handled by useEffect
       }, []);
 
       React.useEffect(() => {
@@ -1204,47 +1183,32 @@
       }, [generateFlashcards]);
 
       React.useEffect(() => {
-        let filtered = flashcards; // Start with all cards if no topic/subtopic
+        let filtered = flashcards; 
         
         if (selectedTopic) {
           filtered = flashcards.filter(card => card.topic === selectedTopic);
         }
         
         if (selectedSubtopic) {
-          // Further filter based on subtopic from the already topic-filtered list
           filtered = filtered.filter(card => card.subtopic === selectedSubtopic);
         }
-        
-        // This handles the case where 'bookmarks' view might be implemented later
-        // if (view === 'bookmarks') { 
-        //   filtered = flashcards.filter(card => bookmarkedCards.includes(card.id) && 
-        //     (!selectedTopic || card.topic === selectedTopic) && 
-        //     (!selectedSubtopic || card.subtopic === selectedSubtopic)
-        //   );
-        // }
         
         setFilteredCards(filtered);
         setCurrentCardIndex(0);
         setShowAnswer(false);
-      }, [flashcards, selectedTopic, selectedSubtopic, bookmarkedCards]); // Removed 'view' as primary filter trigger, topic/subtopic selection handles it
+      }, [flashcards, selectedTopic, selectedSubtopic, bookmarkedCards]); 
 
       
       const selectTopic = (topicName) => {
-        setAnimationClass('slide-out'); // For sidebar visual transition if needed
+        // setAnimationClass('slide-out'); // This was for sidebar item transitions, can be re-enabled if desired
         setSelectedTopic(topicName);
-        setSelectedSubtopic(null); // Reset subtopic when new topic selected
-        setView('subtopics'); // Change view to show subtopics
-        // Animation for main content area if it changes, but here sidebar content changes mostly
-        // If main content also slides, apply animation there.
-        // setTimeout(() => {
-        //   setAnimationClass('slide-in');
-        // }, 300); // This animation class might be for sidebar items
+        setSelectedSubtopic(null); 
+        setView('subtopics'); 
       };
       
       const selectSubtopic = (subtopicName) => {
-        // Similar animation logic if subtopic selection animates a view change
         setSelectedSubtopic(subtopicName);
-        setView('flashcards'); // Change view to show flashcards
+        setView('flashcards'); 
       };
       
       const goBackToTopics = () => {
@@ -1255,22 +1219,18 @@
       
       const goBackToSubtopics = () => {
         setSelectedSubtopic(null);
-        setView('subtopics'); // Stay within the currently selectedTopic
+        setView('subtopics'); 
       };
-      
-      // Bookmark functionality is not being implemented as per current focus
-      // const showBookmarks = () => {}; 
-      // const toggleCardBookmark = () => {}; 
       
       const nextCard = React.useCallback(() => {
         if (filteredCards.length === 0) return;
         
         setIsFlipping(true);
         setTimeout(() => {
-          setCurrentCardIndex(prev => (prev + 1) % filteredCards.length); // Loop
+          setCurrentCardIndex(prev => (prev + 1) % filteredCards.length); 
           setShowAnswer(false);
           setIsFlipping(false);
-        }, 300); // Animation duration for flip/transition
+        }, 300); 
       }, [filteredCards.length]);
       
       const prevCard = React.useCallback(() => {
@@ -1278,7 +1238,7 @@
         
         setIsFlipping(true);
         setTimeout(() => {
-          setCurrentCardIndex(prev => (prev - 1 + filteredCards.length) % filteredCards.length); // Loop
+          setCurrentCardIndex(prev => (prev - 1 + filteredCards.length) % filteredCards.length); 
           setShowAnswer(false);
           setIsFlipping(false);
         }, 300);
@@ -1287,29 +1247,29 @@
       const toggleAnswer = React.useCallback(() => {
         if (isFlipping || filteredCards.length === 0) return;
         
-        setIsFlipping(true); // Use isFlipping for the card's visual flip
+        setIsFlipping(true); 
         setTimeout(() => {
           setShowAnswer(prevShow => !prevShow);
           setIsFlipping(false);
-        }, 150); // Shorter duration for the content switch part of flip
+        }, 150); 
       }, [isFlipping, filteredCards.length]);
       
       const getSubtopicCardCount = (subtopicName) => {
-        if (!selectedTopic) return 0; // Should not happen if we are listing subtopics
+        if (!selectedTopic || flashcards.length === 0) return 0; 
         return flashcards.filter(card => 
           card.topic === selectedTopic && card.subtopic === subtopicName
         ).length;
       };
       
       const getSubtopicIcon = (subtopicName) => {
-        const topicData = topicConfig.find(t => t.name === selectedTopic);
-        if (!topicData || !topicData.subtopicIcons) return 'fa-folder';
-        return topicData.subtopicIcons[subtopicName] || 'fa-folder';
+        const currentTopic = topicConfig.find(t => t.name === selectedTopic); // Use selectedTopic to find current topic config
+        if (!currentTopic || !currentTopic.subtopicIcons) return 'fa-folder';
+        return currentTopic.subtopicIcons[subtopicName] || 'fa-folder';
       };
       
       React.useEffect(() => {
         const handleKeyDown = (e) => {
-          if (view !== 'flashcards' || filteredCards.length === 0) return;
+          if (view !== 'flashcards' || filteredCards.length === 0 || isFlipping) return;
           
           switch(e.key) {
             case 'ArrowRight':
@@ -1320,20 +1280,12 @@
               break;
             case ' ': 
             case 'Enter':
-              // Only toggle if focus is not on a button already (to prevent double action)
-              if (document.activeElement && 
-                  (document.activeElement.tagName === 'BUTTON' || 
-                   document.activeElement.classList.contains('flashcard-content'))) {
-                // If focus is on a button, let the button's own handler work.
-                // If focus is on flashcard-content, then proceed.
-                if (document.activeElement.classList.contains('flashcard-content')) {
-                   e.preventDefault(); 
-                   toggleAnswer();
-                }
-              } else {
-                 e.preventDefault(); 
-                 toggleAnswer();
-              }
+              const activeEl = document.activeElement;
+              // Allow space/enter for buttons, but toggle answer for flashcard content
+              if (activeEl && activeEl.tagName === 'BUTTON') return; 
+              
+              e.preventDefault(); 
+              toggleAnswer();
               break;
             default:
               break;
@@ -1352,8 +1304,7 @@
             
             <div className="app-layout">
               <div className="sidebar">
-                {/* Sidebar content changes based on 'view' state */}
-                <div className={`sidebar-section ${animationClass}`}> {/* animationClass for potential transitions */}
+                <div className={`sidebar-section ${animationClass}`}>
                   {view === 'topics' && (
                     <>
                       <div className="sidebar-title">
@@ -1409,7 +1360,7 @@
                   )}
 
                   {view === 'flashcards' && selectedTopic && selectedSubtopic && (
-                     <div className="subtopic-container"> {/* Show selected topic/subtopic info */}
+                     <div className="subtopic-container"> 
                        <button className="back-btn" onClick={goBackToSubtopics} aria-label="Back to subtopics">
                          <i className="fas fa-arrow-left"></i> Back to Subtopics ({selectedTopic})
                        </button>
@@ -1417,7 +1368,6 @@
                          <i className={`fas ${getSubtopicIcon(selectedSubtopic)}`}></i>
                          Current: {selectedSubtopic}
                        </div>
-                       {/* Optionally list other subtopics here, grayed out, or just keep it simple */}
                      </div>
                   )}
                 </div>
@@ -1431,7 +1381,6 @@
                         Card {currentCardIndex + 1} of {filteredCards.length}
                         {selectedSubtopic && ` • ${selectedTopic} - ${selectedSubtopic}`}
                       </div>
-                      {/* flashcard-actions div is present but empty as per original hidden bookmark */}
                       <div className="flashcard-actions"></div>
                     </div>
                     
@@ -1487,12 +1436,12 @@
                   <div className="empty-state">
                     <i className="fas fa-map"></i>
                     <h3>No flashcards found</h3>
-                    <p>No flashcards match your current selection: {selectedTopic} - {selectedSubtopic}.</p>
-                    <button className="nav-btn next" onClick={goBackToSubtopics} aria-label="Back to subtopics">
-                      <i className="fas fa-arrow-left"></i> Back to Subtopics
+                    <p>No flashcards match your current selection: {selectedTopic || 'N/A'} - {selectedSubtopic || 'N/A'}.</p>
+                    <button className="nav-btn next" onClick={selectedSubtopic ? goBackToSubtopics : goBackToTopics} aria-label="Go back">
+                      <i className="fas fa-arrow-left"></i> Back
                     </button>
                   </div>
-                ) : ( // Initial empty state or when view is 'topics' or 'subtopics' but not 'flashcards'
+                ) : ( 
                   <div className="empty-state">
                     <i className="fas fa-chalkboard-teacher"></i>
                     <h3>Select a topic to begin</h3>
