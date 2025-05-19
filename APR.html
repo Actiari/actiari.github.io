@@ -679,27 +679,66 @@
         }
         function parseAqaEnglishMathsMultiPaper(csvRows, subjectConfig) {
             const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
-            if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
-            subjectData.specLink = getVal(csvRows[4], 1) || subjectConfig.specLinkPlaceholder;
-            const paper1Title = getVal(csvRows[7], 1); const paper2Title = getVal(csvRows[7], 5);
-            const paper3Title = getVal(csvRows[7], 9);
-            const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
-            const p3PaperCol = 9, p3MsCol = 10; const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
-            for (let i = 10; i < csvRows.length; i++) {
+
+            // Use a different header row for Mathematics CSV files
+            const headerRowIndex = (subjectConfig.subjectSlug === "mathematics") ? 8 : 7;
+            const paper1Title = getVal(csvRows[headerRowIndex], 1);
+            const paper2Title = getVal(csvRows[headerRowIndex], 5);
+            const paper3Title = getVal(csvRows[headerRowIndex], 9);
+
+            // Set column indexes differently for Maths (no Insert column)
+            let p1PaperCol, p1MsCol, p2PaperCol, p2MsCol, p3PaperCol, p3MsCol, resourceNameCol, resourceLinkCol, resourceSessionCol;
+            if(subjectConfig.subjectSlug === "mathematics") {
+                p1PaperCol = 1; p1MsCol = 2;
+                p2PaperCol = 4; p2MsCol = 5;
+                p3PaperCol = 7; p3MsCol = 8;
+                // Resource columns remain as in the original parser
+                resourceNameCol = 9; resourceLinkCol = 11; resourceSessionCol = 8;
+            } else {
+                p1PaperCol = 1; var p1InsertCol = 2; p1MsCol = 3;
+                p2PaperCol = 5; var p2InsertCol = 6; p2MsCol = 7;
+                p3PaperCol = 9; p3MsCol = 10;
+                resourceNameCol = 9; resourceLinkCol = 11; resourceSessionCol = 8;
+            }
+
+            // Start parsing from an appropriate row (skip header rows)
+            const startRow = (subjectConfig.subjectSlug === "mathematics") ? headerRowIndex + 3 : 10;
+            for (let i = startRow; i < csvRows.length; i++) {
                 const row = csvRows[i];
                 const paperSessionName = getVal(row, 0);
-                const resourceSessionName = getVal(row, resourceSessionCol); // Resources might be on lines without papers
-                 const currentSessionName = paperSessionName || resourceSessionName;
+                const resourceSessionName = getVal(row, resourceSessionCol);
+                const currentSessionName = paperSessionName || resourceSessionName;
 
                 if (currentSessionName) {
                     let session = subjectData.sessions.find(s => s.name === currentSessionName);
-                    if (!session) { session = { name: currentSessionName, papers: [] }; subjectData.sessions.push(session); }
+                    if (!session) {
+                        session = { name: currentSessionName, papers: [] };
+                        subjectData.sessions.push(session);
+                    }
 
-                    if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: isLink(getVal(row, p1InsertCol)) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) }); }
-                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), insertLink: isLink(getVal(row, p2InsertCol)) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) }); }
-                    if (paper3Title && isLink(getVal(row, p3PaperCol))) { session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });}
+                    if (isLink(getVal(row, p1PaperCol))) {
+                        let paperObj = { title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol) };
+                        paperObj.msLink = getVal(row, p1MsCol);
+                        // For non-maths, also add insert link
+                        if(subjectConfig.subjectSlug !== "mathematics" && isLink(getVal(row, p1InsertCol))) {
+                            paperObj.insertLink = getVal(row, p1InsertCol);
+                        }
+                        session.papers.push(paperObj);
+                    }
+                    if (isLink(getVal(row, p2PaperCol))) {
+                        let paperObj = { title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol) };
+                        paperObj.msLink = getVal(row, p2MsCol);
+                        if(subjectConfig.subjectSlug !== "mathematics" && isLink(getVal(row, p2InsertCol))) {
+                            paperObj.insertLink = getVal(row, p2InsertCol);
+                        }
+                        session.papers.push(paperObj);
+                    }
+                    if(paper3Title && isLink(getVal(row, p3PaperCol))) {
+                        session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
+                    }
 
-                    const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
+                    const resourceName = getVal(row, resourceNameCol);
+                    const resourceLink = getVal(row, resourceLinkCol);
                     if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
                          if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
                              subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
@@ -707,12 +746,13 @@
                     }
                 }
             }
-             // Sort sessions
-             subjectData.sessions.sort((a, b) => {
+            // Sort sessions chronologically if their names are years/terms
+            subjectData.sessions.sort((a, b) => {
                 const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
                 const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
                 if (yearA !== yearB) return yearA - yearB;
-                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+
+                const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
                 const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
                 const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
                  return monthA - monthB;
