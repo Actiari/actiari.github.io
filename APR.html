@@ -853,12 +853,17 @@
             const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
             if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
             subjectData.specLink = getVal(csvRows[4],1) || subjectConfig.specLinkPlaceholder;
-            const paper1Title = getVal(csvRows[7],1); const paper2Title = getVal(csvRows[7],4);
-            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[7],7) : null;
-            const p1PaperCol = 1, p1MsCol = 2; const p2PaperCol = 4, p2MsCol = 5; const p3PaperCol = 7, p3MsCol = 8;
+            // Determine header row index based on qualification type: use row 6 for ASLevel, row 7 for ALevel
+            const titleRow = subjectConfig.qualType === 'ASLevel' ? 6 : 7;
+            const paper1Title = getVal(csvRows[titleRow],1);
+            const paper2Title = getVal(csvRows[titleRow],4);
+            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[titleRow],7) : null;
+            const p1PaperCol = 1, p1MsCol = 2; 
+            const p2PaperCol = 4, p2MsCol = 5; 
+            const p3PaperCol = 7, p3MsCol = 8;
             for (let i = 10; i < csvRows.length; i++) {
                 const row = csvRows[i];
-                 // Session name is often in the last non-empty column or column 0
+                // Session name is often in the last non-empty column or column 0
                  let sessionName = "";
                  for(let k = row.length -1; k >=0; k--) {
                      const val = getVal(row, k);
@@ -868,11 +873,8 @@
                      }
                  }
                 if (!sessionName) continue;
-
                 let session = subjectData.sessions.find(s => s.name === sessionName);
                 if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
-
-                // Prevent adding the same paper/ms pair multiple times for the same session
                 if (isLink(getVal(row, p1PaperCol))) {
                      if (!session.papers.some(p => p.paperLink === getVal(row, p1PaperCol))) {
                         session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) });
@@ -1164,6 +1166,7 @@
 
                 // Reset exam board selection when qualification changes
                 examBoardTabs.forEach(ebTab => { ebTab.classList.remove('active'); ebTab.setAttribute('aria-selected', 'false'); });
+
                 activeExamBoardFilter = null;
 
                 updateVisibility();
