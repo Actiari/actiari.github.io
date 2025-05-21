@@ -135,7 +135,30 @@
     text-decoration: none !important;
 }
 
-        /* --- NAVIGATION STYLES (Adapted from Past Papers Archive) --- */
+/* Gemini-provided styles for case study links inside strong tags */
+.case-study-list li strong > a.case-study-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.case-study-list li strong > a.case-study-link:hover {
+    text-decoration: underline;
+}
+
+.case-study-list li strong > a.case-study-link i.fa-external-link-alt {
+    margin-left: 4px;
+    font-size: 0.85em;
+    opacity: 0.6;
+}
+
+/* Ensure topic strong color rules remain (already present in your CSS) */
+/*
+.topic-block-hazards li strong { color: var(--topic-hazards-color); }
+.topic-block-water-carbon li strong { color: var(--topic-water-carbon-color); }
+...etc.
+*/
+
+/* --- NAVIGATION STYLES (Adapted from Past Papers Archive) --- */
         .nav-container {
             background-color: var(--nav-bg); width: 100%; display: flex; align-items: center;
             padding: 0 20px; position: sticky; top: 0;
@@ -592,9 +615,15 @@
                     <li><strong>Volcanic Hazards:</strong><ul>
                         <li><strong>Mt Etna, Italy:</strong> Frequent eruptions, monitoring, management in a MEDC.</li>
                         <li><strong>Mt Merapi, Java, Indonesia:</strong> Explosive eruptions, impacts in a LEDC/EDC, evacuation strategies.</li>
-                        <li>
-                            <a href="case-studies/eyjafjallajokull.html" class="case-study-link">
-                                <strong>Eyjafjallajökull, Iceland (2010):</strong> Ash cloud impacts on aviation, global interconnectedness. <i class="fas fa-external-link-alt fa-xs"></i>                        <li><strong>Montserrat (Soufrière Hills Volcano):</strong> Long-term eruption, socio-economic impacts, resettlement.</li>
+                       <li> <!-- This is the main list item for the case study -->
+                        <strong> <!-- The strong tag for the title -->
+                            <a href="case-studies/eyjafjallajokull.html" class="case-study-link"> <!-- Link only around the text part of the title -->
+                                Eyjafjallajökull, Iceland (2010): <i class="fas fa-external-link-alt fa-xs"></i>
+                            </a>
+                        </strong>
+                        <!-- Descriptive text is OUTSIDE the <a> tag -->
+                        Ash cloud impacts on aviation, global interconnectedness.
+                    </li>
                     </ul></li>
                     <li><strong>Seismic Hazards:</strong><ul>
                         <li><strong>Haiti Earthquake (2010):</strong> Devastating impacts in a very low-income country, challenges of aid and recovery.</li>
