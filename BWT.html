@@ -71,6 +71,70 @@
             font-size: 16px;
         }
 
+        /* Add to your main CSS */
+.case-study-list li a.case-study-link {
+    text-decoration: none;
+    color: inherit; /* Inherit color from parent li which gets topic color */
+    display: block; /* Make the whole area clickable */
+    padding: 2px 0; /* Small padding */
+}
+
+.case-study-list li a.case-study-link:hover {
+    text-decoration: underline;
+    /* Optional: slightly change background or text color on hover */
+}
+
+.case-study-list li a.case-study-link strong {
+    /* Ensure strong tag color is preserved if it was set directly */
+    color: inherit; /* This might need to be more specific if you had .topic-block-hazards strong { color: var... } */
+}
+
+.case-study-list li a.case-study-link i.fa-external-link-alt {
+    margin-left: 5px;
+    opacity: 0.7;
+}
+
+/*
+  To ensure topic colors are applied to the link's strong tag,
+  you might need to adjust your existing strong tag color rules.
+  For example, if you had:
+  .topic-block-hazards li strong { color: var(--topic-hazards-color); }
+  You might change it to:
+  .topic-block-hazards li a.case-study-link strong { color: var(--topic-hazards-color); }
+  OR, more generally:
+  .topic-block-water-carbon a.case-study-link strong { color: var(--topic-water-carbon-color); }
+  .topic-block-hazards a.case-study-link strong { color: var(--topic-hazards-color); }
+  etc.
+  The `color: inherit;` approach above tries to simplify this, but specificity can be tricky.
+  The simplest way if `color: inherit` doesn't work for `strong` is to duplicate your `li strong` color rules for `li a.case-study-link strong`.
+*/
+
+/* If you have specific color rules for `strong` within topic blocks, like: */
+/* .topic-block-hazards li strong { color: var(--topic-hazards-color); } */
+/* Ensure the link doesn't override it, or apply to the link instead: */
+.topic-block-water-carbon .case-study-list li a.case-study-link { color: var(--color-text-primary); } /* Default text color */
+.topic-block-water-carbon .case-study-list li a.case-study-link strong { color: var(--topic-water-carbon-color); }
+
+.topic-block-hazards .case-study-list li a.case-study-link { color: var(--color-text-primary); }
+.topic-block-hazards .case-study-list li a.case-study-link strong { color: var(--topic-hazards-color); }
+
+.topic-block-coasts .case-study-list li a.case-study-link { color: var(--color-text-primary); }
+.topic-block-coasts .case-study-list li a.case-study-link strong { color: var(--topic-coasts-color); }
+
+.topic-block-global .case-study-list li a.case-study-link { color: var(--color-text-primary); }
+.topic-block-global .case-study-list li a.case-study-link strong { color: var(--topic-global-color); }
+
+.topic-block-places .case-study-list li a.case-study-link { color: var(--color-text-primary); }
+.topic-block-places .case-study-list li a.case-study-link strong { color: var(--topic-places-color); }
+
+.topic-block-urban .case-study-list li a.case-study-link { color: var(--color-text-primary); }
+.topic-block-urban .case-study-list li a.case-study-link strong { color: var(--topic-urban-color); }
+
+/* Remove underline from strong tag within the link if it appears */
+.case-study-list li a.case-study-link strong {
+    text-decoration: none !important;
+}
+
         /* --- NAVIGATION STYLES (Adapted from Past Papers Archive) --- */
         .nav-container {
             background-color: var(--nav-bg); width: 100%; display: flex; align-items: center;
@@ -528,8 +592,9 @@
                     <li><strong>Volcanic Hazards:</strong><ul>
                         <li><strong>Mt Etna, Italy:</strong> Frequent eruptions, monitoring, management in a MEDC.</li>
                         <li><strong>Mt Merapi, Java, Indonesia:</strong> Explosive eruptions, impacts in a LEDC/EDC, evacuation strategies.</li>
-                        <li><strong>Eyjafjallajökull, Iceland (2010):</strong> Ash cloud impacts on aviation, global interconnectedness.</li>
-                        <li><strong>Montserrat (Soufrière Hills Volcano):</strong> Long-term eruption, socio-economic impacts, resettlement.</li>
+                        <li>
+                            <a href="case-studies/eyjafjallajokull.html" class="case-study-link">
+                                <strong>Eyjafjallajökull, Iceland (2010):</strong> Ash cloud impacts on aviation, global interconnectedness. <i class="fas fa-external-link-alt fa-xs"></i>                        <li><strong>Montserrat (Soufrière Hills Volcano):</strong> Long-term eruption, socio-economic impacts, resettlement.</li>
                     </ul></li>
                     <li><strong>Seismic Hazards:</strong><ul>
                         <li><strong>Haiti Earthquake (2010):</strong> Devastating impacts in a very low-income country, challenges of aid and recovery.</li>
