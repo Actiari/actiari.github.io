@@ -512,24 +512,24 @@
 
         const subjectsToProcess = [
             // AQA
-            { board: 'AQA', subjectName: 'Geography (A-Level)', subjectSlug: 'geography', qualType: 'ALevel', csvFile: 'DATA_AQA_Geography_ALevel.csv', parserType: 'AqaGeographyALevel' },
-            { board: 'AQA', subjectName: 'Geography (AS-Level)', subjectSlug: 'geography', qualType: 'ASLevel', csvFile: 'DATA_AQA_Geography_ASLevel.csv', parserType: 'AqaGeographyASLevel' },
-            { board: 'AQA', subjectName: 'Core Maths', subjectSlug: 'core-maths', qualType: 'ALevel', csvFile: 'DATA_AQA_CoreMaths_ALevel.csv', parserType: 'AqaCoreMaths' },
-            { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
-            { board: 'AQA', subjectName: 'English Language (AS-Level)', subjectSlug: 'english-language', qualType: 'ASLevel', csvFile: 'DATA_AQA_EnglishLanguage_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
-            { board: 'AQA', subjectName: 'Mathematics (A-Level)', subjectSlug: 'mathematics', qualType: 'ALevel', csvFile: 'DATA_AQA_Mathematics_ALevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
-            { board: 'AQA', subjectName: 'Mathematics (AS-Level)', subjectSlug: 'mathematics', qualType: 'ASLevel', csvFile: 'DATA_AQA_Mathematics_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+            { board: 'AQA', subjectName: 'Geography (A-Level)', subjectSlug: 'geography', qualType: 'ALevel', csvFile: 'data/DATA_AQA_Geography_ALevel.csv', parserType: 'AqaGeographyALevel' },
+            { board: 'AQA', subjectName: 'Geography (AS-Level)', subjectSlug: 'geography', qualType: 'ASLevel', csvFile: 'data/DATA_AQA_Geography_ASLevel.csv', parserType: 'AqaGeographyASLevel' },
+            { board: 'AQA', subjectName: 'Core Maths', subjectSlug: 'core-maths', qualType: 'ALevel', csvFile: 'data/DATA_AQA_CoreMaths_ALevel.csv', parserType: 'AqaCoreMaths' },
+            { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'data/DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+            { board: 'AQA', subjectName: 'English Language (AS-Level)', subjectSlug: 'english-language', qualType: 'ASLevel', csvFile: 'data/DATA_AQA_EnglishLanguage_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+            { board: 'AQA', subjectName: 'Mathematics (A-Level)', subjectSlug: 'mathematics', qualType: 'ALevel', csvFile: 'data/DATA_AQA_Mathematics_ALevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+            { board: 'AQA', subjectName: 'Mathematics (AS-Level)', subjectSlug: 'mathematics', qualType: 'ASLevel', csvFile: 'data/DATA_AQA_Mathematics_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
 
             // Edexcel
-            { board: 'Edexcel', subjectName: 'Applied Science (BTEC)', subjectSlug: 'applied-science', qualType: 'BTEC', csvFile: 'DATA_Edexcel_AppliedScience_BTEC.csv', parserType: 'EdexcelAppliedScience' },
-            { board: 'Edexcel', subjectName: 'Business Studies (BTEC - PBF)', subjectSlug: 'business-studies', qualType: 'BTEC', csvFile: 'DATA_Edexcel_BusinessStudies_BTEC.csv', parserType: 'EdexcelBusinessIT' },
-            { board: 'Edexcel', subjectName: 'Information Technology (BTEC - ISU)', subjectSlug: 'information-technology', qualType: 'BTEC', csvFile: 'DATA_Edexcel_InformationTechnology_BTEC.csv', parserType: 'EdexcelBusinessIT' },
+            { board: 'Edexcel', subjectName: 'Applied Science (BTEC)', subjectSlug: 'applied-science', qualType: 'BTEC', csvFile: 'data/DATA_Edexcel_AppliedScience_BTEC.csv', parserType: 'EdexcelAppliedScience' },
+            { board: 'Edexcel', subjectName: 'Business Studies (BTEC - PBF)', subjectSlug: 'business-studies', qualType: 'BTEC', csvFile: 'data/DATA_Edexcel_BusinessStudies_BTEC.csv', parserType: 'EdexcelBusinessIT' },
+            { board: 'Edexcel', subjectName: 'Information Technology (BTEC - ISU)', subjectSlug: 'information-technology', qualType: 'BTEC', csvFile: 'data/DATA_Edexcel_InformationTechnology_BTEC.csv', parserType: 'EdexcelBusinessIT' },
 
             // OCR A
-            { board: 'OCRA', subjectName: 'Chemistry (A-Level)', subjectSlug: 'chemistry', qualType: 'ALevel', csvFile: 'DATA_OCRA_Chemistry_ALevel.csv', parserType: 'OcrMultiPaper' },
-            { board: 'OCRA', subjectName: 'Chemistry (AS-Level)', subjectSlug: 'chemistry', qualType: 'ASLevel', csvFile: 'DATA_OCRA_Chemistry_ASLevel.csv', parserType: 'OcrMultiPaper' },
-            { board: 'OCRA', subjectName: 'Physics (A-Level)', subjectSlug: 'physics', qualType: 'ALevel', csvFile: 'DATA_OCRA_Physics_ALevel.csv', parserType: 'OcrMultiPaperWithResources' },
-            { board: 'OCRA', subjectName: 'Physics (AS-Level)', subjectSlug: 'physics', qualType: 'ASLevel', csvFile: 'DATA_OCRA_Physics_ASLevel.csv', parserType: 'OcrMultiPaper' },
+            { board: 'OCRA', subjectName: 'Chemistry (A-Level)', subjectSlug: 'chemistry', qualType: 'ALevel', csvFile: 'data/DATA_OCRA_Chemistry_ALevel.csv', parserType: 'OcrMultiPaper' },
+            { board: 'OCRA', subjectName: 'Chemistry (AS-Level)', subjectSlug: 'chemistry', qualType: 'ASLevel', csvFile: 'data/DATA_OCRA_Chemistry_ASLevel.csv', parserType: 'OcrMultiPaper' },
+            { board: 'OCRA', subjectName: 'Physics (A-Level)', subjectSlug: 'physics', qualType: 'ALevel', csvFile: 'data/DATA_OCRA_Physics_ALevel.csv', parserType: 'OcrMultiPaperWithResources' },
+            { board: 'OCRA', subjectName: 'Physics (AS-Level)', subjectSlug: 'physics', qualType: 'ASLevel', csvFile: 'data/DATA_OCRA_Physics_ASLevel.csv', parserType: 'OcrMultiPaper' },
         ];
 
         function simpleCSVParser(csvText) {
