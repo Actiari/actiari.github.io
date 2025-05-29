@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://actiari.github.io/sitemap.xml
