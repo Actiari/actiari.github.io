@@ -18,7 +18,267 @@
     <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --color-background: #1a1d21;
+            --color-surface: #252930;
+            --color-surface-variant: #31363f;
+            --color-surface-hover: #3c424c;
+            --color-primary-accent-generic: #00b8d4;
+            --color-text-primary: #e8eaed;
+            --color-text-secondary: #b0b3b8;
+            --color-border: #40454c;
+            --color-shadow: rgba(0,0,0,0.3);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 8px;
+
+            --base-subject-default: #5f6368;
+            --base-subject-maths: #4285f4;
+            --base-subject-english: #fbbc05;
+            --base-subject-geography: #34a853;
+            --base-subject-app-science: #9333ea;
+            --base-subject-business: #10b981;
+            --base-subject-it: #6366f1;
+            --base-subject-chemistry: #ea4335;
+            --base-subject-physics: #0b57d0;
+            --base-subject-core-maths: var(--base-subject-maths);
+
+            --nav-bg: var(--color-surface-variant);
+            --nav-text: #ffffff; /* White text for navigation links */
+            --nav-hover-bg: var(--color-primary-accent-generic);
+            --nav-hover-text: var(--color-background); /* Dark text on hover */
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-main); line-height: 1.6; background-color: var(--color-background);
+            color: var(--color-text-primary); display: flex; flex-direction: column;
+            min-height: 100vh; font-size: 16px;
+        }
+        .nav-container {
+            background-color: var(--nav-bg); width: 100%; display: flex; align-items: center;
+            justify-content: center; padding: 0 20px; position: sticky; top: 0;
+            z-index: 1000; box-shadow: 0 2px 10px var(--color-shadow);
+        }
+        .nav-menu-wrapper { display: flex; justify-content: center; width: 100%; max-width: 1400px; }
+        .nav-menu { list-style-type: none; display: flex; align-items: center; margin: 0; padding: 0; }
+        .nav-menu li { margin: 0; }
+        .nav-menu li a {
+            display: block; color: var(--nav-text); /* Apply the nav text color */
+            text-align: center; padding: 14px 18px;
+            text-decoration: none; /* Remove underline */
+            white-space: nowrap; transition: background-color 0.2s, color 0.2s;
+            font-weight: 500; font-size: 0.95em;
+        }
+        /* Add visited state styling if you want it to match the unvisited state */
+        .nav-menu li a:visited {
+             color: var(--nav-text); /* Ensure visited links have the same color */
+        }
+        .nav-menu li a:hover, .nav-menu li a:focus, .nav-menu li a.active-nav-link {
+            background-color: var(--nav-hover-bg); color: var(--nav-hover-text); outline: none;
+        }
+        .menu-toggle {
+            display: none; background: none; border: none; color: var(--nav-text);
+            font-size: 24px; cursor: pointer; padding: 10px 15px;
+        }
+        .page-container { flex: 1; padding: 0 20px; width: 100%; margin: 20px auto; }
+        .page-header { text-align: center; margin-bottom: 30px; }
+        .page-header h1 { color: var(--color-primary-accent-generic); font-size: 2.2em; font-weight: 700; margin-bottom: 5px; }
+        .global-selectors-container {
+            background-color: var(--color-surface); padding: 20px; border-radius: var(--border-radius);
+            margin-bottom: 30px; box-shadow: 0 4px 15px var(--color-shadow);
+            margin-left: auto; margin-right: auto;
+        }
+        .selector-group { margin-bottom: 20px; }
+        .selector-group:last-child { margin-bottom: 0; }
+        .selector-group h2 {
+            font-size: 0.9em; color: var(--color-text-secondary); text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 10px; padding-left: 5px;
+        }
+        .filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-tab {
+            padding: 10px 18px; background-color: var(--color-surface-variant);
+            color: var(--color-text-primary); border: none; border-radius: var(--border-radius);
+            cursor: pointer; font-size: 1em; font-weight: 500;
+            transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--color-border);
+        }
+        .filter-tab:hover { background-color: var(--color-surface-hover); }
+        .filter-tab.active {
+            background-color: var(--color-primary-accent-generic); color: var(--color-background);
+            font-weight: 600; box-shadow: 0 0 10px rgba(0, 184, 212, 0.4);
+            border-color: var(--color-primary-accent-generic);
+        }
+        .exam-board-content, .subject-accordion { display: none; }
+        .exam-board-content.active, .subject-accordion.active-subject { display: block; }
+        .initial-message { text-align: center; color: var(--color-text-secondary); font-size: 1.1em; padding: 30px 15px; }
+        .exam-board-title {
+            color: var(--color-text-primary); margin-top: 20px; margin-bottom: 20px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--color-border);
+            font-size: 1.5em; font-weight: 600;
+        }
+        .subject-accordion {
+            margin-bottom: 12px; border-radius: var(--border-radius);
+            overflow: hidden; border: 1px solid var(--color-border);
+            --current-subject-accent: var(--base-subject-default);
+        }
+        .subject-accordion[data-subject="geography"] { --current-subject-accent: var(--base-subject-geography); }
+        .subject-accordion[data-subject="core-maths"] { --current-subject-accent: var(--base-subject-core-maths); }
+        .subject-accordion[data-subject="mathematics"] { --current-subject-accent: var(--base-subject-maths); }
+        .subject-accordion[data-subject="english-language"] { --current-subject-accent: var(--base-subject-english); }
+        .subject-accordion[data-subject="applied-science"] { --current-subject-accent: var(--base-subject-app-science); }
+        .subject-accordion[data-subject="business-studies"] { --current-subject-accent: var(--base-subject-business); }
+        .subject-accordion[data-subject="information-technology"] { --current-subject-accent: var(--base-subject-it); }
+        .subject-accordion[data-subject="chemistry"] { --current-subject-accent: var(--base-subject-chemistry); }
+        .subject-accordion[data-subject="physics"] { --current-subject-accent: var(--base-subject-physics); }
+
+        .subject-accordion > summary {
+            font-size: 1.2em; font-weight: 500; padding: 15px 20px 15px 35px;
+            background-color: var(--color-surface-variant); color: var(--color-text-primary);
+            cursor: pointer; list-style: none; display: flex; justify-content: space-between;
+            align-items: center; position: relative; transition: background-color 0.2s ease-in-out;
+        }
+        .subject-accordion > summary::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 10px;
+            background-color: var(--current-subject-accent);
+        }
+        .subject-accordion > summary::-webkit-details-marker { display: none; }
+        .subject-accordion > summary .summary-text { flex-grow: 1; }
+        .subject-accordion > summary .accordion-icon {
+            font-size: 1.4em; color: var(--current-subject-accent);
+            transition: transform 0.2s ease-in-out; margin-left: 10px;
+        }
+        .subject-accordion[open] > summary { background-color: var(--current-subject-accent); color: #fff; }
+        .subject-accordion[open] > summary .accordion-icon { transform: rotate(45deg); color: #fff; }
+        
+        .subject-content {
+            padding: 20px; background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Styling for new additional info section and other content sections */
+        .subject-additional-info-section,
+        .specifications-section,
+        .useful-resources-section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--color-border);
+        }
+        .subject-additional-info-section h3,
+        .specifications-section h3,
+        .useful-resources-section h3,
+        .subject-content-subheading /* For "Past Papers & Mark Schemes" */ {
+            color: var(--current-subject-accent);
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        .subject-additional-info-section p {
+            margin-bottom: 6px;
+            color: var(--color-text-primary);
+            font-size: 0.95em;
+        }
+        .subject-additional-info-section p strong {
+            color: var(--color-text-primary);
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .subject-additional-info-section .info-source {
+            font-size: 0.85em;
+            color: var(--color-text-secondary);
+            margin-top: 10px;
+            text-align: right;
+        }
+        
+        .subject-content > .subject-additional-info-section:last-child,
+        .subject-content > .specifications-section:last-child,
+        .subject-content > .useful-resources-section:last-child {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+        
+        .spec-link {
+            display: inline-block; background-color: var(--color-surface-variant);
+            padding: 9px 16px; border-radius: var(--border-radius); text-decoration: none;
+            font-weight: 500; border: 1px solid var(--current-subject-accent);
+            color: var(--current-subject-accent); transition: background-color 0.2s, color 0.2s;
+        }
+        .spec-link:hover { background-color: var(--current-subject-accent); color: #fff; }
+        .useful-resources-section ul { list-style: none; padding-left: 0; }
+        .useful-resources-section li { margin-bottom: 8px; }
+        .useful-resources-section li a {
+            color: var(--color-text-primary); text-decoration: none; padding: 3px 0;
+            border-bottom: 1px dotted var(--current-subject-accent);
+            transition: color 0.2s, border-bottom-color 0.2s; word-break: break-all;
+        }
+        .useful-resources-section li a:hover { color: var(--current-subject-accent); border-bottom-style: solid; }
+        
+        .past-papers-main-section {
+             margin-top: 0;
+        }
+        
+        .exam-session-group { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--color-border); }
+        .exam-session-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .exam-session-title { font-size: 1.15em; color: var(--color-text-primary); margin-bottom: 15px; font-weight: 600; }
+        .exam-set {
+            background-color: var(--color-surface-variant); padding: 15px; margin-bottom: 15px;
+            border-radius: var(--border-radius); border-left: 4px solid var(--current-subject-accent);
+        }
+        .exam-set-title { font-weight: 500; color: var(--color-text-primary); font-size: 1em; margin-bottom: 12px; }
+        .document-links { display: flex; flex-wrap: wrap; gap: 10px; }
+        .doc-link {
+            padding: 8px 14px; border-radius: var(--border-radius); text-decoration: none;
+            font-size: 0.9em; font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease, filter 0.2s;
+            text-align: center; min-width: 90px; display: inline-block; border: 1px solid transparent;
+        }
+        .doc-link:hover { transform: translateY(-1px); filter: brightness(1.15); }
+        .paper-link { background-color: var(--current-subject-accent); color: #fff; border-color: var(--current-subject-accent); }
+        .ms-link { background-color: transparent; color: var(--current-subject-accent); border: 1px solid var(--current-subject-accent); }
+        .ms-link:hover { background-color: var(--current-subject-accent); color: #fff; }
+        .insert-link { background-color: #ffc107; color: var(--color-background); border-color: #ffc107;}
+        .insert-link:hover { filter: brightness(0.9); }
+        .formula-link { background-color: var(--color-primary-accent-generic); color: var(--color-background); border-color: var(--color-primary-accent-generic); }
+        .placeholder-instruction {
+            background-color: #ffc107; color: var(--color-background); padding: 15px 20px;
+            margin-top:30px; border-radius: var(--border-radius); text-align: center; font-size: 0.95em;
+        }
+        .placeholder-instruction strong { font-size: 1.1em; display: block; margin-bottom: 5px; }
+        .placeholder-instruction a { color: var(--color-background); font-weight: 600; text-decoration: underline; }
+        footer {
+            background-color: var(--nav-bg); color: var(--nav-text); text-align: center;
+            padding: 20px 0; font-size: 0.9rem; margin-top: auto;
+        }
+        @media screen and (max-width: 992px) {
+            .nav-container { justify-content: space-between; }
+            .nav-menu-wrapper { justify-content: flex-start; width: auto; }
+            .menu-toggle { display: block; }
+            .nav-menu {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background-color: var(--nav-bg); flex-direction: column; overflow: hidden;
+                border-top: 1px solid var(--color-border); max-height: 0; transition: max-height 0.3s ease-out;
+            }
+            .nav-menu.active { display: flex; max-height: 500px; /* Adjust as needed */ }
+            .nav-menu li { width: 100%; }
+            .nav-menu li a { padding: 12px 20px; text-align: left; }
+        }
+        @media (max-width: 768px) {
+            body { padding: 0; font-size:15px; }
+            .nav-container { padding: 0 15px; }
+            .page-container { margin: 15px; padding: 0;}
+            .page-header h1 { font-size: 2em; }
+            .global-selectors-container { padding: 15px; }
+            .filter-tab { font-size: 0.95em; padding: 8px 14px; }
+            .exam-board-title { font-size: 1.3em; }
+            .subject-accordion > summary { font-size: 1.1em; padding: 12px 15px 12px 30px; }
+            .subject-accordion > summary::before { width: 8px; }
+            .document-links { flex-direction: column; align-items: stretch; }
+            .doc-link { width: 100%; }
+        }
+        @media screen and (max-width: 576px) {
+            .page-header h1 { font-size: 1.7em; }
+            .filter-tab { font-size: 0.9em; padding: 7px 10px; }
+        }
+    </style>
 </head>
 <body>
     <div class="nav-container">

@@ -6,7 +6,749 @@
   <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      /* Variables from style_source.html */
+      --color-background: #1a1d21;
+      --color-surface: #252930;
+      --color-surface-variant: #31363f;
+      --color-surface-hover: #3c424c;
+      --color-primary-accent-generic: #00b8d4;
+      --color-text-primary: #e8eaed;
+      --color-text-secondary: #b0b3b8;
+      --color-border: #40454c;
+      --color-shadow: rgba(0,0,0,0.3);
+      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --border-radius: 8px; /* style_source.html uses 8px */
+
+      --nav-bg: var(--color-surface-variant);
+      --nav-text: #ffffff;
+      --nav-hover-bg: var(--color-primary-accent-generic);
+      --nav-hover-text: var(--color-background); /* Text color on nav hover */
+
+      /* Original flashcard app specific variables that might be kept or adapted */
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      /* Re-map some semantic colors if needed, or use style_source directly */
+      --success: #34a853; /* Green from style_source geography */
+      --warning: #fbbc05; /* Yellow from style_source english */
+      --danger: #ea4335;  /* Red from style_source chemistry */
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--color-background);
+      font-family: var(--font-main);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      display: flex;
+      flex-direction: column; 
+      min-height: 100vh;
+    }
+    
+    .nav-container {
+      background-color: var(--nav-bg);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      padding: 0 20px; /* Adjusted padding to match style_source */
+      position: sticky; /* Added sticky to match style_source */
+      top: 0; /* Added sticky to match style_source */
+      z-index: 1000; /* Added sticky to match style_source */
+      box-shadow: 0 2px 10px var(--color-shadow); /* Added shadow */
+    }
+    
+    .nav-menu {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .nav-menu li {
+      margin: 0;
+    }
+    
+    .nav-menu li a {
+      display: block;
+      color: var(--nav-text);
+      text-align: center;
+      padding: 14px 18px; /* Matched style_source */
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s, color 0.2s; /* Matched style_source */
+      font-weight: 500; /* Matched style_source */
+      font-size: 0.95em; /* Matched style_source */
+    }
+    
+    .nav-menu li a:hover,
+    .nav-menu li a:focus,
+    .nav-menu li a.active-nav-link { /* Added active-nav-link for consistency */
+      background-color: var(--nav-hover-bg);
+      color: var(--nav-hover-text);
+      outline: none;
+    }
+    
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--nav-text);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px 15px; /* Matched style_source */
+    }
+    
+    #app-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+      flex: 1; 
+    }
+    
+    .app-header {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeInDown 0.6s ease-out;
+    }
+    
+    .app-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--color-primary-accent-generic); /* Updated */
+      margin-bottom: 8px;
+    }
+    
+    .app-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 24px;
+    }
+    
+    .sidebar {
+      background-color: var(--color-surface); /* Updated */
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px var(--color-shadow); /* Updated */
+      padding: 20px;
+      border: 1px solid var(--color-border); /* Updated */
+      height: fit-content;
+      position: sticky;
+      top: 20px; 
+      animation: slideInLeft 0.5s ease-out;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 24px;
+    }
+    
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-text-primary); /* Updated */
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .sidebar-title i {
+      margin-right: 10px;
+      color: var(--color-primary-accent-generic); /* Updated */
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    
+    .topic-card {
+      background-color: var(--color-surface-variant); /* Updated */
+      border: 1px solid var(--color-border); /* Updated */
+      border-radius: var(--border-radius);
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--color-text-primary); /* Updated */
+    }
+    
+    .topic-card:hover,
+    .topic-card:focus {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px var(--color-shadow); /* Enhanced shadow on hover */
+      border-color: var(--color-primary-accent-generic); /* Updated */
+      background-color: var(--color-surface-hover); /* Updated */
+      outline: none;
+    }
+    
+    .topic-card.active {
+      background-color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--nav-hover-text); /* Updated for contrast */
+      border-color: var(--color-primary-accent-generic); /* Updated */
+    }
+    
+    .topic-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--color-primary-accent-generic); /* Updated */
+    }
+    
+    .topic-card.active .topic-icon {
+      color: var(--nav-hover-text); /* Updated for contrast */
+    }
+    
+    .topic-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    
+    .subtopic-container {
+      margin-top: 20px;
+      animation: fadeIn 0.4s ease-out;
+    }
+    
+    .back-btn {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      background: none;
+      border: none;
+      color: var(--color-primary-accent-generic); /* Updated */
+      cursor: pointer;
+      font-weight: 500;
+      padding: 8px;
+    }
+    
+    .back-btn:hover,
+    .back-btn:focus {
+      text-decoration: underline;
+      outline: none;
+      color: var(--color-text-primary); /* Lighter on hover */
+    }
+    
+    .back-btn i {
+      margin-right: 8px;
+    }
+    
+    .subtopic-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    
+    .subtopic-card {
+      background-color: var(--color-surface-variant); /* Updated */
+      border: 1px solid var(--color-border); /* Updated */
+      border-radius: var(--border-radius);
+      padding: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      color: var(--color-text-primary); /* Updated */
+    }
+    
+    .subtopic-card:hover,
+    .subtopic-card:focus {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px var(--color-shadow); /* Enhanced shadow */
+      border-color: var(--color-primary-accent-generic); /* Updated */
+      background-color: var(--color-surface-hover); /* Updated */
+      outline: none;
+    }
+    
+    .subtopic-card.active {
+      background-color: var(--color-primary-accent-generic); /* Updated */
+      border-color: var(--color-primary-accent-generic); /* Updated */
+      color: var(--nav-hover-text); /* Updated for contrast */
+    }
+    
+    .subtopic-name {
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .subtopic-icon {
+      margin-right: 8px;
+      color: var(--color-primary-accent-generic); /* Updated */
+      font-size: 1rem;
+    }
+    .subtopic-card.active .subtopic-icon {
+      color: var(--nav-hover-text); /* Updated for contrast on active card */
+    }
+    
+    .subtopic-count {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary); /* Updated */
+    }
+    .subtopic-card.active .subtopic-count {
+      color: var(--nav-hover-text); /* Updated for contrast */
+      opacity: 0.8;
+    }
+    
+    .bookmark-btn {
+      display: none; 
+    }
+    
+    .bookmarks-section {
+      display: none; 
+    }
+    
+    .flashcard-view {
+      background-color: var(--color-surface); 
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px var(--color-shadow); 
+      padding: 30px;
+      height: 630px; /* Fixed height for the entire flashcard area */
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--color-border); 
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .flashcard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .flashcard-progress {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary); 
+      font-weight: 500;
+    }
+    
+    .flashcard-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-surface-variant); 
+      color: var(--color-text-secondary); 
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    
+    .action-btn:hover,
+    .action-btn:focus {
+      background-color: var(--color-primary-accent-generic); 
+      color: var(--nav-hover-text); 
+      outline: none;
+    }
+    
+    .action-btn.bookmarked { 
+      background-color: var(--warning); 
+      color: var(--color-background);
+    }
+    
+    .flashcard-content {
+      flex: 1; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+      perspective: 1000px;
+      position: relative;
+    }
+    
+    .flashcard {
+      background-color: var(--color-surface-variant); 
+      border-radius: var(--border-radius);
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+      transition: var(--transition);
+      border: 1px solid var(--color-border); 
+      transform-style: preserve-3d;
+      height: 400px; /* Fixed height for the card itself */
+      overflow-y: auto; /* Allows content to scroll if it exceeds 400px */
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+      color: var(--color-text-primary); 
+    }
+    
+    .flashcard.flipping {
+      animation: flipCard 0.6s ease-out forwards;
+    }
+    
+    .flashcard-subtopic {
+      font-size: 0.9rem;
+      color: var(--color-primary-accent-generic); 
+      margin-bottom: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    
+    .flashcard-subtopic i {
+      margin-right: 8px;
+    }
+    
+    .flashcard-question, 
+    .flashcard-answer {
+      flex: 1; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+    }
+    
+    .flashcard-question h3,
+    .flashcard-answer h3 {
+      font-size: 1.3rem;
+      color: var(--color-text-primary); 
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .flashcard-question h3 i {
+      margin-right: 12px;
+      color: var(--color-primary-accent-generic); 
+    }
+    
+    .flashcard-question p {
+      font-size: 1.1rem;
+      color: var(--color-text-primary); 
+      line-height: 1.7;
+    }
+    
+    .flashcard-answer h3 i {
+      margin-right: 12px;
+      color: var(--success); 
+    }
+    
+    .flashcard-answer-content {
+      font-size: 1.1rem;
+      color: var(--color-text-primary); 
+      line-height: 1.7;
+    }
+    
+    .flashcard-answer-content ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    
+    .flashcard-answer-content li {
+      margin-bottom: 8px;
+    }
+    
+    .flashcard-instruction {
+      text-align: center;
+      margin-top: 20px; 
+      font-size: 0.9rem;
+      color: var(--color-text-secondary); 
+      font-weight: 500;
+    }
+    
+    .flashcard-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .nav-btn {
+      padding: 10px 20px; 
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      border: 1px solid transparent; 
+      font-size: 0.95em; 
+    }
+    
+    .nav-btn:disabled {
+      opacity: 0.6; 
+      cursor: not-allowed;
+      filter: grayscale(50%);
+    }
+    
+    .nav-btn.prev {
+      background-color: var(--color-surface-hover); 
+      color: var(--color-text-primary); 
+      border-color: var(--color-border); 
+    }
+    
+    .nav-btn.prev:hover:not(:disabled),
+    .nav-btn.prev:focus:not(:disabled) {
+      background-color: var(--color-border); 
+      color: var(--color-text-primary);
+    }
+    
+    .nav-btn.next {
+      background-color: var(--color-primary-accent-generic); 
+      color: var(--nav-hover-text); 
+      border-color: var(--color-primary-accent-generic); 
+    }
+    
+    .nav-btn.next:hover:not(:disabled),
+    .nav-btn.next:focus:not(:disabled) {
+      filter: brightness(1.1); 
+      transform: translateY(-1px);
+    }
+    
+    .nav-btn i {
+      margin-right: 8px;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px; 
+      animation: fadeIn 0.5s ease-out;
+      color: var(--color-text-secondary);       
+      flex-grow: 1; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      color: var(--color-surface-variant); 
+      margin-bottom: 20px;
+    }
+    
+    .empty-state h3 {
+      font-size: 1.3rem;
+      color: var(--color-text-primary); 
+      margin-bottom: 10px;
+    }
+    
+    .empty-state p {
+      color: var(--color-text-secondary); 
+      margin-bottom: 20px;
+    }
+    
+    .error-boundary { 
+      padding: 20px;
+      background-color: var(--color-surface);
+      border-radius: var(--border-radius);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+      margin: 20px 0;
+    }
+    .error-boundary h3 {
+        color: var(--danger);
+    }
+    .error-boundary .nav-btn.next { 
+        background-color: var(--danger);
+        color: white;
+        border-color: var(--danger);
+    }
+    .error-boundary .nav-btn.next:hover {
+        filter: brightness(0.9);
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes flipCard {
+      0% { transform: rotateY(0); }
+      50% { transform: rotateY(90deg); } 
+      100% { transform: rotateY(0); }
+    }
+    
+    @keyframes slideOutRight {
+      to {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .slide-out {
+      animation: slideOutRight 0.3s ease-out forwards;
+    }
+    
+    .slide-in {
+      animation: slideInRight 0.3s ease-out forwards;
+    }
+    
+    @media screen and (max-width: 992px) {
+      .nav-container { 
+        justify-content: space-between;
+      }
+      .app-layout {
+        grid-template-columns: 1fr; 
+      }
+      
+      .sidebar {
+        position: static; 
+        margin-bottom: 20px;
+        top: auto; 
+      }
+      
+      .topic-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-menu { 
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--nav-bg);
+        flex-direction: column;
+        overflow: hidden;
+        border-top: 1px solid var(--color-border);
+        max-height: 0;
+        transition: max-height 0.3s ease-out;
+      }
+      
+      .nav-menu.active { 
+        display: flex;
+        max-height: 500px; 
+      }
+      
+      .nav-menu li { 
+        width: 100%;
+      }
+      
+      .nav-menu li a { 
+        padding: 12px 20px;
+        text-align: left;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      body { 
+          font-size:15px; 
+      }
+      .nav-container { 
+          padding: 0 15px;
+      }
+      #app-container { 
+         margin: 15px; 
+         padding: 0;
+      }
+      .app-header {
+        margin-bottom: 20px;
+      }
+      
+      .app-title {
+        font-size: 1.8rem;
+      }
+      
+      .flashcard-view {
+        padding: 20px; 
+      }
+      
+      .flashcard-question h3,
+      .flashcard-answer h3 {
+        font-size: 1.2rem;
+      }
+      
+      .flashcard-question p,
+      .flashcard-answer-content {
+        font-size: 1rem;
+      }
+      
+      .subtopic-list {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media screen and (max-width: 576px) {
+      .app-title { 
+        font-size: 1.7em;
+      }
+      .nav-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+      
+      .flashcard-nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .nav-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .flashcard-view {
+        height: 500px; 
+      }
+      
+      .flashcard {
+        padding: 20px;
+        height: 250px; 
+        overflow-y: auto; 
+      }
+    }
+    
+    footer {
+      background-color: var(--nav-bg); 
+      color: var(--nav-text); 
+      text-align: center;
+      padding: 20px 0; 
+      font-size: 0.9rem;
+      margin-top: auto; 
+    }
+  </style>
   <title>Geography Flashcards - Actiari Study Tools</title>
   <meta name="description" content="Interactive A Level Geography flashcards for effective revision. Part of Actiari Study Tools.">
   <meta name="keywords" content="A Level, Geography, Flashcards, Revision, Study Tools, Actiari">
