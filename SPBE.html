@@ -1319,7 +1319,7 @@
               <div className="sidebar">
                 <div className={`sidebar-section ${animationClass}`}>
                   {view === 'topics' && (
-                    <>
+                    <React.Fragment>
                       <div className="sidebar-title">
                         <i className="fas fa-layer-group"></i> Topics
                       </div>
@@ -1336,7 +1336,7 @@
                           </button>
                         ))}
                       </div>
-                    </>
+                    </React.Fragment>
                   )}
                   
                   {view === 'subtopics' && selectedTopic && (
@@ -1388,7 +1388,7 @@
               
               <div className="flashcard-view">
                 {view === 'flashcards' && filteredCards.length > 0 ? (
-                  <>
+                  <React.Fragment>
                     <div className="flashcard-header">
                       <div className="flashcard-progress">
                         Card {currentCardIndex + 1} of {filteredCards.length}
@@ -1444,7 +1444,7 @@
                         Next <i className="fas fa-arrow-right"></i>
                       </button>
                     </div>
-                  </>
+                  </React.Fragment>
                 ) : view === 'flashcards' && filteredCards.length === 0 ? (
                   <div className="empty-state">
                     <i className="fas fa-map"></i>
