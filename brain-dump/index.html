@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Dump</title>
+  <link rel="icon" type="image/x-icon" href="../Miscellaneous/Main Favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --color-background: #1a1d21;
+      --color-surface: #252930;
+      --color-surface-variant: #31363f;
+      --color-surface-hover: #3c424c;
+      --color-primary-accent-generic: #00b8d4;
+      --color-text-primary: #e8eaed;
+      --color-text-secondary: #b0b3b8;
+      --color-border: #40454c;
+      --color-shadow: rgba(0,0,0,0.3);
+      --font-main: 'Inter', sans-serif;
+      --border-radius: 8px;
+    }
+    body {
+      margin:0;
+      font-family: var(--font-main);
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+    header {
+      display:flex;
+      gap:1rem;
+      padding:0.5rem 1rem;
+      background:var(--color-surface);
+      align-items:center;
+      height:64px;
+    }
+    main {
+      flex:1;
+      display:flex;
+      gap:1rem;
+      padding:1rem;
+    }
+    textarea {
+      flex:1;
+      min-height:300px;
+      resize:none;
+      padding:0.5rem;
+      border-radius:var(--border-radius);
+      border:1px solid var(--color-border);
+      background:var(--color-surface);
+      color:var(--color-text-primary);
+    }
+    #notesPane {
+      flex:1;
+      border:1px solid var(--color-border);
+      border-radius:var(--border-radius);
+      padding:0.5rem;
+      background:var(--color-surface);
+      overflow:auto;
+      display:none;
+    }
+    footer {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0.5rem 1rem;
+      background:var(--color-surface-variant);
+      position:fixed;
+      bottom:0;
+      width:100%;
+      height:40px;
+      color:var(--color-text-primary);
+      font-size:0.9rem;
+    }
+    [hidden]{display:none!important;}
+    .badge{padding:0.2rem 0.5rem;background:var(--color-surface-hover);border-radius:var(--border-radius);}
+  </style>
+</head>
+<body>
+  <header>
+    <label for="topicInput" class="visually-hidden">Topic</label>
+    <input id="topicInput" type="text" placeholder="Topic" aria-label="Topic">
+    <label for="durationSelect" class="visually-hidden">Duration</label>
+    <select id="durationSelect" aria-label="Duration in minutes">
+      <!-- options inserted by JS -->
+    </select>
+    <button id="startBtn">Start</button>
+    <button id="resetBtn" hidden>Reset</button>
+    <a href="history.html" style="margin-left:auto;color:var(--color-primary-accent-generic);">History</a>
+  </header>
+  <main>
+    <textarea id="dumpBox" aria-label="Your recall"></textarea>
+    <div id="notesPane" tabindex="0" aria-label="Reference notes"></div>
+  </main>
+  <footer>
+    <span id="timer" aria-live="polite">00:00</span>
+    <span id="saveBadge" class="badge">Autosaved</span>
+    <button id="completeBtn">Mark Complete</button>
+  </footer>
+  <script src="https://unpkg.com/idb-keyval@6/dist/idb-keyval.iife.js"></script>
+  <script src="https://unpkg.com/uuid@9.0.0/dist/umd/uuidv9.min.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>
