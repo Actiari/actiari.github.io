@@ -14,14 +14,6 @@ function formatDuration(sec){
 }
 
 function initUI() {
-  const select = document.getElementById('durationSelect');
-  for (let i = 1; i <= 20; i++) {
-    const opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = `${i} min`;
-    if (i === 5) opt.selected = true;
-    select.appendChild(opt);
-  }
   document.getElementById('startBtn').addEventListener('click', startSession);
   document.getElementById('resetBtn').addEventListener('click', resetSession);
   document.getElementById('completeBtn').addEventListener('click', saveFinalSession);
@@ -100,9 +92,7 @@ function tickTimer() {
 function autosaveTick() {
   if (!draft) return;
   draft.content = document.getElementById('dumpBox').value;
-  idbKeyval.set('draft', draft, store).then(() => {
-    document.getElementById('saveBadge').textContent = 'Autosaved';
-  });
+  idbKeyval.set('draft', draft, store);
 }
 
 function endSession() {
@@ -145,7 +135,6 @@ function saveFinalSession() {
   draft.actualDurationSec = actualDuration;
   idbKeyval.set(draft.id, draft, store).then(() => {
     idbKeyval.del('draft', store);
-    document.getElementById('saveBadge').textContent = `Saved (#${draft.id})`;
   });
 }
 
