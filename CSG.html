@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Science Glossary - Actiari Study Tools</title>
+    <meta name="description" content="Searchable glossary of common computer science terms.">
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --color-background: #1a1d21;
+            --color-surface: #252930;
+            --color-surface-variant: #31363f;
+            --color-surface-hover: #3c424c;
+            --color-primary-accent-generic: #00b8d4;
+            --color-text-primary: #e8eaed;
+            --color-text-secondary: #b0b3b8;
+            --color-border: #40454c;
+            --color-shadow: rgba(0,0,0,0.3);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 8px;
+
+            --nav-bg: var(--color-surface-variant);
+            --nav-text: #ffffff;
+            --nav-hover-bg: var(--color-primary-accent-generic);
+            --nav-hover-text: var(--color-background);
+        }
+        body.light-mode {
+            --color-background: #ffffff;
+            --color-surface: #f4f4f4;
+            --color-surface-variant: #e0e0e0;
+            --color-surface-hover: #d5d5d5;
+            --color-text-primary: #1a1d21;
+            --color-text-secondary: #333333;
+            --color-border: #cccccc;
+            --color-shadow: rgba(0,0,0,0.2);
+            --nav-text: #000000;
+            --nav-hover-text: var(--color-background);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--color-background); color: var(--color-text-primary); font-family: var(--font-main); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        .nav-container { background-color: var(--nav-bg); width: 100%; display: flex; align-items: center; padding: 0 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px var(--color-shadow); }
+        .nav-menu-wrapper { display: flex; justify-content: center; width: 100%; max-width: 1400px; }
+        .nav-menu { list-style-type: none; display: flex; align-items: center; margin: 0; padding: 0; }
+        .nav-menu li { margin: 0; }
+        .nav-menu li a { display: block; color: var(--nav-text); text-align: center; padding: 14px 18px; text-decoration: none; white-space: nowrap; transition: background-color 0.2s, color 0.2s; font-weight: 500; font-size: 0.95em; }
+        .nav-menu li a:visited { color: var(--nav-text); }
+        .nav-menu li a:hover, .nav-menu li a:focus, .nav-menu li a.active-nav-link { background-color: var(--nav-hover-bg); color: var(--nav-hover-text); outline: none; }
+        .menu-toggle { display: none; background: none; border: none; color: var(--nav-text); font-size: 24px; cursor: pointer; padding: 10px 15px; }
+        .theme-toggle { color: var(--nav-text); background: none; border: none; font-size: 20px; padding: 10px 15px; cursor: pointer; }
+        .page-container { flex: 1; padding: 20px; width: 100%; max-width: 900px; margin: 20px auto; }
+        .search-box { margin-bottom: 20px; }
+        .search-box input { width: 100%; padding: 10px; border-radius: var(--border-radius); border: 1px solid var(--color-border); background-color: var(--color-surface); color: var(--color-text-primary); }
+        .glossary-item { background-color: var(--color-surface); padding: 15px; border-radius: var(--border-radius); margin-bottom: 10px; box-shadow: 0 2px 6px var(--color-shadow); }
+        .glossary-item h3 { margin-bottom: 5px; color: var(--color-primary-accent-generic); font-size: 1.1em; }
+        footer { background: var(--color-surface-variant); color: var(--nav-text); text-align: center; padding: 20px 0; font-size: 0.9em; margin-top: auto; }
+        @media screen and (max-width: 992px) {
+            .nav-container { justify-content: space-between; }
+            .nav-menu-wrapper { justify-content: flex-start; width: auto; }
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background-color: var(--nav-bg); flex-direction: column; overflow: hidden; border-top: 1px solid var(--color-border); max-height: 0; transition: max-height 0.3s ease-out; }
+            .nav-menu.active { display: flex; max-height: 500px; }
+            .nav-menu li { width: 100%; }
+            .nav-menu li a { padding: 12px 20px; text-align: left; }
+            .nav-menu li + li a { border-top: 1px solid var(--color-border); }
+        }
+        @media screen and (min-width: 993px) { .nav-container { justify-content: center; } .nav-menu-wrapper { justify-content: center; } }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <div class="nav-menu-wrapper">
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
+                <li><a href="SPBE.html">Geography Flashcards</a></li>
+                <li><a href="BWT.html">Geography Case Studies</a></li>
+                <li><a href="CSG.html">CS Glossary</a></li>
+            </ul>
+        </div>
+        <button class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
+    </div>
+    <div class="page-container">
+        <h1 style="text-align:center; margin-bottom:20px;">Computer Science Glossary</h1>
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Search terms...">
+        </div>
+        <div id="glossary"></div>
+    </div>
+    <footer>
+        &copy; 2025 Actiari Study Tools. All rights reserved. | <a href="https://github.com/actiari">GitHub</a>
+    </footer>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+        const glossaryData = [
+            { term: 'Algorithm', definition: 'A step-by-step procedure for solving a problem.' },
+            { term: 'Array', definition: 'A collection of items stored at contiguous memory locations.' },
+            { term: 'Compilation', definition: 'The process of translating source code into machine code.' },
+            { term: 'Encapsulation', definition: 'Bundling data with methods that operate on that data.' },
+            { term: 'Recursion', definition: 'When a function calls itself to solve smaller instances of a problem.' },
+            { term: 'Queue', definition: 'A collection that follows the FIFO (First In, First Out) principle.' },
+            { term: 'Stack', definition: 'A collection that follows the LIFO (Last In, First Out) principle.' },
+            { term: 'Variable', definition: 'A named storage location in memory.' },
+            { term: 'Database', definition: 'An organized collection of structured information or data.' },
+            { term: 'HTTP', definition: 'HyperText Transfer Protocol, the foundation of data communication for the web.' }
+        ];
+
+        const glossaryContainer = document.getElementById('glossary');
+        const searchInput = document.getElementById('search');
+
+        function renderGlossary(filter = '') {
+            glossaryContainer.innerHTML = '';
+            const filtered = glossaryData.filter(item => item.term.toLowerCase().includes(filter.toLowerCase()));
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'glossary-item';
+                div.innerHTML = `<h3>${item.term}</h3><p>${item.definition}</p>`;
+                glossaryContainer.appendChild(div);
+            });
+            if (filtered.length === 0) {
+                glossaryContainer.innerHTML = '<p>No terms found.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isExpanded = navMenu.classList.toggle('active');
+                    this.setAttribute('aria-expanded', isExpanded.toString());
+                });
+                document.addEventListener('click', function(event) {
+                    if (navMenu.classList.contains('active') && !navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                const currentPageFilename = window.location.pathname.split('/').pop() || 'CSG.html';
+                const navLinks = document.querySelectorAll('.nav-menu a');
+                navLinks.forEach(link => {
+                    const linkHref = link.getAttribute('href');
+                    if (linkHref && linkHref.split('/').pop() === currentPageFilename) {
+                        link.classList.add('active-nav-link');
+                    } else {
+                        link.classList.remove('active-nav-link');
+                    }
+                });
+            }
+            renderGlossary();
+        });
+
+        searchInput.addEventListener('input', () => {
+            renderGlossary(searchInput.value);
+        });
+    </script>
+</body>
+</html>
