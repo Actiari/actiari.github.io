@@ -39,6 +39,19 @@
       --nav-hover-text: var(--color-background); /* Dark text for nav link hover */
     }
 
+    body.light-mode {
+      --color-background: #ffffff;
+      --color-surface: #f4f4f4;
+      --color-surface-variant: #e0e0e0;
+      --color-surface-hover: #d5d5d5;
+      --color-text-primary: #1a1d21;
+      --color-text-secondary: #333333;
+      --color-border: #cccccc;
+      --color-shadow: rgba(0,0,0,0.2);
+      --nav-text: #000000;
+      --nav-hover-text: var(--color-background);
+    }
+
     /* Base styles */
     * {
       box-sizing: border-box;
@@ -115,6 +128,15 @@
       background: none;
       border: none;
       font-size: 24px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      color: var(--nav-text);
+      background: none;
+      border: none;
+      font-size: 20px;
       padding: 10px 15px;
       cursor: pointer;
     }
@@ -354,6 +376,9 @@
           <li><a href="BWT.html">Geography Case Studies</a></li>
         </ul>
     </div>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
     <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
     </button>
@@ -413,6 +438,7 @@
     &copy; 2025 Actiari Study Tools. All rights reserved. | <a href="https://github.com/actiari">GitHub</a>
   </footer>
 
+  <script src="theme-toggle.js"></script>
   <script>
 document.addEventListener('DOMContentLoaded', function() {
   const menuToggle = document.querySelector('.menu-toggle');

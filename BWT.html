@@ -70,6 +70,19 @@
             --accordion-open-header-text: var(--color-background);
         }
 
+        body.light-mode {
+            --color-background: #ffffff;
+            --color-surface: #f4f4f4;
+            --color-surface-variant: #e0e0e0;
+            --color-surface-hover: #d5d5d5;
+            --color-text-primary: #1a1d21;
+            --color-text-secondary: #333333;
+            --color-border: #cccccc;
+            --color-shadow: rgba(0,0,0,0.2);
+            --nav-text: #000000;
+            --nav-hover-text: var(--color-background);
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
@@ -190,6 +203,15 @@
         .menu-toggle {
             display: none; background: none; border: none; color: var(--nav-text);
             font-size: 24px; cursor: pointer; padding: 10px 15px;
+        }
+
+        .theme-toggle {
+            color: var(--nav-text);
+            background: none;
+            border: none;
+            font-size: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
         }
         /* Responsive Nav */
         @media screen and (min-width: 993px) {
@@ -488,6 +510,9 @@
             <li><a href="BWT.html" class="active-nav-link">Geography Case Studies</a></li> <!-- Example active link -->
         </ul>
     </div>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
     <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
     </button>
@@ -756,6 +781,7 @@
     </footer>
 </div>
 
+<script src="theme-toggle.js"></script>
 <script>
     // Navigation Script
     document.addEventListener('DOMContentLoaded', function() {
