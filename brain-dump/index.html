@@ -30,6 +30,97 @@
       flex-direction:column;
       min-height:100vh;
     }
+
+    /* Navigation styles */
+    .nav-container {
+      background-color: var(--nav-bg);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px var(--color-shadow);
+    }
+
+    .nav-menu-wrapper {
+      display: flex;
+      justify-content: center;
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    .nav-menu {
+      list-style-type: none;
+      align-items: center;
+      transition: all 0.3s ease;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu li {
+      flex: 0 0 auto;
+    }
+
+    .nav-menu li a {
+      display: block;
+      color: var(--nav-text);
+      text-align: center;
+      padding: 14px 18px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s, color 0.2s;
+      font-weight: 500;
+      font-size: 0.95em;
+    }
+
+    .nav-menu li a:hover,
+    .nav-menu li a.active-nav-link {
+      background-color: var(--nav-hover-bg);
+      color: var(--nav-hover-text);
+    }
+
+    .menu-toggle {
+      color: var(--nav-text);
+      background: none;
+      border: none;
+      font-size: 24px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      color: var(--nav-text);
+      background: none;
+      border: none;
+      font-size: 20px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    @media screen and (min-width: 1101px) {
+        .nav-container { justify-content: center; }
+        .nav-menu-wrapper { margin: 0 auto; }
+        .nav-menu { display: flex; flex-direction: row; }
+        .menu-toggle { display: none; }
+    }
+
+    @media screen and (max-width: 1100px) {
+        .nav-container { justify-content: space-between; }
+        .nav-menu-wrapper { width: auto; margin: 0; justify-content: flex-start; }
+        .nav-menu { display: none; flex-direction: column; width: 100%; position: absolute; top: 100%; left: 0; background-color: var(--nav-bg); z-index: 999; border-top: 1px solid var(--color-border); box-shadow: 0 4px 10px var(--color-shadow); }
+        .nav-menu li { width: 100%; }
+        .nav-menu li a { text-align: left; padding: 12px 20px; border-top: 1px solid var(--color-border); }
+        .nav-menu li:first-child a { border-top: none; }
+        .nav-menu.active { display: flex !important; }
+        .menu-toggle { display: block !important; }
+    }
+
+    @media screen and (max-width: 768px) {
+        .nav-container { padding: 0 15px; }
+        .nav-menu li a { padding: 10px 15px; }
+    }
     header {
       display:flex;
       gap:1rem;
@@ -65,7 +156,7 @@
     }
     footer {
       display:flex;
-      justify-content:space-between;
+      justify-content:flex-end;
       align-items:center;
       padding:0.5rem 1rem;
       background:var(--color-surface-variant);
@@ -77,35 +168,100 @@
       font-size:0.9rem;
     }
     [hidden]{display:none!important;}
-    .badge{padding:0.2rem 0.5rem;background:var(--color-surface-hover);border-radius:var(--border-radius);}
   </style>
 </head>
 <body>
+  <div class="nav-container">
+    <div class="nav-menu-wrapper">
+        <ul class="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../APR.html">A Level & BTEC Past Papers</a></li>
+          <li><a href="../SPBE.html">Geography Flashcards</a></li>
+          <li><a href="../BWT.html">Geography Case Studies</a></li>
+          <li><a href="brain-dump/index.html" class="active-nav-link">Brain Dump</a></li>
+        </ul>
+    </div>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+  </div>
   <header>
     <label for="topicInput" class="visually-hidden">Topic</label>
     <input id="topicInput" type="text" placeholder="Topic" aria-label="Topic">
     <label for="durationSelect" class="visually-hidden">Duration</label>
     <select id="durationSelect" aria-label="Duration in minutes">
-      <!-- options inserted by JS -->
+      <option value="1">1 min</option>
+      <option value="2">2 min</option>
+      <option value="3">3 min</option>
+      <option value="4">4 min</option>
+      <option value="5" selected>5 min</option>
+      <option value="6">6 min</option>
+      <option value="7">7 min</option>
+      <option value="8">8 min</option>
+      <option value="9">9 min</option>
+      <option value="10">10 min</option>
+      <option value="11">11 min</option>
+      <option value="12">12 min</option>
+      <option value="13">13 min</option>
+      <option value="14">14 min</option>
+      <option value="15">15 min</option>
+      <option value="16">16 min</option>
+      <option value="17">17 min</option>
+      <option value="18">18 min</option>
+      <option value="19">19 min</option>
+      <option value="20">20 min</option>
     </select>
     <button id="startBtn">Start</button>
     <button id="resetBtn" hidden>Reset</button>
-    <a href="history.html" style="margin-left:auto;color:var(--color-primary-accent-generic);">History</a>
+    <span id="timer" aria-live="polite" style="margin-left:auto">00:00</span>
+    <button id="completeBtn">Mark Complete</button>
+    <a href="history.html" style="color:var(--color-primary-accent-generic);">History</a>
   </header>
 
   <main>
-    <textarea id="dumpBox" aria-label="Your recall"></textarea>
+    <textarea id="dumpBox" aria-label="Your recall" placeholder="Type your thoughts here..."></textarea>
     <div id="notesPane" tabindex="0" aria-label="Reference notes"></div>
   </main>
   <footer>
-    <span id="timer" aria-live="polite">00:00</span>
-    <span id="saveBadge" class="badge">Autosaved</span>
-    <button id="completeBtn">Mark Complete</button>
+    <button id="downloadBtn" hidden>Download</button>
   </footer>
   <script src="https://unpkg.com/idb-keyval@6/dist/idb-keyval.iife.js"></script>
   <script src="https://unpkg.com/uuid@9.0.0/dist/umd/uuidv9.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="../theme-toggle.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isExpanded = navMenu.classList.toggle('active');
+          this.setAttribute('aria-expanded', isExpanded.toString());
+        });
+        document.addEventListener('click', function(event) {
+          if (navMenu.classList.contains('active') &&
+              !navMenu.contains(event.target) &&
+              !menuToggle.contains(event.target)) {
+            navMenu.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+        const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+          const linkFilename = link.getAttribute('href').split('/').pop();
+          if (linkFilename === currentPageFilename) {
+            link.classList.add('active-nav-link');
+          } else {
+            link.classList.remove('active-nav-link');
+          }
+        });
+      }
+    });
     if('serviceWorker' in navigator){
       navigator.serviceWorker.register('sw.js');
     }
