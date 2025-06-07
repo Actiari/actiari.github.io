@@ -94,13 +94,14 @@
   </header>
 
   <main>
-    <textarea id="dumpBox" aria-label="Your recall"></textarea>
+    <textarea id="dumpBox" aria-label="Your recall" placeholder="Type your thoughts here..."></textarea>
     <div id="notesPane" tabindex="0" aria-label="Reference notes"></div>
   </main>
   <footer>
     <span id="timer" aria-live="polite">00:00</span>
     <span id="saveBadge" class="badge">Autosaved</span>
     <button id="completeBtn">Mark Complete</button>
+    <button id="downloadBtn" hidden>Download</button>
   </footer>
   <script src="https://unpkg.com/idb-keyval@6/dist/idb-keyval.iife.js"></script>
   <script src="https://unpkg.com/uuid@9.0.0/dist/umd/uuidv9.min.js"></script>
