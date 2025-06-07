@@ -33,6 +33,19 @@
       --warning: #fbbc05; /* Yellow from style_source english */
       --danger: #ea4335;  /* Red from style_source chemistry */
     }
+
+    body.light-mode {
+      --color-background: #ffffff;
+      --color-surface: #f4f4f4;
+      --color-surface-variant: #e0e0e0;
+      --color-surface-hover: #d5d5d5;
+      --color-text-primary: #1a1d21;
+      --color-text-secondary: #333333;
+      --color-border: #cccccc;
+      --color-shadow: rgba(0,0,0,0.2);
+      --nav-text: #000000;
+      --nav-hover-text: var(--color-background);
+    }
     
     * {
       box-sizing: border-box;
@@ -105,6 +118,15 @@
       font-size: 24px;
       cursor: pointer;
       padding: 10px 15px; /* Matched style_source */
+    }
+
+    .theme-toggle {
+      color: var(--nav-text);
+      background: none;
+      border: none;
+      font-size: 20px;
+      padding: 10px 15px;
+      cursor: pointer;
     }
     
     #app-container {
@@ -776,6 +798,9 @@
       <li><a href="SPBE.html">Geography Flashcards</a></li>
       <li><a href="BWT.html">Geography Case Studies</a></li>
     </ul>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
   </div>
 
   <script>
@@ -817,7 +842,8 @@
   <footer>
     &copy; 2025 Actiari Study Tools. All rights reserved. | <a href="https://github.com/actiari">GitHub</a>
   </footer>
-  
+
+  <script src="theme-toggle.js"></script>
   <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>

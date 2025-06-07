@@ -48,6 +48,19 @@
             --nav-hover-bg: var(--color-primary-accent-generic);
             --nav-hover-text: var(--color-background); /* Dark text on hover */
         }
+
+        body.light-mode {
+            --color-background: #ffffff;
+            --color-surface: #f4f4f4;
+            --color-surface-variant: #e0e0e0;
+            --color-surface-hover: #d5d5d5;
+            --color-text-primary: #1a1d21;
+            --color-text-secondary: #333333;
+            --color-border: #cccccc;
+            --color-shadow: rgba(0,0,0,0.2);
+            --nav-text: #000000;
+            --nav-hover-text: var(--color-background);
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: var(--font-main); line-height: 1.6; background-color: var(--color-background);
@@ -79,6 +92,15 @@
         .menu-toggle {
             display: none; background: none; border: none; color: var(--nav-text);
             font-size: 24px; cursor: pointer; padding: 10px 15px;
+        }
+
+        .theme-toggle {
+            color: var(--nav-text);
+            background: none;
+            border: none;
+            font-size: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
         }
         .page-container { flex: 1; padding: 0 20px; width: 100%; margin: 20px auto; }
         .page-header { text-align: center; margin-bottom: 30px; }
@@ -291,6 +313,9 @@
                 <li><a href="BWT.html">Geography Case Studies</a></li>
             </ul>
         </div>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+        </button>
         <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
             <i class="fas fa-bars"></i>
         </button>
@@ -347,6 +372,7 @@
     &copy; 2025 Actiari Study Tools. All rights reserved. | <a href="https://github.com/actiari">GitHub</a>
     </footer>
 
+    <script src="theme-toggle.js"></script>
     <script>
     // Hamburger Menu Toggle & Active Nav Link
     document.addEventListener('DOMContentLoaded', function() {
