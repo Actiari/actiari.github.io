@@ -51,6 +51,9 @@
       font-family: var(--font-main);
       line-height: 1.6;
       color: var(--color-text-primary);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     /* Navigation styles */
@@ -192,6 +195,7 @@
       padding: 40px 20px; /* Retained padding for spacing around cards */
       max-width: 1200px;
       margin: 0 auto;
+      flex: 1;
     }
 
     /* Hero styles - kept for reference, but hero removed from HTML */
@@ -296,18 +300,22 @@
       filter: brightness(1.1);
     }
 
-    /* Footer styles - kept for reference, but footer removed from HTML */
-    /* .footer {
+    /* Footer styles */
+    footer {
       background-color: var(--nav-bg);
       color: var(--nav-text);
-      padding: 20px 20px;
       text-align: center;
+      padding: 20px 0;
       font-size: 0.9rem;
+      margin-top: auto;
     }
-
-    .footer p {
-      margin-bottom: 10px;
-    } */
+    footer a {
+      color: var(--color-primary-accent-generic);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
 
     /* Media queries for responsive design - Ensure these don't conflict with nav */
     @media screen and (max-width: 1100px) { /* Keep this for non-nav adjustments */
