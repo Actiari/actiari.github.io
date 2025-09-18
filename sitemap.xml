@@ -7,14 +7,12 @@
     <loc>https://actiari.github.io/index.html</loc>
   </url>
   <url>
-    <loc>https://actiari.github.io/BWT.html</loc>
+    <!-- BWT.html removed -->
   </url>
   <url>
     <loc>https://actiari.github.io/APR.html</loc>
   </url>
-  <url>
-    <loc>https://actiari.github.io/SPBE.html</loc>
-  </url>
+  <!-- SPBE.html removed -->
   <url>
     <loc>https://actiari.github.io/case-studies/eyjafjallajokull.html</loc>
   </url>

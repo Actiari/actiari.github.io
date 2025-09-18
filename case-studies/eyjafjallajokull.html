@@ -607,9 +607,7 @@
         <ul class="nav-menu">
             <li><a href="../index.html">Home</a></li> <!-- Adjusted path -->
             <li><a href="../APR.html">A Level & BTEC Past Papers</a></li> <!-- Adjusted path -->
-            <li><a href="../SPBE.html">Geography Flashcards</a></li> <!-- Adjusted path -->
-            <li><a href="../BWT.html" class="active-nav-link">Geography Case Studies</a></li> <!-- Adjusted path -->
-            <li><a href="../brain-dump/index.html">Brain Dump</a></li>
+
         </ul>
     </div>
     <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -623,7 +621,7 @@
     </header>
 
     <div class="back-link-container">
-        <a href="../BWT.html#casestudies" class="back-link"><i class="fas fa-arrow-left"></i> Back to Case Study List</a>
+        <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
     </div>
 
     <div class="case-study-detail-card">
@@ -736,9 +734,9 @@
          // Active Nav Link
         const pathParts = window.location.pathname.split('/');
         let currentPageFilename = pathParts.pop() || pathParts.pop(); // Handles trailing slash
-        // If it's a case study page, we want the parent "BWT.html" to be active
+        // For case study pages, mark the site homepage as the active nav item (BWT removed)
         if (window.location.pathname.includes('/case-studies/')) {
-            currentPageFilename = 'BWT.html';
+            currentPageFilename = 'index.html';
         } else {
              currentPageFilename = currentPageFilename || 'index.html';
         }
