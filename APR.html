@@ -647,7 +647,6 @@
         const filterQualEl = document.getElementById('filter-qualification');
         const filterSubjectEl = document.getElementById('filter-subject');
         const filterYearEl = document.getElementById('filter-year');
-        const sortByEl = document.getElementById('sort-by');
         const clearFiltersBtn = document.getElementById('clear-filters-btn');
         const activeFiltersContainer = document.getElementById('active-filters-container');
 
@@ -658,8 +657,7 @@
                 examBoard: 'all',
                 subject: 'all',
                 year: 'all'
-            },
-            sortBy: 'year_desc'
+            }
         };
 
         // Define the filter hierarchy and relationships
@@ -811,16 +809,8 @@
                 }
             });
 
-            // 2. Sort data
-            const [sortKey, sortDir] = state.sortBy.split('_');
-            filteredData.sort((a, b) => {
-                const valA = a[sortKey];
-                const valB = b[sortKey];
-                
-                if (valA < valB) return sortDir === 'asc' ? -1 : 1;
-                if (valA > valB) return sortDir === 'asc' ? 1 : -1;
-                return 0;
-            });
+            // 2. Sort by year descending (default)
+            filteredData.sort((a, b) => b.year - a.year);
             
             // 3. Update results count
             resultsCountEl.textContent = `Showing ${filteredData.length} of ${pastPapersData.length} results`;
@@ -901,7 +891,6 @@
                     params.set(key, value);
                 }
             });
-            params.set('sortBy', state.sortBy);
             const newUrl = `${window.location.pathname}?${params.toString()}`;
             window.history.pushState({}, '', newUrl);
         }
@@ -914,8 +903,7 @@
                     examBoard: params.get('examBoard') || 'all',
                     subject: params.get('subject') || 'all',
                     year: params.get('year') || 'all'
-                },
-                sortBy: params.get('sortBy') || 'year_desc'
+                }
             };
             state = newState;
             
@@ -933,7 +921,6 @@
                     }
                 }
             }
-            sortByEl.value = state.sortBy;
         }
 
         // Event Handlers
@@ -956,11 +943,6 @@
                 state.filters.year = filterYearEl.value;
             }
             
-            renderAll();
-        }
-
-        function handleSortChange() {
-            state.sortBy = sortByEl.value;
             renderAll();
         }
 
@@ -1043,7 +1025,6 @@
             filterBoardEl.addEventListener('change', handleFilterChange);
             filterSubjectEl.addEventListener('change', handleFilterChange);
             filterYearEl.addEventListener('change', handleFilterChange);
-            sortByEl.addEventListener('change', handleSortChange);
             clearFiltersBtn.addEventListener('click', handleClearFilters);
             activeFiltersContainer.addEventListener('click', handleRemoveChip);
 

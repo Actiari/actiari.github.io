@@ -231,14 +231,30 @@
         </div>
     </footer>
 
-    <script src="theme-toggle.js"></script>
     <script>
         // Set dark mode by default on page load
         document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (!savedTheme) {
-                localStorage.setItem('theme', 'dark');
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'dark') {
                 document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+            }
+            localStorage.setItem('theme', savedTheme);
+            
+            // Setup theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isDarkMode = document.documentElement.classList.contains('dark-mode');
+                    if (isDarkMode) {
+                        document.documentElement.classList.remove('dark-mode');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark-mode');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
             }
         });
     </script>
