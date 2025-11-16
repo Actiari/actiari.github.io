@@ -271,6 +271,22 @@
         .paper-card.subject-business-studies .card-header__info h2 { color: var(--subject-business); }
         .paper-card.subject-applied-science .card-header__info h2 { color: var(--subject-science); }
 
+        /* --- Disclaimer Box --- */
+        .disclaimer-box {
+            background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+            border: 1px solid var(--color-accent);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+        }
+        .disclaimer-box a {
+            color: var(--color-accent);
+            font-weight: var(--font-weight-medium);
+        }
+        .disclaimer-box a:hover { color: var(--color-accent-hover); }
+
         /* --- No Results Message --- */
         .no-results {
             grid-column: 1 / -1;
@@ -336,6 +352,10 @@
             <p>Filter by exam board, qualification, subject, and year to find the revision materials you need.</p>
         </div>
 
+        <div class="disclaimer-box">
+            <p><strong>Note:</strong> Some links may be broken or outdated. If you encounter any issues, please report them to <a href="mailto:actiari@gmail.com">actiari@gmail.com</a>.</p>
+        </div>
+
         <section class="controls-container" aria-labelledby="controls-heading">
             <h2 id="controls-heading" class="visually-hidden">Filter and Sort Controls</h2>
             <div class="filters">
@@ -394,7 +414,7 @@
     <footer class="site-footer">
         <div class="page-wrapper">
             <p>&copy; 2025 Actiari Study Tools. All rights reserved.</p>
-            <p>Last updated: October 2023 | <a href="https://github.com/actiari">GitHub</a></p>
+            <p>Last updated: 16/11/2025 | <a href="https://github.com/actiari">GitHub</a></p>
         </div>
     </footer>
 
@@ -600,7 +620,7 @@
           {id: 179, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2021, session: 'November 2021', paperTitle: 'Paper 3 - Unified Physics', paperUrl: 'https://www.ocr.org.uk/Images/667297-question-paper-unified-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/667302-mark-scheme-unified-physics.pdf', insertUrl: null},
           {id: 180, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2020, session: 'November 2020', paperTitle: 'Paper 1 - Modelling Physics', paperUrl: 'https://www.ocr.org.uk/Images/643598-question-paper-modelling-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/643603-mark-scheme-modelling-physics.pdf', insertUrl: null},
           {id: 181, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2020, session: 'November 2020', paperTitle: 'Paper 2 - Exploring Physics', paperUrl: 'https://www.ocr.org.uk/Images/643599-question-paper-exploring-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/643604-mark-scheme-exploring-physics.pdf', insertUrl: null},
-          {id: 182, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2020, session: 'November 2020', paperTitle: 'Paper 3 - Unified Physics', paperUrl: 'https://www.ocr.org.uk/Images/643600-question-paper-unified-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/643605-m', insertUrl: null},
+          {id: 182, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2020, session: 'November 2020', paperTitle: 'Paper 3 - Unified Physics', paperUrl: 'https://www.ocr.org.uk/Images/643600-question-paper-unified-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/643605-mark-scheme-unified-physics.pdf', insertUrl: null},
           {id: 183, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2019, session: 'June 2019', paperTitle: 'Paper 1 - Modelling Physics', paperUrl: 'https://www.ocr.org.uk/Images/621258-question-paper-modelling-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/621436-mark-scheme-modelling-physics.pdf', insertUrl: null},
           {id: 184, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2019, session: 'June 2019', paperTitle: 'Paper 2 - Exploring Physics', paperUrl: 'https://www.ocr.org.uk/Images/621259-question-paper-exploring-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/621437-mark-scheme-exploring-physics.pdf', insertUrl: null},
           {id: 185, examBoard: 'OCR A', qualification: 'A-Level', subject: 'Physics', year: 2019, session: 'June 2019', paperTitle: 'Paper 3 - Unified Physics', paperUrl: 'https://www.ocr.org.uk/Images/621260-question-paper-unified-physics.pdf', markSchemeUrl: 'https://www.ocr.org.uk/Images/621438-mark-scheme-unified-physics.pdf', insertUrl: null},
@@ -777,6 +797,21 @@
         
         // Render Functions
         function renderResults() {
+            // Check if any filter has been applied
+            const hasFilters = Object.values(state.filters).some(value => value !== 'all');
+            
+            // Show placeholder if no filters applied
+            if (!hasFilters) {
+                resultsCountEl.textContent = '';
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <h3>Select filters to view papers</h3>
+                        <p>Choose a qualification type, exam board, subject, or year above to display the available past papers.</p>
+                    </div>
+                `;
+                return;
+            }
+            
             // 1. Filter data
             let filteredData = [...pastPapersData];
             Object.entries(state.filters).forEach(([key, value]) => {

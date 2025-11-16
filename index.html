@@ -1,466 +1,237 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actiari Study Tools - A Level & BTEC Resources</title>
-  <meta name="description" content="Interactive A Level and BTEC study tools: past papers, flashcards, and case studies for Geography and more. Free, modern, and mobile-friendly.">
-  <meta name="keywords" content="A Level, BTEC, Geography, Past Papers, Flashcards, Case Studies, Revision, Study Tools, Actiari">
-  <meta property="og:title" content="Actiari Study Tools - A Level & BTEC Resources">
-  <meta property="og:description" content="Interactive A Level and BTEC study tools: past papers, flashcards, and case studies for Geography and more.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://actiari.github.io/">
-  <meta property="og:image" content="https://actiari.github.io/Miscellaneous/Main%20Favicon.ico">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Actiari Study Tools - A Level & BTEC Resources">
-  <meta name="twitter:description" content="Interactive A Level and BTEC study tools: past papers, flashcards, and case studies for Geography and more.">
-  <meta name="twitter:image" content="https://actiari.github.io/Miscellaneous/Main%20Favicon.ico">
-  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    :root {
-      /* Dark theme variables from "Past Papers Archive" */
-      --color-background: #1a1d21;
-      --color-surface: #252930;
-      --color-surface-variant: #31363f;
-      --color-surface-hover: #3c424c;
-      --color-primary-accent-generic: #00b8d4; /* Main accent color */
-      --color-text-primary: #e8eaed;
-      --color-text-secondary: #b0b3b8;
-      --color-border: #40454c;
-      --color-shadow: rgba(0,0,0,0.3);
-      --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --border-radius: 8px; /* Consistent border radius */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actiari Study Tools - A Level & BTEC Resources</title>
+    <meta name="description" content="Interactive A Level and BTEC study tools: past papers, flashcards, and case studies for Geography and more. Free, modern, and mobile-friendly.">
+    <meta name="keywords" content="A Level, BTEC, Geography, Past Papers, Flashcards, Case Studies, Revision, Study Tools, Actiari">
+    <meta property="og:title" content="Actiari Study Tools - A Level & BTEC Resources">
+    <meta property="og:description" content="Interactive A Level and BTEC study tools: past papers, flashcards, and case studies for Geography and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://actiari.github.io/">
+    <meta property="og:image" content="https://actiari.github.io/Miscellaneous/Main%20Favicon.ico">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Actiari Study Tools - A Level & BTEC Resources">
+    <meta name="twitter:description" content="Interactive A Level and BTEC study tools: past papers, flashcards, and case studies for Geography and more.">
+    <meta name="twitter:image" content="https://actiari.github.io/Miscellaneous/Main%20Favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ------------------- */
+        /* --- CSS Reset & Variables --- */
+        /* ------------------- */
+        :root {
+            --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
 
-      --nav-bg: var(--color-surface-variant);
-      --nav-text: #ffffff; /* White text for nav links */
-      --nav-hover-bg: var(--color-primary-accent-generic);
-      --nav-hover-text: var(--color-background); /* Dark text for nav link hover */
-    }
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
 
-    body.light-mode {
-      --color-background: #ffffff;
-      --color-surface: #f4f4f4;
-      --color-surface-variant: #e0e0e0;
-      --color-surface-hover: #d5d5d5;
-      --color-text-primary: #1a1d21;
-      --color-text-secondary: #333333;
-      --color-border: #cccccc;
-      --color-shadow: rgba(0,0,0,0.2);
-      --nav-text: #000000;
-      --nav-hover-text: var(--color-background);
-    }
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 
-    /* Base styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--color-background);
-      font-family: var(--font-main);
-      line-height: 1.6;
-      color: var(--color-text-primary);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Navigation styles */
-    .nav-container {
-      background-color: var(--nav-bg);
-      width: 100%;
-      display: flex;
-      align-items: center;
-      /* justify-content defined in media queries */
-      padding: 0 20px; /* Padding is consistent */
-      position: sticky; /* Make nav sticky */
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px var(--color-shadow);
-    }
-
-    .nav-menu-wrapper {
-      display: flex;
-      justify-content: center; /* Center ul inside wrapper */
-      max-width: 1400px; /* Limits the maximum width of the centered content */
-      width: 100%; /* Takes up full width up to max-width */
-       /* margin defined in media queries */
-    }
-
-    .nav-menu {
-      list-style-type: none;
-      align-items: center; /* Vertically center nav links if items have different heights */
-      transition: all 0.3s ease;
-      margin: 0;
-      padding: 0;
-      /* display and flex-direction defined in media queries */
-    }
-
-    .nav-menu li {
-      flex: 0 0 auto;
-    }
-
-    .nav-menu li a {
-      display: block;
-      color: var(--nav-text);
-      text-align: center; /* Center text in links */
-      padding: 14px 18px;
-      text-decoration: none;
-      white-space: nowrap; /* Prevent wrapping */
-      transition: background-color 0.2s, color 0.2s;
-      font-weight: 500;
-      font-size: 0.95em;
-    }
-
-    .nav-menu li a:hover,
-    .nav-menu li a.active-nav-link {
-      background-color: var(--nav-hover-bg);
-      color: var(--nav-hover-text);
-    }
-
-    .menu-toggle {
-      /* display defined in media queries */
-      color: var(--nav-text);
-      background: none;
-      border: none;
-      font-size: 24px;
-      padding: 10px 15px;
-      cursor: pointer;
-    }
-
-    .theme-toggle {
-      color: var(--nav-text);
-      background: none;
-      border: none;
-      font-size: 20px;
-      padding: 10px 15px;
-      cursor: pointer;
-    }
-
-    /* Wide screen styles */
-    @media screen and (min-width: 1101px) {
-        .nav-container {
-            justify-content: center; /* Center the nav-menu-wrapper */
-        }
-        .nav-menu-wrapper {
-            margin: 0 auto; /* Center the wrapper horizontally */
-            /* width: 100%; max-width: 1400px; justify-content: center; already in base */
-        }
-        .nav-menu {
-            display: flex; /* Show horizontal menu */
-            flex-direction: row;
-        }
-        .menu-toggle {
-            display: none; /* Hide toggle */
-        }
-    }
-
-    /* Tablet/Mobile screen styles */
-    @media screen and (max-width: 1100px) {
-        .nav-container {
-            justify-content: space-between; /* Space between wrapper and toggle */
-            /* padding: 0 20px; already in base */
-        }
-        .nav-menu-wrapper {
-            width: auto; /* Wrapper size based on content */
-            margin: 0; /* Remove margin auto */
-            justify-content: flex-start; /* Align menu items left within wrapper */
+            /* Light Theme */
+            --color-background: #f8f9fa;
+            --color-surface: #ffffff;
+            --color-surface-hover: #f1f3f5;
+            --color-border: #dee2e6;
+            --color-text-primary: #212529;
+            --color-text-secondary: #495057;
+            --color-text-muted: #868e96;
+            --color-primary: #005fcc;
+            --color-primary-hover: #004ca3;
+            --color-accent: #0ca678;
+            --color-accent-hover: #087f5b;
+            --color-accent-text: #ffffff;
         }
 
-         .nav-menu { /* Target the ul */
-            display: none; /* Hide menu by default */
-            flex-direction: column; /* Vertical layout */
-            width: 100%; /* Full width for dropdown */
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: var(--nav-bg);
-            z-index: 999;
+        .dark-mode {
+            --color-background: #121212;
+            --color-surface: #1e1e1e;
+            --color-surface-hover: #2c2c2c;
+            --color-border: #333;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #b0b0b0;
+            --color-text-muted: #757575;
+            --color-primary: #4dabf7;
+            --color-primary-hover: #74c0fc;
+            --color-accent: #20c997;
+            --color-accent-hover: #48d8ab;
+            --color-accent-text: #121212;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-family-sans);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main { flex-grow: 1; }
+        a { color: var(--color-primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        img, svg { max-width: 100%; display: block; }
+        input, button, select { font: inherit; }
+        :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: var(--radius-sm); }
+        .visually-hidden {
+            position: absolute; width: 1px; height: 1px;
+            padding: 0; margin: -1px; overflow: hidden;
+            clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
+        /* ------------------- */
+        /* --- Layout & Components --- */
+        /* ------------------- */
+        .page-wrapper { max-width: 1400px; margin: 0 auto; padding: 0 24px; width: 100%; }
+        
+        /* --- Header --- */
+        .site-header {
+            padding: 16px 0;
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .site-header .page-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .site-header__logo { display: flex; align-items: center; justify-content: center; }
+        .site-header__logo img { height: 32px; width: auto; }
+        .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
+        .site-header__nav a { color: var(--color-text-secondary); font-weight: var(--font-weight-medium); transition: color 0.2s; }
+        .site-header__nav a:hover, .site-header__nav a[aria-current="page"] { color: var(--color-primary); }
+        .theme-toggle {
+            background: none; border: none; cursor: pointer; color: var(--color-text-secondary);
+            padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .theme-toggle:hover { background-color: var(--color-surface-hover); color: var(--color-text-primary); }
+        .theme-toggle svg { width: 20px; height: 20px; }
+        .theme-toggle .icon-sun { display: none; }
+        .dark-mode .theme-toggle .icon-sun { display: block; }
+        .dark-mode .theme-toggle .icon-moon { display: none; }
+
+        /* --- Page Title --- */
+        .page-title { text-align: center; margin: 48px 0; }
+        .page-title h1 { font-size: 2.5rem; font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
+        .page-title p { font-size: 1.125rem; color: var(--color-text-secondary); margin-top: 8px; max-width: 60ch; margin-left: auto; margin-right: auto; }
+
+        /* --- Cards Container --- */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background-color: var(--color-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        
+        .card h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: 12px; color: var(--color-text-primary); }
+        .card p { margin-bottom: 20px; font-size: 1rem; color: var(--color-text-secondary); flex-grow: 1; }
+        
+        .card-link {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px; border-radius: var(--radius-md);
+            font-weight: var(--font-weight-medium);
+            text-align: center;
+            background-color: var(--color-accent);
+            color: var(--color-accent-text);
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .card-link:hover { background-color: var(--color-accent-hover); text-decoration: none; }
+
+        /* --- Footer --- */
+        .site-footer {
+            margin-top: 64px;
+            padding: 32px 0;
+            background-color: var(--color-surface);
             border-top: 1px solid var(--color-border);
-            box-shadow: 0 4px 10px var(--color-shadow);
-         }
-
-         .nav-menu li {
-             width: 100%; /* Make list items take full width */
-         }
-
-         .nav-menu li a {
-            text-align: left; /* Align text left in mobile menu */
-            padding: 12px 20px; /* Mobile link padding from source */
-            border-top: 1px solid var(--color-border); /* Add borders between items */
-         }
-         .nav-menu li:first-child a {
-              border-top: none;
-         }
-
-        .nav-menu.active {
-            display: flex !important; /* Show menu when active */
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
         }
-        .menu-toggle {
-            display: block !important; /* Show toggle */
+        .site-footer .page-wrapper { display: flex; flex-direction: column; gap: 8px; }
+        .site-footer a { color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
+
+        /* ------------------- */
+        /* --- Responsive Design --- */
+        /* ------------------- */
+        @media (max-width: 768px) {
+            .page-wrapper { padding: 0 16px; }
+            .page-title { margin: 32px 0; }
+            .page-title h1 { font-size: 2rem; }
+            .cards-container { grid-template-columns: 1fr; }
+            .site-header__nav { display: none; }
         }
-    }
-
-    /* Adjust padding for smaller mobile screens if needed */
-    @media screen and (max-width: 768px) {
-        .nav-container { padding: 0 15px; }
-        .nav-menu li a { padding: 10px 15px; } /* Slightly less padding on links */
-    }
-
-
-    /* Main content styling */
-    .content {
-      padding: 40px 20px; /* Retained padding for spacing around cards */
-      max-width: 1200px;
-      margin: 0 auto;
-      flex: 1;
-    }
-
-    /* Hero styles - kept for reference, but hero removed from HTML */
-    /* .hero {
-      background-color: var(--color-surface);
-      color: var(--color-text-primary);
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: var(--color-primary-accent-generic);
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 800px;
-      margin: 0 auto 30px;
-      color: var(--color-text-secondary);
-    }
-
-    .cta-button {
-      display: inline-block;
-      background-color: var(--color-primary-accent-generic);
-      color: var(--nav-hover-text);
-      padding: 12px 24px;
-      text-decoration: none;
-      border-radius: var(--border-radius);
-      font-weight: bold;
-      transition: background-color 0.2s, filter 0.2s;
-    }
-
-    .cta-button:hover {
-      filter: brightness(1.15);
-    } */
-
-    /* Section title styles - kept for reference, but section title removed from HTML */
-    /* .section-title {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2rem;
-      color: var(--color-primary-accent-generic);
-    } */
-
-    .cards-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      /* margin-bottom: 60px; Removed as footer is gone, content padding will handle bottom space */
-    }
-
-    .card {
-      background-color: var(--color-surface);
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 15px var(--color-shadow);
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 1px solid var(--color-border);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 20px var(--color-shadow);
-    }
-
-    .card-icon {
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--color-surface-variant);
-    }
-    .card-icon svg path {
-      fill: var(--color-primary-accent-generic);
-    }
-
-    .card-content {
-      padding: 24px;
-    }
-
-    .card h3 {
-      margin-bottom: 12px;
-      color: var(--color-text-primary);
-    }
-
-    .card p {
-      margin-bottom: 16px;
-      color: var(--color-text-secondary);
-    }
-
-    .card-link {
-      display: inline-block;
-      color: var(--color-primary-accent-generic);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .card-link:hover {
-      text-decoration: underline;
-      filter: brightness(1.1);
-    }
-
-    /* Footer styles */
-    footer {
-      background-color: var(--nav-bg);
-      color: var(--nav-text);
-      text-align: center;
-      padding: 20px 0;
-      font-size: 0.9rem;
-      margin-top: auto;
-    }
-    footer a {
-      color: var(--color-primary-accent-generic);
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* Media queries for responsive design - Ensure these don't conflict with nav */
-    @media screen and (max-width: 1100px) { /* Keep this for non-nav adjustments */
-        /* Nav adjustments handled above */
-        /* .hero h1 { font-size: 2rem; } */ /* Hero removed */
-        /* .hero p { font-size: 1rem; } */ /* Hero removed */
-    }
-
-    @media screen and (max-width: 768px) { /* Keep this for non-nav adjustments */
-        body { font-size: 15px; }
-        /* nav-container padding handled in nav media query */
-        .content { padding: 30px 15px; }
-        /* .hero h1 { font-size: 2em; } */ /* Hero removed */
-    }
-
-    @media screen and (max-width: 600px) { /* Keep this for non-nav adjustments */
-      .cards-container {
-        grid-template-columns: 1fr;
-      }
-      /* .hero { padding: 40px 20px; } */ /* Hero removed */
-      /* .hero h1 { font-size: 1.8rem; } */ /* Hero removed */
-    }
-     @media screen and (max-width: 576px) { /* Keep this for non-nav adjustments */
-        /* .hero h1 { font-size: 1.7em; } */ /* Hero removed */
-    }
-  </style>
+    </style>
 </head>
 <body>
-  <!-- Navigation with hamburger menu for tablets and mobile -->
-  <div class="nav-container">
-    <div class="nav-menu-wrapper">
-        <ul class="nav-menu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
-        </ul>
-    </div>
-    <button class="theme-toggle" aria-label="Toggle theme">
-        <i class="fas fa-sun"></i>
-    </button>
-    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-    </button>
-  </div>
 
-  <!-- Main content -->
-  <div class="content">
-    <!-- Removed hero section and section title -->
-
-    <div class="cards-container">
-
-      <!-- A Level Papers Card -->
-      <div class="card">
-        <div class="card-icon">
-          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z" fill="var(--color-primary-accent-generic)"/>
-          </svg>
+    <header class="site-header">
+        <div class="page-wrapper">
+            <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
+            </a>
+            <nav class="site-header__nav">
+                <ul>
+                    <li><a href="index.html" aria-current="page">Home</a></li>
+                    <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
         </div>
-        <div class="card-content">
-          <h3>A Level & BTEC Papers</h3>
-          <p>Access A Level and BTEC past papers to sharpen your exam techniques and knowledge.</p>
-          <a href="APR.html" class="card-link">View Papers →</a>
+    </header>
+
+    <main class="page-wrapper">
+        <div class="page-title">
+            <h1>Actiari Study Tools</h1>
+            <p>Interactive resources for A Level and BTEC revision</p>
         </div>
-      </div>
 
+        <div class="cards-container">
+            <div class="card">
+                <h3>A Level & BTEC Past Papers</h3>
+                <p>Filter and access past papers from AQA, OCR A, and Edexcel. Find exam papers and mark schemes for your revision.</p>
+                <a href="APR.html" class="card-link">View Papers →</a>
+            </div>
+        </div>
+    </main>
 
-    </div>
-  </div>
+    <footer class="site-footer">
+        <div class="page-wrapper">
+            <p>&copy; 2025 Actiari Study Tools. All rights reserved.</p>
+            <p>Last updated: 16/11/2025 | <a href="https://github.com/actiari">GitHub</a></p>
+        </div>
+    </footer>
 
-  <footer>
-    &copy; 2025 Actiari Study Tools. All rights reserved. | <a href="https://github.com/actiari">GitHub</a>
-  </footer>
+    <script src="theme-toggle.js"></script>
 
-  <script src="theme-toggle.js"></script>
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const isExpanded = navMenu.classList.toggle('active');
-      this.setAttribute('aria-expanded', isExpanded.toString());
-    });
-
-    document.addEventListener('click', function(event) {
-      if (navMenu.classList.contains('active') &&
-          !navMenu.contains(event.target) &&
-          !menuToggle.contains(event.target)) {
-        navMenu.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    window.addEventListener('resize', function() {
-      // Hide menu on resize if wider than the mobile breakpoint
-      if (window.innerWidth > 1100) {
-        if (navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }
-      }
-    });
-
-    // Set active nav link based on current page
-    const currentPageFilename = window.location.pathname.split('/').pop() || 'index.html';
-    if (currentPageFilename) {
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            // Handle empty href or just '#'
-            const linkHref = link.getAttribute('href');
-            if (linkHref && linkHref !== '#') {
-              const linkFilename = linkHref.split('/').pop();
-              if (linkFilename === currentPageFilename) {
-                  link.classList.add('active-nav-link');
-              } else {
-                  link.classList.remove('active-nav-link');
-              }
-            }
-        });
-    }
-  }
-});
-  </script>
 </body>
 </html>
