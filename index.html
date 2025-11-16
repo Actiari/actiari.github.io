@@ -232,6 +232,16 @@
     </footer>
 
     <script src="theme-toggle.js"></script>
+    <script>
+        // Set dark mode by default on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (!savedTheme) {
+                localStorage.setItem('theme', 'dark');
+                document.documentElement.classList.add('dark-mode');
+            }
+        });
+    </script>
 
 </body>
 </html>
