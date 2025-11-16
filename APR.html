@@ -41,6 +41,18 @@
             --color-accent: #0ca678;
             --color-accent-hover: #087f5b;
             --color-accent-text: #ffffff;
+
+            /* Subject Colors */
+            --subject-mathematics: #3b82f6;
+            --subject-physics: #8b5cf6;
+            --subject-chemistry: #ec4899;
+            --subject-biology: #10b981;
+            --subject-english: #f59e0b;
+            --subject-geography: #06b6d4;
+            --subject-coremaths: #6366f1;
+            --subject-it: #ef4444;
+            --subject-business: #6b7280;
+            --subject-science: #14b8a6;
         }
 
         .dark-mode {
@@ -99,6 +111,8 @@
             z-index: 1000;
         }
         .site-header .page-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .site-header__logo { display: flex; align-items: center; justify-content: center; }
+        .site-header__logo img { height: 32px; width: auto; }
         .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
         .site-header__nav a { color: var(--color-text-secondary); font-weight: var(--font-weight-medium); transition: color 0.2s; }
         .site-header__nav a:hover, .site-header__nav a[aria-current="page"] { color: var(--color-primary); }
@@ -133,10 +147,14 @@
         .filter-group select, .filter-group input {
             width: 100%; padding: 10px 12px;
             border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
+            border-radius: 0;
             background-color: var(--color-background);
             color: var(--color-text-primary);
             transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .filter-group select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         .filter-group select:focus, .filter-group input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 25%, transparent); }
         .controls-actions { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
@@ -224,6 +242,35 @@
         }
         .card-link--disabled:hover { background-color: var(--color-surface-hover); }
 
+        /* --- Subject Color Coding --- */
+        .paper-card {
+            border-left: 4px solid #ccc;
+        }
+        .paper-card.subject-mathematics { border-left-color: var(--subject-mathematics); }
+        .paper-card.subject-physics { border-left-color: var(--subject-physics); }
+        .paper-card.subject-chemistry { border-left-color: var(--subject-chemistry); }
+        .paper-card.subject-biology { border-left-color: var(--subject-biology); }
+        .paper-card.subject-english-language { border-left-color: var(--subject-english); }
+        .paper-card.subject-geography { border-left-color: var(--subject-geography); }
+        .paper-card.subject-core-maths { border-left-color: var(--subject-coremaths); }
+        .paper-card.subject-information-technology { border-left-color: var(--subject-it); }
+        .paper-card.subject-business-studies { border-left-color: var(--subject-business); }
+        .paper-card.subject-applied-science { border-left-color: var(--subject-science); }
+
+        .card-header__info h2 {
+            color: var(--color-text-primary);
+        }
+        .paper-card.subject-mathematics .card-header__info h2 { color: var(--subject-mathematics); }
+        .paper-card.subject-physics .card-header__info h2 { color: var(--subject-physics); }
+        .paper-card.subject-chemistry .card-header__info h2 { color: var(--subject-chemistry); }
+        .paper-card.subject-biology .card-header__info h2 { color: var(--subject-biology); }
+        .paper-card.subject-english-language .card-header__info h2 { color: var(--subject-english); }
+        .paper-card.subject-geography .card-header__info h2 { color: var(--subject-geography); }
+        .paper-card.subject-core-maths .card-header__info h2 { color: var(--subject-coremaths); }
+        .paper-card.subject-information-technology .card-header__info h2 { color: var(--subject-it); }
+        .paper-card.subject-business-studies .card-header__info h2 { color: var(--subject-business); }
+        .paper-card.subject-applied-science .card-header__info h2 { color: var(--subject-science); }
+
         /* --- No Results Message --- */
         .no-results {
             grid-column: 1 / -1;
@@ -268,7 +315,7 @@
     <header class="site-header">
         <div class="page-wrapper">
             <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
-                <svg width="120" height="28" viewBox="0 0 120 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M6.023 21.28V7.51h3.192v11.16c0 1.512.864 2.52 2.376 2.52s2.376-1.008 2.376-2.52V7.51h3.192v11.16c0 3.312-2.16 5.328-5.568 5.328s-5.568-2.016-5.568-5.328zM24.79 26.608h3.216V7.51h-3.216v19.098zM36.166 7.51l-4.248 12.096h-.072L27.646 7.51h-3.336l5.76 15.624L24.37 7.51h-3.216v19.098h3.048v-3.792l.864 2.592c.648 1.944 2.232 3.192 4.32 3.192 2.616 0 4.608-1.728 4.608-4.56v-3.336l-3.048-8.208 4.536-10.608h-2.736zM34.822 17.04l2.088 5.88c0 .288.12.432.336.432.216 0 .336-.144.336-.432v-5.232l-2.76-6.432-2.112 5.784zM53.155 22.048c-3.12 0-5.112-2.016-5.112-5.04 0-3.024 1.992-5.064 5.112-5.064 3.096 0 5.088 2.04 5.088 5.064 0 3.024-1.992 5.04-5.088 5.04zm0-2.616c1.392 0 2.088-.936 2.088-2.424 0-1.488-.696-2.448-2.088-2.448s-2.088.96-2.088 2.448c0 1.488.696 2.424 2.088 2.424zM69.042 26.608h3.216V7.51h-3.216v19.098zM79.506 22.048c-3.12 0-5.112-2.016-5.112-5.04 0-3.024 1.992-5.064 5.112-5.064 3.096 0 5.088 2.04 5.088 5.064 0 3.024-1.992 5.04-5.088 5.04zm0-2.616c1.392 0 2.088-.936 2.088-2.424 0-1.488-.696-2.448-2.088-2.448s-2.088.96-2.088 2.448c0 1.488.696 2.424 2.088 2.424zM95.634 12.04c0-2.88-1.872-4.896-4.968-4.896s-4.968 2.016-4.968 4.896v9.96c0 2.88 1.872 4.896 4.968 4.896s4.968-2.016 4.968-4.896v-9.96zm-3.048 9.96c0 1.488-.672 2.424-1.92 2.424s-1.92-.936-1.92-2.424v-9.96c0-1.488.672-2.424 1.92-2.424s1.92.936 1.92 2.424v9.96zM107.13 22.048c-3.12 0-5.112-2.016-5.112-5.04 0-3.024 1.992-5.064 5.112-5.064 3.096 0 5.088 2.04 5.088 5.064 0 3.024-1.992 5.04-5.088 5.04zm0-2.616c1.392 0 2.088-.936 2.088-2.424 0-1.488-.696-2.448-2.088-2.448-2.088 0-2.088.96-2.088 2.448 0 1.488.696 2.424 2.088 2.424zM119.537 7.51h-3.048l-2.016 7.464-2.016-7.464h-3.048v19.098h3.048V13.84l2.016 7.536h.048l2.016-7.536v12.768h3.048V7.51z"/></svg>
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
             </a>
             <nav class="site-header__nav">
                 <ul>
@@ -293,26 +340,26 @@
             <h2 id="controls-heading" class="visually-hidden">Filter and Sort Controls</h2>
             <div class="filters">
                 <div class="filter-group">
-                    <label for="filter-exam-board">Exam Board</label>
-                    <select id="filter-exam-board">
-                        <option value="all">All Boards</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="filter-qualification">Qualification</label>
+                    <label for="filter-qualification">Qualification Type</label>
                     <select id="filter-qualification">
                         <option value="all">All Qualifications</option>
                     </select>
                 </div>
                 <div class="filter-group">
+                    <label for="filter-exam-board">Exam Board</label>
+                    <select id="filter-exam-board" disabled>
+                        <option value="all">All Boards</option>
+                    </select>
+                </div>
+                <div class="filter-group">
                     <label for="filter-subject">Subject</label>
-                    <select id="filter-subject">
+                    <select id="filter-subject" disabled>
                         <option value="all">All Subjects</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="filter-year">Year</label>
-                    <select id="filter-year">
+                    <select id="filter-year" disabled>
                         <option value="all">All Years</option>
                     </select>
                 </div>
@@ -596,12 +643,36 @@
         // --- State Management ---
         let state = {
             filters: {
-                examBoard: 'all',
                 qualification: 'all',
+                examBoard: 'all',
                 subject: 'all',
                 year: 'all'
             },
             sortBy: 'year_desc'
+        };
+
+        // Define the filter hierarchy and relationships
+        const filterHierarchy = {
+            'A-Level': {
+                boards: ['AQA', 'OCR A'],
+                subjects: {
+                    'AQA': ['Chemistry', 'English Language', 'Geography', 'Mathematics'],
+                    'OCR A': ['Chemistry', 'Physics']
+                }
+            },
+            'AS-Level': {
+                boards: ['AQA', 'OCR A'],
+                subjects: {
+                    'AQA': ['Chemistry', 'English Language', 'Geography', 'Mathematics', 'Core Maths'],
+                    'OCR A': ['Chemistry', 'Physics']
+                }
+            },
+            'BTEC': {
+                boards: ['Edexcel'],
+                subjects: {
+                    'Edexcel': ['Applied Science', 'Business Studies', 'Information Technology']
+                }
+            }
         };
 
         // --- Functions ---
@@ -620,14 +691,12 @@
             applyTheme(currentTheme);
         }
 
-        // Populate Filter Dropdowns
+        // Populate Filter Dropdowns with cascading logic
         function populateFilters() {
             const getUniqueValues = (key) => [...new Set(pastPapersData.map(item => item[key]))].sort();
             
-            const boards = getUniqueValues('examBoard');
-            const qualifications = getUniqueValues('qualification');
-            const subjects = getUniqueValues('subject');
-            const years = getUniqueValues('year').sort((a, b) => b - a); // Sort years descending
+            // Get unique qualifications from hierarchy
+            const qualifications = Object.keys(filterHierarchy);
 
             const populate = (el, values) => {
                 values.forEach(value => {
@@ -638,10 +707,72 @@
                 });
             };
 
-            populate(filterBoardEl, boards);
             populate(filterQualEl, qualifications);
-            populate(filterSubjectEl, subjects);
-            populate(filterYearEl, years);
+        }
+
+        // Update exam board options based on qualification selection
+        function updateExamBoardOptions() {
+            const qual = state.filters.qualification;
+            filterBoardEl.innerHTML = '<option value="all">All Boards</option>';
+            filterBoardEl.disabled = qual === 'all';
+            
+            if (qual !== 'all' && filterHierarchy[qual]) {
+                const boards = filterHierarchy[qual].boards;
+                boards.forEach(board => {
+                    const option = document.createElement('option');
+                    option.value = board;
+                    option.textContent = board;
+                    filterBoardEl.appendChild(option);
+                });
+                state.filters.examBoard = 'all';
+            }
+        }
+
+        // Update subject options based on qualification and exam board selection
+        function updateSubjectOptions() {
+            const qual = state.filters.qualification;
+            const board = state.filters.examBoard;
+            filterSubjectEl.innerHTML = '<option value="all">All Subjects</option>';
+            filterSubjectEl.disabled = qual === 'all' || board === 'all';
+            
+            if (qual !== 'all' && board !== 'all' && filterHierarchy[qual] && filterHierarchy[qual].subjects[board]) {
+                const subjects = filterHierarchy[qual].subjects[board];
+                subjects.forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject;
+                    option.textContent = subject;
+                    filterSubjectEl.appendChild(option);
+                });
+                state.filters.subject = 'all';
+            }
+        }
+
+        // Update year options based on all previous selections
+        function updateYearOptions() {
+            const qual = state.filters.qualification;
+            const board = state.filters.examBoard;
+            const subject = state.filters.subject;
+            filterYearEl.innerHTML = '<option value="all">All Years</option>';
+            filterYearEl.disabled = qual === 'all' || board === 'all' || subject === 'all';
+            
+            if (qual !== 'all' && board !== 'all' && subject !== 'all') {
+                // Get years available for this specific combination
+                let filteredData = [...pastPapersData];
+                filteredData = filteredData.filter(item => 
+                    item.qualification === qual &&
+                    item.examBoard === board &&
+                    item.subject === subject
+                );
+                
+                const years = [...new Set(filteredData.map(item => item.year))].sort((a, b) => b - a);
+                years.forEach(year => {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    filterYearEl.appendChild(option);
+                });
+                state.filters.year = 'all';
+            }
         }
         
         // Render Functions
@@ -683,7 +814,9 @@
             const fragment = document.createDocumentFragment();
             filteredData.forEach(paper => {
                 const card = document.createElement('article');
-                card.className = 'paper-card';
+                // Convert subject name to CSS class name
+                const subjectClass = 'subject-' + paper.subject.toLowerCase().replace(/\s+/g, '-');
+                card.className = 'paper-card ' + subjectClass;
                 card.innerHTML = `
                     <div class="card-header">
                         <div class="card-header__info">
@@ -751,8 +884,8 @@
             const params = new URLSearchParams(window.location.search);
             const newState = {
                 filters: {
-                    examBoard: params.get('examBoard') || 'all',
                     qualification: params.get('qualification') || 'all',
+                    examBoard: params.get('examBoard') || 'all',
                     subject: params.get('subject') || 'all',
                     year: params.get('year') || 'all'
                 },
@@ -760,20 +893,43 @@
             };
             state = newState;
             
-            // Update UI controls to match state
-            filterBoardEl.value = state.filters.examBoard;
+            // Update UI controls to match state and cascade updates
             filterQualEl.value = state.filters.qualification;
-            filterSubjectEl.value = state.filters.subject;
-            filterYearEl.value = state.filters.year;
+            updateExamBoardOptions();
+            if (state.filters.qualification !== 'all') {
+                filterBoardEl.value = state.filters.examBoard;
+                updateSubjectOptions();
+                if (state.filters.examBoard !== 'all') {
+                    filterSubjectEl.value = state.filters.subject;
+                    updateYearOptions();
+                    if (state.filters.subject !== 'all') {
+                        filterYearEl.value = state.filters.year;
+                    }
+                }
+            }
             sortByEl.value = state.sortBy;
         }
 
         // Event Handlers
-        function handleFilterChange() {
-            state.filters.examBoard = filterBoardEl.value;
-            state.filters.qualification = filterQualEl.value;
-            state.filters.subject = filterSubjectEl.value;
-            state.filters.year = filterYearEl.value;
+        function handleFilterChange(e) {
+            const changedFilter = e.target.id.replace('filter-', '');
+            
+            if (changedFilter === 'qualification') {
+                state.filters.qualification = filterQualEl.value;
+                updateExamBoardOptions();
+                updateSubjectOptions();
+                updateYearOptions();
+            } else if (changedFilter === 'exam-board') {
+                state.filters.examBoard = filterBoardEl.value;
+                updateSubjectOptions();
+                updateYearOptions();
+            } else if (changedFilter === 'subject') {
+                state.filters.subject = filterSubjectEl.value;
+                updateYearOptions();
+            } else if (changedFilter === 'year') {
+                state.filters.year = filterYearEl.value;
+            }
+            
             renderAll();
         }
 
@@ -783,12 +939,16 @@
         }
 
         function handleClearFilters() {
-            state.filters = { examBoard: 'all', qualification: 'all', subject: 'all', year: 'all' };
+            state.filters = { qualification: 'all', examBoard: 'all', subject: 'all', year: 'all' };
             // Reset UI
-            filterBoardEl.value = 'all';
             filterQualEl.value = 'all';
+            filterBoardEl.value = 'all';
             filterSubjectEl.value = 'all';
             filterYearEl.value = 'all';
+            // Reset disabled states
+            filterBoardEl.disabled = true;
+            filterSubjectEl.disabled = true;
+            filterYearEl.disabled = true;
             renderAll();
         }
 
@@ -796,8 +956,37 @@
             const button = e.target.closest('button');
             if (button) {
                 const key = button.dataset.filterKey;
-                state.filters[key] = 'all';
-                document.getElementById(`filter-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`).value = 'all';
+                
+                // Cascade reset based on which filter is removed
+                if (key === 'qualification') {
+                    state.filters = { qualification: 'all', examBoard: 'all', subject: 'all', year: 'all' };
+                    filterQualEl.value = 'all';
+                    filterBoardEl.value = 'all';
+                    filterSubjectEl.value = 'all';
+                    filterYearEl.value = 'all';
+                    filterBoardEl.disabled = true;
+                    filterSubjectEl.disabled = true;
+                    filterYearEl.disabled = true;
+                } else if (key === 'examBoard') {
+                    state.filters.examBoard = 'all';
+                    state.filters.subject = 'all';
+                    state.filters.year = 'all';
+                    filterBoardEl.value = 'all';
+                    filterSubjectEl.value = 'all';
+                    filterYearEl.value = 'all';
+                    updateSubjectOptions();
+                    updateYearOptions();
+                } else if (key === 'subject') {
+                    state.filters.subject = 'all';
+                    state.filters.year = 'all';
+                    filterSubjectEl.value = 'all';
+                    filterYearEl.value = 'all';
+                    updateYearOptions();
+                } else if (key === 'year') {
+                    state.filters.year = 'all';
+                    filterYearEl.value = 'all';
+                }
+                
                 renderAll();
             }
         }
@@ -824,8 +1013,8 @@
             renderAll();
 
             // Attach event listeners
-            filterBoardEl.addEventListener('change', handleFilterChange);
             filterQualEl.addEventListener('change', handleFilterChange);
+            filterBoardEl.addEventListener('change', handleFilterChange);
             filterSubjectEl.addEventListener('change', handleFilterChange);
             filterYearEl.addEventListener('change', handleFilterChange);
             sortByEl.addEventListener('change', handleSortChange);
