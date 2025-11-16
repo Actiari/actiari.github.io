@@ -2,18 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://actiari.github.io/</loc>
+    <lastmod>2025-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
   </url>
   <url>
     <loc>https://actiari.github.io/index.html</loc>
-  </url>
-  <url>
-    <!-- BWT.html removed -->
+    <lastmod>2025-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://actiari.github.io/APR.html</loc>
+    <lastmod>2025-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
-  <!-- SPBE.html removed -->
+  <url>
+    <loc>https://actiari.github.io/404.html</loc>
+    <lastmod>2025-11-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.10</priority>
+  </url>
   <url>
     <loc>https://actiari.github.io/case-studies/eyjafjallajokull.html</loc>
+    <lastmod>2025-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
   </url>
 </urlset>
