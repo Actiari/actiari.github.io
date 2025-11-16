@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Papers Archive - Actiari Study Tools</title>
+    <meta name="description" content="A Level and BTEC past papers archive for AQA, Edexcel, OCR. Download exam papers and mark schemes. Part of Actiari Study Tools.">
+    <meta name="keywords" content="A Level, BTEC, Past Papers, AQA, Edexcel, OCR, Revision, Study Tools, Actiari">
+    <meta property="og:title" content="Past Papers Archive - Actiari Study Tools">
+    <meta property="og:description" content="A Level and BTEC past papers archive for AQA, Edexcel, OCR. Download exam papers and mark schemes. Part of Actiari Study Tools.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://actiari.github.io/APR.html">
+    <meta property="og:image" content="https://actiari.github.io/Miscellaneous/Main%20Favicon.ico">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Past Papers Archive - Actiari Study Tools">
+    <meta name="twitter:description" content="A Level and BTEC past papers archive for AQA, Edexcel, OCR. Download exam papers and mark schemes. Part of Actiari Study Tools.">
+    <meta name="twitter:image" content="https://actiari.github.io/Miscellaneous/Main%20Favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --color-background: #1a1d21;
+            --color-surface: #252930;
+            --color-surface-variant: #31363f;
+            --color-surface-hover: #3c424c;
+            --color-primary-accent-generic: #00b8d4;
+            --color-text-primary: #e8eaed;
+            --color-text-secondary: #b0b3b8;
+            --color-border: #40454c;
+            --color-shadow: rgba(0,0,0,0.3);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 8px;
+
+            --base-subject-default: #5f6368;
+            --base-subject-maths: #4285f4;
+            --base-subject-english: #fbbc05;
+            --base-subject-geography: #34a853;
+            --base-subject-app-science: #9333ea;
+            --base-subject-business: #10b981;
+            --base-subject-it: #6366f1;
+            --base-subject-chemistry: #ea4335;
+            --base-subject-physics: #0b57d0;
+            --base-subject-core-maths: var(--base-subject-maths);
+
+            --nav-bg: var(--color-surface-variant);
+            --nav-text: #ffffff; /* White text for navigation links */
+            --nav-hover-bg: var(--color-primary-accent-generic);
+            --nav-hover-text: var(--color-background); /* Dark text on hover */
+        }
+
+        body.light-mode {
+            --color-background: #ffffff;
+            --color-surface: #f4f4f4;
+            --color-surface-variant: #e0e0e0;
+            --color-surface-hover: #d5d5d5;
+            --color-text-primary: #1a1d21;
+            --color-text-secondary: #333333;
+            --color-border: #cccccc;
+            --color-shadow: rgba(0,0,0,0.2);
+            --nav-text: #000000;
+            --nav-hover-text: var(--color-background);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-main); line-height: 1.6; background-color: var(--color-background);
+            color: var(--color-text-primary); display: flex; flex-direction: column;
+            min-height: 100vh; font-size: 16px;
+        }
+        .nav-container {
+            background-color: var(--nav-bg); width: 100%; display: flex; align-items: center;
+            justify-content: center; padding: 0 20px; position: sticky; top: 0;
+            z-index: 1000; box-shadow: 0 2px 10px var(--color-shadow);
+        }
+        .nav-menu-wrapper { display: flex; justify-content: center; width: 100%; max-width: 1400px; }
+        .nav-menu { list-style-type: none; display: flex; align-items: center; margin: 0; padding: 0; }
+        .nav-menu li { margin: 0; }
+        .nav-menu li a {
+            display: block; color: var(--nav-text); /* Apply the nav text color */
+            text-align: center; padding: 14px 18px;
+            text-decoration: none; /* Remove underline */
+            white-space: nowrap; transition: background-color 0.2s, color 0.2s;
+            font-weight: 500; font-size: 0.95em;
+        }
+        /* Add visited state styling if you want it to match the unvisited state */
+        .nav-menu li a:visited {
+             color: var(--nav-text); /* Ensure visited links have the same color */
+        }
+        .nav-menu li a:hover, .nav-menu li a:focus, .nav-menu li a.active-nav-link {
+            background-color: var(--nav-hover-bg); color: var(--nav-hover-text); outline: none;
+        }
+        .menu-toggle {
+            display: none; background: none; border: none; color: var(--nav-text);
+            font-size: 24px; cursor: pointer; padding: 10px 15px;
+        }
+
+        .theme-toggle {
+            color: var(--nav-text);
+            background: none;
+            border: none;
+            font-size: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .page-container { flex: 1; padding: 0 20px; width: 100%; margin: 20px auto; }
+        .page-header { text-align: center; margin-bottom: 30px; }
+        .page-header h1 { color: var(--color-primary-accent-generic); font-size: 2.2em; font-weight: 700; margin-bottom: 5px; }
+        .global-selectors-container {
+            background-color: var(--color-surface); padding: 20px; border-radius: var(--border-radius);
+            margin-bottom: 30px; box-shadow: 0 4px 15px var(--color-shadow);
+            margin-left: auto; margin-right: auto;
+        }
+        .selector-group { margin-bottom: 20px; }
+        .selector-group:last-child { margin-bottom: 0; }
+        .selector-group h2 {
+            font-size: 0.9em; color: var(--color-text-secondary); text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 10px; padding-left: 5px;
+        }
+        .filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+        .filter-tab {
+            padding: 10px 18px; background-color: var(--color-surface-variant);
+            color: var(--color-text-primary); border: none; border-radius: var(--border-radius);
+            cursor: pointer; font-size: 1em; font-weight: 500;
+            transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+            border: 1px solid var(--color-border);
+        }
+        .filter-tab:hover { background-color: var(--color-surface-hover); }
+        .filter-tab.active {
+            background-color: var(--color-primary-accent-generic); color: var(--color-background);
+            font-weight: 600; box-shadow: 0 0 10px rgba(0, 184, 212, 0.4);
+            border-color: var(--color-primary-accent-generic);
+        }
+        .exam-board-content, .subject-accordion { display: none; }
+        .exam-board-content.active, .subject-accordion.active-subject { display: block; }
+        .initial-message { text-align: center; color: var(--color-text-secondary); font-size: 1.1em; padding: 30px 15px; }
+        .exam-board-title {
+            color: var(--color-text-primary); margin-top: 20px; margin-bottom: 20px;
+            padding-bottom: 10px; border-bottom: 1px solid var(--color-border);
+            font-size: 1.5em; font-weight: 600;
+        }
+        .subject-accordion {
+            margin-bottom: 12px; border-radius: var(--border-radius);
+            overflow: hidden; border: 1px solid var(--color-border);
+            --current-subject-accent: var(--base-subject-default);
+        }
+        .subject-accordion[data-subject="geography"] { --current-subject-accent: var(--base-subject-geography); }
+        .subject-accordion[data-subject="core-maths"] { --current-subject-accent: var(--base-subject-core-maths); }
+        .subject-accordion[data-subject="mathematics"] { --current-subject-accent: var(--base-subject-maths); }
+        .subject-accordion[data-subject="english-language"] { --current-subject-accent: var(--base-subject-english); }
+        .subject-accordion[data-subject="applied-science"] { --current-subject-accent: var(--base-subject-app-science); }
+        .subject-accordion[data-subject="business-studies"] { --current-subject-accent: var(--base-subject-business); }
+        .subject-accordion[data-subject="information-technology"] { --current-subject-accent: var(--base-subject-it); }
+        .subject-accordion[data-subject="chemistry"] { --current-subject-accent: var(--base-subject-chemistry); }
+        .subject-accordion[data-subject="physics"] { --current-subject-accent: var(--base-subject-physics); }
+
+        .subject-accordion > summary {
+            font-size: 1.2em; font-weight: 500; padding: 15px 20px 15px 35px;
+            background-color: var(--color-surface-variant); color: var(--color-text-primary);
+            cursor: pointer; list-style: none; display: flex; justify-content: space-between;
+            align-items: center; position: relative; transition: background-color 0.2s ease-in-out;
+        }
+        .subject-accordion > summary::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 10px;
+            background-color: var(--current-subject-accent);
+        }
+        .subject-accordion > summary::-webkit-details-marker { display: none; }
+        .subject-accordion > summary .summary-text { flex-grow: 1; }
+        .subject-accordion > summary .accordion-icon {
+            font-size: 1.4em; color: var(--current-subject-accent);
+            transition: transform 0.2s ease-in-out; margin-left: 10px;
+        }
+        .subject-accordion[open] > summary { background-color: var(--current-subject-accent); color: #fff; }
+        .subject-accordion[open] > summary .accordion-icon { transform: rotate(45deg); color: #fff; }
+        
+        .subject-content {
+            padding: 20px; background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Styling for new additional info section and other content sections */
+        .subject-additional-info-section,
+        .specifications-section,
+        .useful-resources-section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--color-border);
+        }
+        .subject-additional-info-section h3,
+        .specifications-section h3,
+        .useful-resources-section h3,
+        .subject-content-subheading /* For "Past Papers & Mark Schemes" */ {
+            color: var(--current-subject-accent);
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        .subject-additional-info-section p {
+            margin-bottom: 6px;
+            color: var(--color-text-primary);
+            font-size: 0.95em;
+        }
+        .subject-additional-info-section p strong {
+            color: var(--color-text-primary);
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .subject-additional-info-section .info-source {
+            font-size: 0.85em;
+            color: var(--color-text-secondary);
+            margin-top: 10px;
+            text-align: right;
+        }
+        
+        .subject-content > .subject-additional-info-section:last-child,
+        .subject-content > .specifications-section:last-child,
+        .subject-content > .useful-resources-section:last-child {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+        
+        .spec-link {
+            display: inline-block; background-color: var(--color-surface-variant);
+            padding: 9px 16px; border-radius: var(--border-radius); text-decoration: none;
+            font-weight: 500; border: 1px solid var(--current-subject-accent);
+            color: var(--current-subject-accent); transition: background-color 0.2s, color 0.2s;
+        }
+        .spec-link:hover { background-color: var(--current-subject-accent); color: #fff; }
+        .useful-resources-section ul { list-style: none; padding-left: 0; }
+        .useful-resources-section li { margin-bottom: 8px; }
+        .useful-resources-section li a {
+            color: var(--color-text-primary); text-decoration: none; padding: 3px 0;
+            border-bottom: 1px dotted var(--current-subject-accent);
+            transition: color 0.2s, border-bottom-color 0.2s; word-break: break-all;
+        }
+        .useful-resources-section li a:hover { color: var(--current-subject-accent); border-bottom-style: solid; }
+        
+        .past-papers-main-section {
+             margin-top: 0;
+        }
+        
+        .exam-session-group { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--color-border); }
+        .exam-session-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .exam-session-title { font-size: 1.15em; color: var(--color-text-primary); margin-bottom: 15px; font-weight: 600; }
+        .exam-set {
+            background-color: var(--color-surface-variant); padding: 15px; margin-bottom: 15px;
+            border-radius: var(--border-radius); border-left: 4px solid var(--current-subject-accent);
+        }
+        .exam-set-title { font-weight: 500; color: var(--color-text-primary); font-size: 1em; margin-bottom: 12px; }
+        .document-links { display: flex; flex-wrap: wrap; gap: 10px; }
+        .doc-link {
+            padding: 8px 14px; border-radius: var(--border-radius); text-decoration: none;
+            font-size: 0.9em; font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease, filter 0.2s;
+            text-align: center; min-width: 90px; display: inline-block; border: 1px solid transparent;
+        }
+        .doc-link:hover { transform: translateY(-1px); filter: brightness(1.15); }
+        .paper-link { background-color: var(--current-subject-accent); color: #fff; border-color: var(--current-subject-accent); }
+        .ms-link { background-color: transparent; color: var(--current-subject-accent); border: 1px solid var(--current-subject-accent); }
+        .ms-link:hover { background-color: var(--current-subject-accent); color: #fff; }
+        .insert-link { background-color: #ffc107; color: var(--color-background); border-color: #ffc107;}
+        .insert-link:hover { filter: brightness(0.9); }
+        .formula-link { background-color: var(--color-primary-accent-generic); color: var(--color-background); border-color: var(--color-primary-accent-generic); }
+        .placeholder-instruction {
+            background-color: #ffc107; color: var(--color-background); padding: 15px 20px;
+            margin-top:30px; border-radius: var(--border-radius); text-align: center; font-size: 0.95em;
+        }
+        .placeholder-instruction strong { font-size: 1.1em; display: block; margin-bottom: 5px; }
+        .placeholder-instruction a { color: var(--color-background); font-weight: 600; text-decoration: underline; }
+        footer {
+            background-color: var(--nav-bg); color: var(--nav-text); text-align: center;
+            padding: 20px 0; font-size: 0.9rem; margin-top: auto;
+        }
+        @media screen and (max-width: 992px) {
+            .nav-container { justify-content: space-between; }
+            .nav-menu-wrapper { justify-content: flex-start; width: auto; }
+            .menu-toggle { display: block; }
+            .nav-menu {
+                display: none; position: absolute; top: 100%; left: 0; right: 0;
+                background-color: var(--nav-bg); flex-direction: column; overflow: hidden;
+                border-top: 1px solid var(--color-border); max-height: 0; transition: max-height 0.3s ease-out;
+            }
+            .nav-menu.active { display: flex; max-height: 500px; /* Adjust as needed */ }
+            .nav-menu li { width: 100%; }
+            .nav-menu li a { padding: 12px 20px; text-align: left; }
+        }
+        @media (max-width: 768px) {
+            body { padding: 0; font-size:15px; }
+            .nav-container { padding: 0 15px; }
+            .page-container { margin: 15px; padding: 0;}
+            .page-header h1 { font-size: 2em; }
+            .global-selectors-container { padding: 15px; }
+            .filter-tab { font-size: 0.95em; padding: 8px 14px; }
+            .exam-board-title { font-size: 1.3em; }
+            .subject-accordion > summary { font-size: 1.1em; padding: 12px 15px 12px 30px; }
+            .subject-accordion > summary::before { width: 8px; }
+            .document-links { flex-direction: column; align-items: stretch; }
+            .doc-link { width: 100%; }
+        }
+        @media screen and (max-width: 576px) {
+            .page-header h1 { font-size: 1.7em; }
+            .filter-tab { font-size: 0.9em; padding: 7px 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <div class="nav-menu-wrapper">
+            <ul class="nav-menu">
+                <!-- CORRECTED HTML: Removed the extra, empty <ul></ul> tag -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="APR.html">A Level & BTEC Past Papers</a></li>
+
+            </ul>
+        </div>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+        </button>
+        <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="page-container">
+        <header class="page-header">
+            <h1>Past Papers Archive</h1>
+        </header>
+
+        <div class="global-selectors-container">
+            <div class="selector-group">
+                <h2>Select Qualification Level</h2>
+                <div class="filter-tabs" id="qualification-selector" role="tablist" aria-label="Qualification Levels">
+                    <button class="filter-tab active" data-filter-qual="all" role="tab" aria-selected="true">All</button>
+                    <button class="filter-tab" data-filter-qual="ALevel" role="tab" aria-selected="false">A-Levels</button>
+                    <button class="filter-tab" data-filter-qual="ASLevel" role="tab" aria-selected="false">AS-Levels</button>
+                    <button class="filter-tab" data-filter-qual="BTEC" role="tab" aria-selected="false">BTECs</button>
+                </div>
+            </div>
+            <div class="selector-group">
+                <h2>Select Exam Board</h2>
+                <div class="filter-tabs" id="exam-board-selector" role="tablist" aria-label="Exam Boards">
+                    <button class="filter-tab" data-filter-board="AQA" role="tab" aria-selected="false" aria-controls="AQA-content-wrapper">AQA</button>
+                    <button class="filter-tab" data-filter-board="Edexcel" role="tab" aria-selected="false" aria-controls="Edexcel-content-wrapper">Edexcel</button>
+                    <button class="filter-tab" data-filter-board="OCRA" role="tab" aria-selected="false" aria-controls="OCRA-content-wrapper">OCR A</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="initial-message-container">
+             <p class="initial-message">Loading data or select filters to begin.</p>
+        </div>
+
+        <div class="exam-board-content" id="AQA-content-wrapper" data-board-id="AQA" role="tabpanel">
+            <h3 class="exam-board-title">AQA Subjects</h3>
+            <section id="AQA-subjects-list" class="subjects-list-container"></section>
+        </div>
+        <div class="exam-board-content" id="Edexcel-content-wrapper" data-board-id="Edexcel" role="tabpanel">
+            <h3 class="exam-board-title">Edexcel Subjects</h3>
+            <section id="Edexcel-subjects-list" class="subjects-list-container"></section>
+        </div>
+        <div class="exam-board-content" id="OCRA-content-wrapper" data-board-id="OCRA" role="tabpanel">
+            <h3 class="exam-board-title">OCR A Subjects</h3>
+            <section id="OCRA-subjects-list" class="subjects-list-container"></section>
+        </div>
+
+        <div class="placeholder-instruction" id="data-loading-status" style="margin-top: 40px;">
+            <p>Please ensure CSV files are named correctly and placed in the root directory.</p>
+        </div>
+    </div>
+
+    <footer>
+    &copy; 2025 Actiari Study Tools. All rights reserved. | <a href="https://github.com/actiari">GitHub</a>
+    </footer>
+
+    <script src="theme-toggle.js"></script>
+    <script>
+    // Hamburger Menu Toggle & Active Nav Link
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isExpanded = navMenu.classList.toggle('active');
+                this.setAttribute('aria-expanded', isExpanded.toString());
+            });
+            document.addEventListener('click', function(event) {
+                if (navMenu.classList.contains('active') &&
+                    !navMenu.contains(event.target) &&
+                    !menuToggle.contains(event.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+            const currentPageFilename = window.location.pathname.split('/').pop() || 'APR.html';
+            if (currentPageFilename) {
+                const navLinks = document.querySelectorAll('.nav-menu a');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPageFilename) {
+                        link.classList.add('active-nav-link');
+                    } else {
+                        link.classList.remove('active-nav-link');
+                    }
+                });
+            }
+        }
+    });
+
+    // Additional Subject Information Data Store
+    const additionalSubjectInfo = {
+        "AQA_geography_ALevel": {
+            descriptionTitle: "AQA Geography (A-Level) Format",
+            specLink: "https://www.aqa.org.uk/subjects/geography/a-level/geography-7037/specification/specification-at-a-glance", // Added specLink override
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "120 marks" },
+                { label: "Duration per paper", value: "2 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_geography_ASLevel": {
+            descriptionTitle: "AQA Geography (AS-Level) Format",
+            specLink: "https://www.aqa.org.uk/subjects/geography/a-level/geography-7037/specification/specification-at-a-glance", // Added specLink override
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "80 marks" },
+                { label: "Duration per paper", value: "1 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_core-maths_ALevel": {
+            descriptionTitle: "AQA Core Maths (Level 3) Structure",
+            components: [
+                { name: "Paper 1", details: "60 marks, 1 h 30 mins" },
+                { name: "Paper 2 (option A, B or C)", details: "60 marks, 1 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_english-language_ALevel": {
+            descriptionTitle: "AQA English Language (A-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "100 marks" },
+                { label: "Duration per paper", value: "2 h 30 mins" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_english-language_ASLevel": {
+            descriptionTitle: "AQA English Language (AS-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "70 marks" },
+                { label: "Duration per paper", value: "1 h 30 mins" }
+            ],
+            source: "BHASVIC"
+        },
+        "AQA_mathematics_ALevel": {
+            descriptionTitle: "AQA Mathematics (A-Level) Format",
+            details: [
+                { label: "Papers", value: "3 written exams" },
+                { label: "Marks per paper", value: "100 marks" },
+                { label: "Duration per paper", value: "2 h" }
+            ],
+            source: "AQA Education"
+        },
+        "AQA_mathematics_ASLevel": {
+            descriptionTitle: "AQA Mathematics (AS-Level) Format",
+            details: [
+                { label: "Papers", value: "2 written exams" },
+                { label: "Marks per paper", value: "80 marks" },
+                { label: "Duration per paper", value: "1 h 30 mins" }
+            ],
+            source: "Revisely"
+        },
+        "Edexcel_applied-science_BTEC": {
+            descriptionTitle: "Edexcel BTEC Applied Science (Unit 1: Principles & Applications of Science)",
+            details: [
+                { label: "Exam Type", value: "1 external exam" },
+                { label: "Total Marks", value: "90 marks" },
+                { label: "Duration", value: "1 h 30 mins" }
+            ],
+            source: "pearsonschoolsandfecolleges.co.uk"
+        },
+        "Edexcel_business-studies_BTEC": {
+            descriptionTitle: "Edexcel BTEC Business (Unit 3: Personal & Business Finance)",
+            details: [
+                { label: "Exam Type", value: "1 external exam" },
+                { label: "Total Marks", value: "100 marks" },
+                { label: "Duration", value: "2 h" }
+            ],
+            source: "pearsonschoolsandfecolleges.co.uk"
+        },
+        "Edexcel_information-technology_BTEC": {
+            descriptionTitle: "Edexcel BTEC IT (Unit 1: Information Technology Systems)",
+            details: [
+                { label: "Exam Type", value: "1 external exam" },
+                { label: "Total Marks", value: "90 marks" },
+                { label: "Duration", value: "2 h" }
+            ],
+            source: "Quizlet, Pearson Qualifications"
+        },
+        "OCRA_chemistry_ALevel": {
+            descriptionTitle: "OCR A Level Chemistry A (H432) Structure",
+            components: [
+                { name: "Component 01: Periodic table, elements and physical chemistry", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 02: Synthesis and analytical techniques", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 03: Unified chemistry", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        },
+        "OCRA_chemistry_ASLevel": {
+            descriptionTitle: "OCR AS Level Chemistry A (H032) Structure",
+            components: [
+                { name: "Component 01: Breadth in chemistry", details: "70 marks, 1 h 30 mins" },
+                { name: "Component 02: Depth in chemistry", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        },
+        "OCRA_physics_ALevel": {
+            descriptionTitle: "OCR A Level Physics A (H556) Structure",
+            components: [
+                { name: "Component 01: Modelling physics", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 02: Exploring physics", details: "100 marks, 2 h 15 mins" },
+                { name: "Component 03: Unified physics", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        },
+        "OCRA_physics_ASLevel": {
+            descriptionTitle: "OCR AS Level Physics A (H156) Structure",
+            components: [
+                { name: "Component 01: Breadth in physics", details: "70 marks, 1 h 30 mins" },
+                { name: "Component 02: Depth in physics", details: "70 marks, 1 h 30 mins" }
+            ],
+            source: "OCR"
+        }
+    };
+
+    // CSV Data Loading and UI Logic
+    document.addEventListener('DOMContentLoaded', async function () {
+        const qualificationTabs = document.querySelectorAll('#qualification-selector .filter-tab');
+        const examBoardTabs = document.querySelectorAll('#exam-board-selector .filter-tab');
+        const initialMessageContainer = document.getElementById('initial-message-container');
+        const dataLoadingStatus = document.getElementById('data-loading-status');
+        let activeQualificationFilter = 'all';
+        let activeExamBoardFilter = null;
+        let allSubjectsData = [];
+
+        const subjectsToProcess = [
+            // AQA
+            { board: 'AQA', subjectName: 'Geography (A-Level)', subjectSlug: 'geography', qualType: 'ALevel', csvFile: 'data/DATA_AQA_Geography_ALevel.csv', parserType: 'AqaGeographyALevel' },
+            { board: 'AQA', subjectName: 'Geography (AS-Level)', subjectSlug: 'geography', qualType: 'ASLevel', csvFile: 'data/DATA_AQA_Geography_ASLevel.csv', parserType: 'AqaGeographyASLevel' },
+            { board: 'AQA', subjectName: 'Core Maths', subjectSlug: 'core-maths', qualType: 'ALevel', csvFile: 'data/DATA_AQA_CoreMaths_ALevel.csv', parserType: 'AqaCoreMaths' },
+            { board: 'AQA', subjectName: 'English Language (A-Level)', subjectSlug: 'english-language', qualType: 'ALevel', csvFile: 'data/DATA_AQA_EnglishLanguage_ALevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+            { board: 'AQA', subjectName: 'English Language (AS-Level)', subjectSlug: 'english-language', qualType: 'ASLevel', csvFile: 'data/DATA_AQA_EnglishLanguage_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+            { board: 'AQA', subjectName: 'Mathematics (A-Level)', subjectSlug: 'mathematics', qualType: 'ALevel', csvFile: 'data/DATA_AQA_Mathematics_ALevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+            { board: 'AQA', subjectName: 'Mathematics (AS-Level)', subjectSlug: 'mathematics', qualType: 'ASLevel', csvFile: 'data/DATA_AQA_Mathematics_ASLevel.csv', parserType: 'AqaEnglishMathsMultiPaper' },
+
+            // Edexcel
+            { board: 'Edexcel', subjectName: 'Applied Science (BTEC)', subjectSlug: 'applied-science', qualType: 'BTEC', csvFile: 'data/DATA_Edexcel_AppliedScience_BTEC.csv', parserType: 'EdexcelAppliedScience' },
+            { board: 'Edexcel', subjectName: 'Business Studies (BTEC - PBF)', subjectSlug: 'business-studies', qualType: 'BTEC', csvFile: 'data/DATA_Edexcel_BusinessStudies_BTEC.csv', parserType: 'EdexcelBusinessIT' },
+            { board: 'Edexcel', subjectName: 'Information Technology (BTEC - ISU)', subjectSlug: 'information-technology', qualType: 'BTEC', csvFile: 'data/DATA_Edexcel_InformationTechnology_BTEC.csv', parserType: 'EdexcelBusinessIT' },
+
+            // OCR A
+            { board: 'OCRA', subjectName: 'Chemistry (A-Level)', subjectSlug: 'chemistry', qualType: 'ALevel', csvFile: 'data/DATA_OCRA_Chemistry_ALevel.csv', parserType: 'OcrMultiPaper' },
+            { board: 'OCRA', subjectName: 'Chemistry (AS-Level)', subjectSlug: 'chemistry', qualType: 'ASLevel', csvFile: 'data/DATA_OCRA_Chemistry_ASLevel.csv', parserType: 'OcrMultiPaper' },
+            { board: 'OCRA', subjectName: 'Physics (A-Level)', subjectSlug: 'physics', qualType: 'ALevel', csvFile: 'data/DATA_OCRA_Physics_ALevel.csv', parserType: 'OcrMultiPaperWithResources' },
+            { board: 'OCRA', subjectName: 'Physics (AS-Level)', subjectSlug: 'physics', qualType: 'ASLevel', csvFile: 'data/DATA_OCRA_Physics_ASLevel.csv', parserType: 'OcrMultiPaper' },
+        ];
+
+        function simpleCSVParser(csvText) {
+            if (!csvText) return [];
+            const lines = csvText.trim().split(/\r?\n/);
+            return lines.map(line => {
+                const cells = [];
+                let currentCell = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                        if (i + 1 < line.length && line[i+1] === '"') { // Handle "" as a single "
+                            currentCell += '"';
+                            i++;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        cells.push(currentCell.trim());
+                        currentCell = '';
+                    } else {
+                        currentCell += char;
+                    }
+                }
+                cells.push(currentCell.trim());
+                return cells;
+            });
+        }
+
+        function getVal(row, colIndex) {
+            return (row && colIndex < row.length && row[colIndex]) ? row[colIndex].trim() : "";
+        }
+        function isLink(str) {
+            return str && str.toLowerCase().startsWith('http');
+        }
+
+        // --- PARSERS ---
+        function parseAqaGeographyALevel(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
+            // UPDATED: Extract subject name and spec link from row 0 instead of row 1
+            const partsAL = getVal(csvRows[0], 1).split('|');
+            subjectData.subjectName = partsAL[1] ? partsAL[1].trim() : subjectConfig.subjectName;
+            subjectData.specLink = partsAL[2] ? partsAL[2].trim() : (subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf");
+            const p1PaperCol = 1, p1InsertCol = 3, p1MsCol = 2;
+            const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
+            const resourceNameCol = 9, resourceLinkCol = 11, resourceSessionCol = 8;
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i];
+                const paperSessionName = getVal(row, 0);
+                const resourceSessionName = getVal(row, resourceSessionCol); // Resources often span multiple rows, use resource session name if present
+                const currentSessionName = paperSessionName || resourceSessionName;
+
+                if (currentSessionName) {
+                    let session = subjectData.sessions.find(s => s.name === currentSessionName);
+                    if (!session) { session = { name: currentSessionName, papers: [] }; subjectData.sessions.push(session); }
+
+                    // Handle Paper 1 links if present in this row
+                    if (isLink(getVal(row, p1PaperCol))) {
+                         // Check if Paper 1 for this session is already added (in case session names repeat on multiple lines for different papers)
+                         if (!session.papers.find(p => p.title === "Paper 1: Physical Geography")) {
+                             session.papers.push({ title: "Paper 1: Physical Geography", paperLink: getVal(row, p1PaperCol), insertLink: (getVal(row, p1InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p1InsertCol))) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) });
+                         }
+                    }
+                    // Handle Paper 2 links if present in this row
+                    if (isLink(getVal(row, p2PaperCol))) {
+                         // Check if Paper 2 for this session is already added
+                         if (!session.papers.find(p => p.title === "Paper 2: Human Geography")) {
+                             session.papers.push({ title: "Paper 2: Human Geography", paperLink: getVal(row, p2PaperCol), insertLink: (getVal(row, p2InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p2InsertCol))) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) });
+                         }
+                    }
+                    // Handle resources if present in this row
+                     const resourceName = getVal(row, resourceNameCol);
+                     const resourceLink = getVal(row, resourceLinkCol);
+                     if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                        // Check if resource is already added to avoid duplicates if session names repeat
+                        if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                             subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                        }
+                     }
+                }
+            }
+             // Sort sessions chronologically if their names are years/terms
+            subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+
+                const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+             });
+
+            return subjectData;
+        }
+         function parseAqaGeographyASLevel(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
+            // UPDATED: Extract subject name and spec link from row 0 instead of row 1
+            const partsAS = getVal(csvRows[0], 1).split('|');
+            subjectData.subjectName = partsAS[1] ? partsAS[1].trim() : subjectConfig.subjectName;
+            subjectData.specLink = partsAS[2] ? partsAS[2].trim() : (subjectConfig.specLinkPlaceholder || "SPEC_LINK_PLACEHOLDER.pdf");
+            const p1PaperCol = 1, p1InsertCol = 2, p1MsCol = 3; const p2PaperCol = 5, p2InsertCol = 6, p2MsCol = 7;
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i]; const sessionName = getVal(row, 0);
+                if (sessionName) {
+                    let session = subjectData.sessions.find(s => s.name === sessionName);
+                    if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
+                    if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), insertLink: (getVal(row, p1InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p1InsertCol))) ? getVal(row, p1InsertCol) : null, msLink: getVal(row, p1MsCol) }); }
+                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2", paperLink: getVal(row, p2PaperCol), insertLink: (getVal(row, p2InsertCol).toLowerCase() !== 'n/a' && isLink(getVal(row, p2InsertCol))) ? getVal(row, p2InsertCol) : null, msLink: getVal(row, p2MsCol) });}
+                }
+            }
+            // Sort sessions chronologically if their names are years/terms
+            subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
+        }
+        function parseAqaCoreMaths(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
+            if (getVal(csvRows[1], 1)) subjectData.subjectName = getVal(csvRows[1], 1).split('|')[1]?.trim() || subjectConfig.subjectName;
+            subjectData.specLink = getVal(csvRows[4], 1) || subjectConfig.specLinkPlaceholder;
+            const formulaSheetResourceName = getVal(csvRows[9], 9); const formulaSheetLink = getVal(csvRows[9], 10);
+            if (formulaSheetResourceName && formulaSheetResourceName.toLowerCase().includes("formula sheet") && isLink(formulaSheetLink)) { subjectData.usefulResources.push({ name: formulaSheetResourceName, link: formulaSheetLink }); }
+            const p1PaperCol = 1, p1MsCol = 2; const p2PaperCol = 4, p2MsCol = 5;
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i]; const sessionName = getVal(row, 0);
+                if (sessionName) {
+                    let session = subjectData.sessions.find(s => s.name === sessionName);
+                    if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
+                    if (isLink(getVal(row, p1PaperCol))) { session.papers.push({ title: "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) }); }
+                    if (isLink(getVal(row, p2PaperCol))) { session.papers.push({ title: "Paper 2A: Statistical Techniques", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) }); }
+                }
+            }
+            // Sort sessions
+             subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
+        }
+        function parseAqaEnglishMathsMultiPaper(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
+
+            // Use a different header row for Mathematics CSV files
+            const headerRowIndex = (subjectConfig.subjectSlug === "mathematics") ? 8 : 7;
+            const paper1Title = getVal(csvRows[headerRowIndex], 1);
+            const paper2Title = getVal(csvRows[headerRowIndex], 5);
+            const paper3Title = getVal(csvRows[headerRowIndex], 9);
+
+            // Set column indexes differently for Maths (no Insert column)
+            let p1PaperCol, p1MsCol, p2PaperCol, p2MsCol, p3PaperCol, p3MsCol, resourceNameCol, resourceLinkCol, resourceSessionCol;
+            if(subjectConfig.subjectSlug === "mathematics") {
+                p1PaperCol = 1; p1MsCol = 2;
+                p2PaperCol = 4; p2MsCol = 5;
+                p3PaperCol = 7; p3MsCol = 8;
+                // Resource columns remain as in the original parser
+                resourceNameCol = 9; resourceLinkCol = 11; resourceSessionCol = 8;
+            } else {
+                p1PaperCol = 1; var p1InsertCol = 2; p1MsCol = 3;
+                p2PaperCol = 5; var p2InsertCol = 6; p2MsCol = 7;
+                p3PaperCol = 9; p3MsCol = 10;
+                resourceNameCol = 9; resourceLinkCol = 11; resourceSessionCol = 8;
+            }
+
+            // Start parsing from an appropriate row (skip header rows)
+            const startRow = (subjectConfig.subjectSlug === "mathematics") ? headerRowIndex + 3 : 10;
+            for (let i = startRow; i < csvRows.length; i++) {
+                const row = csvRows[i];
+                const paperSessionName = getVal(row, 0);
+                const resourceSessionName = getVal(row, resourceSessionCol);
+                const currentSessionName = paperSessionName || resourceSessionName;
+
+                if (currentSessionName) {
+                    let session = subjectData.sessions.find(s => s.name === currentSessionName);
+                    if (!session) {
+                        session = { name: currentSessionName, papers: [] };
+                        subjectData.sessions.push(session);
+                    }
+
+                    if (isLink(getVal(row, p1PaperCol))) {
+                        let paperObj = { title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol) };
+                        paperObj.msLink = getVal(row, p1MsCol);
+                        // For non-maths, also add insert link
+                        if(subjectConfig.subjectSlug !== "mathematics" && isLink(getVal(row, p1InsertCol))) {
+                            paperObj.insertLink = getVal(row, p1InsertCol);
+                        }
+                        session.papers.push(paperObj);
+                    }
+                    if (isLink(getVal(row, p2PaperCol))) {
+                        let paperObj = { title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol) };
+                        paperObj.msLink = getVal(row, p2MsCol);
+                        if(subjectConfig.subjectSlug !== "mathematics" && isLink(getVal(row, p2InsertCol))) {
+                            paperObj.insertLink = getVal(row, p2InsertCol);
+                        }
+                        session.papers.push(paperObj);
+                    }
+                    if(paper3Title && isLink(getVal(row, p3PaperCol))) {
+                        session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
+                    }
+
+                    const resourceName = getVal(row, resourceNameCol);
+                    const resourceLink = getVal(row, resourceLinkCol);
+                    if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                         if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                             subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                         }
+                    }
+                }
+            }
+            // Sort sessions chronologically if their names are years/terms
+            subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+
+                const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
+        }
+        function parseEdexcelAppliedScience(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, sessions: [] };
+            if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
+            subjectData.specLink = getVal(csvRows[5],1) || subjectConfig.specLinkPlaceholder;
+            // Unit titles are often in row 7, starting from column 1, with 3 columns per unit (Title, Paper, MS)
+            const unitTitles = [getVal(csvRows[7],1), getVal(csvRows[7],4), getVal(csvRows[7],7)];
+            const unitPaperCols = [1, 4, 7]; const unitMsCols = [2, 5, 8];
+            for(let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i];
+                // Session name is typically in the last column for this format
+                const sessionName = getVal(row, row.length -1);
+                 if(!sessionName || sessionName.toLowerCase() === 'n/a') continue;
+
+                let session = subjectData.sessions.find(s => s.name === sessionName);
+                if(!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
+
+                for(let u=0; u < unitTitles.length; u++) {
+                    const paperLink = getVal(row, unitPaperCols[u]); const msLink = getVal(row, unitMsCols[u]);
+                    if(isLink(paperLink)) {
+                        let unitName = unitTitles[u];
+                        // Add unit letter for clarity, based on typical BTEC Applied Science units
+                        if (unitName.toLowerCase().includes("biology")) unitName = "Unit 1B: Biology";
+                        else if (unitName.toLowerCase().includes("chemistry")) unitName = "Unit 1C: Chemistry";
+                        else if (unitName.toLowerCase().includes("physics")) unitName = "Unit 1P: Physics";
+                         // Prevent adding the same paper/ms pair multiple times for the same session
+                         if (!session.papers.some(p => p.paperLink === paperLink && p.msLink === msLink)) {
+                             session.papers.push({ title: unitName, paperLink: paperLink, msLink: msLink });
+                         }
+                    }
+                }
+            }
+             // Sort sessions
+            subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
+        }
+        function parseEdexcelBusinessIT(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, usefulResources: [], sessions: [] };
+            if (getVal(csvRows[1],1)) subjectData.subjectName = getVal(csvRows[1],1).split('|')[1]?.trim() || subjectConfig.subjectName;
+            subjectData.specLink = getVal(csvRows[4],1) || subjectConfig.specLinkPlaceholder;
+            const paperTitle = getVal(csvRows[7],1); const paperCol = 1, msCol = 3;
+            const resourceNameCol = 6, resourceLinkCol = 8; // Resource columns are fixed
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i];
+                const sessionName = getVal(row, 0); // Session name is usually in column 0
+                if (!sessionName || sessionName.toLowerCase() === 'n/a') continue;
+
+                // Handle Papers/Mark Schemes
+                if (isLink(getVal(row, paperCol))) {
+                    let session = subjectData.sessions.find(s => s.name === sessionName);
+                    if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
+                     // Prevent adding the same paper/ms pair multiple times for the same session
+                    if (!session.papers.some(p => p.paperLink === getVal(row, paperCol) && p.msLink === getVal(row, msCol))) {
+                        session.papers.push({ title: paperTitle || "Main Paper", paperLink: getVal(row, paperCol), msLink: getVal(row, msCol) });
+                    }
+                }
+
+                // Handle Resources - Resources might be on different rows or grouped differently
+                const resourceName = getVal(row, resourceNameCol);
+                const resourceLink = getVal(row, resourceLinkCol);
+                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                    // Add resources to the overall subject resources list
+                     if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                         subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                     }
+                }
+            }
+             // Sort sessions
+             subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
+        }
+        function parseOcrMultiPaper(csvRows, subjectConfig) {
+            const subjectData = { ...subjectConfig, specLink: null, sessions: [] }; // added initialization
+            // Determine header row based on qualification and subject
+            let headerRow;
+            if (subjectConfig.qualType === 'ASLevel') {
+                headerRow = 6;
+            } else if (subjectConfig.subjectSlug === 'chemistry') {  // For A Level Chemistry use row 7
+                headerRow = 7;
+            } else {
+                headerRow = 8;
+            }
+            const paper1Title = getVal(csvRows[headerRow], 1);
+            const paper2Title = getVal(csvRows[headerRow], 4);
+            const paper3Title = subjectConfig.qualType === 'ALevel' ? getVal(csvRows[headerRow], 7) : null;
+            const p1PaperCol = 1, p1MsCol = 2; 
+            const p2PaperCol = 4, p2MsCol = 5; 
+            const p3PaperCol = 7, p3MsCol = 8;
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i];
+                let sessionName = getVal(row, 0);
+                if (!sessionName) {
+                    for (let k = row.length - 1; k >= 0; k--) {
+                        const val = getVal(row, k);
+                        if (val && val.toLowerCase() !== 'n/a') {
+                            sessionName = val;
+                            break;
+                        }
+                    }
+                }
+                if (!sessionName) continue;
+                let session = subjectData.sessions.find(s => s.name === sessionName);
+                if (!session) { session = { name: sessionName, papers: [] }; subjectData.sessions.push(session); }
+                if (isLink(getVal(row, p1PaperCol))) {
+                     if (!session.papers.some(p => p.paperLink === getVal(row, p1PaperCol))) {
+                        session.papers.push({ title: paper1Title || "Paper 1", paperLink: getVal(row, p1PaperCol), msLink: getVal(row, p1MsCol) });
+                     }
+                }
+                if (isLink(getVal(row, p2PaperCol))) {
+                     if (!session.papers.some(p => p.paperLink === getVal(row, p2PaperCol))) {
+                        session.papers.push({ title: paper2Title || "Paper 2", paperLink: getVal(row, p2PaperCol), msLink: getVal(row, p2MsCol) });
+                     }
+                }
+                if (paper3Title && isLink(getVal(row, p3PaperCol))) {
+                     if (!session.papers.some(p => p.paperLink === getVal(row, p3PaperCol))) {
+                        session.papers.push({ title: paper3Title, paperLink: getVal(row, p3PaperCol), msLink: getVal(row, p3MsCol) });
+                     }
+                }
+            }
+             // Sort sessions
+             subjectData.sessions.sort((a, b) => {
+                const yearA = parseInt(a.name.match(/\d{4}/)?.[0]) || 0;
+                const yearB = parseInt(b.name.match(/\d{4}/)?.[0]) || 0;
+                if (yearA !== yearB) return yearA - yearB;
+                 const monthOrder = { 'June': 1, 'Nov': 2, 'May': 1, 'Oct': 2, 'Summer': 1, 'Winter': 2 };
+                const monthA = monthOrder[a.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                const monthB = monthOrder[b.name.match(/(June|Nov|May|Oct|Summer|Winter)/)?.[0]] || 0;
+                 return monthA - monthB;
+            });
+            return subjectData;
+        }
+        function parseOcrMultiPaperWithResources(csvRows, subjectConfig) {
+            const subjectData = parseOcrMultiPaper(csvRows, subjectConfig); // Start with papers/ms parsing
+            const resourceNameCol = 10, resourceLinkCol = 11; // Changed resourceLinkCol from 12 to 11 for OCR Physics CSV
+            for (let i = 10; i < csvRows.length; i++) {
+                const row = csvRows[i]; const resourceName = getVal(row, resourceNameCol); const resourceLink = getVal(row, resourceLinkCol);
+                if (resourceName && resourceName.toLowerCase() !== 'n/a' && isLink(resourceLink)) {
+                     // Add resources to the overall subject resources list
+                     if (!subjectData.usefulResources.some(r => r.link === resourceLink)) {
+                         subjectData.usefulResources.push({ name: resourceName, link: resourceLink });
+                     }
+                }
+            }
+            return subjectData;
+        }
+
+
+        function generateSubjectHTML(subject) {
+            const subjectAccordion = document.createElement('details');
+            subjectAccordion.className = 'subject-accordion';
+            subjectAccordion.dataset.subject = subject.subjectSlug;
+            subjectAccordion.dataset.qualificationType = subject.qualType;
+
+            let additionalInfoHTML = '';
+            if (subject.additionalInfo) {
+                additionalInfoHTML = `
+                    <div class="subject-additional-info-section">
+                        <h3>${subject.additionalInfo.descriptionTitle || 'Exam Information'}</h3>
+                        ${subject.additionalInfo.details ? subject.additionalInfo.details.map(detail => `
+                            <p><strong>${detail.label}:</strong> ${detail.value}</p>
+                        `).join('') : ''}
+                        ${subject.additionalInfo.components ? subject.additionalInfo.components.map(comp => `
+                            <p><strong>${comp.name}:</strong> ${comp.details}</p>
+                        `).join('') : ''}
+                        ${subject.additionalInfo.source ? `<p class="info-source"><em>Source: ${subject.additionalInfo.source}</em></p>` : ''}
+                    </div>
+                `;
+            }
+
+            let specHTML = '';
+            if (subject.specLink) {
+                specHTML = `
+                    <div class="specifications-section">
+                        <h3>Specification</h3>
+                        <a href="${subject.specLink}" target="_blank" class="spec-link">View Specification</a>
+                    </div>`;
+            }
+
+            let resourcesHTML = '';
+            if (subject.usefulResources && subject.usefulResources.length > 0) {
+                resourcesHTML = `
+                    <div class="useful-resources-section">
+                        <h3>Useful Resources</h3>
+                        <ul>
+                            ${subject.usefulResources.map(res => `<li><a href="${res.link}" target="_blank">${res.name}</a></li>`).join('')}
+                        </ul>
+                    </div>`;
+            }
+
+            let pastPapersSectionHTML = '';
+            if (subject.sessions && subject.sessions.length > 0) {
+                pastPapersSectionHTML = `
+                    <div class="past-papers-main-section">
+                        <h3 class="subject-content-subheading">Past Papers & Mark Schemes</h3>
+                        ${subject.sessions.map(session => `
+                            <div class="exam-session-group">
+                                <h4 class="exam-session-title">${session.name}</h4>
+                                ${session.papers.map(paper => `
+                                    <div class="exam-set">
+                                        <span class="exam-set-title">${paper.title || 'Paper'}</span>
+                                        <div class="document-links">
+                                            ${paper.paperLink ? `<a href="${paper.paperLink}" class="doc-link paper-link" target="_blank">Paper</a>` : ''}
+                                            ${paper.insertLink ? `<a href="${paper.insertLink}" class="doc-link insert-link" target="_blank">Insert</a>` : ''}
+                                            ${paper.msLink ? `<a href="${paper.msLink}" class="doc-link ms-link" target="_blank">Mark Scheme</a>` : ''}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            subjectAccordion.innerHTML = `
+                <summary>
+                    <span class="summary-text">${subject.subjectName}</span>
+                    <span class="accordion-icon">+</span>
+                </summary>
+                <div class="subject-content">
+                    ${additionalInfoHTML}
+                    ${specHTML}
+                    ${resourcesHTML}
+                    ${pastPapersSectionHTML}
+                </div>
+            `;
+            return subjectAccordion;
+        }
+
+        async function loadAndDisplaySubjects() {
+            let filesLoadedCount = 0;
+            for (const subjectConfig of subjectsToProcess) {
+                try {
+                    const response = await fetch(subjectConfig.csvFile);
+                    if (!response.ok) {
+                        console.warn(`Could not load ${subjectConfig.csvFile}: ${response.statusText}`);
+                         // Only add warning if it's not already there
+                        if (!dataLoadingStatus.innerHTML.includes(`Warning: Could not load ${subjectConfig.csvFile}`)) {
+                             dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: Could not load ${subjectConfig.csvFile}. Please check filename and path.</p>`;
+                        }
+                        continue;
+                    }
+                    const csvText = await response.text();
+                    const csvRows = simpleCSVParser(csvText);
+
+                    let parsedData;
+                    switch (subjectConfig.parserType) {
+                        case 'AqaGeographyALevel': parsedData = parseAqaGeographyALevel(csvRows, subjectConfig); break;
+                        case 'AqaGeographyASLevel': parsedData = parseAqaGeographyASLevel(csvRows, subjectConfig); break;
+                        case 'AqaCoreMaths': parsedData = parseAqaCoreMaths(csvRows, subjectConfig); break;
+                        case 'AqaEnglishMathsMultiPaper': parsedData = parseAqaEnglishMathsMultiPaper(csvRows, subjectConfig); break;
+                        case 'EdexcelAppliedScience': parsedData = parseEdexcelAppliedScience(csvRows, subjectConfig); break;
+                        case 'EdexcelBusinessIT': parsedData = parseEdexcelBusinessIT(csvRows, subjectConfig); break;
+                        case 'OcrMultiPaper': parsedData = parseOcrMultiPaper(csvRows, subjectConfig); break;
+                        case 'OcrMultiPaperWithResources': parsedData = parseOcrMultiPaperWithResources(csvRows, subjectConfig); break;
+                        default:
+                            console.warn(`Unknown or unassigned parser type: ${subjectConfig.parserType} for ${subjectConfig.csvFile}`);
+                             if (!dataLoadingStatus.innerHTML.includes(`Warning: No parser for ${subjectConfig.csvFile}`)) {
+                                dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No parser for ${subjectConfig.csvFile}.</p>`;
+                            }
+                            continue;
+                    }
+
+                    if (parsedData && (parsedData.sessions.length > 0 || parsedData.specLink || (parsedData.usefulResources && parsedData.usefulResources.length > 0) || parsedData.additionalInfo)) {
+                        // Attach additional information
+                        const infoKey = `${parsedData.board}_${parsedData.subjectSlug}_${parsedData.qualType}`;
+                        if (additionalSubjectInfo[infoKey]) {
+                            parsedData.additionalInfo = additionalSubjectInfo[infoKey];
+                        }
+
+                        allSubjectsData.push(parsedData);
+                        const subjectHTML = generateSubjectHTML(parsedData);
+                        const container = document.getElementById(`${parsedData.board}-subjects-list`);
+                        if (container) {
+                            container.appendChild(subjectHTML);
+                            filesLoadedCount++;
+                        } else {
+                             console.warn(`HTML container not found for board: ${parsedData.board}`);
+                        }
+                    } else {
+                        console.warn(`No data parsed or extracted for ${subjectConfig.csvFile}`);
+                        if (!dataLoadingStatus.innerHTML.includes(`Warning: No data extracted from ${subjectConfig.csvFile}`)) {
+                             dataLoadingStatus.innerHTML += `<p style="color: orange;">Warning: No data extracted from ${subjectConfig.csvFile}. Check CSV format.</p>`;
+                        }
+                    }
+                } catch (error) {
+                    console.error(`Error processing ${subjectConfig.csvFile}:`, error);
+                    if (!dataLoadingStatus.innerHTML.includes(`Error processing ${subjectConfig.csvFile}`)) {
+                        dataLoadingStatus.innerHTML += `<p style="color: red;">Error processing ${subjectConfig.csvFile}. Check console.</p>`;
+                    }
+                }
+            }
+             // Clear initial placeholder instruction first
+             dataLoadingStatus.innerHTML = '';
+             if (filesLoadedCount > 0) {
+                 dataLoadingStatus.innerHTML = `<p>${filesLoadedCount} subject data file(s) processed.</p>`;
+                 if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">Please select qualification and exam board to view subjects.</p>';
+            } else {
+                 dataLoadingStatus.innerHTML = `<p>No subject data files found or loaded. Please check file names, locations, and ensure they are correctly formatted and configured in the script.</p>`;
+                 if (initialMessageContainer) initialMessageContainer.innerHTML = '<p class="initial-message">No data loaded. Check console for errors and file configurations.</p>';
+            }
+            updateVisibility(); // Call updateVisibility after loading data
+        }
+
+        function updateVisibility() {
+            let isAnyBoardVisibleForQual = false;
+
+            // Hide all exam board content wrappers initially
+            document.querySelectorAll('.exam-board-content').forEach(wrapper => wrapper.classList.remove('active'));
+             const noSubjectsMessages = document.querySelectorAll('.exam-board-content .no-subjects-message');
+            if (noSubjectsMessages) noSubjectsMessages.forEach(msg => msg.remove()); // Remove previous messages
+
+            examBoardTabs.forEach(boardTab => {
+                const boardId = boardTab.dataset.filterBoard;
+                const boardWrapper = document.getElementById(boardId + '-content-wrapper');
+                const subjectsInThisBoardFromData = allSubjectsData.filter(s => s.board === boardId);
+                let boardHasMatchingSubjectsForQual = false;
+
+                subjectsInThisBoardFromData.forEach(subject => {
+                    if (activeQualificationFilter === 'all' || subject.qualType === activeQualificationFilter) {
+                        boardHasMatchingSubjectsForQual = true;
+                    }
+                });
+
+                if (boardWrapper) {
+                    if (boardHasMatchingSubjectsForQual) {
+                        boardTab.style.display = ''; // Show the board tab
+                        isAnyBoardVisibleForQual = true;
+                    } else {
+                        boardTab.style.display = 'none'; // Hide the board tab
+                        // If the currently active board tab is hidden, clear the active selection
+                        if (boardTab.classList.contains('active')) {
+                           boardTab.classList.remove('active');
+                           boardTab.setAttribute('aria-selected', 'false');
+                           activeExamBoardFilter = null; // Clear active board filter if its tab is hidden
+                        }
+                    }
+                }
+            });
+
+            // After potentially clearing activeExamBoardFilter, check if there's still an active board
+             const currentActiveBoardTab = document.querySelector('#exam-board-selector .filter-tab.active');
+             if (!currentActiveBoardTab) {
+                 activeExamBoardFilter = null; // Ensure filter is null if no tab is active
+             }
+
+
+            if (activeExamBoardFilter) {
+                const activeBoardWrapper = document.getElementById(activeExamBoardFilter + '-content-wrapper');
+                if (activeBoardWrapper) {
+                    activeBoardWrapper.classList.add('active');
+                    const subjectAccordions = activeBoardWrapper.querySelectorAll('.subject-accordion');
+                    let visibleSubjectsInActiveBoard = 0;
+                    subjectAccordions.forEach(accordion => {
+                        const subjectQualType = accordion.dataset.qualificationType;
+                        if (activeQualificationFilter === 'all' || subjectQualType === activeQualificationFilter) {
+                            accordion.classList.add('active-subject');
+                            accordion.style.display = 'block'; // Ensure it's displayed
+                            visibleSubjectsInActiveBoard++;
+                        } else {
+                            accordion.classList.remove('active-subject');
+                            accordion.style.display = 'none'; // Hide subjects that don't match qual filter
+                        }
+                    });
+
+                    if(initialMessageContainer) initialMessageContainer.style.display = 'none';
+
+                    if (visibleSubjectsInActiveBoard === 0) {
+                        const noSubjectsMsg = document.createElement('p');
+                        noSubjectsMsg.className = 'initial-message no-subjects-message';
+                        noSubjectsMsg.textContent = `No subjects found for the selected qualification level in this exam board.`;
+                        activeBoardWrapper.appendChild(noSubjectsMsg);
+                    }
+                }
+            } else {
+                 // No exam board selected, show initial message if needed
+                 if (initialMessageContainer) {
+                    initialMessageContainer.style.display = 'block';
+                    if (isAnyBoardVisibleForQual) {
+                        initialMessageContainer.innerHTML = '<p class="initial-message">Please select an exam board to view subjects.</p>';
+                    } else {
+                         initialMessageContainer.innerHTML = '<p class="initial-message">No subjects available for the selected qualification level. Try "All" or a different level.</p>';
+                    }
+                 }
+            }
+        }
+
+        qualificationTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                qualificationTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+                tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
+                activeQualificationFilter = tab.dataset.filterQual;
+
+                // Reset exam board selection when qualification changes
+                examBoardTabs.forEach(ebTab => { ebTab.classList.remove('active'); ebTab.setAttribute('aria-selected', 'false'); });
+
+                activeExamBoardFilter = null;
+
+                updateVisibility();
+            });
+        });
+
+        examBoardTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const newActiveBoard = tab.dataset.filterBoard;
+                const isActive = tab.classList.contains('active');
+
+                // Check if the tab is visible for the current qualification
+                const boardId = tab.dataset.filterBoard;
+                const subjectsInThisBoardFromData = allSubjectsData.filter(s => s.board === boardId);
+                 let boardHasMatchingSubjectsForQual = subjectsInThisBoardFromData.some(subject =>
+                     activeQualificationFilter === 'all' || subject.qualType === activeQualificationFilter
+                 );
+
+                if (!boardHasMatchingSubjectsForQual) {
+                    // Should not happen if tab display logic is correct, but as a safeguard
+                    console.warn(`Clicked invisible board tab: ${boardId}`);
+                    return;
+                }
+
+
+                if (isActive) {
+                    // Clicking the active tab again deactivates it
+                    tab.classList.remove('active');
+                    tab.setAttribute('aria-selected', 'false');
+                    activeExamBoardFilter = null;
+                } else {
+                    // Deactivate all other board tabs
+                    examBoardTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+                    // Activate the clicked tab
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+                    activeExamBoardFilter = newActiveBoard;
+                }
+
+                updateVisibility();
+            });
+        });
+
+        // Initial load
+        loadAndDisplaySubjects();
+    });
+    </script>
+</body>
+</html>
