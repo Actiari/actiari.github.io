@@ -227,19 +227,18 @@
     </main>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // --- CONFIG ---
+    // --- YOUR NEW CONFIG ---
     const firebaseConfig = {
-        apiKey: "AIzaSyCCSMWeYi5PX5KVXSAakUMEFXMMd7ADWm4",
-        authDomain: "actiari-w.firebaseapp.com",
-        projectId: "actiari-w",
-        storageBucket: "actiari-w.firebasestorage.app",
-        messagingSenderId: "949681887722",
-        appId: "1:949681887722:web:58680c5a6cdfadc5543a93",
-        measurementId: "G-H250YE0QME"
+        apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+        authDomain: "actiari-fixed.firebaseapp.com",
+        projectId: "actiari-fixed",
+        storageBucket: "actiari-fixed.firebasestorage.app",
+        messagingSenderId: "154407363342",
+        appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
     };
 
     const app = initializeApp(firebaseConfig);
