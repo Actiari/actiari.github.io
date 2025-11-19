@@ -34,10 +34,11 @@
             --accent-color: #2563eb;
             --accent-hover: #1d4ed8;
             --color-danger: #ef4444;
+            --color-warning: #f59e0b;
 
             /* Layout */
             --header-height: 64px;
-            --max-width: 900px; /* Slightly narrower for form focus */
+            --max-width: 900px; 
         }
 
         /* ------------------- */
@@ -77,7 +78,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            max-width: 1100px; /* Matches home/login header width */
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -131,13 +132,14 @@
             margin-bottom: 32px;
         }
 
-        .card h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
+        .card-header-row {
+            display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 16px;
-            margin-bottom: 24px;
-            color: var(--text-primary);
+            padding-bottom: 16px; margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 1.1rem; font-weight: 600; color: var(--text-primary);
         }
 
         /* Inputs */
@@ -170,10 +172,18 @@
             padding: 16px;
             border-radius: 4px;
             margin-bottom: 16px;
+            position: relative;
         }
         
         .input-pair input { margin-bottom: 10px; }
         .input-pair input:last-child { margin-bottom: 0; }
+
+        .remove-card-btn {
+            position: absolute; top: 10px; right: 10px;
+            background: transparent; border: none; color: var(--text-tertiary);
+            cursor: pointer; font-size: 1.2rem; line-height: 1;
+        }
+        .remove-card-btn:hover { color: var(--color-danger); }
 
         /* Buttons */
         button {
@@ -195,13 +205,13 @@
         #save-deck-btn:hover { background-color: var(--accent-hover); }
 
         /* Secondary Action */
-        #add-card-btn, .btn-secondary {
+        #add-card-btn, #cancel-edit-btn, .btn-secondary {
             background-color: transparent;
             border-color: var(--border-color);
             color: var(--text-primary);
             width: 100%;
         }
-        #add-card-btn:hover {
+        #add-card-btn:hover, #cancel-edit-btn:hover {
             background-color: var(--bg-input);
             border-color: var(--text-secondary);
         }
@@ -211,7 +221,7 @@
             gap: 16px;
             margin-top: 32px;
         }
-        .button-group button { margin: 0; /* Reset default */ }
+        .button-group button { margin: 0; }
 
         /* ------------------- */
         /* --- Saved Decks List --- */
@@ -241,17 +251,21 @@
         .deck-title { font-weight: 500; color: var(--text-primary); }
         .card-count { color: var(--text-secondary); font-size: 0.85rem; margin-left: 8px; }
 
-        .delete-btn {
+        .action-buttons { display: flex; gap: 8px; }
+
+        .edit-btn, .delete-btn {
             background-color: transparent;
-            color: var(--text-tertiary);
             padding: 6px 12px;
             font-size: 0.85rem;
             width: auto;
+            border: 1px solid var(--border-color);
         }
-        .delete-btn:hover {
-            color: var(--color-danger);
-            background-color: rgba(239, 68, 68, 0.1);
-        }
+        
+        .edit-btn { color: var(--color-warning); border-color: rgba(245, 158, 11, 0.3); }
+        .edit-btn:hover { background-color: rgba(245, 158, 11, 0.1); border-color: var(--color-warning); }
+
+        .delete-btn { color: var(--color-danger); border-color: rgba(239, 68, 68, 0.3); }
+        .delete-btn:hover { background-color: rgba(239, 68, 68, 0.1); border-color: var(--color-danger); }
 
         /* Utilities */
         .hidden { display: none !important; }
@@ -262,6 +276,9 @@
         @media (max-width: 768px) {
             .nav-menu { display: none; }
             .button-group { flex-direction: column; }
+            .deck-list-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .action-buttons { width: 100%; }
+            .action-buttons button { flex: 1; }
         }
     </style>
 </head>
@@ -306,12 +323,15 @@
                 
                 <div class="page-title">
                     <h1>Flashcard Creator</h1>
-                    <p>Create custom revision packs. These will appear in your library.</p>
+                    <p>Create or edit custom revision packs. Group multiple topics under one Subject.</p>
                 </div>
 
                 <!-- Creator Form -->
                 <div class="card">
-                    <h2>Deck Details</h2>
+                    <div class="card-header-row">
+                        <h2 id="form-title">Create New Pack</h2>
+                        <button id="cancel-edit-btn" class="hidden" style="width: auto; padding: 4px 12px; font-size: 0.8rem;">Cancel Edit</button>
+                    </div>
                     
                     <label for="deck-subject">Subject / Module</label>
                     <input type="text" id="deck-subject" placeholder="e.g. History">
@@ -338,7 +358,9 @@
 
                 <!-- Saved List -->
                 <div class="card">
-                    <h2>My Packs</h2>
+                    <div class="card-header-row" style="margin-bottom: 12px;">
+                        <h2>My Packs</h2>
+                    </div>
                     <div id="my-decks-list">
                         <div class="text-center muted" style="padding: 20px;">Loading saved data...</div>
                     </div>
@@ -348,13 +370,13 @@
         </div>
     </main>
 
-    <!-- FIREBASE LOGIC (UNCHANGED) -->
+    <!-- FIREBASE LOGIC -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, query, where, onSnapshot, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // --- NEW PROJECT CONFIG ---
+        // --- CONFIG ---
         const firebaseConfig = {
             apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
             authDomain: "actiari-fixed.firebaseapp.com",
@@ -368,93 +390,186 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         let currentUser = null;
+        
+        // EDIT STATE
+        let isEditing = false;
+        let editingDeckId = null;
 
         // ELEMENTS
         const authLoading = document.getElementById('auth-loading');
         const loginWarning = document.getElementById('login-warning');
         const appInterface = document.getElementById('app-interface');
+        
+        const subjectInput = document.getElementById('deck-subject');
+        const topicInput = document.getElementById('deck-topic');
+        const cardsContainer = document.getElementById('cards-input-container');
+        const saveBtn = document.getElementById('save-deck-btn');
+        const formTitle = document.getElementById('form-title');
+        const cancelEditBtn = document.getElementById('cancel-edit-btn');
 
-        // 1. AUTH CHECK (With Loading State)
+        // 1. AUTH CHECK
         onAuthStateChanged(auth, (user) => {
-            
-            // Hide the loading screen once Firebase responds
             authLoading.classList.add('hidden');
-
             if (user) {
-                // User IS logged in
                 currentUser = user;
                 loginWarning.classList.add('hidden');
                 appInterface.classList.remove('hidden');
                 loadUserDecks();
             } else {
-                // User IS NOT logged in
                 loginWarning.classList.remove('hidden');
                 appInterface.classList.add('hidden');
             }
         });
 
-        // 2. ADD INPUT FIELDS
-        document.getElementById('add-card-btn').addEventListener('click', () => {
+        // 2. HELPER: Add Input Pair
+        function createInputPair(qText = '', aText = '') {
             const div = document.createElement('div');
             div.className = 'input-pair';
             div.innerHTML = `
-                <input type="text" class="q-input" placeholder="Front (Question)">
-                <input type="text" class="a-input" placeholder="Back (Answer)">
+                <button class="remove-card-btn" tabindex="-1">×</button>
+                <input type="text" class="q-input" placeholder="Front (Question)" value="${qText}">
+                <input type="text" class="a-input" placeholder="Back (Answer)" value="${aText}">
             `;
-            document.getElementById('cards-input-container').appendChild(div);
-        });
+            
+            // Add remove logic
+            div.querySelector('.remove-card-btn').addEventListener('click', () => {
+                if(cardsContainer.children.length > 1) {
+                    div.remove();
+                } else {
+                    // Clear values instead of removing the last remaining card
+                    div.querySelector('.q-input').value = '';
+                    div.querySelector('.a-input').value = '';
+                }
+            });
 
-        // 3. SAVE TO DATABASE
-        document.getElementById('save-deck-btn').addEventListener('click', async () => {
+            cardsContainer.appendChild(div);
+        }
+
+        document.getElementById('add-card-btn').addEventListener('click', () => createInputPair());
+
+        // 3. SAVE / UPDATE TO DATABASE
+        saveBtn.addEventListener('click', async () => {
             if (!currentUser) return alert("Not logged in.");
 
-            const subject = document.getElementById('deck-subject').value.trim();
-            const topic = document.getElementById('deck-topic').value.trim();
+            const subject = subjectInput.value.trim();
+            const topic = topicInput.value.trim();
             
             if(!subject || !topic) return alert("Please enter both a Subject and a Topic name.");
 
+            // Gather Cards
             const cards = [];
             document.querySelectorAll('.input-pair').forEach(pair => {
                 const q = pair.querySelector('.q-input').value;
                 const a = pair.querySelector('.a-input').value;
-                if(q && a) cards.push({ q, a });
+                if(q || a) cards.push({ q, a }); // Capture if at least one side has text
             });
 
             if(cards.length === 0) return alert("Add at least one card!");
 
-            const btn = document.getElementById('save-deck-btn');
-            btn.textContent = "Saving...";
-            btn.disabled = true;
+            saveBtn.textContent = "Processing...";
+            saveBtn.disabled = true;
 
             try {
-                await addDoc(collection(db, "decks"), {
-                    userId: currentUser.uid,
-                    subject: subject, 
-                    title: topic,     
-                    cards: cards,
-                    createdAt: new Date()
-                });
-                alert("Saved successfully!");
-                
-                // Reset Form manually
-                document.getElementById('deck-subject').value = "";
-                document.getElementById('deck-topic').value = "";
-                document.getElementById('cards-input-container').innerHTML = `
-                    <div class="input-pair">
-                        <input type="text" class="q-input" placeholder="Front (Question)">
-                        <input type="text" class="a-input" placeholder="Back (Answer)">
-                    </div>`;
+                // DUPLICATE CHECK
+                // Check if a deck with this Subject AND Topic already exists for this user
+                const q = query(
+                    collection(db, "decks"), 
+                    where("userId", "==", currentUser.uid),
+                    where("subject", "==", subject),
+                    where("title", "==", topic)
+                );
+                const querySnapshot = await getDocs(q);
+
+                // If found results
+                if (!querySnapshot.empty) {
+                    let duplicateId = querySnapshot.docs[0].id;
+                    
+                    // If we are creating NEW, or editing but the found duplicate isn't the one we are editing
+                    if (!isEditing || (isEditing && duplicateId !== editingDeckId)) {
+                        alert(`A pack with the Subject "${subject}" and Topic "${topic}" already exists. Please choose a different name or edit the existing pack.`);
+                        saveBtn.textContent = isEditing ? "Update Pack" : "Save Pack";
+                        saveBtn.disabled = false;
+                        return;
+                    }
+                }
+
+                if (isEditing && editingDeckId) {
+                    // --- UPDATE LOGIC ---
+                    await updateDoc(doc(db, "decks", editingDeckId), {
+                        subject: subject, 
+                        title: topic,     
+                        cards: cards,
+                        updatedAt: new Date()
+                    });
+                    alert("Pack updated successfully!");
+                    resetForm(); // Returns to 'Create' mode
+                } else {
+                    // --- CREATE LOGIC ---
+                    await addDoc(collection(db, "decks"), {
+                        userId: currentUser.uid,
+                        subject: subject, 
+                        title: topic,     
+                        cards: cards,
+                        createdAt: new Date()
+                    });
+                    alert("Pack saved successfully!");
+                    resetForm();
+                }
                 
             } catch (e) { 
                 console.error(e); 
-                alert("Error saving: " + e.message);
+                alert("Error: " + e.message);
             } finally {
-                btn.textContent = "Save Pack";
-                btn.disabled = false;
+                saveBtn.textContent = isEditing ? "Update Pack" : "Save Pack";
+                saveBtn.disabled = false;
             }
         });
 
-        // 4. LOAD LIST
+        // 4. EDIT MODE LOGIC
+        window.editDeck = (id, subject, topic, cardsData) => {
+            // 1. Set State
+            isEditing = true;
+            editingDeckId = id;
+
+            // 2. Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // 3. Update UI
+            formTitle.textContent = "Edit Pack";
+            saveBtn.textContent = "Update Pack";
+            cancelEditBtn.classList.remove('hidden');
+
+            // 4. Populate Form
+            subjectInput.value = subject;
+            topicInput.value = topic;
+
+            // 5. Populate Cards
+            cardsContainer.innerHTML = ''; // Clear current inputs
+            if (cardsData && cardsData.length > 0) {
+                cardsData.forEach(card => createInputPair(card.q, card.a));
+            } else {
+                createInputPair();
+            }
+        };
+
+        // Cancel Edit
+        cancelEditBtn.addEventListener('click', resetForm);
+
+        function resetForm() {
+            isEditing = false;
+            editingDeckId = null;
+            
+            formTitle.textContent = "Create New Pack";
+            saveBtn.textContent = "Save Pack";
+            cancelEditBtn.classList.add('hidden');
+
+            subjectInput.value = "";
+            topicInput.value = "";
+            cardsContainer.innerHTML = '';
+            createInputPair(); // Add one empty row
+        }
+
+        // 5. LOAD LIST
         function loadUserDecks() {
             const list = document.getElementById('my-decks-list');
             const q = query(collection(db, "decks"), where("userId", "==", currentUser.uid));
@@ -462,31 +577,42 @@
             onSnapshot(q, (snapshot) => {
                 list.innerHTML = "";
                 if(snapshot.empty) {
-                    list.innerHTML = "<div style='text-align:center; padding:20px; color:var(--text-secondary);'>No custom packs found. Create one above!</div>";
+                    list.innerHTML = "<div class='text-center muted' style='padding:20px;'>No custom packs found. Create one above!</div>";
                     return;
                 }
                 
                 snapshot.forEach((docSnap) => {
                     const data = docSnap.data();
+                    const cardsJson = JSON.stringify(data.cards).replace(/"/g, '&quot;'); // Safe string for HTML attribute
+                    
                     const div = document.createElement('div');
                     div.className = 'deck-list-item';
                     
                     div.innerHTML = `
                         <div class="deck-info">
-                            <span class="tag">${data.subject || 'Custom'}</span>
+                            <span class="tag">${data.subject || 'General'}</span>
                             <div>
                                 <span class="deck-title">${data.title}</span> 
                                 <span class="card-count">${data.cards ? data.cards.length : 0} cards</span>
                             </div>
                         </div>
-                        <button class="delete-btn" id="del-${docSnap.id}">Delete</button>
+                        <div class="action-buttons">
+                            <button class="edit-btn" id="edit-${docSnap.id}">Edit</button>
+                            <button class="delete-btn" id="del-${docSnap.id}">Delete</button>
+                        </div>
                     `;
                     list.appendChild(div);
 
+                    // Attach Event Listeners
                     document.getElementById(`del-${docSnap.id}`).addEventListener('click', async () => {
-                        if(confirm("Delete this pack?")) {
+                        if(confirm("Permanently delete this pack?")) {
+                            if(isEditing && editingDeckId === docSnap.id) resetForm(); // Reset if deleting current edit
                             await deleteDoc(doc(db, "decks", docSnap.id));
                         }
+                    });
+
+                    document.getElementById(`edit-${docSnap.id}`).addEventListener('click', () => {
+                        window.editDeck(docSnap.id, data.subject, data.title, data.cards);
                     });
                 });
             });
