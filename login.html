@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Actiari</title>
+    <meta name="description" content="Login or Sign up for Actiari study tools.">
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- SAME CSS AS HOME PAGE --- */
+        :root {
+            --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --radius-md: 8px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --color-background: #f8f9fa;
+            --color-surface: #ffffff;
+            --color-border: #dee2e6;
+            --color-text-primary: #212529;
+            --color-text-secondary: #495057;
+            --color-primary: #005fcc;
+            --color-primary-hover: #004ca3;
+            --color-error: #e03131;
+            --color-success: #0ca678;
+        }
+
+        .dark-mode {
+            --color-background: #121212;
+            --color-surface: #1e1e1e;
+            --color-border: #333;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #b0b0b0;
+            --color-primary: #4dabf7;
+            --color-primary-hover: #74c0fc;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font-family-sans);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 24px; }
+        a { color: var(--color-primary); text-decoration: none; }
+        
+        /* Header & Footer */
+        .site-header, .site-footer { background-color: var(--color-surface); border-bottom: 1px solid var(--color-border); padding: 16px 0; width: 100%; }
+        .site-footer { border-top: 1px solid var(--color-border); border-bottom: none; margin-top: auto; text-align: center; color: var(--color-text-secondary); font-size: 0.9rem;}
+        .page-wrapper { max-width: 1400px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Auth Card Styles */
+        .auth-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .auth-card h1 { font-size: 1.75rem; margin-bottom: 8px; }
+        .auth-card p { color: var(--color-text-secondary); margin-bottom: 24px; }
+
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-group label { display: block; font-size: 0.875rem; margin-bottom: 6px; font-weight: 500; }
+        
+        input {
+            width: 100%; padding: 12px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            font-size: 1rem;
+        }
+        input:focus { outline: 2px solid var(--color-primary); border-color: transparent; }
+
+        .btn {
+            width: 100%; padding: 12px;
+            border: none; border-radius: var(--radius-md);
+            font-size: 1rem; font-weight: 600; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-primary { background-color: var(--color-primary); color: white; margin-bottom: 12px; }
+        .btn-primary:hover { background-color: var(--color-primary-hover); }
+        
+        .btn-secondary { background-color: transparent; border: 1px solid var(--color-border); color: var(--color-text-primary); }
+        .btn-secondary:hover { background-color: var(--color-border); }
+
+        .message-box { margin-top: 16px; font-size: 0.9rem; display: none; padding: 8px; border-radius: var(--radius-md); }
+        .message-box.error { background-color: rgba(224, 49, 49, 0.1); color: var(--color-error); display: block; }
+        .message-box.success { background-color: rgba(12, 166, 120, 0.1); color: var(--color-success); display: block; }
+
+        /* Nav in Header */
+        .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
+        .theme-toggle { background: none; border: none; cursor: pointer; color: var(--color-text-primary); }
+        .icon-sun { display: none; }
+        .dark-mode .icon-sun { display: block; }
+        .dark-mode .icon-moon { display: none; }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="page-wrapper">
+            <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
+            </a>
+            <nav class="site-header__nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="geography.html">Flashcards</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun">☀️</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-card">
+            <h1>Welcome</h1>
+            <p>Login or create an account to save progress.</p>
+
+            <div id="auth-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Min. 6 characters" required>
+                </div>
+
+                <div id="message-box" class="message-box"></div>
+
+                <button id="btn-login" class="btn btn-primary">Log In</button>
+                <button id="btn-signup" class="btn btn-secondary">Create Account</button>
+            </div>
+
+            <div id="user-info" style="display: none;">
+                <p style="color: var(--color-success); font-weight: 600;">You are currently logged in.</p>
+                <button id="btn-logout" class="btn btn-secondary" style="border-color: var(--color-error); color: var(--color-error);">Log Out</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="page-wrapper" style="justify-content: center;">
+            <p>&copy; 2025 Actiari Study Tools.</p>
+        </div>
+    </footer>
+
+    <!-- FIREBASE LOGIC -->
+    <script type="module">
+        // We import from web URLs because we are not using a build tool like Webpack
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // --- YOUR SPECIFIC CONFIGURATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCSMWeYi5PX5KVXSAakUMEFXMMd7ADWm4",
+            authDomain: "actiari-w.firebaseapp.com",
+            projectId: "actiari-w",
+            storageBucket: "actiari-w.firebasestorage.app",
+            messagingSenderId: "949681887722",
+            appId: "1:949681887722:web:58680c5a6cdfadc5543a93",
+            measurementId: "G-H250YE0QME"
+        };
+
+        // Initialize
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Elements
+        const emailInput = document.getElementById('email');
+        const passInput = document.getElementById('password');
+        const btnLogin = document.getElementById('btn-login');
+        const btnSignup = document.getElementById('btn-signup');
+        const btnLogout = document.getElementById('btn-logout');
+        const messageBox = document.getElementById('message-box');
+        
+        const authForm = document.getElementById('auth-form');
+        const userInfo = document.getElementById('user-info');
+
+        // Helpers
+        function showMessage(text, type) {
+            messageBox.textContent = text;
+            messageBox.className = `message-box ${type}`;
+        }
+
+        // 1. Sign Up
+        btnSignup.addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passInput.value;
+            
+            if(password.length < 6) { showMessage("Password must be at least 6 characters.", "error"); return; }
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                showMessage("Account created! logging in...", "success");
+            } catch (error) {
+                let msg = error.message;
+                // Make error messages user friendly
+                if(error.code === 'auth/email-already-in-use') msg = "That email is already registered.";
+                if(error.code === 'auth/invalid-email') msg = "Please enter a valid email address.";
+                showMessage(msg, "error");
+            }
+        });
+
+        // 2. Log In
+        btnLogin.addEventListener('click', async () => {
+            const email = emailInput.value;
+            const password = passInput.value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showMessage("Login successful!", "success");
+                // Optional: Redirect to home page after 1 second
+                setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+            } catch (error) {
+                showMessage("Invalid email or password.", "error");
+            }
+        });
+
+        // 3. Log Out
+        btnLogout.addEventListener('click', async () => {
+            await signOut(auth);
+            showMessage("Logged out.", "success");
+        });
+
+        // 4. Auth State Observer (Checks if user is logged in)
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is logged in
+                authForm.style.display = 'none';
+                userInfo.style.display = 'block';
+            } else {
+                // User is logged out
+                authForm.style.display = 'block';
+                userInfo.style.display = 'none';
+                emailInput.value = '';
+                passInput.value = '';
+            }
+        });
+
+        // Dark mode toggle logic
+        const themeToggle = document.getElementById('theme-toggle');
+        // Check storage
+        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+    </script>
+</body>
+</html>

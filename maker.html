@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Maker - Actiari</title>
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Styles */
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #212529; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; }
+        a { color: #005fcc; text-decoration: none; }
+        .card { background: white; padding: 24px; border-radius: 8px; border: 1px solid #dee2e6; margin-bottom: 20px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        h1, h2 { margin-top: 0; }
+        
+        input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 1rem; }
+        button { padding: 12px 24px; background: #005fcc; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        button:hover { background: #004ca3; }
+        button.delete-btn { background: #e03131; font-size: 0.8rem; padding: 6px 12px;}
+        button.secondary-btn { background: #f1f3f5; color: #333; border: 1px solid #ccc; }
+        button.secondary-btn:hover { background: #e9ecef; }
+
+        .deck-list-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 12px 0; }
+        .hidden { display: none; }
+        .input-pair { background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <a href="index.html">← Back Home</a>
+        <a href="geography.html">Go to Flashcards →</a>
+    </div>
+
+    <!-- Login Warning -->
+    <div id="login-warning" class="card" style="text-align: center; padding: 40px;">
+        <h2>Please Log In</h2>
+        <p>You must have an account to create custom flashcards.</p>
+        <a href="login.html"><button>Go to Login</button></a>
+    </div>
+
+    <!-- Main App (Hidden until logged in) -->
+    <div id="app-interface" class="hidden">
+        <h1>Flashcard Creator</h1>
+        
+        <!-- 1. CREATE NEW DECK -->
+        <div class="card">
+            <h2>Create New Deck</h2>
+            <label><strong>Deck Title</strong></label>
+            <input type="text" id="new-deck-title" placeholder="e.g., Geography - Case Studies">
+            
+            <br><br>
+            <label><strong>Cards</strong></label>
+            <div id="cards-input-container">
+                <div class="input-pair">
+                    <input type="text" class="q-input" placeholder="Front (Question)">
+                    <input type="text" class="a-input" placeholder="Back (Answer)">
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button id="add-more-cards-btn" class="secondary-btn" style="width: 100%;">+ Add Another Card</button>
+                <button id="save-deck-btn" style="width: 100%;">Save Deck</button>
+            </div>
+        </div>
+
+        <!-- 2. MY DECKS LIST -->
+        <div class="card">
+            <h2>Your Saved Decks</h2>
+            <p style="font-size: 0.9rem; color: #666;">These will appear in the "Flashcards" page under "My Custom Decks".</p>
+            <div id="my-decks-list">Loading...</div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc } 
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // --- YOUR CONFIG ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyCCSMWeYi5PX5KVXSAakUMEFXMMd7ADWm4",
+        authDomain: "actiari-w.firebaseapp.com",
+        projectId: "actiari-w",
+        storageBucket: "actiari-w.firebasestorage.app",
+        messagingSenderId: "949681887722",
+        appId: "1:949681887722:web:58680c5a6cdfadc5543a93",
+        measurementId: "G-H250YE0QME"
+    };
+
+    // Init
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app); 
+
+    let currentUser = null;
+
+    // Check Login Status
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            currentUser = user;
+            document.getElementById('login-warning').classList.add('hidden');
+            document.getElementById('app-interface').classList.remove('hidden');
+            loadUserDecks();
+        } else {
+            document.getElementById('login-warning').classList.remove('hidden');
+            document.getElementById('app-interface').classList.add('hidden');
+        }
+    });
+
+    // UI: Add Inputs
+    document.getElementById('add-more-cards-btn').addEventListener('click', () => {
+        const container = document.getElementById('cards-input-container');
+        const div = document.createElement('div');
+        div.className = 'input-pair';
+        div.innerHTML = `
+            <input type="text" class="q-input" placeholder="Front (Question)">
+            <input type="text" class="a-input" placeholder="Back (Answer)">
+        `;
+        container.appendChild(div);
+    });
+
+    // DB: Save Deck
+    document.getElementById('save-deck-btn').addEventListener('click', async () => {
+        const title = document.getElementById('new-deck-title').value;
+        if(!title) return alert("Please give your deck a name");
+
+        // Gather cards
+        const cards = [];
+        const pairs = document.querySelectorAll('.input-pair');
+        pairs.forEach(pair => {
+            const q = pair.querySelector('.q-input').value;
+            const a = pair.querySelector('.a-input').value;
+            if(q && a) cards.push({ q, a });
+        });
+
+        if(cards.length === 0) return alert("Add at least one card!");
+
+        try {
+            await addDoc(collection(db, "decks"), {
+                userId: currentUser.uid,
+                title: title,
+                cards: cards,
+                createdAt: new Date()
+            });
+            alert("Deck Saved!");
+            location.reload(); 
+        } catch (e) {
+            console.error("Error adding document: ", e);
+            alert("Error saving. Check console.");
+        }
+    });
+
+    // DB: Load Decks
+    function loadUserDecks() {
+        const list = document.getElementById('my-decks-list');
+        const q = query(collection(db, "decks"), where("userId", "==", currentUser.uid));
+
+        onSnapshot(q, (querySnapshot) => {
+            list.innerHTML = "";
+            if(querySnapshot.empty) {
+                list.innerHTML = "<p>No decks found.</p>";
+            }
+            
+            querySnapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const div = document.createElement('div');
+                div.className = 'deck-list-item';
+                div.innerHTML = `
+                    <div><strong>${data.title}</strong> (${data.cards.length} cards)</div>
+                    <button class="delete-btn" id="del-${docSnap.id}">Delete</button>
+                `;
+                list.appendChild(div);
+
+                document.getElementById(`del-${docSnap.id}`).addEventListener('click', async () => {
+                    if(confirm('Delete this deck?')) await deleteDoc(doc(db, "decks", docSnap.id));
+                });
+            });
+        });
+    }
+</script>
+</body>
+</html>
