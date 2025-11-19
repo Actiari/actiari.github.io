@@ -3,108 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deck Maker - Actiari</title>
+    <title>Revision Flashcards - Actiari</title>
     <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #0b0f12; color: #e6eef8; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        a { color: #8ec7ff; text-decoration: none; }
-        .card { background: #121316; padding: 24px; border-radius: 8px; border: 1px solid #222426; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.6); }
+        /* --- CSS VARIABLES --- */
+        :root {
+            --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --color-background: #f8f9fa;
+            --color-surface: #ffffff;
+            --color-border: #dee2e6;
+            --color-text-primary: #212529;
+            --color-text-secondary: #495057;
+            --color-primary: #005fcc;
+            --color-primary-hover: #004ca3;
+            --radius-md: 8px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
 
-        label { font-weight: 600; font-size: 0.95rem; display: block; margin-bottom: 6px; margin-top: 12px;}
-        input { width: 100%; padding: 12px; border: 1px solid #222426; border-radius: 6px; box-sizing: border-box; background:#0b0f12; color:#e6eef8 }
+        /* --- RESET & LAYOUT --- */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-family-sans);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-        .input-pair { background: #121316; padding: 14px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #222426; }
+        /* --- HEADER (FIXED) --- */
+        .site-header {
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            width: 100%; /* Ensures full width */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-        button { padding: 12px 20px; background: #4dabf7; color: white; border: none; border-radius: 8px; cursor: pointer; transition: 0.15s; font-weight: 600;}
-        button:hover { background: #3b8fe0; }
-        button.secondary-btn { background: #1a1d20; color: #cbd5e1; border: 1px solid #2b3033 }
-        button.secondary-btn:hover { background: #151718; }
-        button.delete-btn { background: #ff6b6b; padding: 6px 12px; font-size: 0.8rem; color: #111; }
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
 
-        .deck-list-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222426; padding: 12px 0; }
-        .tag { font-size: 0.75rem; background: #12293d; color: #8ec7ff; padding: 4px 10px; border-radius: 12px; margin-right: 8px; }
-        .hidden { display: none; }
-        /* Header/nav overrides for full-width header */
-        .site-header { background: #000000; border-bottom: 1px solid #222426; padding: 12px 0; }
-        .site-header .page-wrapper { display:flex; align-items:center; justify-content:space-between; }
-        .site-header__nav ul { list-style: none; display:flex; gap:20px; margin:0; padding:0; }
-        .site-header__nav a { color: #4dabf7; font-weight:600; text-decoration:none; }
-        .site-header__nav a:hover { color: #74c0fc; }
+        /* Flex container for the header content */
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px; /* Fixed height for consistency */
+        }
+
+        .site-header__logo img { height: 32px; width: auto; display: block; }
+
+        .site-header__nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 24px; 
+            margin: 0; 
+            padding: 0;
+        }
+        
+        .site-header__nav a { 
+            color: var(--color-text-secondary); 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.95rem;
+        }
+        .site-header__nav a:hover, .site-header__nav a.active { color: var(--color-primary); }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            padding-top: 40px; /* Prevents collision with sticky header */
+            padding-bottom: 60px;
+        }
+
+        .controls-container {
+            background: var(--color-surface);
+            padding: 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; display: block; color: var(--color-text-secondary); }
+        select { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; background-color: #fff; }
+        
+        .btn-primary { 
+            background: var(--color-primary); color: white; 
+            padding: 12px; border: none; border-radius: 6px; 
+            font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem;
+        }
+        .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* --- FLASHCARD GAME --- */
+        #game-interface { display: none; max-width: 700px; margin: 0 auto; }
+        .flashcard-scene { height: 400px; perspective: 1000px; margin-bottom: 24px; cursor: pointer; }
+        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .flashcard.is-flipped { transform: rotateY(180deg); }
+        .flashcard-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; border: 1px solid var(--color-border); border-radius: 16px; padding: 32px; text-align: center; }
+        .flashcard-back { transform: rotateY(180deg); background-color: #f8f9fa; }
+        
+        .game-controls { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .nav-btn { background: white; border: 1px solid #ccc; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+        .nav-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
     </style>
 </head>
 <body>
+
+    <!-- HEADER -->
     <header class="site-header">
         <div class="page-wrapper">
-            <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
-                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
-            </a>
-            <nav class="site-header__nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="APR.html">Past Papers</a></li>
-                    <li><a href="FLASH.html">Flashcards</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </ul>
-            </nav>
+            <div class="header-content">
+                <a href="index.html" class="site-header__logo">
+                    <img src="Miscellaneous/Main Favicon.ico" alt="Actiari" width="32" height="32">
+                </a>
+                <nav class="site-header__nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="geography.html" class="active">Flashcards</a></li>
+                        <li><a href="maker.html">Create</a></li>
+                        <li><a href="login.html">Account</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
-<div class="container">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-        <a href="index.html">← Back Home</a>
-        <a href="FLASH.html">Go to Flashcards →</a>
-    </div>
+    <!-- MAIN -->
+    <main class="page-wrapper">
+        
+        <!-- Title Section -->
+        <div style="text-align: center; margin-bottom: 32px;">
+            <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 8px;">Revision Flashcards</h1>
+            <p style="color: var(--color-text-secondary);">Select a course below or view your custom packs.</p>
+        </div>
 
-    <div id="login-warning" class="card" style="text-align: center;">
-        <h2>Please Log In</h2>
-        <p>You need an account to create custom packs.</p>
-        <a href="login.html"><button>Go to Login</button></a>
-    </div>
-
-    <div id="app-interface" class="hidden">
-        <h1>Flashcard Creator</h1>
-
-        <!-- CREATION FORM -->
-        <div class="card">
-            <h2>Create New Pack</h2>
+        <!-- SELECTION INTERFACE -->
+        <div id="setup-interface" class="controls-container">
             
-            <label>Subject / Module</label>
-            <input type="text" id="deck-subject" placeholder="e.g., History (or select from existing in future)">
-            
-            <label>Topic Name</label>
-            <input type="text" id="deck-topic" placeholder="e.g., The Cold War">
+            <!-- 1. COURSE PACK -->
+            <div>
+                <label for="course-select">1. Select Course Pack</label>
+                <select id="course-select">
+                    <option value="" disabled selected>Choose a Course...</option>
+                    
+                    <!-- === YOUR JSON FILES HERE === -->
+                    <option value="geography-data.json">Geography (A Level)</option>
+                    <option value="history-data.json">History</option>
+                    <!-- ============================ -->
 
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                </select>
+            </div>
+
+            <!-- 2. SUBJECT -->
+            <div>
+                <label for="subject-select">2. Module / Subject</label>
+                <select id="subject-select" disabled>
+                    <option value="" disabled selected>Select a Module...</option>
+                </select>
+            </div>
+
+            <!-- 3. TOPIC -->
+            <div>
+                <label for="topic-select">3. Specific Topic</label>
+                <select id="topic-select" disabled>
+                    <option value="" disabled selected>Select a Topic...</option>
+                </select>
+            </div>
+
+            <button id="start-btn" class="btn-primary" disabled>Start Practicing</button>
             
-            <div id="cards-input-container">
-                <div class="input-pair">
-                    <input type="text" class="q-input" placeholder="Front (Question)">
-                    <input type="text" class="a-input" placeholder="Back (Answer)">
+            <div id="custom-msg" style="display:none; text-align: center; font-size: 0.85rem; color: var(--color-primary); margin-top: -10px;">
+                ● Loaded your custom decks
+            </div>
+        </div>
+
+        <!-- GAME INTERFACE (Hidden Initially) -->
+        <div id="game-interface">
+            <div class="flashcard-scene" id="flashcard-scene">
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-face flashcard-front">
+                        <h3 style="font-size: 0.85rem; text-transform: uppercase; color: #999; margin-bottom: 16px;">Question</h3>
+                        <div id="card-front-text" style="font-size: 1.35rem; font-weight: 500;">...</div>
+                        <p style="margin-top: auto; font-size: 0.8rem; color: #aaa;">Click card to flip</p>
+                    </div>
+                    <div class="flashcard-face flashcard-back">
+                        <h3 style="font-size: 0.85rem; text-transform: uppercase; color: #999; margin-bottom: 16px;">Answer</h3>
+                        <div id="card-back-text" style="font-size: 1.35rem; font-weight: 500;">...</div>
+                    </div>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 10px;">
-                <button id="add-card-btn" class="secondary-btn" style="flex: 1;">+ Add Card</button>
-                <button id="save-deck-btn" style="flex: 1;">Save Pack</button>
+            <div class="game-controls">
+                <button id="prev-btn" class="nav-btn">Previous</button>
+                <span id="progress-text" style="font-variant-numeric: tabular-nums; color: var(--color-text-secondary);">0 / 0</span>
+                <button id="next-btn" class="btn-primary" style="width: auto; padding: 8px 24px;">Next</button>
+            </div>
+
+            <div style="text-align: center; margin-top: 32px;">
+                <button id="quit-btn" style="background: none; border: none; color: var(--color-text-secondary); cursor: pointer; text-decoration: underline;">
+                    ← Choose a different topic
+                </button>
             </div>
         </div>
-
-        <!-- LIST OF SAVED DECKS -->
-        <div class="card">
-            <h2>Your Custom Packs</h2>
-            <div id="my-decks-list">Loading...</div>
-        </div>
-    </div>
-</div>
+    </main>
 
 <script type="module">
+    // --- FIREBASE SETUP ---
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // --- YOUR CONFIG ---
     const firebaseConfig = {
         apiKey: "AIzaSyCCSMWeYi5PX5KVXSAakUMEFXMMd7ADWm4",
         authDomain: "actiari-w.firebaseapp.com",
@@ -118,82 +238,165 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    let currentUser = null;
 
-    onAuthStateChanged(auth, (user) => {
+    // --- VARIABLES & ELEMENTS ---
+    let activeData = {}; // Holds the currently selected data (JSON + Custom)
+    let userCustomDecks = {}; // Holds just the custom decks from Database
+    let currentDeck = [];
+    let currentIndex = 0;
+
+    const courseSelect = document.getElementById('course-select');
+    const subjectSelect = document.getElementById('subject-select');
+    const topicSelect = document.getElementById('topic-select');
+    const startBtn = document.getElementById('start-btn');
+    const flashcard = document.getElementById('flashcard');
+
+    // --- 1. LOAD CUSTOM DECKS ON LOGIN ---
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
-            currentUser = user;
-            document.getElementById('login-warning').classList.add('hidden');
-            document.getElementById('app-interface').classList.remove('hidden');
-            loadUserDecks();
+            const q = query(collection(db, "decks"), where("userId", "==", user.uid));
+            const snap = await getDocs(q);
+            
+            if(!snap.empty) {
+                document.getElementById('custom-msg').style.display = 'block';
+                
+                // Process user data
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    // Default to 'Custom Packs' if they didn't type a Subject
+                    const sub = d.subject || "My Custom Packs";
+                    
+                    if(!userCustomDecks[sub]) userCustomDecks[sub] = {};
+                    userCustomDecks[sub][d.title + " *"] = d.cards;
+                });
+
+                // Add a "Just my custom decks" option to the Course Dropdown
+                const opt = document.createElement('option');
+                opt.value = "CUSTOM_ONLY";
+                opt.textContent = "My Custom Packs (Database)";
+                opt.style.fontWeight = "bold";
+                courseSelect.appendChild(opt);
+            }
         }
     });
 
-    // Add Input Fields
-    document.getElementById('add-card-btn').addEventListener('click', () => {
-        const div = document.createElement('div');
-        div.className = 'input-pair';
-        div.innerHTML = `<input type="text" class="q-input" placeholder="Question"><input type="text" class="a-input" placeholder="Answer">`;
-        document.getElementById('cards-input-container').appendChild(div);
-    });
-
-    // Save to Database
-    document.getElementById('save-deck-btn').addEventListener('click', async () => {
-        const subject = document.getElementById('deck-subject').value.trim();
-        const topic = document.getElementById('deck-topic').value.trim();
+    // --- 2. COURSE SELECTION LOGIC ---
+    courseSelect.addEventListener('change', async (e) => {
+        const val = e.target.value;
         
-        if(!subject || !topic) return alert("Please enter both a Subject and a Topic name.");
+        // Reset UI
+        activeData = {};
+        subjectSelect.innerHTML = '<option>Loading...</option>';
+        topicSelect.innerHTML = '<option>Select Topic...</option>';
+        topicSelect.disabled = true;
+        startBtn.disabled = true;
 
-        const cards = [];
-        document.querySelectorAll('.input-pair').forEach(pair => {
-            const q = pair.querySelector('.q-input').value;
-            const a = pair.querySelector('.a-input').value;
-            if(q && a) cards.push({ q, a });
-        });
+        // Scenario A: They picked "My Custom Packs"
+        if (val === "CUSTOM_ONLY") {
+            activeData = { ...userCustomDecks };
+            refreshSubjects();
+            return;
+        }
 
-        if(cards.length === 0) return alert("Add at least one card!");
-
+        // Scenario B: They picked a JSON file (Geography/History)
         try {
-            await addDoc(collection(db, "decks"), {
-                userId: currentUser.uid,
-                subject: subject, // We now save the Subject!
-                title: topic,     // "Title" is the Topic
-                cards: cards,
-                createdAt: new Date()
-            });
-            alert("Saved!");
-            location.reload();
-        } catch (e) { console.error(e); alert("Error saving"); }
+            const res = await fetch(val);
+            if(res.ok) {
+                const json = await res.json();
+                // Merge: Course JSON + User Custom Decks
+                // This ensures custom decks are ALWAYS visible even inside the Geo/History view
+                activeData = { ...json, ...userCustomDecks };
+                refreshSubjects();
+            } else {
+                // Fallback if file missing
+                alert("Could not load file: " + val);
+                activeData = { ...userCustomDecks };
+                refreshSubjects();
+            }
+        } catch (err) {
+            console.error(err);
+        }
     });
 
-    // Load Lists
-    function loadUserDecks() {
-        const list = document.getElementById('my-decks-list');
-        const q = query(collection(db, "decks"), where("userId", "==", currentUser.uid));
+    function refreshSubjects() {
+        subjectSelect.innerHTML = '<option value="" disabled selected>Select a Module...</option>';
+        subjectSelect.disabled = false;
 
-        onSnapshot(q, (snapshot) => {
-            list.innerHTML = "";
-            if(snapshot.empty) list.innerHTML = "<p>No custom packs yet.</p>";
-            
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                const div = document.createElement('div');
-                div.className = 'deck-list-item';
-                // Show Subject tag and Topic name
-                div.innerHTML = `
-                    <div>
-                        <span class="tag">${data.subject || 'Custom'}</span>
-                        <strong>${data.title}</strong> (${data.cards.length})
-                    </div>
-                    <button class="delete-btn" id="del-${docSnap.id}">Delete</button>
-                `;
-                list.appendChild(div);
-                document.getElementById(`del-${docSnap.id}`).addEventListener('click', async () => {
-                    if(confirm("Delete this pack?")) await deleteDoc(doc(db, "decks", docSnap.id));
-                });
-            });
+        // Sort subjects alphabetically
+        Object.keys(activeData).sort().forEach(subject => {
+            const opt = document.createElement('option');
+            opt.value = subject;
+            opt.textContent = subject;
+            subjectSelect.appendChild(opt);
         });
     }
+
+    // --- 3. DROPDOWN LOGIC ---
+    subjectSelect.addEventListener('change', (e) => {
+        const sub = e.target.value;
+        topicSelect.innerHTML = '<option value="" disabled selected>Select a Topic...</option>';
+        topicSelect.disabled = false;
+        
+        if(activeData[sub]) {
+            Object.keys(activeData[sub]).forEach(topic => {
+                const opt = document.createElement('option');
+                opt.value = topic;
+                opt.textContent = topic;
+                topicSelect.appendChild(opt);
+            });
+        }
+        startBtn.disabled = true;
+    });
+
+    topicSelect.addEventListener('change', () => startBtn.disabled = false);
+
+    // --- 4. GAME LOGIC ---
+    startBtn.addEventListener('click', () => {
+        currentDeck = activeData[subjectSelect.value][topicSelect.value];
+        currentIndex = 0;
+        loadCard(0);
+        
+        // Switch Views
+        document.getElementById('setup-interface').style.display = 'none';
+        document.getElementById('game-interface').style.display = 'block';
+        // Hide title/dropdowns to focus on game
+        document.querySelector('main h1').style.display = 'none'; 
+        document.querySelector('main p').style.display = 'none'; 
+    });
+
+    document.getElementById('quit-btn').addEventListener('click', () => {
+        // Reset Views
+        document.getElementById('setup-interface').style.display = 'flex';
+        document.getElementById('game-interface').style.display = 'none';
+        document.querySelector('main h1').style.display = 'block';
+        document.querySelector('main p').style.display = 'block';
+        flashcard.classList.remove('is-flipped');
+    });
+
+    function loadCard(i) {
+        flashcard.classList.remove('is-flipped');
+        // Small delay to allow flip animation to reset if needed
+        setTimeout(() => {
+            document.getElementById('card-front-text').textContent = currentDeck[i].q;
+            document.getElementById('card-back-text').textContent = currentDeck[i].a;
+            document.getElementById('progress-text').textContent = `${i+1} / ${currentDeck.length}`;
+            
+            document.getElementById('prev-btn').disabled = (i === 0);
+            document.getElementById('next-btn').disabled = (i === currentDeck.length - 1);
+        }, 200);
+    }
+
+    // Interactions
+    document.getElementById('flashcard-scene').addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
+    document.getElementById('next-btn').addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        if(currentIndex < currentDeck.length-1) loadCard(++currentIndex); 
+    });
+    document.getElementById('prev-btn').addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        if(currentIndex > 0) loadCard(--currentIndex); 
+    });
+
 </script>
 </body>
 </html>
