@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Flashcards - Actiari</title>
+    <meta name="description" content="Practice A Level and BTEC Geography flashcards. Interactive revision tool.">
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ------------------- */
+        /* --- CSS Reset & Variables (From Home Page) --- */
+        /* ------------------- */
+        :root {
+            --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+            /* Light Theme */
+            --color-background: #f8f9fa;
+            --color-surface: #ffffff;
+            --color-surface-hover: #f1f3f5;
+            --color-border: #dee2e6;
+            --color-text-primary: #212529;
+            --color-text-secondary: #495057;
+            --color-text-muted: #868e96;
+            --color-primary: #005fcc;
+            --color-primary-hover: #004ca3;
+            --color-accent: #0ca678;
+            --color-accent-hover: #087f5b;
+            --color-accent-text: #ffffff;
+        }
+
+        .dark-mode {
+            --color-background: #121212;
+            --color-surface: #1e1e1e;
+            --color-surface-hover: #2c2c2c;
+            --color-border: #333;
+            --color-text-primary: #e0e0e0;
+            --color-text-secondary: #b0b0b0;
+            --color-text-muted: #757575;
+            --color-primary: #4dabf7;
+            --color-primary-hover: #74c0fc;
+            --color-accent: #20c997;
+            --color-accent-hover: #48d8ab;
+            --color-accent-text: #121212;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-family-sans);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            transition: background-color 0.2s, color 0.2s;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main { flex-grow: 1; }
+        a { color: var(--color-primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        img, svg { max-width: 100%; display: block; }
+        input, button, select { font: inherit; }
+        :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+        /* ------------------- */
+        /* --- Layout & Components --- */
+        /* ------------------- */
+        .page-wrapper { max-width: 1400px; margin: 0 auto; padding: 0 24px; width: 100%; }
+        
+        /* --- Header --- */
+        .site-header {
+            padding: 16px 0;
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .site-header .page-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .site-header__logo img { height: 32px; width: auto; }
+        .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
+        .site-header__nav a { color: var(--color-text-secondary); font-weight: var(--font-weight-medium); transition: color 0.2s; }
+        .site-header__nav a:hover, .site-header__nav a.active { color: var(--color-primary); }
+        
+        .theme-toggle {
+            background: none; border: none; cursor: pointer; color: var(--color-text-secondary);
+            padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .theme-toggle:hover { background-color: var(--color-surface-hover); color: var(--color-text-primary); }
+        .theme-toggle svg { width: 20px; height: 20px; }
+        .theme-toggle .icon-sun { display: none; }
+        .dark-mode .theme-toggle .icon-sun { display: block; }
+        .dark-mode .theme-toggle .icon-moon { display: none; }
+
+        /* --- Page Title --- */
+        .page-title { text-align: center; margin: 48px 0 32px; }
+        .page-title h1 { font-size: 2.5rem; font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
+        .page-title p { font-size: 1.125rem; color: var(--color-text-secondary); margin-top: 8px; }
+
+        /* --- Footer --- */
+        .site-footer {
+            margin-top: 64px;
+            padding: 32px 0;
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+        .site-footer .page-wrapper { display: flex; flex-direction: column; gap: 8px; }
+
+        /* ------------------- */
+        /* --- FLASHCARD SPECIFIC STYLES --- */
+        /* ------------------- */
+        
+        /* Controls Container */
+        .controls-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background-color: var(--color-surface);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-weight: var(--font-weight-semibold); color: var(--color-text-secondary); font-size: 0.9rem; }
+        .form-select {
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 12px 24px; border-radius: var(--radius-md);
+            font-weight: var(--font-weight-medium); cursor: pointer;
+            border: none; transition: all 0.2s;
+            width: 100%;
+        }
+        .btn-primary { background-color: var(--color-primary); color: #fff; }
+        .btn-primary:hover { background-color: var(--color-primary-hover); }
+        .btn-outline { 
+            background-color: transparent; border: 1px solid var(--color-border); 
+            color: var(--color-text-secondary); 
+        }
+        .btn-outline:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+        /* Flashcard Scene */
+        #game-interface { display: none; max-width: 700px; margin: 0 auto; }
+        
+        .flashcard-scene {
+            width: 100%;
+            height: 400px;
+            perspective: 1000px; /* Gives the 3D depth */
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hides the back when facing away */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            text-align: center;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .flashcard-face h3 { 
+            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; 
+            color: var(--color-text-muted); margin-bottom: 16px;
+        }
+        .flashcard-face .content { font-size: 1.5rem; font-weight: var(--font-weight-medium); }
+
+        /* Back face specific */
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: var(--color-surface-hover); /* Slightly different color for answer */
+        }
+
+        /* Game Controls */
+        .game-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        .game-controls button { width: auto; min-width: 120px; }
+        .progress-indicator { font-size: 0.9rem; color: var(--color-text-muted); }
+
+        .back-link { display: block; margin-top: 24px; text-align: center; color: var(--color-text-muted); font-size: 0.9rem; cursor: pointer;}
+        .back-link:hover { color: var(--color-primary); text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-wrapper { padding: 0 16px; }
+            .site-header__nav { display: none; } /* Simple hiding for mobile based on original code */
+            .flashcard-scene { height: 350px; }
+            .flashcard-face .content { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="page-wrapper">
+            <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
+                <!-- Placeholder for Favicon/Logo -->
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
+            </a>
+            <nav class="site-header__nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="geography.html" class="active" aria-current="page">Geography Flashcards</a></li>
+                    <li><a href="APR.html">Past Papers</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="page-wrapper">
+        <div class="page-title">
+            <h1>Geography Flashcards</h1>
+            <p>Select a topic below to start your revision session.</p>
+        </div>
+
+        <!-- SECTION 1: Setup / Selection -->
+        <div id="setup-interface" class="controls-container">
+            <div class="form-group">
+                <label for="subject-select">Subject Module</label>
+                <select id="subject-select" class="form-select">
+                    <option value="" disabled selected>Select a Module...</option>
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="topic-select">Specific Topic</label>
+                <select id="topic-select" class="form-select" disabled>
+                    <option value="" disabled selected>Select a Topic...</option>
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+
+            <button id="start-btn" class="btn btn-primary" disabled>Start Practicing</button>
+        </div>
+
+        <!-- SECTION 2: Flashcard Game (Hidden initially) -->
+        <div id="game-interface">
+            <div class="flashcard-scene" id="flashcard-scene">
+                <div class="flashcard" id="flashcard">
+                    <!-- Front -->
+                    <div class="flashcard-face flashcard-front">
+                        <h3>Question</h3>
+                        <div class="content" id="card-front-text">...</div>
+                        <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: auto;">Click to flip</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="flashcard-face flashcard-back">
+                        <h3>Answer</h3>
+                        <div class="content" id="card-back-text">...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <button id="prev-btn" class="btn btn-outline">Previous</button>
+                <div class="progress-indicator" id="progress-text">Card 1 of 10</div>
+                <button id="next-btn" class="btn btn-primary">Next</button>
+            </div>
+
+            <div class="back-link" id="quit-btn">← Change Topic</div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="page-wrapper">
+            <p>&copy; 2025 Actiari Study Tools. All rights reserved.</p>
+            <p>Last updated: 16/11/2025 | <a href="https://github.com/actiari">GitHub</a></p>
+        </div>
+    </footer>
+
+<script>
+        // --- VARIABLES ---
+        let geographyData = {}; // Data will be loaded here
+        let currentDeck = [];
+        let currentIndex = 0;
+
+        // --- ELEMENTS ---
+        const subjectSelect = document.getElementById('subject-select');
+        const topicSelect = document.getElementById('topic-select');
+        const startBtn = document.getElementById('start-btn');
+        const setupInterface = document.getElementById('setup-interface');
+        const gameInterface = document.getElementById('game-interface');
+        
+        const flashcard = document.getElementById('flashcard');
+        const flashcardScene = document.getElementById('flashcard-scene');
+        const cardFront = document.getElementById('card-front-text');
+        const cardBack = document.getElementById('card-back-text');
+        
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const progressText = document.getElementById('progress-text');
+        const quitBtn = document.getElementById('quit-btn');
+
+        // --- 1. LOAD EXTERNAL DATA ---
+        fetch('geography-data.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                geographyData = data;
+                populateSubjects(); // Only populate dropdowns after data arrives
+            })
+            .catch(err => {
+                console.error("Could not load flashcards:", err);
+                document.querySelector('.page-title p').textContent = 
+                    "Error: Could not load geography-data.json. Please check the file exists.";
+                document.querySelector('.page-title p').style.color = "red";
+            });
+
+        // --- 2. POPULATE DROPDOWNS ---
+        function populateSubjects() {
+            // Clear existing options first (keep default)
+            subjectSelect.innerHTML = '<option value="" disabled selected>Select a Module...</option>';
+            
+            Object.keys(geographyData).forEach(subject => {
+                const option = document.createElement('option');
+                option.value = subject;
+                option.textContent = subject;
+                subjectSelect.appendChild(option);
+            });
+        }
+
+        // Handle Subject Change
+        subjectSelect.addEventListener('change', (e) => {
+            const subject = e.target.value;
+            topicSelect.innerHTML = '<option value="" disabled selected>Select a Topic...</option>';
+            topicSelect.disabled = false;
+            
+            if (subject && geographyData[subject]) {
+                Object.keys(geographyData[subject]).forEach(topic => {
+                    const option = document.createElement('option');
+                    option.value = topic;
+                    option.textContent = topic;
+                    topicSelect.appendChild(option);
+                });
+            }
+            startBtn.disabled = true;
+        });
+
+        // Handle Topic Change
+        topicSelect.addEventListener('change', () => {
+            startBtn.disabled = false;
+        });
+
+        // Start Game
+        startBtn.addEventListener('click', () => {
+            const subject = subjectSelect.value;
+            const topic = topicSelect.value;
+            
+            if(geographyData[subject] && geographyData[subject][topic]) {
+                currentDeck = geographyData[subject][topic];
+                currentIndex = 0;
+                loadCard(currentIndex);
+                
+                // Switch Views
+                setupInterface.style.display = 'none';
+                gameInterface.style.display = 'block';
+                document.querySelector('.page-title h1').textContent = topic;
+                document.querySelector('.page-title p').textContent = subject;
+                // Reset any error coloring
+                document.querySelector('.page-title p').style.color = "var(--color-text-secondary)";
+            }
+        });
+
+        // Quit / Reset
+        quitBtn.addEventListener('click', () => {
+            setupInterface.style.display = 'flex';
+            gameInterface.style.display = 'none';
+            flashcard.classList.remove('is-flipped');
+            document.querySelector('.page-title h1').textContent = 'Geography Flashcards';
+            document.querySelector('.page-title p').textContent = 'Select a topic below to start your revision session.';
+        });
+
+        // --- FLASHCARD LOGIC ---
+        
+        function loadCard(index) {
+            // Ensure card is not flipped when loading new content
+            flashcard.classList.remove('is-flipped');
+            
+            // Wait small amount if it was flipped to allow animation reset, else instant
+            setTimeout(() => {
+                const cardData = currentDeck[index];
+                cardFront.textContent = cardData.q;
+                cardBack.textContent = cardData.a;
+                progressText.textContent = `Card ${index + 1} of ${currentDeck.length}`;
+                
+                // Update button states
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === currentDeck.length - 1;
+            }, 150);
+        }
+
+        // Flip Card
+        flashcardScene.addEventListener('click', () => {
+            flashcard.classList.toggle('is-flipped');
+        });
+
+        // Controls
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < currentDeck.length - 1) {
+                currentIndex++;
+                loadCard(currentIndex);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                loadCard(currentIndex);
+            }
+        });
+
+        // --- DARK MODE LOGIC ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+            }
+            localStorage.setItem('theme', savedTheme);
+            
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isDarkMode = document.documentElement.classList.contains('dark-mode');
+                    if (isDarkMode) {
+                        document.documentElement.classList.remove('dark-mode');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark-mode');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
