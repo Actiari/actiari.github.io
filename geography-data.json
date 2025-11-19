@@ -1,20 +1,117 @@
 {
   "Physical Geography": {
-    "Coasts": [
-      { "q": "What is Hydraulic Action?", "a": "The force of water crashing against the coast." },
-      { "q": "What is Abrasion?", "a": "Rocks throwing themselves against the cliff face." }
+    "Water and Carbon Cycles": [
+      { "q": "What is the water cycle?", "a": "The continuous movement of water between stores (atmosphere, lithosphere, biosphere, hydrosphere) through processes like evaporation, condensation, precipitation, infiltration and runoff." },
+      { "q": "Define interception (in the water cycle)", "a": "Water caught and held by vegetation or other surfaces before it reaches the ground." },
+      { "q": "What is infiltration?", "a": "The process by which water enters and soaks into soil from the ground surface." },
+      { "q": "Explain throughflow", "a": "Lateral movement of water through the soil layer towards a river channel." },
+      { "q": "What is percolation?", "a": "Downward movement of water through soil and rock into the groundwater store." },
+      { "q": "Define groundwater", "a": "Water stored in the saturated zone beneath the water table in permeable rock or soil." },
+      { "q": "What is the drainage basin?", "a": "An area of land drained by a river and its tributaries; acts as an open system." },
+      { "q": "Name the inputs of a drainage basin system", "a": "Precipitation (rain, snow), cloud moisture." },
+      { "q": "Name the outputs of a drainage basin system", "a": "Evapotranspiration, river discharge (streamflow)." },
+      { "q": "Define the water balance", "a": "The balance between inputs (precipitation) and outputs (evapotranspiration + runoff) in a drainage basin." },
+      { "q": "What is a flood hydrograph?", "a": "A graph showing how a river’s discharge responds over time to a rainfall event." },
+      { "q": "What causes a flash flood hydrograph?", "a": "Short lag time, steep basin, impermeable surfaces, intense rainfall." },
+      { "q": "Define the carbon cycle", "a": "A natural system of carbon exchange between the atmosphere, biosphere, hydrosphere and lithosphere." },
+      { "q": "What is carbon sequestration?", "a": "The process of removing CO₂ from the atmosphere and storing it in a carbon sink (e.g. trees, soils, oceans)." },
+      { "q": "Explain photosynthesis in the carbon cycle", "a": "Plants take in CO₂ and convert it into organic carbon (glucose), releasing O₂." },
+      { "q": "What is respiration (in the carbon cycle)?", "a": "All organisms release CO₂ back to the atmosphere by breaking down organic carbon to release energy." },
+      { "q": "Describe decomposition", "a": "Decomposers (bacteria, fungi) break down dead organic matter and release CO₂ through respiration." },
+      { "q": "What is combustion (in the carbon cycle)?", "a": "Burning of organic material (wood, fossil fuels) which produces CO₂ and releases it into the atmosphere." },
+      { "q": "How does weathering contribute to the carbon cycle?", "a": "Chemical weathering of rocks removes CO₂ from the atmosphere and stores it in ions that flow to the ocean." },
+      { "q": "What is the carbon budget?", "a": "A balance sheet of carbon inputs and outputs in the global carbon system." },
+      { "q": "What human activities affect the carbon cycle?", "a": "Deforestation, burning fossil fuels, land-use change, cement production." }
+    ],
+    "Coastal Systems and Landscapes": [
+      { "q": "Define coastal system", "a": "A coastal area considered as a system with inputs, stores, flows/transfers, and outputs." },
+      { "q": "What are the main sources of energy in coastal environments?", "a": "Winds, waves, tides and currents." },
+      { "q": "What is a sediment cell?", "a": "A stretch of coastline where sediment is largely self-contained, with defined sources, transfers and sinks." },
+      { "q": "What is longshore drift?", "a": "The movement of sediment along a coast by wave action (swash and backwash) at an angle." },
+      { "q": "Define abrasion (corrasion)", "a": "The process of rock fragments being thrown against a cliff by waves, causing erosion." },
+      { "q": "What is hydraulic action?", "a": "The process by which waves compress air in cracks in cliffs, weakening them and causing erosion." },
+      { "q": "Explain attrition", "a": "Sediment particles collide with each other in the water and break into smaller, smoother pieces." },
+      { "q": "What is solution (in coastal erosion)?", "a": "Chemical process where acids in sea water dissolve soluble rock like limestone." },
+      { "q": "What is a constructive wave?", "a": "A wave with a strong swash, weak backwash, which builds up beaches." },
+      { "q": "What is a destructive wave?", "a": "A wave with a strong backwash, weak swash, which erodes material from the coast." },
+      { "q": "Define deposition (in coastal context)", "a": "When coast energy decreases and material is dropped, building up landforms such as beach or spit." },
+      { "q": "What is a spit?", "a": "A narrow ridge of sand or shingle attached to land at one end, formed by longshore drift." },
+      { "q": "Define a bar", "a": "A ridge of sand or shingle that runs parallel to the coastline, often connecting two headlands or enclosing a lagoon." },
+      { "q": "What is a tombolo?", "a": "A spit that has grown across to join an island to the mainland." },
+      { "q": "What is a wave-cut platform?", "a": "A flat, bench-like area formed at the foot of a cliff by wave erosion." },
+      { "q": "Explain coastal realignment (managed retreat)", "a": "A soft engineering approach where low-lying land is allowed to flood to reduce pressure on sea defenses." },
+      { "q": "What is hard engineering on coasts?", "a": "Use of physical structures like sea walls, groynes, rock armour to defend coastlines." }
     ],
     "Hazards": [
-      { "q": "What is the Focus?", "a": "The point underground where the earthquake starts." },
-      { "q": "What is the Epicentre?", "a": "The point on the surface directly above the focus." }
+      { "q": "Define a natural hazard", "a": "A potentially damaging physical event (e.g. earthquake, volcano, storm) that could cause loss of life or property." },
+      { "q": "What is hazard perception?", "a": "How different people or societies view the risk and threat posed by a hazard." },
+      { "q": "Name human responses to hazards", "a": "Prediction, adaptation, mitigation, management, risk sharing." },
+      { "q": "What is the Park Model (hazard response curve)?", "a": "A model showing phases of disaster response: before hazard, disruption, relief, rehabilitation, reconstruction." },
+      { "q": "Explain the Hazard Management Cycle", "a": "A continuous process of risk identification, risk reduction, preparedness, response, recovery and mitigation." },
+      { "q": "Describe destructive plate margin", "a": "Tectonic boundary where two plates move towards each other; one plate subducts and causes earthquakes, volcanoes." },
+      { "q": "Describe constructive plate margin", "a": "Tectonic boundary where two plates move apart; magma rises to form new crust, causes volcanoes." },
+      { "q": "What is a conservative plate margin?", "a": "A plate boundary where plates slide past each other; causes earthquakes but not volcanic activity." },
+      { "q": "Define magnitude (in terms of earthquakes)", "a": "A measure of the energy released by an earthquake, often measured by the Richter or moment magnitude scale." },
+      { "q": "What is intensity (of a hazard)?", "a": "The severity of the hazard’s effects at a specific location, often measured using the Modified Mercalli Scale." },
+      { "q": "What is risk (hazards)?", "a": "The probability of a hazard event occurring and the potential level of loss or damage." },
+      { "q": "Define resilience", "a": "The ability of a community or system to resist, absorb, accommodate and recover from a hazard." },
+      { "q": "What is mitigation (hazards)?", "a": "Actions taken to reduce or eliminate long-term risk to people and property in hazard-prone areas." },
+      { "q": "What is adaptation (hazards)?", "a": "Adjustments in human or natural systems in response to actual or expected hazard events to reduce harm." },
+      { "q": "What is a multi-hazard environment?", "a": "A region that is exposed to more than one type of natural hazard (e.g. earthquake and volcanoes)." }
     ]
   },
   "Human Geography": {
-    "Urbanisation": [
-      { "q": "Define Megacity", "a": "A city with over 10 million people." }
+    "Global Systems and Global Governance": [
+      { "q": "Define globalisation", "a": "The increasing interconnectedness of countries through economic, cultural, political, and environmental flows." },
+      { "q": "What is a transnational corporation (TNC)?", "a": "A company that operates in more than one country, often with headquarters in one and production in others." },
+      { "q": "What is the global commons?", "a": "Areas or resources that do not belong to any one nation, e.g. Antarctica, the high seas, the atmosphere." },
+      { "q": "Define global governance", "a": "The cooperation of international institutions, rules, norms and laws to manage global issues." },
+      { "q": "What is the role of the United Nations (UN) in global governance?", "a": "To provide a platform for international cooperation on peace, security, development, human rights and environmental protection." },
+      { "q": "What is the World Trade Organization (WTO)?", "a": "An international body that regulates trade rules between countries to facilitate global trade." },
+      { "q": "What is foreign direct investment (FDI)?", "a": "Investment from one country into business interests in another country, typically by a company or individual." },
+      { "q": "Explain global inequality", "a": "Unequal distribution of economic resources, power, and development opportunities between countries." },
+      { "q": "What is debt relief?", "a": "The partial or total forgiveness of debt, especially for developing countries, often to help economic development." },
+      { "q": "Define the Bretton Woods institutions", "a": "The IMF (International Monetary Fund) and World Bank, created after WWII to stabilize the global economy." },
+      { "q": "What is the IMF?", "a": "International Monetary Fund; provides financial support and advice to countries in economic crisis." },
+      { "q": "What is the World Bank?", "a": "An international financial institution that provides loans and grants to developing countries for development projects." },
+      { "q": "Define environmental governance", "a": "The management of environmental issues at global scale via international agreements, institutions and laws." }
     ],
     "Changing Places": [
-      { "q": "What is Rebranding?", "a": "Creating a new image for a location to attract investment." }
+      { "q": "What is a place (in human geography)?", "a": "A location with meaning, shaped by physical, social, economic and cultural factors." },
+      { "q": "Define endogenous factors", "a": "Internal factors that shape a place: location, topography, land use, infrastructure, demographics." },
+      { "q": "Define exogenous factors", "a": "External influences on a place: flows of people, resources, investment, ideas from other places." },
+      { "q": "What is ‘insider’ perspective on a place?", "a": "How people who live in a place perceive and experience it emotionally and socially." },
+      { "q": "What is ‘outsider’ perspective on a place?", "a": "How visitors or non-residents view a place, often influenced by media and stereotypes." },
+      { "q": "What is rebranding (in geography)?", "a": "Reimagining and redeveloping a place to change its image and attract investment." },
+      { "q": "Explain the concept of place meaning", "a": "The idea that places are associated with cultural, emotional and symbolic meanings by different groups." },
+      { "q": "What are media places?", "a": "Places as they are represented in the media – in news, TV, film, literature, images." },
+      { "q": "What are experienced places?", "a": "Places people actually live in or visit, shaping their personal and direct experiences." },
+      { "q": "Define connection (in changing places)", "a": "The flows and relationships between places (e.g. migration, investment, social networks)." },
+      { "q": "What is a place attachment?", "a": "Emotional bond between a person and a place, shaped by lived experience and memory." },
+      { "q": "What is social inequality in the context of changing places?", "a": "Differences in wealth, opportunity, and quality of life between different parts of a place." }
+    ],
+    "Contemporary Urban Environments (Urbanisation)": [
+      { "q": "What is urbanisation?", "a": "The process by which an increasing proportion of a population lives in urban areas." },
+      { "q": "Define megacity", "a": "A city with more than 10 million inhabitants." },
+      { "q": "What is suburbanisation?", "a": "The outward growth of urban areas into surrounding rural land, forming suburbs." },
+      { "q": "What is counter-urbanisation?", "a": "The movement of people from urban areas to rural or smaller urban settlements." },
+      { "q": "What is urban resurgence (or re-urbanisation)?", "a": "The process by which people move back into city centres, often through regeneration." },
+      { "q": "What are the push factors pushing people to cities?", "a": "Poverty in rural areas, lack of services, poor agriculture, conflict." },
+      { "q": "What are pull factors attracting people to cities?", "a": "Better jobs, services (health, education), infrastructure, quality of life opportunities." },
+      { "q": "Define informal economy (in urban areas)", "a": "Economic activity that is not regulated by the government and often not taxed (e.g. street vending)." },
+      { "q": "What is urban inequality?", "a": "Unequal access to services, housing, employment, and infrastructure within a city." },
+      { "q": "What is urban sustainability?", "a": "Developing cities in a way that supports long-term ecological, social and economic health." },
+      { "q": "What is green infrastructure in cities?", "a": "Networks of natural and semi-natural spaces (parks, green roofs) that deliver ecosystem services in urban areas." },
+      { "q": "Define urban climate (microclimate)", "a": "Local climate in the city, often warmer than rural areas due to urban heat island effect." },
+      { "q": "What is the urban heat island effect?", "a": "Higher temperatures in urban areas compared to rural areas due to built environment and human activities." }
+    ],
+    "Global Governance (Case-Study & Mechanisms)": [
+      { "q": "What is the Paris Agreement?", "a": "An international treaty within the UNFCCC aiming to limit global warming to well below 2°C, preferably 1.5°C." },
+      { "q": "What is the Kyoto Protocol?", "a": "An international treaty that committed state parties to reduce greenhouse gas emissions, adopted in 1997." },
+      { "q": "Define the United Nations Framework Convention on Climate Change (UNFCCC)", "a": "An international environmental treaty to stabilize greenhouse gas concentrations in the atmosphere." },
+      { "q": "What is sustainable development?", "a": "Development that meets the needs of the present without compromising the ability of future generations to meet their own needs." },
+      { "q": "What is the concept of the ‘tragedy of the commons’?", "a": "Economic theory that individuals use common resources in their own interest, depleting them, unless regulated." },
+      { "q": "What is debt-for-nature swap?", "a": "A deal where a developing country’s debt is forgiven in exchange for commitments to protect its natural environment." }
     ]
   }
 }
