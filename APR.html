@@ -3,47 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Past Papers Archive - Actiari Study Tools</title>
-    <meta name="description" content="Searchable archive of A-Level and BTEC past papers for AQA, Edexcel, and OCR. Find and download exam papers and mark schemes.">
-    <meta name="keywords" content="A Level, BTEC, Past Papers, AQA, Edexcel, OCR, Revision, Study Tools, Actiari">
+    <title>Past Papers Archive | Actiari</title>
+    <meta name="description" content="Searchable archive of A-Level and BTEC past papers.">
+    
     <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         /* ------------------- */
-        /* --- CSS Reset & Variables --- */
+        /* --- Variables --- */
         /* ------------------- */
         :root {
-            --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --font-weight-regular: 400;
-            --font-weight-medium: 500;
-            --font-weight-semibold: 600;
-            --font-weight-bold: 700;
+            /* Corporate Dark Palette */
+            --bg-body: #0d0d0d;
+            --bg-card: #141414;
+            --bg-input: #0a0a0a;
+            
+            /* Borders */
+            --border-color: #2a2a2a;
+            --border-active: #444444;
 
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 16px;
+            /* Typography */
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --text-tertiary: #666666;
 
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            /* Accent */
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
 
-            /* DARK THEME (site-wide) */
-            --color-background: #0b0f12;
-            --color-surface: #121316;
-            --color-surface-hover: #1a1d20;
-            --color-border: #222426;
-            --color-text-primary: #e6eef8;
-            --color-text-secondary: #b8c2cc;
-            --color-text-muted: #8f98a2;
-            --color-primary: #4dabf7;
-            --color-primary-hover: #74c0fc;
-            --color-accent: #20c997;
-            --color-accent-hover: #48d8ab;
-            --color-accent-text: #0b0f12;
-
-            /* Subject Colors */
+            /* Subject Colors (Kept for functionality) */
             --subject-mathematics: #3b82f6;
             --subject-physics: #8b5cf6;
             --subject-chemistry: #ec4899;
@@ -54,177 +46,173 @@
             --subject-it: #ef4444;
             --subject-business: #6b7280;
             --subject-science: #14b8a6;
+
+            /* Layout */
+            --header-height: 64px;
+            --max-width: 1200px;
         }
 
-        /* dark-mode class removed; site uses dark palette by default */
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        /* ------------------- */
+        /* --- Base Styles --- */
+        /* ------------------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            font-family: var(--font-family-sans);
-            background-color: var(--color-background);
-            color: var(--color-text-primary);
-            line-height: 1.6;
-            font-size: 16px;
-            transition: background-color 0.2s, color 0.2s;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-        main { flex-grow: 1; }
-        a { color: var(--color-primary); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        img, svg { max-width: 100%; display: block; }
-        input, button, select { font: inherit; }
-        :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        ul { list-style: none; }
+        
         .visually-hidden {
-            position: absolute; width: 1px; height: 1px;
-            padding: 0; margin: -1px; overflow: hidden;
-            clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
         }
 
         /* ------------------- */
-        /* --- Layout & Components --- */
-        /* ------------------- */
-        .page-wrapper { max-width: 1400px; margin: 0 auto; padding: 0 24px; width: 100%; }
-        
         /* --- Header --- */
+        /* ------------------- */
         .site-header {
-            padding: 16px 0;
-            background-color: #000000; /* Nav bar black */
-            border-bottom: 1px solid #222426;
-            box-shadow: var(--shadow-sm);
+            height: var(--header-height);
+            background-color: var(--bg-body);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
-        .site-header .page-wrapper { display: flex; justify-content: space-between; align-items: center; }
-        .site-header__logo { display: flex; align-items: center; justify-content: center; }
-        .site-header__logo img { height: 32px; width: auto; }
-        .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
-        .site-header__nav a { color: #4dabf7; font-weight: var(--font-weight-medium); transition: color 0.2s; }
-        .site-header__nav a:hover, .site-header__nav a[aria-current="page"] { color: #74c0fc; }
-        /* Theme toggle removed - dark-only site */
 
-        /* --- Page Title --- */
-        .page-title { text-align: center; margin: 48px 0; }
-        .page-title h1 { font-size: 2.5rem; font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
-        .page-title p { font-size: 1.125rem; color: var(--color-text-secondary); margin-top: 8px; max-width: 60ch; margin-left: auto; margin-right: auto; }
+        .header-inner {
+            width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
 
-        /* --- Controls & Filters --- */
+        .logo {
+            display: flex; align-items: center; gap: 10px;
+            font-weight: 600; font-size: 1.1rem; color: var(--text-primary);
+        }
+        .logo img { height: 24px; width: 24px; }
+
+        .nav-menu { display: flex; gap: 32px; }
+        .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+        .nav-menu a:hover, .nav-menu a[aria-current="page"] { color: var(--text-primary); }
+
+        /* ------------------- */
+        /* --- Layout --- */
+        /* ------------------- */
+        .page-wrapper {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 40px 24px;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .page-title { margin-bottom: 32px; }
+        .page-title h1 { font-size: 2rem; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+        .page-title p { color: var(--text-secondary); font-size: 1rem; max-width: 700px; }
+
+        /* ------------------- */
+        /* --- Controls --- */
+        /* ------------------- */
         .controls-container {
-            background-color: var(--color-surface);
-            border-radius: var(--radius-md);
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             padding: 24px;
             margin-bottom: 32px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--color-border);
         }
-        .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .filter-group { display: flex; flex-direction: column; }
-        .filter-group label { font-weight: var(--font-weight-medium); color: var(--color-text-secondary); margin-bottom: 8px; font-size: 0.9rem; }
-        .filter-group select, .filter-group input {
-            width: 100%; padding: 10px 12px;
-            border: 1px solid var(--color-border);
-            border-radius: 0;
-            background-color: var(--color-background);
-            color: var(--color-text-primary);
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .filter-group select:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .filter-group select:focus, .filter-group input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 25%, transparent); }
-        .controls-actions { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
-        .clear-filters-btn {
-            padding: 10px 20px; background-color: transparent;
-            border: 1px solid var(--color-border); color: var(--color-text-secondary);
-            border-radius: var(--radius-md); cursor: pointer; font-weight: var(--font-weight-medium);
-            transition: all 0.2s;
-        }
-        .clear-filters-btn:hover { background-color: var(--color-surface-hover); border-color: var(--color-text-muted); color: var(--color-text-primary); }
 
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        select:focus { outline: none; border-color: var(--accent-color); }
+        select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Active Filters Chips */
         .active-filters { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
         .filter-chip {
-            display: inline-flex; align-items: center; gap: 6px;
-            background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
-            color: var(--color-primary);
-            padding: 4px 10px;
-            border-radius: var(--radius-lg);
-            font-size: 0.875rem;
-            font-weight: var(--font-weight-medium);
+            display: inline-flex; align-items: center; gap: 8px;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
         .filter-chip button {
-            background: none; border: none; cursor: pointer; color: inherit;
-            padding: 2px; margin: -2px; display: flex; align-items: center;
-            border-radius: 50%;
+            background: none; border: none; cursor: pointer; color: var(--text-secondary);
+            display: flex; align-items: center; padding: 0;
         }
-        .filter-chip button:hover { background-color: color-mix(in srgb, var(--color-primary) 20%, transparent); }
+        .filter-chip button:hover { color: var(--color-error, #ef4444); }
         .filter-chip svg { width: 14px; height: 14px; }
-        
-        .results-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
-        #results-count { color: var(--color-text-secondary); font-weight: var(--font-weight-medium); }
-        .sort-view-controls { display: flex; align-items: center; gap: 16px; }
-        .sort-view-controls select {
-             padding: 8px 12px;
-             border: 1px solid var(--color-border); border-radius: var(--radius-md);
-             background-color: var(--color-surface); color: var(--color-text-primary);
+
+        .controls-actions { margin-top: 24px; }
+        .clear-filters-btn {
+            background: transparent; border: 1px solid var(--border-color);
+            color: var(--text-secondary); padding: 8px 16px; border-radius: 4px;
+            cursor: pointer; font-size: 0.85rem; transition: all 0.2s;
         }
-        
-        /* --- Results Grid & Cards --- */
+        .clear-filters-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
+
+        /* ------------------- */
+        /* --- Results --- */
+        /* ------------------- */
+        .results-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 24px; border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+        }
+        #results-count { color: var(--text-secondary); font-size: 0.9rem; }
+
         #results-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 24px;
         }
-        .paper-card {
-            background-color: var(--color-surface);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
-            box-shadow: var(--shadow-sm);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .paper-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-        .card-header__info h2 { font-size: 1.125rem; font-weight: var(--font-weight-semibold); margin-bottom: 4px; }
-        .card-header__info p { color: var(--color-text-secondary); font-size: 0.9rem; }
-        .card-year {
-            font-size: 1.75rem;
-            font-weight: var(--font-weight-bold);
-            color: var(--color-primary);
-            line-height: 1;
-        }
-        .card-body p { margin-bottom: 20px; font-size: 1rem; color: var(--color-text-primary); }
-        .card-footer { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
-        .card-link {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px; border-radius: var(--radius-md);
-            font-weight: var(--font-weight-medium);
-            text-align: center;
-            transition: background-color 0.2s, color 0.2s;
-        }
-        .card-link svg { width: 18px; height: 18px; }
-        .card-link--paper { background-color: var(--color-accent); color: var(--color-accent-text); }
-        .card-link--paper:hover { background-color: var(--color-accent-hover); text-decoration: none; }
-        .card-link--ms { border: 1px solid var(--color-accent); color: var(--color-accent); }
-        .card-link--ms:hover { background-color: color-mix(in srgb, var(--color-accent) 10%, transparent); text-decoration: none; }
-        .card-link--disabled {
-            background-color: var(--color-surface-hover);
-            color: var(--color-text-muted);
-            border: 1px solid var(--color-border);
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-        .card-link--disabled:hover { background-color: var(--color-surface-hover); }
 
-        /* --- Subject Color Coding --- */
+        /* Card Styling */
         .paper-card {
-            border-left: 4px solid #ccc;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 24px;
+            display: flex; flex-direction: column;
+            transition: border-color 0.2s, transform 0.2s;
+            border-left: 4px solid #444; /* Default border color */
         }
+        .paper-card:hover { border-color: var(--border-active); transform: translateY(-2px); }
+
+        /* Subject Colors */
         .paper-card.subject-mathematics { border-left-color: var(--subject-mathematics); }
         .paper-card.subject-physics { border-left-color: var(--subject-physics); }
         .paper-card.subject-chemistry { border-left-color: var(--subject-chemistry); }
@@ -236,85 +224,96 @@
         .paper-card.subject-business-studies { border-left-color: var(--subject-business); }
         .paper-card.subject-applied-science { border-left-color: var(--subject-science); }
 
-        .card-header__info h2 {
-            color: var(--color-text-primary);
-        }
-        .paper-card.subject-mathematics .card-header__info h2 { color: var(--subject-mathematics); }
-        .paper-card.subject-physics .card-header__info h2 { color: var(--subject-physics); }
-        .paper-card.subject-chemistry .card-header__info h2 { color: var(--subject-chemistry); }
-        .paper-card.subject-biology .card-header__info h2 { color: var(--subject-biology); }
-        .paper-card.subject-english-language .card-header__info h2 { color: var(--subject-english); }
-        .paper-card.subject-geography .card-header__info h2 { color: var(--subject-geography); }
-        .paper-card.subject-core-maths .card-header__info h2 { color: var(--subject-coremaths); }
-        .paper-card.subject-information-technology .card-header__info h2 { color: var(--subject-it); }
-        .paper-card.subject-business-studies .card-header__info h2 { color: var(--subject-business); }
-        .paper-card.subject-applied-science .card-header__info h2 { color: var(--subject-science); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .card-header__info h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; color: var(--text-primary); }
+        .card-header__info p { color: var(--text-secondary); font-size: 0.85rem; }
+        .card-year { font-size: 1.5rem; font-weight: 700; color: var(--text-tertiary); line-height: 1; }
 
-        /* --- Disclaimer Box --- */
+        .card-body { flex-grow: 1; margin-bottom: 24px; }
+        .card-body p { font-size: 0.95rem; color: var(--text-secondary); }
+
+        .card-footer { display: flex; flex-direction: column; gap: 10px; }
+        
+        .card-link {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px; border-radius: 4px; font-size: 0.9rem; font-weight: 500;
+            text-align: center; transition: all 0.2s;
+        }
+        .card-link svg { width: 16px; height: 16px; }
+
+        /* Primary Button (Question Paper) */
+        .card-link--paper {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        .card-link--paper:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-body);
+            border-color: var(--text-primary);
+        }
+
+        /* Secondary Button (Mark Scheme) */
+        .card-link--ms {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        .card-link--ms:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        .card-link--disabled {
+            opacity: 0.5; cursor: not-allowed;
+            border: 1px solid var(--border-color); color: var(--text-tertiary);
+        }
+
+        /* Disclaimer */
         .disclaimer-box {
-            background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
-            border: 1px solid var(--color-accent);
-            border-radius: var(--radius-md);
-            padding: 16px 20px;
-            margin-bottom: 32px;
-            font-size: 0.95rem;
-            color: var(--color-text-secondary);
+            background-color: rgba(37, 99, 235, 0.1); /* Low opacity accent */
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 4px; padding: 12px 16px; margin-bottom: 32px;
+            font-size: 0.9rem; color: var(--text-secondary);
         }
-        .disclaimer-box a {
-            color: var(--color-accent);
-            font-weight: var(--font-weight-medium);
-        }
-        .disclaimer-box a:hover { color: var(--color-accent-hover); }
+        .disclaimer-box a { color: var(--accent-color); font-weight: 500; }
 
-        /* --- No Results Message --- */
+        /* No Results */
         .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 64px 24px;
-            background-color: var(--color-surface);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
+            grid-column: 1 / -1; text-align: center; padding: 64px 0;
+            color: var(--text-secondary);
         }
-        .no-results h3 { font-size: 1.5rem; margin-bottom: 8px; }
-        .no-results p { color: var(--color-text-secondary); }
 
+        /* ------------------- */
         /* --- Footer --- */
+        /* ------------------- */
         .site-footer {
-            margin-top: 64px;
-            padding: 32px 0;
-            background-color: var(--color-surface);
-            border-top: 1px solid var(--color-border);
-            text-align: center;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0; margin-top: auto;
+            color: var(--text-tertiary); font-size: 0.85rem; text-align: center;
+            background-color: var(--bg-body);
         }
-        .site-footer .page-wrapper { display: flex; flex-direction: column; gap: 8px; }
-        .site-footer a { color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
+        .site-footer a { color: var(--text-secondary); margin-left: 10px; }
+        .site-footer a:hover { color: var(--text-primary); }
 
-        /* ------------------- */
-        /* --- Responsive Design --- */
-        /* ------------------- */
+        /* Mobile */
         @media (max-width: 768px) {
-            .page-wrapper { padding: 0 16px; }
-            .page-title { margin: 32px 0; }
-            .page-title h1 { font-size: 2rem; }
+            .nav-menu { display: none; }
             .filters { grid-template-columns: 1fr; }
-            .results-header { flex-direction: column; align-items: stretch; }
-            #results-container { grid-template-columns: 1fr; }
-            .site-header__nav { display: none; /* Simplified for this example, would use JS toggle for real app */ }
         }
     </style>
 </head>
 <body>
 
-    <header class="site-header" style="background:#000000; border-bottom:1px solid #222426; padding:12px 0;">
-        <div class="page-wrapper" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
-            <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
-                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari">
+                Actiari
             </a>
-            <nav class="site-header__nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Overview</a></li>
                     <li><a href="APR.html" aria-current="page">Past Papers</a></li>
                     <li><a href="FLASH.html">Flashcards</a></li>
                     <li><a href="login.html">Login</a></li>
@@ -325,19 +324,18 @@
 
     <main class="page-wrapper">
         <div class="page-title">
-            <h1>Past Papers Archive</h1>
-            <p>Filter by exam board, qualification, subject, and year to find the revision materials you need.</p>
+            <h1>Archive</h1>
+            <p>Filter by exam board, qualification, subject, and year to find revision materials.</p>
         </div>
 
         <div class="disclaimer-box">
-            <p><strong>Note:</strong> Some links may be broken or outdated. If you encounter any issues, please report them to <a href="mailto:actiari@gmail.com">actiari@gmail.com</a>.</p>
+            <p><strong>Note:</strong> Some links may be outdated. Report issues to <a href="mailto:actiari@gmail.com">actiari@gmail.com</a>.</p>
         </div>
 
-        <section class="controls-container" aria-labelledby="controls-heading">
-            <h2 id="controls-heading" class="visually-hidden">Filter and Sort Controls</h2>
+        <section class="controls-container">
             <div class="filters">
                 <div class="filter-group">
-                    <label for="filter-qualification">Qualification Type</label>
+                    <label for="filter-qualification">Qualification</label>
                     <select id="filter-qualification">
                         <option value="all">All Qualifications</option>
                     </select>
@@ -363,26 +361,25 @@
             </div>
             <div id="active-filters-container" class="active-filters"></div>
             <div class="controls-actions">
-                <button id="clear-filters-btn" class="clear-filters-btn">Clear All Filters</button>
+                <button id="clear-filters-btn" class="clear-filters-btn">Reset Filters</button>
             </div>
         </section>
 
-        <section aria-labelledby="results-heading">
+        <section>
             <div class="results-header">
-                <h2 id="results-heading" class="visually-hidden">Exam Paper Results</h2>
+                <h2 class="visually-hidden">Results</h2>
                 <div id="results-count"></div>
             </div>
             <div id="results-container">
-                <!-- Paper cards will be dynamically inserted here -->
+                <!-- Results injected here -->
             </div>
         </section>
 
     </main>
     
     <footer class="site-footer">
-        <div class="page-wrapper">
-            <p>&copy; 2025 Actiari Study Tools. All rights reserved.</p>
-            <p>Last updated: 16/11/2025 | <a href="https://github.com/actiari">GitHub</a></p>
+        <div class="page-wrapper" style="padding:0;">
+            <p>&copy; 2025 Actiari Study Tools. | <a href="https://github.com/actiari">GitHub</a></p>
         </div>
     </footer>
 
@@ -390,39 +387,25 @@
     (function() {
         'use strict';
 
-        // ------------------- */
-        // --- DATA SOURCE --- */
-        // ------------------- */
-        // INSTRUCTIONS: To add more papers, add a new object to the `pastPapersData` array below.
-        // - `id`: A unique number for each entry.
-        // - `examBoard`: 'AQA', 'Edexcel', 'OCR A', etc.
-        // - `qualification`: 'A-Level', 'AS-Level', 'BTEC'.
-        // - `subject`: The name of the subject, e.g., 'Geography', 'Mathematics'.
-        // - `year`: The numerical year of the exam.
-        // - `session`: A descriptive string like 'June 2022' or 'October 2021'.
-        // - `paperTitle`: The specific title of the paper, e.g., 'Paper 1: Physical Geography'.
-        // - `paperUrl`: The relative or absolute URL to the question paper PDF. Use `null` if not available.
-        // - `markSchemeUrl`: URL to the mark scheme. Use `null` if not available.
-        // - `insertUrl`: URL to any insert/resource booklet. Use `null` if not applicable.
-        //
-        // NOTE: This data has been parsed from the CSV files provided.
+        // DATA SOURCE
+        // Note: Qualification for Core Maths (IDs 1-16) updated to 'AS-Level' per request.
         const pastPapersData = [
-          {id: 1, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2023, session: 'June 2023', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/26c376e03975e18c6406b05d4f6029cea9abc213.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/245cf95db0926ef5033cced5ab42143d517703a9.pdf', insertUrl: null},
-          {id: 2, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2023, session: 'June 2023', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/83c20f4ee3c3403e0d5b59710c5fafde1edce5d0.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/5f05e930a9de47281f4d0b3ef228f906e77536d4.pdf', insertUrl: null},
-          {id: 3, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2022, session: 'June 2022', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/2ef66817d96c156ac0a431ae7ad0d586e47929e6.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/fe7818ff2c33ee804af8b10a8ad92413923a978c.pdf', insertUrl: null},
-          {id: 4, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2022, session: 'June 2022', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/3c6cf5a618f6d9c9cdf75b8145fb9e324e743f62.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/e724a08d7610240093d64fbd7353aa9d583c0480.pdf', insertUrl: null},
-          {id: 5, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2021, session: 'November 2021', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/ac199d85bece79379c630ff77b625cf5ddd26deb.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/b09cbe547ee9acb6194ce5c4158ba61a0fb1f49f.pdf', insertUrl: null},
-          {id: 6, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2021, session: 'November 2021', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/c6696e21546fe30679fc23c6f503a679bbce663e.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/ef2856793e250e2ee2cf59386d753897db702784.pdf', insertUrl: null},
-          {id: 7, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2019, session: 'June 2019', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/11321dcc8a22468f231e98e4e113d70cc1581724.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/f32297b3acfc64f88b2c8921ebba5b9d7b557d83.pdf', insertUrl: null},
-          {id: 8, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2019, session: 'June 2019', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/0ad7098dcc7262d0b887167718dc7482753c8d8e.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/ba745c736675ebb646e2d81d0aaab4b98652d751.pdf', insertUrl: null},
-          {id: 9, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2018, session: 'June 2018', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/abf970e8c6c5ed9addb1efa669099493af425d47.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/61f95a377babe3447b209b92c761399f46af8aea.pdf', insertUrl: null},
-          {id: 10, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2018, session: 'June 2018', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/348419a4992da04adb5ae238ae89817d64afe2b9.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/269a683c55fd84e83246134ab996cbe602470a58.pdf', insertUrl: null},
-          {id: 11, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2017, session: 'June 2017', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/f87f8f75cccf47d74be94870488cd132fea8ea5a.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/acfbcc102592d42c0d8903b2772ecc7ee5940172.pdf', insertUrl: null},
-          {id: 12, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2017, session: 'June 2017', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/d7dc9c6b7757220c1f9f04ba8537c88c534ec936.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/58c0c56a4eb094da19826041f168a7bac3d976de.pdf', insertUrl: null},
-          {id: 13, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2016, session: 'June 2016', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/f4048bad85588274deee6a13bcb4c025109f168b.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/8eb3c2a7bcd1c88b07a5c9a1a6d5f47ace92ba57.pdf', insertUrl: null},
-          {id: 14, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2016, session: 'June 2016', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/0619cedee0e39209c3744c2ec4cad45bcd35a42c.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/4bae7763afaacdffcf0cb7ba5d679405dbf821d3.pdf', insertUrl: null},
-          {id: 15, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2015, session: 'Sample Set', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/43eadbf36e0442fab953c899b8dc9ea1ffd76597.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/e6d8d3dc9f9751ae243159b708edd5db8097d5be.pdf', insertUrl: null},
-          {id: 16, examBoard: 'AQA', qualification: 'A-Level', subject: 'Core Maths', year: 2015, session: 'Sample Set', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/69ab88dee6a849ef05f7b3bb74b5f8d2d431c1c8.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/f1bd61254c97c17df64b437b34351e3e60470dac.pdf', insertUrl: null},
+          {id: 1, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2023, session: 'June 2023', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/26c376e03975e18c6406b05d4f6029cea9abc213.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/245cf95db0926ef5033cced5ab42143d517703a9.pdf', insertUrl: null},
+          {id: 2, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2023, session: 'June 2023', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/83c20f4ee3c3403e0d5b59710c5fafde1edce5d0.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/5f05e930a9de47281f4d0b3ef228f906e77536d4.pdf', insertUrl: null},
+          {id: 3, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2022, session: 'June 2022', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/2ef66817d96c156ac0a431ae7ad0d586e47929e6.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/fe7818ff2c33ee804af8b10a8ad92413923a978c.pdf', insertUrl: null},
+          {id: 4, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2022, session: 'June 2022', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/3c6cf5a618f6d9c9cdf75b8145fb9e324e743f62.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/e724a08d7610240093d64fbd7353aa9d583c0480.pdf', insertUrl: null},
+          {id: 5, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2021, session: 'November 2021', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/ac199d85bece79379c630ff77b625cf5ddd26deb.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/b09cbe547ee9acb6194ce5c4158ba61a0fb1f49f.pdf', insertUrl: null},
+          {id: 6, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2021, session: 'November 2021', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/c6696e21546fe30679fc23c6f503a679bbce663e.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/ef2856793e250e2ee2cf59386d753897db702784.pdf', insertUrl: null},
+          {id: 7, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2019, session: 'June 2019', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/11321dcc8a22468f231e98e4e113d70cc1581724.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/f32297b3acfc64f88b2c8921ebba5b9d7b557d83.pdf', insertUrl: null},
+          {id: 8, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2019, session: 'June 2019', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/0ad7098dcc7262d0b887167718dc7482753c8d8e.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/ba745c736675ebb646e2d81d0aaab4b98652d751.pdf', insertUrl: null},
+          {id: 9, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2018, session: 'June 2018', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/abf970e8c6c5ed9addb1efa669099493af425d47.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/61f95a377babe3447b209b92c761399f46af8aea.pdf', insertUrl: null},
+          {id: 10, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2018, session: 'June 2018', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/348419a4992da04adb5ae238ae89817d64afe2b9.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/269a683c55fd84e83246134ab996cbe602470a58.pdf', insertUrl: null},
+          {id: 11, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2017, session: 'June 2017', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/f87f8f75cccf47d74be94870488cd132fea8ea5a.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/acfbcc102592d42c0d8903b2772ecc7ee5940172.pdf', insertUrl: null},
+          {id: 12, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2017, session: 'June 2017', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/d7dc9c6b7757220c1f9f04ba8537c88c534ec936.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/58c0c56a4eb094da19826041f168a7bac3d976de.pdf', insertUrl: null},
+          {id: 13, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2016, session: 'June 2016', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/f4048bad85588274deee6a13bcb4c025109f168b.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/8eb3c2a7bcd1c88b07a5c9a1a6d5f47ace92ba57.pdf', insertUrl: null},
+          {id: 14, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2016, session: 'June 2016', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/0619cedee0e39209c3744c2ec4cad45bcd35a42c.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/4bae7763afaacdffcf0cb7ba5d679405dbf821d3.pdf', insertUrl: null},
+          {id: 15, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2015, session: 'Sample Set', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/43eadbf36e0442fab953c899b8dc9ea1ffd76597.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/e6d8d3dc9f9751ae243159b708edd5db8097d5be.pdf', insertUrl: null},
+          {id: 16, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2015, session: 'Sample Set', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/69ab88dee6a849ef05f7b3bb74b5f8d2d431c1c8.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/f1bd61254c97c17df64b437b34351e3e60470dac.pdf', insertUrl: null},
           {id: 17, examBoard: 'AQA', qualification: 'A-Level', subject: 'English Language', year: 2023, session: 'June 2023', paperTitle: 'Paper 1 - Language, the Individual & Society', paperUrl: 'https://mmerevise.co.uk/app/uploads/2024/07/AQA-A-Level-Eng-Lang-JUN23-QP1.pdf', markSchemeUrl: 'https://mmerevise.co.uk/app/uploads/2024/07/AQA-A-Level-Eng-Lang-JUN23-MS1.pdf', insertUrl: 'https://mmerevise.co.uk/app/uploads/2024/07/AQA-A-Level-Eng-Lang-JUN23-INS1.pdf'},
           {id: 18, examBoard: 'AQA', qualification: 'A-Level', subject: 'English Language', year: 2023, session: 'June 2023', paperTitle: 'Paper 2 - Language Diversity & Change', paperUrl: 'https://mmerevise.co.uk/app/uploads/2024/07/AQA-A-Level-Eng-Lang-JUN23-QP2.pdf', markSchemeUrl: 'https://mmerevise.co.uk/app/uploads/2024/07/AQA-A-Level-Eng-Lang-JUN23-MS2.pdf', insertUrl: 'https://mmerevise.co.uk/app/uploads/2024/07/AQA-A-Level-Eng-Lang-JUN23-INS2.pdf'},
           {id: 19, examBoard: 'AQA', qualification: 'A-Level', subject: 'English Language', year: 2022, session: 'June 2022', paperTitle: 'Paper 1 - Language, the Individual & Society', paperUrl: 'https://mmerevise.co.uk/app/uploads/2023/08/AQA-A-Level-English-Language-Paper-1-June-2022.pdf', markSchemeUrl: 'https://mmerevise.co.uk/app/uploads/2023/08/AQA-A-Level-English-Language-Paper-1-June-2022-Mark-Scheme.pdf', insertUrl: 'https://mmerevise.co.uk/app/uploads/2023/08/AQA-A-Level-English-Language-Paper-1-June-2022-Insert.pdf'},
@@ -637,18 +620,19 @@
         };
 
         // Define the filter hierarchy and relationships
+        // Chemistry removed from AQA as requested.
         const filterHierarchy = {
             'A-Level': {
                 boards: ['AQA', 'OCR A'],
                 subjects: {
-                    'AQA': ['Chemistry', 'English Language', 'Geography', 'Mathematics'],
+                    'AQA': ['English Language', 'Geography', 'Mathematics'],
                     'OCR A': ['Chemistry', 'Physics']
                 }
             },
             'AS-Level': {
                 boards: ['AQA', 'OCR A'],
                 subjects: {
-                    'AQA': ['Chemistry', 'English Language', 'Geography', 'Mathematics', 'Core Maths'],
+                    'AQA': ['Core Maths', 'English Language', 'Geography', 'Mathematics'],
                     'OCR A': ['Chemistry', 'Physics']
                 }
             },
@@ -660,30 +644,17 @@
             }
         };
 
-        // --- Functions ---
-        
-        // Theme toggle removed — site runs dark-only
-
         // Populate Filter Dropdowns with cascading logic
         function populateFilters() {
-            const getUniqueValues = (key) => [...new Set(pastPapersData.map(item => item[key]))].sort();
-            
-            // Get unique qualifications from hierarchy
             const qualifications = Object.keys(filterHierarchy);
-
-            const populate = (el, values) => {
-                values.forEach(value => {
-                    const option = document.createElement('option');
-                    option.value = value;
-                    option.textContent = value;
-                    el.appendChild(option);
-                });
-            };
-
-            populate(filterQualEl, qualifications);
+            qualifications.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                filterQualEl.appendChild(option);
+            });
         }
 
-        // Update exam board options based on qualification selection
         function updateExamBoardOptions() {
             const qual = state.filters.qualification;
             filterBoardEl.innerHTML = '<option value="all">All Boards</option>';
@@ -701,7 +672,6 @@
             }
         }
 
-        // Update subject options based on qualification and exam board selection
         function updateSubjectOptions() {
             const qual = state.filters.qualification;
             const board = state.filters.examBoard;
@@ -720,7 +690,6 @@
             }
         }
 
-        // Update year options based on all previous selections
         function updateYearOptions() {
             const qual = state.filters.qualification;
             const board = state.filters.examBoard;
@@ -777,7 +746,7 @@
             filteredData.sort((a, b) => b.year - a.year);
             
             // 3. Update results count
-            resultsCountEl.textContent = `Showing ${filteredData.length} of ${pastPapersData.length} results`;
+            resultsCountEl.textContent = `Found ${filteredData.length} items`;
 
             // 4. Render HTML
             resultsContainer.innerHTML = ''; // Clear previous results
@@ -785,7 +754,7 @@
                 resultsContainer.innerHTML = `
                     <div class="no-results">
                         <h3>No Papers Found</h3>
-                        <p>Try adjusting your filters or click "Clear All Filters" to start over.</p>
+                        <p>Try adjusting your filters or click "Reset Filters" to start over.</p>
                     </div>
                 `;
                 return;
@@ -794,7 +763,6 @@
             const fragment = document.createDocumentFragment();
             filteredData.forEach(paper => {
                 const card = document.createElement('article');
-                // Convert subject name to CSS class name
                 const subjectClass = 'subject-' + paper.subject.toLowerCase().replace(/\s+/g, '-');
                 card.className = 'paper-card ' + subjectClass;
                 card.innerHTML = `
@@ -810,16 +778,16 @@
                     </div>
                     <footer class="card-footer">
                         <a href="${paper.paperUrl}" class="card-link card-link--paper" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                             <span>Question Paper</span>
                         </a>
                         ${paper.markSchemeUrl 
                             ? `<a href="${paper.markSchemeUrl}" class="card-link card-link--ms" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><polyline points="9 15 11 17 15 13"></polyline></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><polyline points="9 15 11 17 15 13"></polyline></svg>
                                 <span>Mark Scheme</span>
                                </a>` 
                             : `<div class="card-link card-link--disabled">
-                                <span>Mark Scheme Not Available</span>
+                                <span>Mark Scheme Missing</span>
                                </div>`
                         }
                     </footer>
@@ -835,11 +803,13 @@
                 if (value !== 'all') {
                     const chip = document.createElement('div');
                     chip.className = 'filter-chip';
-                    const label = document.querySelector(`label[for="filter-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}"]`).textContent;
+                    // Simple label mapping
+                    const labels = { qualification: 'Qual', examBoard: 'Board', subject: 'Subject', year: 'Year' };
+                    
                     chip.innerHTML = `
-                        <span>${label}: ${value}</span>
-                        <button data-filter-key="${key}" aria-label="Remove ${label} filter">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <span>${labels[key]}: ${value}</span>
+                        <button data-filter-key="${key}" aria-label="Remove filter">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                         </button>
                     `;
                     activeFiltersContainer.appendChild(chip);
@@ -861,17 +831,14 @@
 
         function loadStateFromURL() {
             const params = new URLSearchParams(window.location.search);
-            const newState = {
-                filters: {
-                    qualification: params.get('qualification') || 'all',
-                    examBoard: params.get('examBoard') || 'all',
-                    subject: params.get('subject') || 'all',
-                    year: params.get('year') || 'all'
-                }
+            state.filters = {
+                qualification: params.get('qualification') || 'all',
+                examBoard: params.get('examBoard') || 'all',
+                subject: params.get('subject') || 'all',
+                year: params.get('year') || 'all'
             };
-            state = newState;
             
-            // Update UI controls to match state and cascade updates
+            // Sync UI
             filterQualEl.value = state.filters.qualification;
             updateExamBoardOptions();
             if (state.filters.qualification !== 'all') {
@@ -889,21 +856,21 @@
 
         // Event Handlers
         function handleFilterChange(e) {
-            const changedFilter = e.target.id.replace('filter-', '');
+            const id = e.target.id;
             
-            if (changedFilter === 'qualification') {
+            if (id === 'filter-qualification') {
                 state.filters.qualification = filterQualEl.value;
                 updateExamBoardOptions();
                 updateSubjectOptions();
                 updateYearOptions();
-            } else if (changedFilter === 'exam-board') {
+            } else if (id === 'filter-exam-board') {
                 state.filters.examBoard = filterBoardEl.value;
                 updateSubjectOptions();
                 updateYearOptions();
-            } else if (changedFilter === 'subject') {
+            } else if (id === 'filter-subject') {
                 state.filters.subject = filterSubjectEl.value;
                 updateYearOptions();
-            } else if (changedFilter === 'year') {
+            } else if (id === 'filter-year') {
                 state.filters.year = filterYearEl.value;
             }
             
@@ -912,15 +879,16 @@
 
         function handleClearFilters() {
             state.filters = { qualification: 'all', examBoard: 'all', subject: 'all', year: 'all' };
-            // Reset UI
+            
             filterQualEl.value = 'all';
             filterBoardEl.value = 'all';
             filterSubjectEl.value = 'all';
             filterYearEl.value = 'all';
-            // Reset disabled states
+            
             filterBoardEl.disabled = true;
             filterSubjectEl.disabled = true;
             filterYearEl.disabled = true;
+            
             renderAll();
         }
 
@@ -929,41 +897,23 @@
             if (button) {
                 const key = button.dataset.filterKey;
                 
-                // Cascade reset based on which filter is removed
-                if (key === 'qualification') {
-                    state.filters = { qualification: 'all', examBoard: 'all', subject: 'all', year: 'all' };
-                    filterQualEl.value = 'all';
-                    filterBoardEl.value = 'all';
-                    filterSubjectEl.value = 'all';
-                    filterYearEl.value = 'all';
-                    filterBoardEl.disabled = true;
-                    filterSubjectEl.disabled = true;
-                    filterYearEl.disabled = true;
-                } else if (key === 'examBoard') {
-                    state.filters.examBoard = 'all';
-                    state.filters.subject = 'all';
-                    state.filters.year = 'all';
-                    filterBoardEl.value = 'all';
-                    filterSubjectEl.value = 'all';
-                    filterYearEl.value = 'all';
-                    updateSubjectOptions();
-                    updateYearOptions();
+                if (key === 'qualification') handleClearFilters(); 
+                else if (key === 'examBoard') {
+                    state.filters.examBoard = 'all'; state.filters.subject = 'all'; state.filters.year = 'all';
+                    filterBoardEl.value = 'all'; filterSubjectEl.value = 'all'; filterYearEl.value = 'all';
+                    updateSubjectOptions(); updateYearOptions();
                 } else if (key === 'subject') {
-                    state.filters.subject = 'all';
-                    state.filters.year = 'all';
-                    filterSubjectEl.value = 'all';
-                    filterYearEl.value = 'all';
+                    state.filters.subject = 'all'; state.filters.year = 'all';
+                    filterSubjectEl.value = 'all'; filterYearEl.value = 'all';
                     updateYearOptions();
                 } else if (key === 'year') {
                     state.filters.year = 'all';
                     filterYearEl.value = 'all';
                 }
-                
                 renderAll();
             }
         }
 
-        // Master render function
         function renderAll() {
             renderResults();
             renderActiveFilters();
@@ -972,16 +922,10 @@
 
         // Initialization
         function init() {
-            // Site is dark-only; theme toggling removed.
-
-            // Populate filters and load state
             populateFilters();
             loadStateFromURL();
-
-            // Initial render
             renderAll();
 
-            // Attach event listeners
             filterQualEl.addEventListener('change', handleFilterChange);
             filterBoardEl.addEventListener('change', handleFilterChange);
             filterSubjectEl.addEventListener('change', handleFilterChange);
@@ -989,14 +933,12 @@
             clearFiltersBtn.addEventListener('click', handleClearFilters);
             activeFiltersContainer.addEventListener('click', handleRemoveChip);
 
-            // Handle browser back/forward buttons
             window.addEventListener('popstate', () => {
                 loadStateFromURL();
                 renderAll();
             });
         }
 
-        // Run on page load
         document.addEventListener('DOMContentLoaded', init);
 
     })();

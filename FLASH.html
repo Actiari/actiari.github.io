@@ -3,150 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revision Flashcards - Actiari</title>
+    <title>Revision Flashcards | Actiari</title>
+    
     <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
+        /* ------------------- */
+        /* --- Variables --- */
+        /* ------------------- */
         :root {
-            --font-family-sans: 'Inter', sans-serif;
-            --color-background: #0b0f12;
-            --color-surface: #121316;
-            --color-surface-hover: #1a1d20;
-            --color-border: #222426;
-            --color-text-primary: #e6eef8;
-            --color-text-secondary: #b8c2cc;
-            --color-primary: #4dabf7; /* Blue */
-            --radius-md: 8px;
+            /* Corporate Dark Palette */
+            --bg-body: #0d0d0d;
+            --bg-card: #141414;
+            --bg-input: #0a0a0a;
+            
+            /* Borders */
+            --border-color: #2a2a2a;
+            --border-active: #444444;
+
+            /* Typography */
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --text-tertiary: #666666;
+
+            /* Colors */
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+
+            /* Layout */
+            --header-height: 64px;
+            --max-width: 900px;
         }
 
-        /* --- RESET & LAYOUT --- */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        /* ------------------- */
+        /* --- Base Styles --- */
+        /* ------------------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body { 
-            font-family: var(--font-family-sans); 
-            background: var(--color-background); 
-            color: var(--color-text-primary); 
-            display: flex; 
-            flex-direction: column; 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
         }
 
-        .page-wrapper { 
-            max-width: 1000px; 
-            margin: 0 auto; 
-            padding: 0 24px; 
-            width: 100%; 
-        }
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        ul { list-style: none; }
 
-        /* --- HEADER (FIXED) --- */
-        .site-header { 
-            background: #000000; 
-            border-bottom: 1px solid #222426; 
-            padding: 16px 0;
-            width: 100%;
+        /* ------------------- */
+        /* --- Header --- */
+        /* ------------------- */
+        .site-header {
+            height: var(--header-height);
+            background-color: var(--bg-body);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
 
         .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .site-header__logo img { display: block; }
+        .logo {
+            display: flex; align-items: center; gap: 10px;
+            font-weight: 600; font-size: 1.1rem; color: var(--text-primary);
+        }
+        .logo img { height: 24px; width: 24px; }
 
-        .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
-        .site-header__nav a { color: #4dabf7; font-weight: 600; text-decoration: none; transition: 0.2s; }
-        .site-header__nav a:hover { color: #a5d8ff; text-decoration: underline; }
+        .nav-menu { display: flex; gap: 32px; }
+        .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+        .nav-menu a:hover, .nav-menu a[aria-current="page"] { color: var(--text-primary); }
 
-        /* --- MAIN CONTROLS --- */
-        main { padding-top: 40px; padding-bottom: 60px; }
-
-        .controls-container { 
-            background: var(--color-surface); 
-            padding: 24px; 
-            border-radius: 12px; 
-            border: 1px solid var(--color-border); 
-            max-width: 600px; 
-            margin: 0 auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 20px;
+        /* ------------------- */
+        /* --- Main Content --- */
+        /* ------------------- */
+        main {
+            flex-grow: 1;
+            padding: 32px 24px; /* Balanced padding */
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
         }
 
-        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--color-text-secondary); }
+        .page-intro { text-align: center; margin-bottom: 32px; }
+        .page-intro h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 8px; }
+        .page-intro p { color: var(--text-secondary); font-size: 0.95rem; }
 
-        /* --- DROPDOWN STYLING (FIXED VISIBILITY) --- */
-        select { 
-            padding: 12px; 
-            width: 100%; 
-            border-radius: 8px; 
-            border: 1px solid var(--color-border); 
-            font-size: 1rem; 
-            background: var(--color-surface); 
-            color: var(--color-text-primary);
+        /* ------------------- */
+        /* --- Selection Card --- */
+        /* ------------------- */
+        .controls-container {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 32px;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex; flex-direction: column; gap: 20px;
+        }
+
+        label {
+            display: block; margin-bottom: 8px;
+            font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;
+        }
+
+        select {
+            width: 100%; padding: 10px 12px;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: inherit; font-size: 0.95rem;
+            cursor: pointer;
+            appearance: none; /* Remove default arrow to style consistently if desired */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        select:focus { outline: none; border-color: var(--accent-color); }
+        select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Dropdown Options Fix */
+        select option { background-color: var(--bg-input); color: var(--text-primary); padding: 10px; }
+
+        button {
+            width: 100%; padding: 10px 20px;
+            font-size: 0.9rem; font-weight: 500;
+            border-radius: 4px; cursor: pointer;
+            border: 1px solid transparent; transition: all 0.2s;
+        }
+        
+        #start-btn {
+            background-color: var(--accent-color); color: #fff; margin-top: 10px;
+        }
+        #start-btn:hover { background-color: var(--accent-hover); }
+        #start-btn:disabled { background-color: var(--bg-input); border-color: var(--border-color); color: var(--text-tertiary); cursor: not-allowed; }
+
+        /* ------------------- */
+        /* --- Flashcard Game --- */
+        /* ------------------- */
+        #game-interface { display: none; max-width: 700px; margin: 0 auto; }
+        
+        /* Reduced margin-bottom to fix gap issue */
+        .flashcard-scene {
+            height: 400px;
+            perspective: 1000px;
+            margin-bottom: 16px; 
             cursor: pointer;
         }
 
-        /* THE FIX: Black background, Blue text for options */
-        select option {
-            background-color: #000000;
-            color: #4dabf7;
-            padding: 10px;
+        .flashcard {
+            width: 100%; height: 100%;
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transform-style: preserve-3d;
         }
-
-        button { 
-            padding: 12px; 
-            width: 100%; 
-            border-radius: 8px; 
-            font-size: 1rem; 
-            background: var(--color-primary); 
-            color: #000; /* Dark text on blue button for contrast */
-            font-weight: 700; 
-            cursor: pointer; 
-            border: none; 
-        }
-        button:disabled { background: #333; color: #666; cursor: not-allowed; }
-
-        /* --- FLASHCARD SCENE --- */
-        #game-interface { display: none; max-width: 700px; margin: 0 auto; }
-        .flashcard-scene { height: 400px; perspective: 1000px; margin-bottom: 24px; cursor: pointer; }
-        .flashcard { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 8px 20px rgba(0,0,0,0.5); border-radius: 16px; }
         .flashcard.is-flipped { transform: rotateY(180deg); }
-        
-        .flashcard-face { 
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            background: var(--color-surface); border: 1px solid var(--color-border); 
-            border-radius: 16px; padding: 30px; text-align: center; color: var(--color-text-primary); 
-        }
-        
-        .flashcard-back { transform: rotateY(180deg); background: var(--color-surface-hover); }
-        
-        .nav-btn { background: transparent; border: 1px solid var(--color-border); color: var(--color-text-primary); width: auto; padding: 8px 24px; }
-        .nav-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
 
-        /* Mobile Responsive Header */
-        @media (max-width: 600px) {
-            .site-header__nav ul { gap: 12px; font-size: 0.8rem; }
-            .page-wrapper { padding: 0 16px; }
+        .flashcard-face {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px; text-align: center;
+            
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .flashcard-front { z-index: 2; }
+        
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background-color: var(--bg-input); /* Slightly darker for back */
+            border-color: var(--border-active);
+        }
+
+        .card-label {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+            color: var(--text-tertiary); margin-bottom: 24px; font-weight: 600;
+        }
+
+        .card-content {
+            font-size: 1.25rem; font-weight: 500; color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .tap-hint {
+            margin-top: auto; font-size: 0.8rem; color: var(--text-tertiary);
+        }
+
+        /* Game Controls */
+        .game-controls {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 24px;
+        }
+
+        .nav-btn { width: auto; background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); }
+        .nav-btn:hover { background-color: var(--bg-input); border-color: var(--text-secondary); }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        #next-btn {
+            background-color: var(--accent-color); color: white; border-color: var(--accent-color);
+        }
+        #next-btn:hover { background-color: var(--accent-hover); }
+        #next-btn:disabled { background-color: var(--bg-input); border-color: var(--border-color); color: var(--text-tertiary); }
+
+        #quit-btn {
+            background: none; border: none; color: var(--text-tertiary);
+            text-decoration: none; font-size: 0.85rem; margin-top: 32px; width: auto;
+        }
+        #quit-btn:hover { color: var(--text-primary); text-decoration: underline; }
+
+        /* Status Message */
+        #status-msg {
+            text-align: center; font-size: 0.85rem; color: var(--text-secondary);
+            margin-top: 16px; display: none;
+        }
+
+        /* Footer */
+        .site-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0; margin-top: auto;
+            color: var(--text-tertiary); font-size: 0.85rem; text-align: center;
+            background-color: var(--bg-body);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
         }
     </style>
 </head>
 <body>
 
     <header class="site-header">
-        <div class="page-wrapper header-inner">
-            <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
-                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari" width="32" height="32">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari">
+                Actiari
             </a>
-            <nav class="site-header__nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Overview</a></li>
                     <li><a href="APR.html">Past Papers</a></li>
-                    <li><a href="FLASH.html">Flashcards</a></li>
+                    <li><a href="FLASH.html" style="color: var(--text-primary);">Flashcards</a></li>
                     <li><a href="maker.html">Create Deck</a></li>
                     <li><a href="login.html">Login</a></li>
                 </ul>
@@ -154,9 +269,12 @@
         </div>
     </header>
 
-    <main class="page-wrapper">
-        <h1 style="text-align:center; margin: 30px 0 10px; font-size: 2rem;">Revision Flashcards</h1>
-        <p style="text-align:center; color:var(--color-text-secondary); margin-bottom:40px;">Select a course pack below to begin.</p>
+    <main>
+        <!-- Intro / Selection Screen -->
+        <div class="page-intro">
+            <h1>Revision Flashcards</h1>
+            <p>Select a course pack to begin your session.</p>
+        </div>
 
         <!-- SETUP INTERFACE -->
         <div id="setup-interface" class="controls-container">
@@ -166,11 +284,7 @@
                 <label for="course-select">1. Select Course Pack</label>
                 <select id="course-select">
                     <option value="" disabled selected>Choose a Course...</option>
-                    
-                    <!-- OPTION A: USER CUSTOM DECKS -->
-                    <option value="CUSTOM" style="font-weight: bold;">★ My Custom Decks (Database)</option>
-                    
-                    <!-- OPTION B: PREMADE JSON FILES -->
+                    <option value="CUSTOM" style="font-weight: 600; color: var(--accent-color);">★ My Custom Decks (Database)</option>
                     <option value="geography-data.json">Geography (A Level)</option>
                 </select>
             </div>
@@ -193,234 +307,241 @@
 
             <button id="start-btn" disabled>Start Practicing</button>
             
-            <div id="status-msg" style="text-align:center; font-size:0.85rem; color:var(--color-text-secondary); display:none; margin-top:5px;">
-                Loading...
-            </div>
+            <div id="status-msg">Loading...</div>
         </div>
 
         <!-- GAME INTERFACE -->
         <div id="game-interface">
+            
             <div class="flashcard-scene" id="flashcard-scene">
                 <div class="flashcard" id="flashcard">
+                    <!-- Front -->
                     <div class="flashcard-face flashcard-front">
-                        <h3 style="font-size:0.8rem; text-transform: uppercase; color:var(--color-text-secondary); margin-bottom: 16px;">Question</h3>
-                        <div id="card-front-text" style="font-size:1.5rem; font-weight:500;">...</div>
-                        <p style="margin-top:auto; font-size:0.8rem; color:var(--color-text-secondary);">Tap to flip</p>
+                        <div class="card-label">Question</div>
+                        <div id="card-front-text" class="card-content">...</div>
+                        <div class="tap-hint">Tap card to flip</div>
                     </div>
+                    <!-- Back -->
                     <div class="flashcard-face flashcard-back">
-                        <h3 style="font-size:0.8rem; text-transform: uppercase; color:var(--color-text-secondary); margin-bottom: 16px;">Answer</h3>
-                        <div id="card-back-text" style="font-size:1.5rem; font-weight:500;">...</div>
+                        <div class="card-label">Answer</div>
+                        <div id="card-back-text" class="card-content">...</div>
                     </div>
                 </div>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
+
+            <div class="game-controls">
                 <button id="prev-btn" class="nav-btn">Previous</button>
-                <span id="progress-text" style="color: var(--color-text-secondary);">0 / 0</span>
-                <button id="next-btn" class="nav-btn" style="background:var(--color-primary); color:black; border:none;">Next</button>
+                <span id="progress-text" style="color: var(--text-secondary); font-size: 0.9rem;">0 / 0</span>
+                <button id="next-btn" class="nav-btn">Next</button>
             </div>
-            <div style="text-align:center; margin-top:32px;">
-                <button id="quit-btn" style="background:none; border:none; color:var(--color-text-secondary); text-decoration: underline; font-weight: 400;">
-                    ← Select different topic
-                </button>
+
+            <div style="text-align:center;">
+                <button id="quit-btn">← Return to selection</button>
             </div>
         </div>
     </main>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <footer class="site-footer">
+        <div class="page-wrapper" style="padding: 0;">
+            <p>&copy; 2025 Actiari Study Tools.</p>
+        </div>
+    </footer>
 
-    // --- YOUR NEW CONFIG ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
-        authDomain: "actiari-fixed.firebaseapp.com",
-        projectId: "actiari-fixed",
-        storageBucket: "actiari-fixed.firebasestorage.app",
-        messagingSenderId: "154407363342",
-        appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
-    };
+    <!-- FIREBASE LOGIC (UNCHANGED) -->
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+        // --- YOUR NEW CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+            authDomain: "actiari-fixed.firebaseapp.com",
+            projectId: "actiari-fixed",
+            storageBucket: "actiari-fixed.firebasestorage.app",
+            messagingSenderId: "154407363342",
+            appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
+        };
 
-    // --- VARIABLES ---
-    let activeData = {}; // Data currently available in dropdowns
-    let userCustomDecks = {}; // Stored custom decks
-    let currentDeck = [];
-    let currentIndex = 0;
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-    // --- ELEMENTS ---
-    const courseSelect = document.getElementById('course-select');
-    const subjectSelect = document.getElementById('subject-select');
-    const topicSelect = document.getElementById('topic-select');
-    const startBtn = document.getElementById('start-btn');
-    const statusMsg = document.getElementById('status-msg');
-    const flashcard = document.getElementById('flashcard');
+        // --- VARIABLES ---
+        let activeData = {}; // Data currently available in dropdowns
+        let userCustomDecks = {}; // Stored custom decks
+        let currentDeck = [];
+        let currentIndex = 0;
 
-    // --- 1. LOAD DATABASE (CUSTOM DECKS) ---
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            statusMsg.style.display = 'block';
-            statusMsg.style.color = '#4dabf7';
-            statusMsg.textContent = "Checking for custom decks...";
-            
-            try {
-                const q = query(collection(db, "decks"), where("userId", "==", user.uid));
-                const snap = await getDocs(q);
+        // --- ELEMENTS ---
+        const courseSelect = document.getElementById('course-select');
+        const subjectSelect = document.getElementById('subject-select');
+        const topicSelect = document.getElementById('topic-select');
+        const startBtn = document.getElementById('start-btn');
+        const statusMsg = document.getElementById('status-msg');
+        const flashcard = document.getElementById('flashcard');
+
+        // --- 1. LOAD DATABASE (CUSTOM DECKS) ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                statusMsg.style.display = 'block';
+                statusMsg.style.color = '#2563eb'; // Updated to accent color
+                statusMsg.textContent = "Checking for custom decks...";
                 
-                if(!snap.empty) {
-                    userCustomDecks = {}; // Clear old
-                    snap.forEach(doc => {
-                        const d = doc.data();
-                        // Structure: Subject -> Topic -> Cards
-                        const sub = d.subject || "My Custom Packs";
-                        if(!userCustomDecks[sub]) userCustomDecks[sub] = {};
-                        userCustomDecks[sub][d.title] = d.cards;
-                    });
+                try {
+                    const q = query(collection(db, "decks"), where("userId", "==", user.uid));
+                    const snap = await getDocs(q);
                     
-                    statusMsg.textContent = "✓ Custom decks loaded.";
-                    
-                    // If user already selected "CUSTOM", refresh the view immediately
-                    if(courseSelect.value === "CUSTOM") {
-                        activeData = { ...userCustomDecks };
-                        refreshSubjects();
+                    if(!snap.empty) {
+                        userCustomDecks = {}; // Clear old
+                        snap.forEach(doc => {
+                            const d = doc.data();
+                            // Structure: Subject -> Topic -> Cards
+                            const sub = d.subject || "My Custom Packs";
+                            if(!userCustomDecks[sub]) userCustomDecks[sub] = {};
+                            userCustomDecks[sub][d.title] = d.cards;
+                        });
+                        
+                        statusMsg.textContent = "✓ Custom decks loaded.";
+                        statusMsg.style.color = "#10b981"; // Success green
+                        
+                        // If user already selected "CUSTOM", refresh the view immediately
+                        if(courseSelect.value === "CUSTOM") {
+                            activeData = { ...userCustomDecks };
+                            refreshSubjects();
+                        }
+                    } else {
+                        statusMsg.textContent = "No custom decks found.";
                     }
-                } else {
-                    statusMsg.textContent = "No custom decks found.";
+                } catch (e) {
+                    console.error(e);
+                    statusMsg.style.color = "#ef4444";
+                    statusMsg.textContent = "Error loading custom decks.";
                 }
-            } catch (e) {
-                console.error(e);
-                statusMsg.style.color = "red";
-                statusMsg.textContent = "Error loading custom decks.";
+            } else {
+                statusMsg.style.display = 'block';
+                statusMsg.textContent = "Log in to see custom decks.";
             }
-        } else {
-            statusMsg.style.display = 'block';
-            statusMsg.textContent = "Log in to see custom decks.";
-        }
-    });
+        });
 
-    // --- 2. COURSE SELECTION HANDLER ---
-    courseSelect.addEventListener('change', async (e) => {
-        const val = e.target.value;
-        
-        // Reset UI
-        activeData = {};
-        subjectSelect.innerHTML = '<option value="" disabled selected>Loading...</option>';
-        topicSelect.innerHTML = '<option value="" disabled selected>Select Topic...</option>';
-        subjectSelect.disabled = true;
-        topicSelect.disabled = true;
-        startBtn.disabled = true;
+        // --- 2. COURSE SELECTION HANDLER ---
+        courseSelect.addEventListener('change', async (e) => {
+            const val = e.target.value;
+            
+            // Reset UI
+            activeData = {};
+            subjectSelect.innerHTML = '<option value="" disabled selected>Loading...</option>';
+            topicSelect.innerHTML = '<option value="" disabled selected>Select Topic...</option>';
+            subjectSelect.disabled = true;
+            topicSelect.disabled = true;
+            startBtn.disabled = true;
 
-        // A. User picked Custom Decks
-        if (val === "CUSTOM") {
-            if (Object.keys(userCustomDecks).length === 0) {
-                alert("No custom decks found. Please create one in the 'Create Deck' page or wait for login.");
-                subjectSelect.innerHTML = '<option value="" disabled selected>No decks found</option>';
+            // A. User picked Custom Decks
+            if (val === "CUSTOM") {
+                if (Object.keys(userCustomDecks).length === 0) {
+                    alert("No custom decks found. Please create one in the 'Create Deck' page or wait for login.");
+                    subjectSelect.innerHTML = '<option value="" disabled selected>No decks found</option>';
+                    return;
+                }
+                activeData = { ...userCustomDecks };
+                refreshSubjects();
                 return;
             }
-            activeData = { ...userCustomDecks };
-            refreshSubjects();
-            return;
-        }
 
-        // B. User picked a JSON file
-        try {
-            const res = await fetch(val);
-            if(!res.ok) throw new Error("File not found");
-            
-            const json = await res.json();
-            activeData = json; // Load just the JSON data
-            refreshSubjects();
-            
-        } catch (err) {
-            console.error(err);
-            alert("Could not load course file. Make sure '" + val + "' exists in your folder.");
-            subjectSelect.innerHTML = '<option value="" disabled selected>Error loading file</option>';
-        }
-    });
-
-    // Helper to fill Subject Dropdown
-    function refreshSubjects() {
-        subjectSelect.innerHTML = '<option value="" disabled selected>Select a Module...</option>';
-        subjectSelect.disabled = false;
-
-        const subjects = Object.keys(activeData).sort();
-        subjects.forEach(sub => {
-            const opt = document.createElement('option');
-            opt.value = sub;
-            opt.textContent = sub;
-            subjectSelect.appendChild(opt);
+            // B. User picked a JSON file
+            try {
+                const res = await fetch(val);
+                if(!res.ok) throw new Error("File not found");
+                
+                const json = await res.json();
+                activeData = json; // Load just the JSON data
+                refreshSubjects();
+                
+            } catch (err) {
+                console.error(err);
+                alert("Could not load course file. Make sure '" + val + "' exists in your folder.");
+                subjectSelect.innerHTML = '<option value="" disabled selected>Error loading file</option>';
+            }
         });
-    }
 
-    // --- 3. SUBJECT SELECTION ---
-    subjectSelect.addEventListener('change', (e) => {
-        const sub = e.target.value;
-        topicSelect.innerHTML = '<option value="" disabled selected>Select a Topic...</option>';
-        topicSelect.disabled = false;
-        startBtn.disabled = true;
+        // Helper to fill Subject Dropdown
+        function refreshSubjects() {
+            subjectSelect.innerHTML = '<option value="" disabled selected>Select a Module...</option>';
+            subjectSelect.disabled = false;
 
-        if(activeData[sub]) {
-            const topics = Object.keys(activeData[sub]).sort();
-            topics.forEach(topic => {
+            const subjects = Object.keys(activeData).sort();
+            subjects.forEach(sub => {
                 const opt = document.createElement('option');
-                opt.value = topic;
-                opt.textContent = topic;
-                topicSelect.appendChild(opt);
+                opt.value = sub;
+                opt.textContent = sub;
+                subjectSelect.appendChild(opt);
             });
         }
-    });
 
-    // --- 4. TOPIC SELECTION ---
-    topicSelect.addEventListener('change', () => {
-        startBtn.disabled = false;
-    });
+        // --- 3. SUBJECT SELECTION ---
+        subjectSelect.addEventListener('change', (e) => {
+            const sub = e.target.value;
+            topicSelect.innerHTML = '<option value="" disabled selected>Select a Topic...</option>';
+            topicSelect.disabled = false;
+            startBtn.disabled = true;
 
-    // --- 5. START GAME ---
-    startBtn.addEventListener('click', () => {
-        const sub = subjectSelect.value;
-        const top = topicSelect.value;
-        
-        if(activeData[sub] && activeData[sub][top]) {
-            currentDeck = activeData[sub][top];
-            currentIndex = 0;
-            loadCard(0);
+            if(activeData[sub]) {
+                const topics = Object.keys(activeData[sub]).sort();
+                topics.forEach(topic => {
+                    const opt = document.createElement('option');
+                    opt.value = topic;
+                    opt.textContent = topic;
+                    topicSelect.appendChild(opt);
+                });
+            }
+        });
+
+        // --- 4. TOPIC SELECTION ---
+        topicSelect.addEventListener('change', () => {
+            startBtn.disabled = false;
+        });
+
+        // --- 5. START GAME ---
+        startBtn.addEventListener('click', () => {
+            const sub = subjectSelect.value;
+            const top = topicSelect.value;
             
-            document.getElementById('setup-interface').style.display = 'none';
-            document.getElementById('game-interface').style.display = 'block';
-            document.querySelector('h1').style.display = 'none';
-            document.querySelector('p').style.display = 'none';
+            if(activeData[sub] && activeData[sub][top]) {
+                currentDeck = activeData[sub][top];
+                currentIndex = 0;
+                loadCard(0);
+                
+                document.getElementById('setup-interface').style.display = 'none';
+                document.getElementById('game-interface').style.display = 'block';
+                document.querySelector('.page-intro').style.display = 'none';
+            }
+        });
+
+        // --- 6. GAME CONTROLS ---
+        document.getElementById('quit-btn').addEventListener('click', () => {
+            document.getElementById('setup-interface').style.display = 'flex';
+            document.getElementById('game-interface').style.display = 'none';
+            document.querySelector('.page-intro').style.display = 'block';
+            flashcard.classList.remove('is-flipped');
+        });
+
+        function loadCard(i) {
+            flashcard.classList.remove('is-flipped');
+            setTimeout(() => {
+                const card = currentDeck[i];
+                document.getElementById('card-front-text').textContent = card.q;
+                document.getElementById('card-back-text').textContent = card.a;
+                document.getElementById('progress-text').textContent = `${i+1} / ${currentDeck.length}`;
+                
+                document.getElementById('prev-btn').disabled = (i === 0);
+                document.getElementById('next-btn').disabled = (i === currentDeck.length - 1);
+            }, 200);
         }
-    });
 
-    // --- 6. GAME CONTROLS ---
-    document.getElementById('quit-btn').addEventListener('click', () => {
-        document.getElementById('setup-interface').style.display = 'flex';
-        document.getElementById('game-interface').style.display = 'none';
-        document.querySelector('h1').style.display = 'block';
-        document.querySelector('p').style.display = 'block';
-        flashcard.classList.remove('is-flipped');
-    });
+        document.getElementById('flashcard-scene').addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
+        document.getElementById('next-btn').addEventListener('click', (e) => { e.stopPropagation(); if(currentIndex < currentDeck.length-1) loadCard(++currentIndex); });
+        document.getElementById('prev-btn').addEventListener('click', (e) => { e.stopPropagation(); if(currentIndex > 0) loadCard(--currentIndex); });
 
-    function loadCard(i) {
-        flashcard.classList.remove('is-flipped');
-        setTimeout(() => {
-            const card = currentDeck[i];
-            document.getElementById('card-front-text').textContent = card.q;
-            document.getElementById('card-back-text').textContent = card.a;
-            document.getElementById('progress-text').textContent = `${i+1} / ${currentDeck.length}`;
-            
-            document.getElementById('prev-btn').disabled = (i === 0);
-            document.getElementById('next-btn').disabled = (i === currentDeck.length - 1);
-        }, 200);
-    }
-
-    document.getElementById('flashcard-scene').addEventListener('click', () => flashcard.classList.toggle('is-flipped'));
-    document.getElementById('next-btn').addEventListener('click', (e) => { e.stopPropagation(); if(currentIndex < currentDeck.length-1) loadCard(++currentIndex); });
-    document.getElementById('prev-btn').addEventListener('click', (e) => { e.stopPropagation(); if(currentIndex > 0) loadCard(--currentIndex); });
-
-</script>
+    </script>
 </body>
 </html>

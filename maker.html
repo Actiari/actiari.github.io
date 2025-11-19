@@ -3,113 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Deck - Actiari</title>
+    <title>Create Deck | Actiari</title>
+    
     <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
+        /* ------------------- */
+        /* --- Variables --- */
+        /* ------------------- */
         :root {
-            --font-family-sans: 'Inter', sans-serif;
-            --color-background: #0b0f12;
-            --color-surface: #121316;
-            --color-surface-hover: #1a1d20;
-            --color-border: #222426;
-            --color-text-primary: #e6eef8;
-            --color-text-secondary: #b8c2cc;
-            --color-primary: #4dabf7;
-            --color-danger: #fa5252;
-            --radius-md: 8px;
+            /* Corporate Dark Palette */
+            --bg-body: #0d0d0d;
+            --bg-card: #141414;
+            --bg-input: #0a0a0a;
+            
+            /* Borders */
+            --border-color: #2a2a2a;
+            --border-active: #444444;
+
+            /* Typography */
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --text-tertiary: #666666;
+
+            /* Colors */
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --color-danger: #ef4444;
+
+            /* Layout */
+            --header-height: 64px;
+            --max-width: 900px; /* Slightly narrower for form focus */
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        /* ------------------- */
+        /* --- Base Styles --- */
+        /* ------------------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body { 
-            font-family: var(--font-family-sans); 
-            background: var(--color-background); 
-            color: var(--color-text-primary); 
-            display: flex; 
-            flex-direction: column; 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
         }
 
-        .page-wrapper { max-width: 1000px; margin: 0 auto; padding: 0 24px; width: 100%; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        ul { list-style: none; }
 
-        /* HEADER */
-        .site-header { 
-            background: #000000; 
-            border-bottom: 1px solid #222426; 
-            padding: 16px 0;
-            width: 100%;
+        /* ------------------- */
+        /* --- Header --- */
+        /* ------------------- */
+        .site-header {
+            height: var(--header-height);
+            background-color: var(--bg-body);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
             position: sticky;
             top: 0;
-            z-index: 1000;
-        }
-        .header-inner { display: flex; align-items: center; justify-content: space-between; }
-        .site-header__logo img { display: block; }
-        .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
-        .site-header__nav a { color: #4dabf7; font-weight: 600; text-decoration: none; transition: 0.2s; }
-        .site-header__nav a:hover { color: #a5d8ff; text-decoration: underline; }
-
-        /* MAIN */
-        main { padding-top: 40px; padding-bottom: 60px; }
-
-        .controls-container { 
-            background: var(--color-surface); 
-            padding: 24px; 
-            border-radius: 12px; 
-            border: 1px solid var(--color-border); 
-            max-width: 800px; 
-            margin: 0 auto 30px auto;
+            z-index: 100;
         }
 
-        h1 { text-align: center; margin: 30px 0 10px; font-size: 2rem; }
-        h2 { font-size: 1.25rem; margin-bottom: 16px; color: var(--color-text-primary); border-bottom: 1px solid var(--color-border); padding-bottom: 10px; }
-        p { text-align: center; color: var(--color-text-secondary); margin-bottom: 40px; }
-
-        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--color-text-secondary); margin-top: 16px; }
-
-        input { 
-            padding: 12px; width: 100%; border-radius: 8px; border: 1px solid var(--color-border); 
-            font-size: 1rem; background: var(--color-surface-hover); color: var(--color-text-primary);
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px; /* Matches home/login header width */
+            margin: 0 auto;
+            padding: 0 24px;
         }
-        input:focus { outline: 2px solid var(--color-primary); border-color: transparent; }
 
-        button { 
-            padding: 12px; border-radius: 8px; font-size: 1rem; background: var(--color-primary); 
-            color: #000; font-weight: 700; cursor: pointer; border: none; transition: opacity 0.2s;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
         }
-        button:hover { opacity: 0.9; }
-        button.secondary { background: var(--color-surface-hover); color: var(--color-text-primary); border: 1px solid var(--color-border); }
-        button.delete-btn { background: rgba(250, 82, 82, 0.15); color: var(--color-danger); font-size: 0.85rem; padding: 6px 12px; width: auto;}
+        .logo img { height: 24px; width: 24px; }
 
+        .nav-menu { display: flex; gap: 32px; }
+        .nav-menu a {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .nav-menu a:hover { color: var(--text-primary); }
+
+        /* ------------------- */
+        /* --- Layout --- */
+        /* ------------------- */
+        main {
+            flex-grow: 1;
+            padding: 40px 24px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-title {
+            margin-bottom: 32px;
+        }
+        .page-title h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 8px; }
+        .page-title p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* ------------------- */
+        /* --- Cards & Forms --- */
+        /* ------------------- */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        /* Inputs */
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        label:first-of-type { margin-top: 0; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        input:focus { outline: none; border-color: var(--accent-color); }
+
+        /* Input Pairs (Flashcards) */
         .input-pair {
-            background: var(--color-background); padding: 16px; border-radius: 8px; 
-            border: 1px solid var(--color-border); margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px;
+            background-color: var(--bg-body);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+        
+        .input-pair input { margin-bottom: 10px; }
+        .input-pair input:last-child { margin-bottom: 0; }
+
+        /* Buttons */
+        button {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
         }
 
-        .deck-list-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--color-border); }
-        .deck-list-item:last-child { border-bottom: none; }
-        
-        .tag { font-size: 0.75rem; background: rgba(77, 171, 247, 0.15); color: var(--color-primary); padding: 4px 8px; border-radius: 4px; margin-right: 8px; text-transform: uppercase; }
+        /* Primary Action */
+        #save-deck-btn, .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+            width: 100%;
+        }
+        #save-deck-btn:hover { background-color: var(--accent-hover); }
 
-        .hidden { display: none !important; }
+        /* Secondary Action */
+        #add-card-btn, .btn-secondary {
+            background-color: transparent;
+            border-color: var(--border-color);
+            color: var(--text-primary);
+            width: 100%;
+        }
+        #add-card-btn:hover {
+            background-color: var(--bg-input);
+            border-color: var(--text-secondary);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .button-group button { margin: 0; /* Reset default */ }
+
+        /* ------------------- */
+        /* --- Saved Decks List --- */
+        /* ------------------- */
+        .deck-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .deck-list-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .deck-list-item:first-child { padding-top: 0; }
+
+        .deck-info { display: flex; flex-direction: column; gap: 4px; }
         
+        .tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .deck-title { font-weight: 500; color: var(--text-primary); }
+        .card-count { color: var(--text-secondary); font-size: 0.85rem; margin-left: 8px; }
+
+        .delete-btn {
+            background-color: transparent;
+            color: var(--text-tertiary);
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            width: auto;
+        }
+        .delete-btn:hover {
+            color: var(--color-danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .muted { color: var(--text-secondary); }
+
         /* Mobile */
-        @media (max-width: 600px) {
-            .site-header__nav ul { gap: 12px; font-size: 0.8rem; }
-            .page-wrapper { padding: 0 16px; }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .button-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header class="site-header">
-        <div class="page-wrapper header-inner">
-            <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
-                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari" width="32" height="32">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari">
+                Actiari
             </a>
-            <nav class="site-header__nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Overview</a></li>
                     <li><a href="APR.html">Past Papers</a></li>
                     <li><a href="FLASH.html">Flashcards</a></li>
                     <li><a href="login.html">Login</a></li>
@@ -118,202 +285,212 @@
         </div>
     </header>
 
-    <main class="page-wrapper">
-        
-        <!-- 1. LOADING SCREEN (Default State) -->
-        <div id="auth-loading" class="controls-container" style="text-align: center; margin-top: 60px;">
-            <h2 style="border:none;">Connecting...</h2>
-            <p style="margin-bottom: 24px;">Checking your account status.</p>
-        </div>
+    <main>
+        <div class="container">
+            
+            <!-- 1. LOADING SCREEN -->
+            <div id="auth-loading" class="card text-center" style="margin-top: 40px;">
+                <h2 style="border:none; margin-bottom:8px;">Connecting...</h2>
+                <p class="muted">Verifying account status.</p>
+            </div>
 
-        <!-- 2. LOGIN WARNING (If not logged in) -->
-        <div id="login-warning" class="controls-container hidden" style="text-align: center; margin-top: 60px;">
-            <h2 style="border:none;">Account Required</h2>
-            <p style="margin-bottom: 24px;">You must be logged in to create and save your own flashcard packs.</p>
-            <a href="login.html"><button style="max-width: 200px;">Go to Login</button></a>
-        </div>
+            <!-- 2. LOGIN WARNING -->
+            <div id="login-warning" class="card text-center hidden" style="margin-top: 40px;">
+                <h2 style="border:none; margin-bottom:8px;">Authentication Required</h2>
+                <p class="muted" style="margin-bottom: 24px;">You must be logged in to create and save custom flashcard packs.</p>
+                <a href="login.html" style="display:inline-block;"><button class="btn-primary">Proceed to Login</button></a>
+            </div>
 
-        <!-- 3. APP INTERFACE (Hidden until logged in) -->
-        <div id="app-interface" class="hidden">
-            <h1>Flashcard Creator</h1>
-            <p>Create custom packs. These will appear in the "Flashcards" page.</p>
-
-            <!-- CREATION FORM -->
-            <div class="controls-container">
-                <h2>Create New Pack</h2>
+            <!-- 3. APP INTERFACE -->
+            <div id="app-interface" class="hidden">
                 
-                <label>Subject / Module Name</label>
-                <input type="text" id="deck-subject" placeholder="e.g., History">
-                
-                <label>Topic Name</label>
-                <input type="text" id="deck-topic" placeholder="e.g., The Cold War">
+                <div class="page-title">
+                    <h1>Flashcard Creator</h1>
+                    <p>Create custom revision packs. These will appear in your library.</p>
+                </div>
 
-                <div style="margin: 24px 0; border-top: 1px solid var(--color-border);"></div>
-                
-                <label>Flashcards</label>
-                <div id="cards-input-container">
-                    <div class="input-pair">
-                        <input type="text" class="q-input" placeholder="Front (Question)" style="margin-bottom: 8px;">
-                        <input type="text" class="a-input" placeholder="Back (Answer)">
+                <!-- Creator Form -->
+                <div class="card">
+                    <h2>Deck Details</h2>
+                    
+                    <label for="deck-subject">Subject / Module</label>
+                    <input type="text" id="deck-subject" placeholder="e.g. History">
+                    
+                    <label for="deck-topic">Topic Name</label>
+                    <input type="text" id="deck-topic" placeholder="e.g. The Cold War">
+
+                    <div style="margin-top: 32px; margin-bottom: 16px; border-top: 1px solid var(--border-color);"></div>
+                    
+                    <h2 style="border:none; margin-bottom: 16px;">Cards</h2>
+                    
+                    <div id="cards-input-container">
+                        <div class="input-pair">
+                            <input type="text" class="q-input" placeholder="Front (Question)">
+                            <input type="text" class="a-input" placeholder="Back (Answer)">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="add-card-btn" style="flex: 1;">+ Add Card</button>
+                        <button id="save-deck-btn" style="flex: 2;">Save Pack</button>
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 12px; margin-top: 20px;">
-                    <button id="add-card-btn" class="secondary" style="flex: 1;">+ Add Card</button>
-                    <button id="save-deck-btn" style="flex: 2;">Save Pack</button>
+                <!-- Saved List -->
+                <div class="card">
+                    <h2>My Packs</h2>
+                    <div id="my-decks-list">
+                        <div class="text-center muted" style="padding: 20px;">Loading saved data...</div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- LIST OF SAVED DECKS -->
-            <div class="controls-container">
-                <h2>Your Saved Packs</h2>
-                <div id="my-decks-list">
-                    <div style="text-align: center; padding: 20px; color: var(--color-text-secondary);">Loading...</div>
-                </div>
             </div>
         </div>
     </main>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <!-- FIREBASE LOGIC (UNCHANGED) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, where, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // --- NEW PROJECT CONFIG ---
-    const firebaseConfig = {
-        apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
-        authDomain: "actiari-fixed.firebaseapp.com",
-        projectId: "actiari-fixed",
-        storageBucket: "actiari-fixed.firebasestorage.app",
-        messagingSenderId: "154407363342",
-        appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
-    };
+        // --- NEW PROJECT CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+            authDomain: "actiari-fixed.firebaseapp.com",
+            projectId: "actiari-fixed",
+            storageBucket: "actiari-fixed.firebasestorage.app",
+            messagingSenderId: "154407363342",
+            appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    let currentUser = null;
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let currentUser = null;
 
-    // ELEMENTS
-    const authLoading = document.getElementById('auth-loading');
-    const loginWarning = document.getElementById('login-warning');
-    const appInterface = document.getElementById('app-interface');
+        // ELEMENTS
+        const authLoading = document.getElementById('auth-loading');
+        const loginWarning = document.getElementById('login-warning');
+        const appInterface = document.getElementById('app-interface');
 
-    // 1. AUTH CHECK (With Loading State)
-    onAuthStateChanged(auth, (user) => {
-        
-        // Hide the loading screen once Firebase responds
-        authLoading.classList.add('hidden');
+        // 1. AUTH CHECK (With Loading State)
+        onAuthStateChanged(auth, (user) => {
+            
+            // Hide the loading screen once Firebase responds
+            authLoading.classList.add('hidden');
 
-        if (user) {
-            // User IS logged in
-            currentUser = user;
-            loginWarning.classList.add('hidden');
-            appInterface.classList.remove('hidden');
-            loadUserDecks();
-        } else {
-            // User IS NOT logged in
-            loginWarning.classList.remove('hidden');
-            appInterface.classList.add('hidden');
-        }
-    });
-
-    // 2. ADD INPUT FIELDS
-    document.getElementById('add-card-btn').addEventListener('click', () => {
-        const div = document.createElement('div');
-        div.className = 'input-pair';
-        div.innerHTML = `
-            <input type="text" class="q-input" placeholder="Front (Question)" style="margin-bottom: 8px;">
-            <input type="text" class="a-input" placeholder="Back (Answer)">
-        `;
-        document.getElementById('cards-input-container').appendChild(div);
-    });
-
-    // 3. SAVE TO DATABASE
-    document.getElementById('save-deck-btn').addEventListener('click', async () => {
-        if (!currentUser) return alert("Not logged in.");
-
-        const subject = document.getElementById('deck-subject').value.trim();
-        const topic = document.getElementById('deck-topic').value.trim();
-        
-        if(!subject || !topic) return alert("Please enter both a Subject and a Topic name.");
-
-        const cards = [];
-        document.querySelectorAll('.input-pair').forEach(pair => {
-            const q = pair.querySelector('.q-input').value;
-            const a = pair.querySelector('.a-input').value;
-            if(q && a) cards.push({ q, a });
+            if (user) {
+                // User IS logged in
+                currentUser = user;
+                loginWarning.classList.add('hidden');
+                appInterface.classList.remove('hidden');
+                loadUserDecks();
+            } else {
+                // User IS NOT logged in
+                loginWarning.classList.remove('hidden');
+                appInterface.classList.add('hidden');
+            }
         });
 
-        if(cards.length === 0) return alert("Add at least one card!");
+        // 2. ADD INPUT FIELDS
+        document.getElementById('add-card-btn').addEventListener('click', () => {
+            const div = document.createElement('div');
+            div.className = 'input-pair';
+            div.innerHTML = `
+                <input type="text" class="q-input" placeholder="Front (Question)">
+                <input type="text" class="a-input" placeholder="Back (Answer)">
+            `;
+            document.getElementById('cards-input-container').appendChild(div);
+        });
 
-        const btn = document.getElementById('save-deck-btn');
-        btn.textContent = "Saving...";
-        btn.disabled = true;
+        // 3. SAVE TO DATABASE
+        document.getElementById('save-deck-btn').addEventListener('click', async () => {
+            if (!currentUser) return alert("Not logged in.");
 
-        try {
-            await addDoc(collection(db, "decks"), {
-                userId: currentUser.uid,
-                subject: subject, 
-                title: topic,     
-                cards: cards,
-                createdAt: new Date()
+            const subject = document.getElementById('deck-subject').value.trim();
+            const topic = document.getElementById('deck-topic').value.trim();
+            
+            if(!subject || !topic) return alert("Please enter both a Subject and a Topic name.");
+
+            const cards = [];
+            document.querySelectorAll('.input-pair').forEach(pair => {
+                const q = pair.querySelector('.q-input').value;
+                const a = pair.querySelector('.a-input').value;
+                if(q && a) cards.push({ q, a });
             });
-            alert("Saved successfully!");
-            
-            // Reset Form manually
-            document.getElementById('deck-subject').value = "";
-            document.getElementById('deck-topic').value = "";
-            document.getElementById('cards-input-container').innerHTML = `
-                <div class="input-pair">
-                    <input type="text" class="q-input" placeholder="Front (Question)" style="margin-bottom: 8px;">
-                    <input type="text" class="a-input" placeholder="Back (Answer)">
-                </div>`;
-            
-        } catch (e) { 
-            console.error(e); 
-            alert("Error saving: " + e.message);
-        } finally {
-            btn.textContent = "Save Pack";
-            btn.disabled = false;
-        }
-    });
 
-    // 4. LOAD LIST
-    function loadUserDecks() {
-        const list = document.getElementById('my-decks-list');
-        const q = query(collection(db, "decks"), where("userId", "==", currentUser.uid));
+            if(cards.length === 0) return alert("Add at least one card!");
 
-        onSnapshot(q, (snapshot) => {
-            list.innerHTML = "";
-            if(snapshot.empty) {
-                list.innerHTML = "<div style='text-align:center; padding:20px; color:var(--color-text-secondary);'>No custom packs found. Create one above!</div>";
-                return;
-            }
-            
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                const div = document.createElement('div');
-                div.className = 'deck-list-item';
+            const btn = document.getElementById('save-deck-btn');
+            btn.textContent = "Saving...";
+            btn.disabled = true;
+
+            try {
+                await addDoc(collection(db, "decks"), {
+                    userId: currentUser.uid,
+                    subject: subject, 
+                    title: topic,     
+                    cards: cards,
+                    createdAt: new Date()
+                });
+                alert("Saved successfully!");
                 
-                div.innerHTML = `
-                    <div>
-                        <span class="tag">${data.subject || 'Custom'}</span>
-                        <strong style="color: var(--color-text-primary);">${data.title}</strong> 
-                        <span style="color: var(--color-text-secondary); font-size: 0.9rem;">(${data.cards ? data.cards.length : 0} cards)</span>
-                    </div>
-                    <button class="delete-btn" id="del-${docSnap.id}">Delete</button>
-                `;
-                list.appendChild(div);
+                // Reset Form manually
+                document.getElementById('deck-subject').value = "";
+                document.getElementById('deck-topic').value = "";
+                document.getElementById('cards-input-container').innerHTML = `
+                    <div class="input-pair">
+                        <input type="text" class="q-input" placeholder="Front (Question)">
+                        <input type="text" class="a-input" placeholder="Back (Answer)">
+                    </div>`;
+                
+            } catch (e) { 
+                console.error(e); 
+                alert("Error saving: " + e.message);
+            } finally {
+                btn.textContent = "Save Pack";
+                btn.disabled = false;
+            }
+        });
 
-                document.getElementById(`del-${docSnap.id}`).addEventListener('click', async () => {
-                    if(confirm("Delete this pack?")) {
-                        await deleteDoc(doc(db, "decks", docSnap.id));
-                    }
+        // 4. LOAD LIST
+        function loadUserDecks() {
+            const list = document.getElementById('my-decks-list');
+            const q = query(collection(db, "decks"), where("userId", "==", currentUser.uid));
+
+            onSnapshot(q, (snapshot) => {
+                list.innerHTML = "";
+                if(snapshot.empty) {
+                    list.innerHTML = "<div style='text-align:center; padding:20px; color:var(--text-secondary);'>No custom packs found. Create one above!</div>";
+                    return;
+                }
+                
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const div = document.createElement('div');
+                    div.className = 'deck-list-item';
+                    
+                    div.innerHTML = `
+                        <div class="deck-info">
+                            <span class="tag">${data.subject || 'Custom'}</span>
+                            <div>
+                                <span class="deck-title">${data.title}</span> 
+                                <span class="card-count">${data.cards ? data.cards.length : 0} cards</span>
+                            </div>
+                        </div>
+                        <button class="delete-btn" id="del-${docSnap.id}">Delete</button>
+                    `;
+                    list.appendChild(div);
+
+                    document.getElementById(`del-${docSnap.id}`).addEventListener('click', async () => {
+                        if(confirm("Delete this pack?")) {
+                            await deleteDoc(doc(db, "decks", docSnap.id));
+                        }
+                    });
                 });
             });
-        });
-    }
-</script>
+        }
+    </script>
 </body>
 </html>
