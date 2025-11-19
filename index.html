@@ -88,8 +88,8 @@
         /* --- Header --- */
         .site-header {
             padding: 16px 0;
-            background-color: var(--color-surface);
-            border-bottom: 1px solid var(--color-border);
+            background-color: #000000; /* Nav bar black */
+            border-bottom: 1px solid #222426;
             box-shadow: var(--shadow-sm);
             position: sticky;
             top: 0;
@@ -99,8 +99,8 @@
         .site-header__logo { display: flex; align-items: center; justify-content: center; }
         .site-header__logo img { height: 32px; width: auto; }
         .site-header__nav ul { list-style: none; display: flex; gap: 24px; }
-        .site-header__nav a { color: var(--color-text-secondary); font-weight: var(--font-weight-medium); transition: color 0.2s; }
-        .site-header__nav a:hover, .site-header__nav a[aria-current="page"] { color: var(--color-primary); }
+        .site-header__nav a { color: #4dabf7; font-weight: var(--font-weight-medium); transition: color 0.2s; }
+        .site-header__nav a:hover, .site-header__nav a[aria-current="page"] { color: #74c0fc; }
         /* Theme toggle removed - site uses dark-only */
 
         /* --- Page Title --- */
@@ -169,7 +169,7 @@
 </head>
 <body>
 
-    <header class="site-header" style="background:white; border-bottom:1px solid #eee; padding:12px 0;">
+    <header class="site-header" style="background:#000000; border-bottom:1px solid #222426; padding:12px 0;">
         <div class="page-wrapper" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
             <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
                 <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
