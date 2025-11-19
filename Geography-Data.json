@@ -1,0 +1,20 @@
+{
+  "Physical Geography": {
+    "Coasts": [
+      { "q": "What is Hydraulic Action?", "a": "The force of water crashing against the coast." },
+      { "q": "What is Abrasion?", "a": "Rocks throwing themselves against the cliff face." }
+    ],
+    "Hazards": [
+      { "q": "What is the Focus?", "a": "The point underground where the earthquake starts." },
+      { "q": "What is the Epicentre?", "a": "The point on the surface directly above the focus." }
+    ]
+  },
+  "Human Geography": {
+    "Urbanisation": [
+      { "q": "Define Megacity", "a": "A city with over 10 million people." }
+    ],
+    "Changing Places": [
+      { "q": "What is Rebranding?", "a": "Creating a new image for a location to attract investment." }
+    ]
+  }
+}
