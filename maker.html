@@ -280,27 +280,107 @@
             .action-buttons { width: 100%; }
             .action-buttons button { flex: 1; }
         }
+
+/* ------------------- */
+/* --- Mobile Nav CSS --- */
+/* ------------------- */
+
+/* 1. Hamburger Button (Hidden on Desktop) */
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 0;
+    z-index: 1001; /* Above overlay */
+}
+
+/* 2. Mobile Menu Overlay (Hidden by default) */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-body);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* 3. Active State (When menu is open) */
+.mobile-menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu-overlay a {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.mobile-menu-overlay a:hover,
+.mobile-menu-overlay a.active-link {
+    color: var(--text-primary);
+}
+
+/* 4. Media Query Updates */
+@media (max-width: 768px) {
+    .nav-menu { display: none; } /* Hide desktop nav */
+    .mobile-toggle { display: block; } /* Show hamburger */
+}
+
+/* Lock scrolling when menu is open */
+body.menu-open { overflow: hidden; }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="index.html" class="logo">
-                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari">
-            </a>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="index.html">Overview</a></li>
-                    <li><a href="APR.html">Past Papers</a></li>
-                    <li><a href="FLASH.html">Flashcards</a></li>
-                    <li><a href="maker.html">Create Deck</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+ <header class="site-header">
+    <div class="container header-inner">
+        <!-- Logo -->
+        <a href="index.html" class="logo">
+            <img src="Miscellaneous/Main Favicon.ico" alt="Actiari">
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="nav-menu">
+            <a href="index.html">Overview</a>
+            <a href="APR.html">Past Papers</a>
+            <a href="FLASH.html">Flashcards</a>
+            <a href="maker.html">Create Deck</a>
+            <a href="login.html">Login</a>
+        </nav>
+
+        <!-- Mobile Hamburger Button -->
+        <button class="mobile-toggle" aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile Full Screen Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <a href="index.html">Overview</a>
+        <a href="APR.html">Past Papers</a>
+        <a href="FLASH.html">Flashcards</a>
+        <a href="maker.html">Create Deck</a>
+        <a href="login.html">Login</a>
+    </div>
+</header>
 
     <main>
         <div class="container">
@@ -618,5 +698,36 @@
             });
         }
     </script>
+
+<script>
+    const mobileBtn = document.querySelector('.mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const body = document.body;
+    let isMenuOpen = false;
+
+    // SVG Icons
+    const hamburgerIcon = `
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>`;
+    
+    const closeIcon = `
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>`;
+
+    mobileBtn.addEventListener('click', () => {
+        isMenuOpen = !isMenuOpen;
+        
+        // Toggle Menu Visibility
+        mobileMenu.classList.toggle('active');
+        
+        // Toggle Scroll Lock
+        body.classList.toggle('menu-open');
+        
+        // Change Icon
+        const svg = mobileBtn.querySelector('svg');
+        svg.innerHTML = isMenuOpen ? closeIcon : hamburgerIcon;
+    });
+</script>
 </body>
 </html>
