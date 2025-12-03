@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-# Explicit sitemap location for crawlers
-Sitemap: https://actiari.github.io/sitemap.xml
-
-# Optional: submit site to Google Search Console and Bing Webmaster Tools
-# - Google: https://search.google.com/search-console
-# - Bing: https://www.bing.com/webmasters
