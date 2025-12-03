@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FitTrack Pro</h1>
+            <nav>
+                <button onclick="showSection('workouts')">My Circuits</button>
+                <button onclick="showSection('stats')">Body Stats</button>
+            </nav>
+        </header>
+
+        <!-- WORKOUT SECTION -->
+        <section id="workouts-section">
+            <div class="card">
+                <h2>Create New Circuit</h2>
+                <form id="workoutForm">
+                    <input type="text" id="w-name" placeholder="Circuit Name (e.g., Upper Body)" required>
+                    <input type="number" id="w-freq" placeholder="Times per week" required>
+                    <button type="submit">Create Circuit</button>
+                </form>
+            </div>
+            <div id="workout-list">
+                <!-- Workouts load here -->
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section id="stats-section" class="hidden">
+            <div class="card">
+                <h2>Log Body Stats</h2>
+                <form id="statsForm">
+                    <input type="number" step="0.1" id="s-weight" placeholder="Current Weight (kg/lbs)" required>
+                    <input type="text" id="s-notes" placeholder="Notes (e.g., Felt energetic)">
+                    <button type="submit">Log Stat</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>History</h3>
+                <table id="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Weight</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stats-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for adding exercises -->
+    <div id="ex-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Add Exercise</h3>
+            <form id="exerciseForm">
+                <input type="hidden" id="ex-workout-id">
+                <input type="text" id="ex-name" placeholder="Exercise Name" required>
+                <div class="row">
+                    <input type="number" id="ex-sets" placeholder="Sets" required>
+                    <input type="number" id="ex-reps" placeholder="Reps" required>
+                </div>
+                <input type="number" id="ex-weight" placeholder="Weight" required>
+                <button type="submit">Add Exercise</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
