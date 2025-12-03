@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Access DB Viewer</title>
+    <style>
+        :root {
+            --primary: #A4373A; /* Access Red */
+            --bg: #f4f4f4;
+            --text: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: var(--primary); margin-top: 0; }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-area:hover { border-color: var(--primary); }
+
+        input[type="file"] { display: none; }
+        
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        #error-msg { color: red; margin-top: 10px; display: none; }
+        #loading { display: none; color: #666; margin-top: 10px; }
+
+        /* Table Selection */
+        .table-list {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .table-chip {
+            background: #eee;
+            padding: 5px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .table-chip.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Data Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        tr:hover { background-color: #f1f1f1; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📂 Web Access DB Viewer</h1>
+    <p>Upload your <code>.accdb</code> or <code>.mdb</code> file to view the data tables.</p>
+    <p><em>Note: Forms, Reports, and Macros cannot be run in a browser. This is a data viewer only.</em></p>
+
+    <label class="upload-area" id="drop-zone">
+        <strong>Click to Upload</strong> or Drag & Drop file here
+        <input type="file" id="file-input" accept=".mdb,.accdb">
+    </label>
+
+    <div id="loading">⏳ Parsing database... please wait.</div>
+    <div id="error-msg"></div>
+
+    <div id="output-area" style="display:none;">
+        <h3>Select a Table:</h3>
+        <div class="table-list" id="table-list"></div>
+        <hr>
+        <h3 id="current-table-name">Data</h3>
+        <div class="table-wrapper">
+            <table id="data-table">
+                <thead id="table-head"></thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Load Library from CDN -->
+<script type="module">
+    import MDBReader from 'https://cdn.skypack.dev/mdb-reader@1.0.0';
+    // MDBReader depends on Buffer, but in the browser we need to handle it differently
+    // Usually bundled tools handle this, but for a single file we use a raw approach
+    
+    // Polyfill Buffer for the browser environment
+    import { Buffer } from 'https://cdn.skypack.dev/buffer@6.0.3';
+    window.Buffer = Buffer;
+
+    const fileInput = document.getElementById('file-input');
+    const dropZone = document.getElementById('drop-zone');
+    const loading = document.getElementById('loading');
+    const errorMsg = document.getElementById('error-msg');
+    const outputArea = document.getElementById('output-area');
+    const tableList = document.getElementById('table-list');
+    const tableHead = document.getElementById('table-head');
+    const tableBody = document.getElementById('table-body');
+    const currentTableName = document.getElementById('current-table-name');
+
+    // UI: Handle Drag and Drop
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = '#A4373A'; });
+    dropZone.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.style.borderColor = '#ccc'; });
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '#ccc';
+        if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+
+    // UI: Handle Click
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) handleFile(e.target.files[0]);
+    });
+
+    function handleFile(file) {
+        errorMsg.style.display = 'none';
+        outputArea.style.display = 'none';
+        loading.style.display = 'block';
+
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            try {
+                const buffer = Buffer.from(e.target.result);
+                const mdb = new MDBReader(buffer);
+
+                const tableNames = mdb.getTableNames();
+                
+                if (tableNames.length === 0) {
+                    throw new Error("No tables found in this file.");
+                }
+
+                renderTableList(mdb, tableNames);
+                loading.style.display = 'none';
+                outputArea.style.display = 'block';
+
+            } catch (err) {
+                loading.style.display = 'none';
+                errorMsg.textContent = "Error: " + err.message;
+                errorMsg.style.display = 'block';
+                console.error(err);
+            }
+        };
+
+        reader.readAsArrayBuffer(file);
+    }
+
+    function renderTableList(mdb, tables) {
+        tableList.innerHTML = '';
+        
+        tables.forEach((tableName, index) => {
+            const chip = document.createElement('div');
+            chip.className = 'table-chip';
+            chip.textContent = tableName;
+            chip.onclick = () => loadTableData(mdb, tableName, chip);
+            tableList.appendChild(chip);
+            
+            // Auto-load first table
+            if(index === 0) chip.click();
+        });
+    }
+
+    function loadTableData(mdb, tableName, chipElement) {
+        // Update UI
+        document.querySelectorAll('.table-chip').forEach(c => c.classList.remove('active'));
+        chipElement.classList.add('active');
+        currentTableName.textContent = "Table: " + tableName;
+
+        const table = mdb.getTable(tableName);
+        const columns = table.getColumnNames();
+        const data = table.getData();
+
+        // Render Headers
+        tableHead.innerHTML = '';
+        const headerRow = document.createElement('tr');
+        columns.forEach(col => {
+            const th = document.createElement('th');
+            th.textContent = col;
+            headerRow.appendChild(th);
+        });
+        tableHead.appendChild(headerRow);
+
+        // Render Body
+        tableBody.innerHTML = '';
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            columns.forEach(col => {
+                const td = document.createElement('td');
+                // Handle various data types simply
+                let cellData = row[col];
+                if (cellData === null || cellData === undefined) cellData = "";
+                if (typeof cellData === 'object') cellData = JSON.stringify(cellData);
+                
+                td.textContent = cellData;
+                tr.appendChild(td);
+            });
+            tableBody.appendChild(tr);
+        });
+    }
+</script>
+
+</body>
+</html>
